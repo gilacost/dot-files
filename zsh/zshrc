@@ -1,0 +1,38 @@
+#ZSH
+export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="minimal"
+plugins=(git)
+# plugins=(git elixir zsh-peco-history common-aliases vi-mode ssh-agent)
+source $ZSH/oh-my-zsh.sh
+# zstyle :omz:plugins:ssh-agent agent-forwarding on
+
+# With this, apps using $EDITOR will use nvim .
+export EDITOR='nvim'
+export VISUAL=$EDITOR
+
+export VIMCONFIG=~/.config/$EDITOR
+export VIMDATA=~/.local/share/$EDITOR
+
+# Aliases
+alias vim=$EDITOR
+alias vi=$EDITOR
+alias tmux="tmux -u"
+
+# Activate hub, which decorates the `git` command
+# eval "$(hub alias -s)"
+
+# gruvbox in shell
+BASE16_SCHEME=gruvbox-dark-soft 
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
+[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
+
+# Load autojump
+# [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# Load fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Use ripgrep as FZF's default search in order to respect .gitignore
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
+
+# Load local zshrc
+[[ -f $HOME/.zshrc_local ]] && source $HOME/.zshrc_local
