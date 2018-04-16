@@ -22,7 +22,7 @@ alias tmux="tmux -u"
 # eval "$(hub alias -s)"
 
 # gruvbox in shell
-BASE16_SCHEME=gruvbox-dark-soft 
+BASE16_SCHEME=gruvbox-dark-soft
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
 [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
