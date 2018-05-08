@@ -1,3 +1,5 @@
+let base16colorspace=256
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 set mouse=""
 " use the system clipboard for yank/put/delete
 set clipboard+=unnamed,unnamedplus
@@ -22,24 +24,17 @@ set cursorline " highlight cursor position
 set cursorcolumn
 set title "set the title of the iterm tab
 set background=dark
-" syntax enable
 colorscheme gruvbox
-let base16colorspace=256
 " Show non visual chars
 set listchars=trail:~,tab:▸\ ,eol:¬ " show special characters
 set list
+set noswapfile " Disable Swap Files
 " Add spell check to git commits
 autocmd FileType gitcommit setlocal spell spelllang=en_us
 " Set JSON on mustached json files
 autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
 
-" Configure backupfiles
-set backup
-set backupdir   =$HOME/.config/nvim/files/backup/
-set backupext   =-vimbackup
-set backupskip  =
-set directory   =$HOME/.config/nvim/files/swap/
-set updatecount =100
-set undofile
-set undodir     =$HOME/.config/nvim/files/undo/
-set viminfo     ='100,n$HOME/.config/nvim/files/info/viminfo
+augroup terminal " Terminal emulation
+autocmd TermOpen * setlocal nospell
+autocmd TermOpen * setlocal nonumber
+augroup END

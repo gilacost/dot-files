@@ -5,10 +5,10 @@ let mapleader      = " "
 let maplocalleader = ","
 
 filetype off
-set encoding=utf-8
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
+" Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
 " Code formating and go to definition
 Plug 'w0rp/ale'
@@ -28,9 +28,14 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 " sourrounds selection if surrounded
 Plug 'tpope/vim-surround'
-" asyncronous linting for many languages
 " Projectionist for semantic search
-" Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-speeddating'
+" elixir and phoenix stuff
+Plug 'c-brenn/phoenix.vim'
+Plug 'slashmili/alchemist.vim'
+" escape ansi to characters to make doc look nice
+Plug 'powerman/vim-plugin-AnsiEsc'
 " vim dispatch allows to run external commands asynchronously
 " Plug 'tpope/vim-dispatch'
 " neovim dispatch adapter 
@@ -40,16 +45,18 @@ Plug 'morhetz/gruvbox'
 " fancy status bar 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" Org mode
+Plug  'jceb/vim-orgmode'
 " Initialize plugin system
 call plug#end()
 
 " filetype plugin indent on
-" syntax enable
+syntax enable
 
-" source $HOME/.config/nvim/plugins.vim
-" source $HOME/.config/nvim/general.vim
-" source $HOME/.config/nvim/keys.vim
-" source $HOME/.config/nvim/statusline.vim
+source $HOME/.config/nvim/plugins.vim
+source $HOME/.config/nvim/general.vim
+source $HOME/.config/nvim/keys.vim
+source $HOME/.config/nvim/statusline.vim
 " source $HOME/.config/nvim/projections.vim
 
 " Change diff signs
