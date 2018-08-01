@@ -1,4 +1,4 @@
-let g:airline_theme='grubvox'
+let g:airline_theme='gruvbox'
 let g:airline#extensions#ale#enabled = 1
 
 " Don't display encoding unless it is unexpected

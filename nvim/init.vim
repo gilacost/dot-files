@@ -1,45 +1,47 @@
 set encoding=utf-8 " default character encoding
 
 " Set leader keys before anything else
-let mapleader      = " "
+let mapleader      = "\<SPACE>"
 let maplocalleader = ","
 
-filetype off
+" This need to be set before any plugin loads
+let g:ale_emit_conflict_warnings = 0
+
+" filetype off
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
+"SQL completion
+Plug 'vim-scripts/SQLComplete.vim'
+" Folder navigation
+Plug 'scrooloose/nerdtree'
 " Code formating and go to definition
 Plug 'w0rp/ale'
-"Dark powered asynchronous completion framework for neovim/Vim8
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Use tab for completion if visible if not normal tab
+" elmo
+Plug 'elmcast/elm-vim'
 " Polyglot loads language support on demand!
 Plug 'sheerun/vim-polyglot'
 " Fuzzy finder
-" Plugin outside ~/.vim/plugged with post-update hook
+" Plugin outside ~/.vim/plugged with post-update hook TO BE REMOVED
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Fuzzy finding everywhere
-Plug 'junegunn/fzf.vim'
-" Please let me commnet that
+Plug 'junegunn/fzf.vim' " Fuzzy Search
+" Pope's mailic
 Plug 'tpope/vim-commentary'
-" usefull pairing of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
-" sourrounds selection if surrounded
 Plug 'tpope/vim-surround'
-" Projectionist for semantic search
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
+" Git 
+Plug 'tpope/vim-fugitive'
 " elixir and phoenix stuff
 Plug 'c-brenn/phoenix.vim'
 Plug 'slashmili/alchemist.vim'
-" escape ansi to characters to make doc look nice
-Plug 'powerman/vim-plugin-AnsiEsc'
 " vim dispatch allows to run external commands asynchronously
-" Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-dispatch'
 " neovim dispatch adapter 
-" Plug 'tpope/vim-dispatch-neovim'
+Plug 'radenling/vim-dispatch-neovim'
 " gruvox theme and theme selection 
 Plug 'morhetz/gruvbox'
 " fancy status bar 
@@ -47,6 +49,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Org mode
 Plug  'jceb/vim-orgmode'
+"Dark powered asynchronous completion framework for neovim/Vim8
+" Use tab for completion if visible if not normal tab
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Initialize plugin system
 call plug#end()
 

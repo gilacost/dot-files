@@ -36,3 +36,5 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 
 # Load local zshrc
 [[ -f $HOME/.zshrc_local ]] && source $HOME/.zshrc_local
+
+[ -s "/Users/tboe/.jabba/jabba.sh" ] && source "/Users/tboe/.jabba/jabba.sh"

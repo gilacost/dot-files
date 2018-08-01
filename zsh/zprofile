@@ -6,10 +6,14 @@ export DISABLE_AUTO_TITLE=true
 
 # Load direnv
 #eval "$(zsh)"
-# eval "$(direnv hook zsh)"
+eval "$(direnv hook zsh)"
 
 # Load asdf
 . $HOME/.asdf/asdf.sh
+
+# Load nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # .zshrc_local is meant to keep private configurations, it is out of version
 # management.
