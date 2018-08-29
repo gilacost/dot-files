@@ -13,6 +13,8 @@ let g:ale_emit_conflict_warnings = 0
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
+"Buffers navigation
+Plug 'ap/vim-buftabline'
 "SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
