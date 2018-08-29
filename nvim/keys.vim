@@ -1,3 +1,7 @@
+"set hidden
+  nnoremap <LEADER>n :bnext<CR>
+  nnoremap <LEADER>p :bprev<CR>
+
 " nerdtree 
   map <LEADER>f :NERDTreeToggle<CR>
 
@@ -39,7 +43,7 @@
   nnoremap <silent><leader>qq :qall<CR>
 
 " Stop highlighting on Enter
-  map <CR> :nohl<CR>
+  " map <CR> :nohl<CR>
 
 " test-vim
 " nnoremap <leader>tf :TestFile<CR>

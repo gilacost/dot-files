@@ -28,12 +28,15 @@ let g:ale_linters = {
       \ 'elixir' : ['mix'],
       \ 'vim': ['vimt'],
       \ 'javascript': ['eslint'],
-      \ 'scss': ['scss-lint']
+      \ 'scss': ['scss-lint'],
+      \ 'typescrypt': ['tslint', 'tsserver']
       \}
 
 let g:ale_fixers = {
       \ 'elixir': ['mix_format', 'remove_trailing_lines', 'trim_whitespace'],
+      \ 'typescrypt': ['prettier'],
       \ 'javascript': ['prettier'],
+      \ 'scss': ['prettier']
       \}
 
 " vim-javascript
