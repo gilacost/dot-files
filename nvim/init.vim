@@ -13,11 +13,13 @@ let g:ale_emit_conflict_warnings = 0
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
-"Buffers navigation
-Plug 'ap/vim-buftabline'
+" grep please
+" Plug 'mhinz/vim-grepper'
+" startify (recent files)
+Plug 'mhinz/vim-startify'
 "SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
-" Folder navigation
+" " Folder navigation
 Plug 'scrooloose/nerdtree'
 " Code formating and go to definition
 Plug 'w0rp/ale'
@@ -31,12 +33,14 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
 " Pope's mailic
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
 " Git 
 Plug 'tpope/vim-fugitive'
+" Show diff with style
+Plug 'mhinz/vim-signify'
 " elixir and phoenix stuff
 Plug 'c-brenn/phoenix.vim'
 Plug 'slashmili/alchemist.vim'

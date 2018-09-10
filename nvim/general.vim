@@ -32,22 +32,32 @@
     set listchars=trail:~,tab:▸\ ,eol:¬ " show special characters
     set list
     set noswapfile " Disable Swap Files
+" Status line
+    set statusline+=%#warningmsg#
+    " set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
 " Add spell check to git commits
     autocmd FileType gitcommit setlocal spell spelllang=en_us
 " Set JSON on mustached json files
     autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
-" Nerd tree quit on enter I guess
-    autocmd VimEnter * if (0 == argc()) | NERDTree | endif
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
     augroup terminal " Terminal emulation
     autocmd TermOpen * setlocal nospell
     autocmd TermOpen * setlocal nonumber
     augroup END
-" FZF functions
-" Usage:
-"   fzf#wrap([name string,] [opts dict,] [fullscreen boolean])
 
+" Rename current file
+    function! RenameFile()
+        let old_name = expand('%')
+        let new_name = input('New file name: ', expand('%'), 'file')
+        if new_name != '' && new_name != old_name
+            exec ':saveas ' . new_name
+            exec ':silent !rm ' . old_name
+            redraw!
+        endif
+    endfunction
+" FZF functions
 " This command now supports CTRL-T, CTRL-V, and CTRL-X key bindings
 " and opens fzf according to g:fzf_layout setting.
 command! Buffers call fzf#run(fzf#wrap(
@@ -56,9 +66,4 @@ command! Buffers call fzf#run(fzf#wrap(
 " This extends the above example to open fzf in fullscreen
 " when the command is run with ! suffix (Buffers!)
 command! -bang Buffers call fzf#run(fzf#wrap(
-    \ {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}, <bang>0))
-
-" You can optionally pass the name of the command as the first argument to
-" fzf#wrap to make it work with g:fzf_history_dir
-command! -bang Buffers call fzf#run(fzf#wrap('buffers',
     \ {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}, <bang>0))
