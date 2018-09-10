@@ -1,6 +1,12 @@
 let g:airline_theme='gruvbox'
 let g:airline#extensions#ale#enabled = 1
 
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#syntastic#enabled = 0
+let g:airline_left_sep= '░'
+let g:airline_right_sep= '░'
+
 " Don't display encoding unless it is unexpected
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 

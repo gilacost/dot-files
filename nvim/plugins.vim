@@ -1,17 +1,10 @@
-" nerdtree
-let g:NERDTreeWinSize = 24
-let g:NERDTreeMinimalUI = 1
+" vim-jsx
+let g:jsx_ext_required = 0
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-" let g:deoplete#complete_method = 'omnifunc'
+let g:deoplete#complete_method = 'omnifunc'
 
-" Airline
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#syntastic#enabled = 0
-let g:airline_left_sep= '░'
-let g:airline_right_sep= '░'
 
 " ALE - Asynchronous Linting Engine
 let g:ale_fix_on_save = 1
@@ -29,19 +22,20 @@ let g:ale_linters = {
       \ 'vim': ['vimt'],
       \ 'javascript': ['eslint'],
       \ 'scss': ['scss-lint'],
-      \ 'typescrypt': ['tslint', 'tsserver']
       \}
 
+      " \ 'typescrypt': ['tslint', 'tsserver']
 let g:ale_fixers = {
       \ 'elixir': ['mix_format', 'remove_trailing_lines', 'trim_whitespace'],
-      \ 'typescrypt': ['prettier'],
       \ 'javascript': ['prettier'],
       \ 'scss': ['prettier']
       \}
 
+      " \ 'typescrypt': ['prettier'],
+
 " vim-javascript
-" let g:javascript_plugin_jsdoc = 1
-" let g:javascript_plugin_flow = 1
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
 
 " Elm Cast
 let g:elm_detailed_complete = 1
@@ -57,11 +51,17 @@ let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
 let g:UltiSnipsSnippetDirectories = ["snips", "priv_snips", "UltiSnips" ]
 let g:UltiSnipsEditSplit = "vertical"
 
+"" syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " signify (gutter for git)
-" let g:signify_vcs_list = ['git']
-" let g:signify_sign_change = '~'
-" let g:signify_sign_changedelete = '!'
-" let g:signify_realtime = 1
+let g:signify_vcs_list = ['git']
+let g:signify_sign_change = '~'
+let g:signify_sign_changedelete = '!'
+let g:signify_realtime = 1
 
 " Grepper tools preference
 " let g:grepper = { 'tools': ['rg', 'ag', 'git'] }
@@ -79,18 +79,4 @@ let g:UltiSnipsEditSplit = "vertical"
 
 " localvimrc
 " let g:localvimrc_persistent = 2
-
-" Nerdtree
-" let g:NERDTreeDirArrowExpandable = '+'
-" let g:NERDTreeDirArrowCollapsible = '-'
-" let NERDTreeIgnore=[
-"       \ '_build$[[dir]]',
-"       \ 'doc$[[dir]]',
-"       \ 'deps$[[dir]]',
-"       \ 'elm-stuff$[[dir]]',
-"       \ 'node_modules$[[dir]]',
-"       \ 'tags$[[file]]',
-"       \ 'mix.lock$[[file]]',
-"       \ '\.bs\.js$[[file]]'
-"       \ ]
 

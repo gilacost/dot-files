@@ -1,9 +1,6 @@
-"set hidden
+" Buffers
   nnoremap <LEADER>n :bnext<CR>
   nnoremap <LEADER>p :bprev<CR>
-
-" nerdtree 
-  map <LEADER>f :NERDTreeToggle<CR>
 
 " DEOPLETE
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -20,10 +17,6 @@
   nnoremap <leader>ff :FZFFiles<cr>
   nnoremap <leader>fb :FZFBuffers<cr>
 
-" grepper
-  nnoremap \\ :Grepper -noprompt -cword<CR> 
-  nnoremap <leader>s :Grepper -query<SPACE>
-
 " Edit and reload vimrc
   nnoremap <leader>ve :edit $MYVIMRC<CR>
   nnoremap <leader>vr :source $MYVIMRC<CR>
@@ -33,17 +26,34 @@
   nnoremap <leader>lc :lclose<CR>
 
 " Tabs management
-  nnoremap <leader><leader>t :tabnew<CR>
   nnoremap <leader><TAB> gt
   nnoremap <leader><S-TAB> gT
 
-" Close window
-  nnoremap <silent><leader>cc :wincmd c<CR>
 " Exit vim
   nnoremap <silent><leader>qq :qall<CR>
 
+" Rename File
+  map <leader>n :call RenameFile()<cr>
+
+" open in terminal mode
+  nnoremap <leader>zz :terminal<CR>
+  nnoremap <leader>zh :new<CR>:terminal<CR>
+  nnoremap <leader>zv :vnew<CR>:terminal<CR>
+  tnoremap <Esc> <C-\><C-n>```
+  noremap <Leader>sc :Ag<CR>
+  noremap <Leader>lc :lclose<cr>
+  noremap <Leader>lo :lopen<cr>
+  noremap <Up> <Nop>
+  noremap <Down> <Nop>
+  noremap <Left> <Nop>
+  noremap <Right> <Nop>
+
+" nerdtree
+  nmap <F2> :NERDTreeToggle<CR>
+  nmap <F3> :TagbarToggle<CR>
+
 " Stop highlighting on Enter
-  " map <CR> :nohl<CR>
+" map <CR> :nohl<CR>
 
 " test-vim
 " nnoremap <leader>tf :TestFile<CR>
@@ -75,17 +85,6 @@
 " nnoremap <leader>qo :copen<CR>
 " nnoremap <leader>qc :cclose<CR>
 
-
-" open in terminal mode
-nnoremap <leader>zz :terminal<CR>
-nnoremap <leader>zh :new<CR>:terminal<CR>
-nnoremap <leader>zv :vnew<CR>:terminal<CR>
-tnoremap <Esc> <C-\><C-n>```
-
-noremap <Leader>sc :Ag<CR>
-noremap <Leader>lc :lclose<cr>
-noremap <Leader>lo :lopen<cr>
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+" grepper
+  " nnoremap \\ :Grepper -noprompt -cword<CR>
+  " nnoremap <leader>s :Grepper -query<SPACE>
