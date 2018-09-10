@@ -1,6 +1,6 @@
 " Buffers
-  nnoremap <LEADER>n :bnext<CR>
-  nnoremap <LEADER>p :bprev<CR>
+  nmap <LEADER>b :Buffers<CR>
+  nmap <LEADER>bb :Buffers!<CR>
 
 " DEOPLETE
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -50,7 +50,7 @@
 
 " nerdtree
   nmap <F2> :NERDTreeToggle<CR>
-  nmap <F3> :TagbarToggle<CR>
+  " nmap <F3> :TagbarToggle<CR>
 
 " Stop highlighting on Enter
 " map <CR> :nohl<CR>

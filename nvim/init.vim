@@ -7,7 +7,7 @@ let maplocalleader = ","
 " This need to be set before any plugin loads
 let g:ale_emit_conflict_warnings = 0
 
-" filetype off
+filetype off
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
