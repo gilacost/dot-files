@@ -68,7 +68,7 @@ source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/general.vim
 source $HOME/.config/nvim/keys.vim
 source $HOME/.config/nvim/statusline.vim
-" source $HOME/.config/nvim/projections.vim
+source $HOME/.config/nvim/projections.vim
 
 " Change diff signs
 " This has to be after the general.vim loading since loading the colorscheme
