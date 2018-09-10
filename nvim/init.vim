@@ -4,9 +4,6 @@ set encoding=utf-8 " default character encoding
 let mapleader      = "\<SPACE>"
 let maplocalleader = ","
 
-" This need to be set before any plugin loads
-let g:ale_emit_conflict_warnings = 0
-
 filetype off
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -15,8 +12,6 @@ filetype off
 call plug#begin('~/.config/nvim/plugged')
 " grep please
 " Plug 'mhinz/vim-grepper'
-" startify (recent files)
-Plug 'mhinz/vim-startify'
 "SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " " Folder navigation
@@ -42,7 +37,7 @@ Plug 'tpope/vim-fugitive'
 " Show diff with style
 Plug 'mhinz/vim-signify'
 " elixir and phoenix stuff
-Plug 'c-brenn/phoenix.vim'
+" Plug 'c-brenn/phoenix.vim'
 Plug 'slashmili/alchemist.vim'
 " vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
@@ -58,6 +53,8 @@ Plug  'jceb/vim-orgmode'
 "Dark powered asynchronous completion framework for neovim/Vim8
 " Use tab for completion if visible if not normal tab
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" startify (recent files)
+Plug 'mhinz/vim-startify'
 " Initialize plugin system
 call plug#end()
 
@@ -69,17 +66,3 @@ source $HOME/.config/nvim/general.vim
 source $HOME/.config/nvim/keys.vim
 source $HOME/.config/nvim/statusline.vim
 source $HOME/.config/nvim/projections.vim
-
-" Change diff signs
-" This has to be after the general.vim loading since loading the colorscheme
-" overwrites this... however I can't add it to the plugins.vim file and load
-" that after the general.vim because the neomake autocommands for the colors
-" need to be defined before loading the colorscheme :D cool, eh?
-
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=2
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=1
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=4
-
-highlight SignifySignAdd    cterm=bold ctermbg=none ctermfg=2
-highlight SignifySignDelete cterm=bold ctermbg=none ctermfg=1
-highlight SignifySignChange cterm=bold ctermbg=none ctermfg=4
