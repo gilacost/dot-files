@@ -46,7 +46,6 @@
     autocmd TermOpen * setlocal nospell
     autocmd TermOpen * setlocal nonumber
     augroup END
-
 " Rename current file
     function! RenameFile()
         let old_name = expand('%')
@@ -62,7 +61,6 @@
 " and opens fzf according to g:fzf_layout setting.
 command! Buffers call fzf#run(fzf#wrap(
     \ {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}))
-
 " This extends the above example to open fzf in fullscreen
 " when the command is run with ! suffix (Buffers!)
 command! -bang Buffers call fzf#run(fzf#wrap(

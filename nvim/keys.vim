@@ -52,9 +52,6 @@
   nmap <F2> :NERDTreeToggle<CR>
   " nmap <F3> :TagbarToggle<CR>
 
-" Stop highlighting on Enter
-" map <CR> :nohl<CR>
-
 " test-vim
 " nnoremap <leader>tf :TestFile<CR>
 " nnoremap <leader>tl :TestNearest<CR>
@@ -63,7 +60,6 @@
 
 " Show undo list
 " nnoremap <leader>u :GundoToggle<CR>
-
 
 " Move between windows
 " nnoremap <silent><leader>wj :wincmd j<CR>
