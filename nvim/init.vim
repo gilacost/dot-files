@@ -28,14 +28,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
 " Pope's mailic
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
-" Git 
-Plug 'tpope/vim-fugitive'
-" Show diff with style
-Plug 'mhinz/vim-signify'
 " elixir and phoenix stuff
 " Plug 'c-brenn/phoenix.vim'
 Plug 'slashmili/alchemist.vim'
@@ -55,6 +51,9 @@ Plug  'jceb/vim-orgmode'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " startify (recent files)
 Plug 'mhinz/vim-startify'
+" Git
+" Show diff with style
+Plug 'mhinz/vim-signify'
 " Initialize plugin system
 call plug#end()
 

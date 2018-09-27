@@ -5,13 +5,8 @@
 " DEOPLETE
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" fugitive
-  nnoremap <leader>gs :Gstatus<CR>
-  nnoremap <leader>gc :Gcommit<CR>
-  nnoremap <leader>gl :Glog<CR>
-  nnoremap <leader>gd :Gvdiff<CR>
-  nnoremap <leader>gb :Gblame<CR>
-  nnoremap <leader>gg :Twiggy<CR>
+" Signify 
+  nmap <leader>sd :SignifyDiff<CR>
 
 " Fuzzy Finder (review)
   nnoremap <leader>ff :FZFFiles<cr>

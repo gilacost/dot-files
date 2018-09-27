@@ -1,6 +1,7 @@
     let base16colorspace=256
     let $FZF_DEFAULT_COMMAND = 'ag -g ""'
     set mouse=""
+" show invisibles
 " use the system clipboard for yank/put/delete
     set clipboard+=unnamed,unnamedplus
     set number
@@ -29,12 +30,12 @@
     set splitbelow          " Horizontal split below current.
     set splitright          " Vertical split to right of current.
 " Show non visual chars
-    set listchars=trail:~,tab:▸\ ,eol:¬ " show special characters
     set list
+    set lcs=tab:▸\ ,trail:·,nbsp:%
     set noswapfile " Disable Swap Files
 " Status line
     set statusline+=%#warningmsg#
-    " set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
 
 " Add spell check to git commits
