@@ -16,21 +16,19 @@ let g:ale_sign_error = 'E'
 let g:ale_sign_warning = 'W'
 let g:ale_elm_make_use_global = 1
 let g:ale_elm_format_use_global = 1
-
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 let g:ale_linters = {
       \ 'elixir' : ['mix'],
       \ 'vim': ['vimt'],
       \ 'javascript': ['eslint'],
       \ 'scss': ['scss-lint'],
       \}
-
       " \ 'typescrypt': ['tslint', 'tsserver']
 let g:ale_fixers = {
       \ 'elixir': ['mix_format', 'remove_trailing_lines', 'trim_whitespace'],
       \ 'javascript': ['prettier'],
       \ 'scss': ['prettier']
       \}
-
       " \ 'typescrypt': ['prettier'],
 
 " vim-javascript
