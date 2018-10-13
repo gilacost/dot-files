@@ -1,4 +1,4 @@
-# My dot-files (coz' a sexy developer needs sexy dot-files)
+# My dot-files (coz' a sexy developer needs a sexy dot-files)
 
 These are my dotfiles.
 
