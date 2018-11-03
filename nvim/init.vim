@@ -10,11 +10,9 @@ filetype off
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
-" grep please
-" Plug 'mhinz/vim-grepper'
 "SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
-" " Folder navigation
+" Folder navigation
 Plug 'scrooloose/nerdtree'
 " Code formating and go to definition
 Plug 'w0rp/ale'
@@ -40,6 +38,7 @@ Plug 'tpope/vim-dispatch'
 " neovim dispatch adapter 
 Plug 'radenling/vim-dispatch-neovim'
 " gruvox theme and theme selection 
+Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
 " fancy status bar 
 Plug 'vim-airline/vim-airline'
@@ -54,6 +53,10 @@ Plug 'mhinz/vim-startify'
 " Git
 " Show diff with style
 Plug 'mhinz/vim-signify'
+" Terraform
+Plug 'hashivim/vim-terraform'
+Plug 'vim-syntastic/syntastic'
+Plug 'juliosueiras/vim-terraform-completion'
 " Initialize plugin system
 call plug#end()
 
