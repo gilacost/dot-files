@@ -12,6 +12,6 @@
 	signingkey = C0C2CF86
 [commit]
 	template = /Users/tboe/.stCommitMsg
-	gpgsign = false 
+	gpgsign = true
 [gpg]
 	program = gpg
