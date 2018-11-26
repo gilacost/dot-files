@@ -9,5 +9,9 @@
 [user]
 	name = gilacost
 	email = josepgiraltdlacoste@gmail.com
+	signingkey = C0C2CF86
 [commit]
 	template = /Users/tboe/.stCommitMsg
+	gpgsign = false 
+[gpg]
+	program = gpg
