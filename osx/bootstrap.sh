@@ -56,7 +56,7 @@ fi
 
 # Window Tiling
 
-# if ! [ -x "$(command -v chunkwm)" ]; then
+if ! [ -x "$(command -v chunkwm)" ]; then
   read -p "Install chunkwm/skhd? " -n 1 -r; echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     brew tap crisidev/homebrew-chunkwm
@@ -67,7 +67,7 @@ fi
     brew services restart chunkwm
     brew services restart skhd
   fi
-# fi
+fi
 
 # Firefox 
 
