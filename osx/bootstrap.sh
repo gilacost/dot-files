@@ -36,6 +36,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   read -p "Email? " -r
   git config --global user.email "$REPLY"
   echo "Now configure you SSH and GPG keys in GitHub, GitLab, BitBucket, etc."
+  echo "GO TO: https://gist.github.com/bmhatfield/cc21ec0a3a2df963bffa3c1f884b676b"
   exit 0
 fi
 
