@@ -79,6 +79,8 @@ if ! [ -d /Applications/Firefox.app ]; then
     brew cask install firefox
     brew install defaultbrowser
     defaultbrowser firefox
+    echo "Now manually install uBlock, TST and userChrome.css (available in firefox folder)"
+    exit 0
   fi
 fi
 
