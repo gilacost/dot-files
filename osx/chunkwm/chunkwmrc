@@ -70,9 +70,9 @@ chunkc set window_region_locked          1
 # chunkc set mouse_modifier              \"cmd shift\"
 chunkc set mouse_modifier                fn
 
-chunkc set preselect_border_color        0xffd75f5f
-chunkc set preselect_border_width        5
-chunkc set preselect_border_radius       0
+chunkc set preselect_border_color        0x80A540A3
+chunkc set preselect_border_width        3
+chunkc set preselect_border_radius       2
 
 #
 # NOTE: these settings require chwm-sa.
@@ -89,8 +89,8 @@ chunkc set window_use_cgs_move           0
 # NOTE: the following are config variables for the chunkwm-border plugin.
 #
 
-chunkc set focused_border_color          0xff0f6288
-chunkc set focused_border_width          5
+chunkc set focused_border_color          0xA0A540A3
+chunkc set focused_border_width          3
 chunkc set focused_border_radius         2
 chunkc set focused_border_skip_floating  0
 
