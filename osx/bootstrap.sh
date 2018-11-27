@@ -30,6 +30,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 read -p "Do you want to configure git? " -n 1 -r; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
   read -p "Name? " -r
   git config --global user.name "$REPLY"
   read -p "Email? " -r
