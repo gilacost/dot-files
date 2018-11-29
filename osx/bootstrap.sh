@@ -29,6 +29,28 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   brew install git
 fi
 
+read -p "Do you want to install nerd fonts? " -n 1 -r; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  brew tap caskroom/fonts
+  brew cask install font-hack-nerd-font font-hack-nerd-font-mono font-firacode-nerd-font font-firacode-nerd-font-mono
+fi
+
+# ZSH / Prezto
+
+read -p "Do you want to update and configure zsh? " -n 1 -r; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  brew install zsh fzf peco
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git ~/.zprezto
+  git clone https://github.com/bhilburn/powerlevel9k.git  ~/.zprezto/modules/prompt/external/powerlevel9k
+  ln -s ~/.zprezto/modules/prompt/external/powerlevel9k/powerlevel9k.zsh-theme ~/.zprezto/modules/prompt/functions/prompt_powerlevel9k_setup
+  chsh -s /bin/zsh
+  $(brew --prefix)/opt/fzf/install
+  cp zsh/zshrc ~/.zshrc
+  cp ~/.chunkwmrc ./zsh/chunkwmrc
+fi
+
+# Git
+
 read -p "Do you want to configure git? " -n 1 -r; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   read -p "Name? " -r
