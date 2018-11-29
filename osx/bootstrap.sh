@@ -12,7 +12,7 @@ if [[ $HOSTNAME_RESULT =~ "not set" ]]; then
   fi
 fi
 
-# Brew 
+# Brew
 
 if ! [ -x "$(command -v brew)" ]; then
   read -p "Install Brew (OS X Package Manager)? " -n 1 -r; echo
@@ -74,7 +74,7 @@ if ! [ -d /Applications/Karabiner-Elements.app ]; then
     defaults write -g KeyRepeat -int 1
     brew cask install karabiner-elements
     mkdir -p ~/.config/karabiner
-    cp -f ./karabiner/karabiner.json  ~/.config/karabiner/karabiner.json 
+    cp -f ./karabiner/karabiner.json  ~/.config/karabiner/karabiner.json
     echo "L_CAP_LOCK remapped to CTRL/ESC. Restart the system now"
     exit 0
   fi
@@ -97,7 +97,7 @@ fi
 
 # Kitty
 
-if ! [ -d /Applications/kitty.appasodfij ]; then
+if ! [ -d /Applications/kitty.app ]; then
   read -p "Install Kitty? " -n 1 -r; echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     brew cask install kitty
@@ -107,7 +107,7 @@ if ! [ -d /Applications/kitty.appasodfij ]; then
   fi
 fi
 
-# Firefox 
+# Firefox
 
 if ! [ -d /Applications/Firefox.app ]; then
   read -p "Install Firefox? " -n 1 -r; echo
@@ -126,5 +126,18 @@ if ! [ -d /Applications/Franz.app ]; then
   read -p "Install Franz? " -n 1 -r; echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     brew cask install franz
+  fi
+fi
+
+# NeoVim
+
+if ! [ -x "$(command -v nvim)" ]; then
+  read -p "Install neovim? " -n 1 -r; echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    brew install neovim python3
+    pip3 install neovim-remote
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    mkdir -p ~/.config/nvim
+    cp ./nvim/init.vim ~/.config/nvim/init.vim
   fi
 fi
