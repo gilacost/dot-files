@@ -29,6 +29,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   brew install git
 fi
 
+# Fonts
+
 read -p "Do you want to install nerd fonts? " -n 1 -r; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   brew tap caskroom/fonts
