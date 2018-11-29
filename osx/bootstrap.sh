@@ -95,6 +95,18 @@ if ! [ -x "$(command -v chunkwm)" ]; then
   fi
 fi
 
+# Kitty
+
+if ! [ -d /Applications/kitty.appasodfij ]; then
+  read -p "Install Kitty? " -n 1 -r; echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    brew cask install kitty
+    mkdir -p ~/Library/Preferences/kitty
+    cp ./kitty/kitty.conf ~/Library/Preferences/kitty/kitty.conf
+    cp ./kitty/nvim.session ~/.nvim.session
+  fi
+fi
+
 # Firefox 
 
 if ! [ -d /Applications/Firefox.app ]; then
