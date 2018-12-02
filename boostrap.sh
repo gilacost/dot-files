@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# TODO(pepito) make a session with chunkwm and skhd to make kitty work with alvivi
+# TODO(pepiro) git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
+# TODO(pepito) install asdf plugins
+# TODO(pepito) echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
+# TODO(pepito) echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
+# TODO(set iterm appeaeance dark)
 # 
 # Bootstrap script for setting up a new OSX machine
 # 
@@ -43,13 +49,13 @@ brew tap crisidev/homebrew-chunkwm
 
 #brew install 
 PACKAGES=(
+    direnv
     asdf
     chunkwm
     koekeishiya/formulae/skhd
     neovim 
     python3
     ack
-    boot2docker
     git
     graphviz
     nvm
@@ -77,7 +83,10 @@ brew cask
 
 CASKS=(
     kitty
+    iterm2
     #colluy
+    docker
+    docker-toolbox
     spotify
     #karabiner-elements
     franz
@@ -131,6 +140,8 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # Enable tap-to-click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+#TODO(sort show bluetooth in bar and battery percentage)
+#TODO(dark top bar)
 
 # installing dotfiles
 make install

@@ -38,3 +38,7 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 [[ -f $HOME/.zshrc_local ]] && source $HOME/.zshrc_local
 
 [ -s "/Users/tboe/.jabba/jabba.sh" ] && source "/Users/tboe/.jabba/jabba.sh"
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
