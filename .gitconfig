@@ -1,0 +1,17 @@
+[core]
+	excludesfile = /Users/tboe/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = gilacost
+	email = josepgiraltdlacoste@gmail.com
+	signingkey = C0C2CF86
+[commit]
+	template = /Users/tboe/.stCommitMsg
+	gpgsign = true
+[gpg]
+	program = gpg
