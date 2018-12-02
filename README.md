@@ -1,3 +1,3 @@
-# Personal Config
-
-Just clone this repo and run `./osx/bootstrap.sh` and follow the instructions.
+# Dev Environment
+This works only in OSX for the time being ;)
+Feel free to use. Clone this repo and run `./bootstrap.sh`.

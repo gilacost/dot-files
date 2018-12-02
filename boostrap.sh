@@ -4,6 +4,8 @@
 # TODO(pepito) install asdf plugins
 # TODO(pepito) echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
 # TODO(pepito) echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
+# asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+# asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 # TODO(set iterm appeaeance dark)
 # 
 # Bootstrap script for setting up a new OSX machine
