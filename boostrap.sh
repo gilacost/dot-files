@@ -142,6 +142,7 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 #TODO(sort show bluetooth in bar and battery percentage)
 #TODO(dark top bar)
+#TODO (auto hide menu bar)
 
 # installing dotfiles
 make install
