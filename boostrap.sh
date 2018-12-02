@@ -84,9 +84,7 @@ brew cask
 CASKS=(
     kitty
     iterm2
-    #colluy
     docker
-    docker-toolbox
     spotify
     #karabiner-elements
     franz
