@@ -1,0 +1,48 @@
+# -*- mode: gitconfig; -*-
+
+[user]
+  name = gilacost 
+  email = josepgiraltdlacoste@gmail.com
+	signingkey = C0C2CF86
+[commit]
+	gpgsign = true 
+[gpg]
+	program = gpg
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[core]
+  excludesfile = ~/.gitignore
+  autocrlf = input
+  editor = code --wait
+; [merge]
+;   tool = vscode
+; [mergetool "vscode"]
+;   cmd = code --wait $MERGED
+; [diff]
+;   tool = vscode
+; [difftool "vscode"]
+;   cmd = code --wait --diff $LOCAL $REMOTE
+[apply]
+  whitespace = fix
+[format]
+  pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
+[alias]
+  amend = commit --amend --no-edit
+  co = checkout
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative
+  nb = checkout -b
+  ri = rebase -i
+  rim = rebase -i master
+  s = status --short -b
+[push]
+  default = current
+[rebase]
+  autosquash = true
+[rerere]
+  enabled = true
+[init]
+  templatedir = ~/Documents/src/dot-files/git/templates
+[include]
+  path = ~/.gitconfig_local

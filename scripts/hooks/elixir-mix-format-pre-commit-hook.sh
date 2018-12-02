@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Place in .git/hooks
+
+MIX_LOCATION=mix
+
+cd `git rev-parse --show-toplevel`
+$MIX_LOCATION format --check-formatted
+if [ $? == 1 ]; then
+   echo "commit failed due to format issues..."
+   exit 1
+fi
