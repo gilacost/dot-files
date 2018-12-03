@@ -63,15 +63,16 @@ PACKAGES=(
     nvm
     zsh 
     fzf
-    #peco
     rename
-    #ssh-copy-id
-    #terminal-notifier
     the_silver_searcher
     tree
     wget
     curl
+    defaultbrowser
 )
+    #peco
+    #ssh-copy-id
+    #terminal-notifier
 
 
 echo "Installing packages..."
@@ -88,19 +89,22 @@ CASKS=(
     iterm2
     docker
     spotify
-    #karabiner-elements
     franz
     firefox
     flux
     google-chrome
     slack
-    #spectacle
     vlc
 )
+    #spectacle
+    #karabiner-elements
 
 
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
+
+echo "Setting Firefox as default browser"
+defaultbrowser firefox
 
 echo "Installing fonts..."
 brew tap caskroom/fonts
