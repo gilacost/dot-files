@@ -83,6 +83,7 @@ brew cleanup
 
 echo "Installing cask..."
 brew cask
+# brew install caskroom/cask/brew-cask
 
 CASKS=(
     kitty
@@ -98,7 +99,6 @@ CASKS=(
 )
     #spectacle
     #karabiner-elements
-
 
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
@@ -124,6 +124,14 @@ sudo pip3 install ${PYTHON_PACKAGES[@]}
 
 #echo "Installing global npm packages..."
 #npm install marked -g
+
+# echo "Installing Ruby gems"
+# RUBY_GEMS=(
+#     bundler
+#     filewatcher
+#     cocoapods
+# )
+# sudo gem install ${RUBY_GEMS[@]}
 
 echo "Configuring OSX..."
 
