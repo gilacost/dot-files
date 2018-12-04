@@ -103,9 +103,6 @@ CASKS=(
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
 
-echo "Setting Firefox as default browser"
-defaultbrowser firefox
-
 echo "Installing fonts..."
 brew tap caskroom/fonts
 FONTS=(
