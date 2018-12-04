@@ -134,13 +134,15 @@ sudo pip3 install ${PYTHON_PACKAGES[@]}
 # sudo gem install ${RUBY_GEMS[@]}
 
 echo "Configuring OSX..."
+#set default browser to be firefox
+defaultbrowser firefox
+
+#Esto no se que es
+defaults write -g ApplePressAndHoldEnabled -bool true
 
 # Set fast key repeat rate
 defaults write -g InitialKeyRepeat -int 10
 defaults write -g KeyRepeat -int 1
-
-#Esto no se que es
-defaults write -g ApplePressAndHoldEnabled -bool true
 
 # Require password as soon as screensaver or sleep mode starts
 defaults write com.apple.screensaver askForPassword -int 1
