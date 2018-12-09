@@ -124,14 +124,6 @@ sudo pip3 install ${PYTHON_PACKAGES[@]}
 #echo "Installing global npm packages..."
 #npm install marked -g
 
-# echo "Installing Ruby gems"
-# RUBY_GEMS=(
-#     bundler
-#     filewatcher
-#     cocoapods
-# )
-# sudo gem install ${RUBY_GEMS[@]}
-
 echo "Configuring OSX..."
 #set default browser to be firefox
 defaultbrowser firefox
@@ -153,9 +145,15 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # Enable tap-to-click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-#TODO(sort show bluetooth in bar and battery percentage)
-#TODO(dark top bar)
-#TODO (auto hide menu bar)
+
+#show battery percentage)
+defaults write com.apple.menuextra.battery ShowPercent YES
+
+#bluetooth in menu bar
+open '/System/Library/CoreServices/Menu Extras/Bluetooth.menu'
+
+#auto hide menu bar
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
 # installing dotfiles
 make install
