@@ -1,11 +1,5 @@
 !/usr/bin/env bash
 # TODO(pepito) make a session with chunkwm and skhd to make kitty work with alvivi
-# TODO(pepiro) git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
-# TODO(pepito) install asdf plugins
-# TODO(pepito) echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
-# TODO(pepito) echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
-# asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
-# asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 # TODO(set iterm appeaeance dark)
 # 
 # Bootstrap script for setting up a new OSX machine
@@ -70,10 +64,18 @@ PACKAGES=(
     curl
     defaultbrowser
 )
+
     #peco
     #ssh-copy-id
     #terminal-notifier
 
+#asdf
+
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
+
+#install asdf plugins
+asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 
 echo "Installing packages..."
 brew install ${PACKAGES[@]}

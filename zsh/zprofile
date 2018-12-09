@@ -9,6 +9,7 @@ eval "$(direnv hook zsh)"
 
 # Load asdf
 . $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
 
 # Load ssh keys
 eval "$(ssh-agent -s)"
