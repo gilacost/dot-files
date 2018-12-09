@@ -30,8 +30,11 @@
     set splitbelow          " Horizontal split below current.
     set splitright          " Vertical split to right of current.
 " Show non visual chars
-    set list
-    set lcs=tab:▸\ ,trail:·,nbsp:%
+" non-printable character display settings when :set list
+    set lcs=space:·,tab:»»,eol:↵ 
+    hi NonText ctermfg=0 guifg=gray
+    hi SpecialKey ctermfg=0 guifg=red
+
     set noswapfile " Disable Swap Files
 " Terrapou
    set nocompatible

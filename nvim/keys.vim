@@ -48,10 +48,11 @@
   " nmap <F3> :TagbarToggle<CR>
 
 " test-vim
-" nnoremap <leader>tf :TestFile<CR>
-" nnoremap <leader>tl :TestNearest<CR>
-" nnoremap <leader>tr :TestLast<CR>
-" nnoremap <leader>to :Copen<CR>
+nnoremap <leader>tf :TestFile<CR>
+nnoremap <leader>tl :TestNearest<CR>
+nnoremap <leader>tr :TestLast<CR>
+nnoremap <leader>to :Copen<CR>
+nnoremap <leader>tv :TestVisit<CR>
 
 " Show undo list
 " nnoremap <leader>u :GundoToggle<CR>

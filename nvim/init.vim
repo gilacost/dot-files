@@ -57,6 +57,8 @@ Plug 'mhinz/vim-signify'
 Plug 'hashivim/vim-terraform'
 Plug 'vim-syntastic/syntastic'
 Plug 'juliosueiras/vim-terraform-completion'
+" Vim test
+Plug 'janko-m/vim-test'
 " Initialize plugin system
 call plug#end()
 
