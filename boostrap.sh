@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 # TODO(pepito) make a session with chunkwm and skhd to make kitty work with alvivi
 # TODO(set iterm appeaeance dark)
 # 
