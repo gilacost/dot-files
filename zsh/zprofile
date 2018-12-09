@@ -5,11 +5,14 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin"
 export DISABLE_AUTO_TITLE=true
 
 # Load direnv
-#eval "$(zsh)"
 eval "$(direnv hook zsh)"
 
 # Load asdf
 . $HOME/.asdf/asdf.sh
+
+# Load ssh keys
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/github_rsa
 
 # Load nvm
 export NVM_DIR="$HOME/.nvm"

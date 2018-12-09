@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 # TODO(pepito) make a session with chunkwm and skhd to make kitty work with alvivi
 # TODO(pepiro) git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
 # TODO(pepito) install asdf plugins
