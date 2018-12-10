@@ -91,10 +91,10 @@ CASKS=(
     kitty
     iterm2
     docker
+    flux
     spotify
     franz
     firefox
-    flux
     google-chrome
     slack
     vlc
@@ -128,31 +128,38 @@ echo "Configuring OSX..."
 #set default browser to be firefox
 defaultbrowser firefox
 
+echo "ESTO NO SE QUE ES..."
 #Esto no se que es
 defaults write -g ApplePressAndHoldEnabled -bool true
 
+echo "Set fast key repeat rate"
 # Set fast key repeat rate
 defaults write -g InitialKeyRepeat -int 10
 defaults write -g KeyRepeat -int 1
 
+echo "Require password as soon as screensaver or sleep mode starts"
 # Require password as soon as screensaver or sleep mode starts
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
+echo "Show filename extensions by default"
 # Show filename extensions by default
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+echo "Enable tap-to-click"
 # Enable tap-to-click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-#show battery percentage)
+echo "show battery percentage"
+# show battery percentage
 defaults write com.apple.menuextra.battery ShowPercent YES
 
 #bluetooth in menu bar
 open '/System/Library/CoreServices/Menu Extras/Bluetooth.menu'
 
-#auto hide menu bar
+echo "auto hide menu bar"
+# auto hide menu bar
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
 # installing dotfiles
