@@ -65,6 +65,12 @@ PACKAGES=(
     defaultbrowser
 )
 
+read -p "Do you want to generate a new ssh key for github?" -n 1 -r; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  read -p "input your email:" -n 1 -r; echo
+  echo "generating ssh key for ${REPLY}"
+  ssh-keygen -t rsa -b 4096 -N '' -C "${REPLY}" -f ~/.ssh/github_rsa
+fi
     #peco
     #ssh-copy-id
     #terminal-notifier
