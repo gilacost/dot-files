@@ -19,6 +19,7 @@ LINK  := ln -sf
 MKDIR := mkdir -p
 CLONE := git clone
 RM    := rm -fr
+CP  := cp -fr
 
 .PHONY: default install clean
 
