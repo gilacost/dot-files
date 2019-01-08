@@ -1,11 +1,11 @@
 # -*- mode: gitconfig; -*-
 
 [user]
-  name = gilacost 
+  name = gilacost
   email = josepgiraltdlacoste@gmail.com
-	; signingkey = C0C2CF86
+  signingkey = C0C2CF86
 [commit]
-	; gpgsign = true 
+	gpgsign = true
 [gpg]
 	program = gpg
 [color]
@@ -43,6 +43,6 @@
 [rerere]
   enabled = true
 [init]
-  templatedir = ~/Documents/src/dot-files/git/templates
+  templatedir = ~/Repos/dot-files/git/templates
 [include]
   path = ~/.gitconfig_local

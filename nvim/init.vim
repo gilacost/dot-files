@@ -35,12 +35,12 @@ Plug 'tpope/vim-speeddating'
 Plug 'slashmili/alchemist.vim'
 " vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
-" neovim dispatch adapter 
+" neovim dispatch adapter
 Plug 'radenling/vim-dispatch-neovim'
-" gruvox theme and theme selection 
+" gruvox theme and theme selection
 Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
-" fancy status bar 
+" fancy status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Org mode

@@ -31,9 +31,6 @@
     set splitright          " Vertical split to right of current.
 " Show non visual chars
 " non-printable character display settings when :set list
-    set lcs=space:·,tab:»»,eol:↵ 
-    hi NonText ctermfg=0 guifg=gray
-    hi SpecialKey ctermfg=0 guifg=red
 
     set noswapfile " Disable Swap Files
 " Terrapou
@@ -77,3 +74,14 @@ command! Buffers call fzf#run(fzf#wrap(
 " when the command is run with ! suffix (Buffers!)
 command! -bang Buffers call fzf#run(fzf#wrap(
     \ {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}, <bang>0))
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+au ColorScheme * highlight ExtraWhitespace guibg=red
+au BufEnter * match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhiteSpace /\s\+$/
+
+function! TrimWhiteSpace()
+    %s/\s\+$//e
+endfunction
+autocmd BufWritePre * :call TrimWhiteSpace()
