@@ -2,7 +2,7 @@
 
 [user]
   name = gilacost
-  email = josepgiraltdlacoste@gmail.com
+  email = gilacost@users.noreply.github.com
 	signingkey = C2E6E14F
 [commit]
 	gpgsign = true
