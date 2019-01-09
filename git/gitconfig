@@ -3,9 +3,9 @@
 [user]
   name = gilacost
   email = josepgiraltdlacoste@gmail.com
-	signingkey = C0C2CF86
+	signingkey = C2E6E14F
 [commit]
-	gpgsign = false
+	gpgsign = true
 [gpg]
 	program = gpg
 [color]
