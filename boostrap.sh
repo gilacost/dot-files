@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # TODO(pepito) make a session with chunkwm and skhd to make kitty work with alvivi
 # TODO(set iterm appeaeance dark)
-# 
+#
 # Bootstrap script for setting up a new OSX machine
-# 
+#
 # This should be idempotent so it can be run multiple times.
 #
 # Notes:
@@ -43,19 +43,19 @@ brew install bash
 
 brew tap crisidev/homebrew-chunkwm
 
-#brew install 
+#brew install
 PACKAGES=(
     direnv
     asdf
     chunkwm
     koekeishiya/formulae/skhd
-    neovim 
+    neovim
     python3
     ack
     git
     graphviz
     nvm
-    zsh 
+    zsh
     fzf
     rename
     the_silver_searcher
@@ -118,9 +118,9 @@ brew cask install ${CASKS[@]}
 echo "Installing fonts..."
 brew tap caskroom/fonts
 FONTS=(
-    font-hack-nerd-font 
-    font-hack-nerd-font-mono 
-    font-firacode-nerd-font 
+    font-hack-nerd-font
+    font-hack-nerd-font-mono
+    font-firacode-nerd-font
     font-firacode-nerd-font-mono
 )
 brew cask install ${FONTS[@]}
@@ -176,3 +176,12 @@ defaults write NSGlobalDomain _HIHideMenuBar -bool true
 make install
 
 echo "Bootstrapping complete"
+
+#GPG
+# brew upgrade gnupg  # This has a make step which takes a while
+# brew link --overwrite gnupg
+# brew install pinentry-mac
+# echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+# killall gpg-agent
+
+# echo "test" | gpg --clearsign  # on linux it's gpg2 but brew stays as gpg
