@@ -63,6 +63,7 @@ PACKAGES=(
     wget
     curl
     defaultbrowser
+    task
 )
 
 read -p "Do you want to generate a new ssh key for github?" -n 1 -r; echo
@@ -86,6 +87,9 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
 #install asdf plugins
 asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+
+#task warriror synk
+git clone git@github.com:gilacost/task.git ~/.task
 
 echo "Installing packages..."
 brew install ${PACKAGES[@]}
