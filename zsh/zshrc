@@ -17,6 +17,7 @@ export VIMDATA=~/.local/share/$EDITOR
 alias vim=$EDITOR
 alias vi=$EDITOR
 alias e=$EDITOR
+alias ptask='alias ptask=cd ~/.task && git add . && gcmsg "`date +%Y-%m-%d`" && gp origin HEAD && cd -'
 
 # Activate hub, which decorates the `git` command
 # eval "$(hub alias -s)"
@@ -26,9 +27,6 @@ BASE16_SCHEME=gruvbox-dark-soft
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
 [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
-# Load autojump
-# [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-
 # Load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Use ripgrep as FZF's default search in order to respect .gitignore
@@ -36,9 +34,3 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 
 # Load local zshrc
 [[ -f $HOME/.zshrc_local ]] && source $HOME/.zshrc_local
-
-[ -s "/Users/tboe/.jabba/jabba.sh" ] && source "/Users/tboe/.jabba/jabba.sh"
-
-. $HOME/.asdf/asdf.sh
-
-. $HOME/.asdf/completions/asdf.bash

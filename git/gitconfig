@@ -3,9 +3,9 @@
 [user]
   name = gilacost
   email = gilacost@users.noreply.github.com
-	signingkey = C2E6E14F
+	; signingkey = C2E6E14F
 [commit]
-	gpgsign = true
+	; gpgsign = true
 [gpg]
 	program = gpg
 [color]
