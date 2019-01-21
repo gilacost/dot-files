@@ -5,7 +5,7 @@
 " DEOPLETE
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" Signify 
+" Signify
   nmap <leader>sd :SignifyDiff<CR>
 
 " Fuzzy Finder (review)
