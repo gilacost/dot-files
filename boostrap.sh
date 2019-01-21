@@ -101,6 +101,14 @@ echo "Installing cask..."
 brew cask
 # brew install caskroom/cask/brew-cask
 
+# echo "installing GPG"
+# brew upgrade gnupg  # This has a make step which takes a while
+# brew link --overwrite gnupg
+# brew install pinentry-mac
+# echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+# killall gpg-agent
+# echo "test" | gpg --clearsign  # on linux it's gpg2 but brew stays as gpg
+
 CASKS=(
     kitty
     iterm2
@@ -180,12 +188,3 @@ defaults write NSGlobalDomain _HIHideMenuBar -bool true
 make install
 
 echo "Bootstrapping complete"
-
-#GPG
-# brew upgrade gnupg  # This has a make step which takes a while
-# brew link --overwrite gnupg
-# brew install pinentry-mac
-# echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
-# killall gpg-agent
-
-# echo "test" | gpg --clearsign  # on linux it's gpg2 but brew stays as gpg
