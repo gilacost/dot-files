@@ -66,6 +66,7 @@ PACKAGES=(
     task
 )
 
+
 read -p "Do you want to generate a new ssh key for github?" -n 1 -r; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   read -p "input your email:" -n 1 -r; echo
@@ -73,10 +74,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   ssh-keygen -t rsa -b 4096 -N '' -C "${REPLY}" -f ~/.ssh/github_rsa
 fi
 
-read -p "Task Warrior?" -n 1 -r; echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  git clone git@github.com:gilacost/task.git ~/.task
-fi
     #peco
     #ssh-copy-id
     #terminal-notifier
@@ -87,9 +84,6 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
 #install asdf plugins
 asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
-
-#task warriror synk
-git clone git@github.com:gilacost/task.git ~/.task
 
 echo "Installing packages..."
 brew install ${PACKAGES[@]}
@@ -120,6 +114,7 @@ CASKS=(
     google-chrome
     slack
     vlc
+    evernote
 )
     #spectacle
     #karabiner-elements
