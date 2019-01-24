@@ -66,7 +66,6 @@ PACKAGES=(
     task
 )
 
-
 read -p "Do you want to generate a new ssh key for github?" -n 1 -r; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   read -p "input your email:" -n 1 -r; echo
