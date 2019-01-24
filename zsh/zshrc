@@ -4,7 +4,6 @@ ZSH_THEME="dallas"
 plugins=(git elixir)
 # plugins=(git elixir zsh-peco-history common-aliases vi-mode ssh-agent)
 source $ZSH/oh-my-zsh.sh
-# zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # With this, apps using $EDITOR will use nvim .
 export EDITOR='nvim'
@@ -19,18 +18,28 @@ alias vi=$EDITOR
 alias e=$EDITOR
 alias ptask='cd ~/.task && git add . && gcmsg "`date +%Y-%m-%d`" && gp origin HEAD && cd -'
 
-# Activate hub, which decorates the `git` command
-# eval "$(hub alias -s)"
+# PREZTO
+
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# FZF
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Use ripgrep as FZF's default search in order to respect .gitignore
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
+
+# Powerlevel 9k bar config
+
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
 
 # gruvbox in shell
 BASE16_SCHEME=gruvbox-dark-soft
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
 [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
-# Load fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# Use ripgrep as FZF's default search in order to respect .gitignore
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 
 # Load local zshrc
 [[ -f $HOME/.zshrc_local ]] && source $HOME/.zshrc_local

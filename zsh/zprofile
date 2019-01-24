@@ -1,9 +1,6 @@
 # -*- mode: shell-script; -*-
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin"
 
-# I want to title my shells by myself.
-# export DISABLE_AUTO_TITLE=true
-
 # Load direnv
 eval "$(direnv hook zsh)"
 
