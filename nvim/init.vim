@@ -10,7 +10,9 @@ filetype off
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
-"SQL completion
+" gruvox theme and theme selection
+ Plug 'morhetz/gruvbox'
+" SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
 Plug 'scrooloose/nerdtree'
@@ -26,7 +28,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
 " Pope's mailic
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
@@ -35,11 +37,10 @@ Plug 'tpope/vim-speeddating'
 Plug 'slashmili/alchemist.vim'
 " vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
+" only for hackers
+Plug 'easymotion/vim-easymotion'
 " neovim dispatch adapter
 Plug 'radenling/vim-dispatch-neovim'
-" gruvox theme and theme selection
-Plug 'flazz/vim-colorschemes'
-Plug 'morhetz/gruvbox'
 " fancy status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -62,11 +63,11 @@ Plug 'janko-m/vim-test'
 " Initialize plugin system
 call plug#end()
 
-" filetype plugin indent on
-syntax enable
+: " filetype plugin indent on
+" syntax enable
 
-source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/general.vim
+source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/keys.vim
 source $HOME/.config/nvim/statusline.vim
 source $HOME/.config/nvim/projections.vim

@@ -1,8 +1,7 @@
 #ZSH
 export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="dallas"
+# ZSH_THEME="dallas"
 plugins=(git elixir)
-# plugins=(git elixir zsh-peco-history common-aliases vi-mode ssh-agent)
 source $ZSH/oh-my-zsh.sh
 
 # With this, apps using $EDITOR will use nvim .
@@ -16,13 +15,6 @@ export VIMDATA=~/.local/share/$EDITOR
 alias vim=$EDITOR
 alias vi=$EDITOR
 alias e=$EDITOR
-alias ptask='cd ~/.task && git add . && gcmsg "`date +%Y-%m-%d`" && gp origin HEAD && cd -'
-
-# PREZTO
-
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
 
 # FZF
 
@@ -30,13 +22,17 @@ fi
 # Use ripgrep as FZF's default search in order to respect .gitignore
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
 # Powerlevel 9k bar config
 
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
 
+# source "$HOME/.config/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 # gruvbox in shell
-BASE16_SCHEME=gruvbox-dark-soft
+BASE16_SCHEME=gruvbox-light-medium
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
 [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 

@@ -33,8 +33,8 @@ let g:ale_fixers = {
       \ 'scss': ['prettier']
       \}
       " \ 'typescrypt': ['prettier'],
-" Terraform 
-let g:terraform_fmt_on_save = 1 
+" Terraform
+let g:terraform_fmt_on_save = 1
 let g:terraform_align = 1
 
 " vim-javascript
@@ -69,14 +69,5 @@ let g:signify_realtime = 1
 
 " Show those languages with syntax highliting inside Markdown
 let g:vim_markdown_folding_level = 2
-" Grepper tools preference
-" let g:grepper = { 'tools': ['rg', 'ag', 'git'] }
-
-
-" vim-test
-" let g:test#strategy = "dispatch"
-" let g:test#runner_commands = ['RSpec', 'Mix']
-
-" localvimrc
-" let g:localvimrc_persistent = 2
-
+" let g:gruvbox_contrast_light = 'soft'
+" let g:gruvbox_termcolors=16

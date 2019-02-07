@@ -10,7 +10,7 @@ eval "$(direnv hook zsh)"
 
 # Load ssh keys
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/github_rsa
+ssh-add ~/.ssh/*_rsa
 
 # Load nvm
 export NVM_DIR="$HOME/.nvm"
