@@ -1,4 +1,4 @@
-    let base16colorspace=256
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let $FZF_DEFAULT_COMMAND = 'ag -g ""'
     set mouse=""
 " show invisibles
@@ -24,23 +24,20 @@
     set cursorline " highlight cursor position
     set cursorcolumn
     set title "set the title of the iterm tab
-    colorscheme gruvbox
-    set background=dark
 " More natural splits
     set splitbelow          " Horizontal split below current.
     set splitright          " Vertical split to right of current.
 " Show non visual chars
 " non-printable character display settings when :set list
-
     set noswapfile " Disable Swap Files
 " Terrapou
-   set nocompatible
-   syntax on
-   filetype plugin indent on
-" Status line syntastic
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
+    set nocompatible
+    syntax on
+    filetype plugin indent on
+" " Status line syntastic
+"     set statusline+=%#warningmsg#
+"     set statusline+=%{SyntasticStatuslineFlag()}
+"     set statusline+=%*
 " (Optional)Remove Info(Preview) window
     set completeopt-=preview
 " (Optional)Hide Info(Preview) window after completions
@@ -65,6 +62,9 @@
             redraw!
         endif
     endfunction
+    set termguicolors
+    set background=light
+    colorscheme gruvbox
 " FZF functions
 " This command now supports CTRL-T, CTRL-V, and CTRL-X key bindings
 " and opens fzf according to g:fzf_layout setting.
