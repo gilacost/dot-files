@@ -80,3 +80,4 @@
 " grepper
   " nnoremap \\ :Grepper -noprompt -cword<CR>
   " nnoremap <leader>s :Grepper -query<SPACE>
+  "

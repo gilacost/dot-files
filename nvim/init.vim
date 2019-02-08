@@ -38,7 +38,7 @@ Plug 'slashmili/alchemist.vim'
 " vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
 " only for hackers
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 " neovim dispatch adapter
 Plug 'radenling/vim-dispatch-neovim'
 " fancy status bar
@@ -62,9 +62,6 @@ Plug 'juliosueiras/vim-terraform-completion'
 Plug 'janko-m/vim-test'
 " Initialize plugin system
 call plug#end()
-
-: " filetype plugin indent on
-" syntax enable
 
 source $HOME/.config/nvim/general.vim
 source $HOME/.config/nvim/plugins.vim
