@@ -30,7 +30,6 @@ fi
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
 
-# source "$HOME/.config/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 # gruvbox in shell
 BASE16_SCHEME=gruvbox-light-medium
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
