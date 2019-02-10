@@ -68,3 +68,8 @@ source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/keys.vim
 source $HOME/.config/nvim/statusline.vim
 source $HOME/.config/nvim/projections.vim
+
+if $VIM_CRONTAB == "true"
+    set nobackup
+    set nowritebackup
+endif
