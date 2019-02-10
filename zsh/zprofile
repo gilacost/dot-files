@@ -5,6 +5,8 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin"
 eval "$(direnv hook zsh)"
 
 # Load asdf
+autoload -Uz compinit
+compinit
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 

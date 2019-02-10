@@ -63,7 +63,7 @@
         endif
     endfunction
     set termguicolors
-    set background=light
+    set background=dark
     colorscheme gruvbox
 " FZF functions
 " This command now supports CTRL-T, CTRL-V, and CTRL-X key bindings
