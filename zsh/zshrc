@@ -24,12 +24,12 @@ alias e=$EDITOR
 alias crontab="VIM_CRONTAB=true crontab"
 
 # Powerlevel 9k bar config
-
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+# POWERLEVEL9K_MODE='nerdfont-complete'
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
 
 # gruvbox in shell
-BASE16_SCHEME=gruvbox-dark-medium
+BASE16_SCHEME=gruvbox-dark-soft
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
 [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
@@ -45,3 +45,7 @@ source ~/Repos/alien/alien.zsh
 # export ALIEN_THEME="gruvbox"
 # export ALIEN_THEME="green"
 export ALIEN_THEME="red"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
