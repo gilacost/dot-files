@@ -3,11 +3,9 @@ ZSH := $(shell command -v zsh 2>/dev/null)
 ifdef ZSH
 INSTALLERS += zsh
 CLEANERS   += clean_zsh
-# git clone https://github.com/eendroroy/alien.git
-# cd alien
-# git submodule update --init --recursive
+# git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-git clone https://github.com/eendroroy/alien.git && cd alien && git submodule update --init --recursive
 
 ZSHRC_SRC         := $(DOTFILES)/zsh/zshrc
 ZSHRC             := $(DST_DIR)/.zshrc
