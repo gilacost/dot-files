@@ -11,8 +11,8 @@ compinit
 . $HOME/.asdf/completions/asdf.bash
 
 # Load ssh keys
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/*_rsa
+# eval "$(ssh-agent -s)"
+# ssh-add ~/.ssh/*_rsa
 
 # Load nvm
 export NVM_DIR="$HOME/.nvm"
