@@ -63,7 +63,8 @@ PACKAGES=(
     wget
     curl
     defaultbrowser
-    task
+    peco
+    terminal-notifier
 )
 
 read -p "Do you want to generate a new ssh key for github?" -n 1 -r; echo
@@ -73,9 +74,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   ssh-keygen -t rsa -b 4096 -N '' -C "${REPLY}" -f ~/.ssh/github_rsa
 fi
 
-    #peco
-    #ssh-copy-id
-    #terminal-notifier
 
 #asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2

@@ -90,6 +90,7 @@ export VISUAL=$EDITOR
 export VIMCONFIG=~/.config/$EDITOR
 export VIMDATA=~/.local/share/$EDITOR
 # aliases
+#git branch -l | peco | xargs git checkout
 alias vim=$EDITOR
 alias vi=$EDITOR
 alias e=$EDITOR
