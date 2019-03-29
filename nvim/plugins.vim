@@ -1,41 +1,30 @@
-" startyify
-let g:startify_change_to_vcs_root = 1
+" " startyify
+" let g:startify_change_to_vcs_root = 1
 
 " vim-jsx
 let g:jsx_ext_required = 0
 
 " deoplete
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
-let g:deoplete#enable_at_startup = 1
-
 let g:deoplete#enable_at_startup = 1
 
 " ALE - Asynchronous Linting Engine
 let g:ale_fix_on_save = 1
 let g:ale_sign_column_always = 1
-let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_error = 'E'
 let g:ale_sign_warning = 'W'
 let g:ale_elm_make_use_global = 1
 let g:ale_elm_format_use_global = 1
 let g:ale_linters = {
-      \ 'elixir' : ['mix'],
+      \ 'elixir': ['mix'],
       \ 'javascript': ['eslint'],
       \ 'scss': ['scss-lint'],
-      \ 'terraform': ['tflint'],
       \}
-      " \ 'vim': ['vimt'],
-      " \ 'typescrypt': ['tslint', 'tsserver']
 let g:ale_fixers = {
       \ 'elixir': ['mix_format', 'remove_trailing_lines', 'trim_whitespace'],
       \ 'javascript': ['prettier'],
       \ 'scss': ['prettier']
       \}
-      " \ 'typescrypt': ['prettier'],
-" Terraform
-let g:terraform_fmt_on_save = 1
-let g:terraform_align = 1
 
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
@@ -55,13 +44,7 @@ let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
 let g:UltiSnipsSnippetDirectories = ["snips", "priv_snips", "UltiSnips" ]
 let g:UltiSnipsEditSplit = "vertical"
 
-"" syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" signify (gutter for git)
+" " signify (gutter for git)
 let g:signify_vcs_list = ['git']
 let g:signify_sign_change = '~'
 let g:signify_sign_changedelete = '!'
@@ -69,5 +52,3 @@ let g:signify_realtime = 1
 
 " Show those languages with syntax highliting inside Markdown
 let g:vim_markdown_folding_level = 2
-" let g:gruvbox_contrast_light = 'soft'
-" let g:gruvbox_termcolors=16

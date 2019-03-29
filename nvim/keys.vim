@@ -57,27 +57,17 @@
 " Show undo list
 " nnoremap <leader>u :GundoToggle<CR>
 
-" Move between windows
-" nnoremap <silent><leader>wj :wincmd j<CR>
-" nnoremap <silent><leader>wk :wincmd k<CR>
-" nnoremap <silent><leader>wl :wincmd l<CR>
-" nnoremap <silent><leader>wh :wincmd h<CR>
+" Tabs
+noremap <silent> nt :tabnew<CR>
+map <silent> <C-w> :q<CR>
+noremap <M-Left> gT
+noremap <M-Right> gt
+" Remap arrow keys to change between buffers
+noremap <C-S-Up> <C-w>k
+noremap <C-S-Down> <C-w>j
+noremap <C-S-Left> <C-w>h
+noremap <C-S-Right> <C-w>l
 
-" Move windows around
-" nnoremap <silent><leader>wJ :wincmd J<CR>
-" nnoremap <silent><leader>wK :wincmd K<CR>
-" nnoremap <silent><leader>wL :wincmd L<CR>
-" nnoremap <silent><leader>wH :wincmd H<CR>
-
-" Split screens
-" nnoremap <silent><leader>wv :wincmd v<CR>
-" nnoremap <silent><leader>ws :wincmd s<CR>
-
-" " quick list and location list
-" nnoremap <leader>qo :copen<CR>
-" nnoremap <leader>qc :cclose<CR>
-
-" grepper
-  " nnoremap \\ :Grepper -noprompt -cword<CR>
-  " nnoremap <leader>s :Grepper -query<SPACE>
-  "
+" quick list and location list
+nnoremap <leader>qo :copen<CR>
+nnoremap <leader>qc :cclose<CR>

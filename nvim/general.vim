@@ -12,7 +12,7 @@
     set autoindent
     set copyindent
     set smartindent
-    set colorcolumn=100
+    set colorcolumn=80,100
     set tabstop=2 " - Two spaces wide
     set softtabstop=2
     set expandtab " - Expand them all
@@ -34,17 +34,16 @@
     set nocompatible
     syntax on
     filetype plugin indent on
+    set spell spelllang=en_us
 " " Status line syntastic
-"     set statusline+=%#warningmsg#
-"     set statusline+=%{SyntasticStatuslineFlag()}
-"     set statusline+=%*
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
 " (Optional)Remove Info(Preview) window
     set completeopt-=preview
 " (Optional)Hide Info(Preview) window after completions
     autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
     autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-" Add spell check to git commits
-    autocmd FileType gitcommit setlocal spell spelllang=en_us
 " Set JSON on mustached json files
     autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
 

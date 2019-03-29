@@ -59,19 +59,11 @@ export ZSH=$HOME/.oh-my-zsh
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
-SPACESHIP_PROMPT_ORDER=(
-  user          # Username section
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  hg            # Mercurial section (hg_branch  + hg_status)
-  exec_time     # Execution time
-  line_sep      # Line break
-  vi_mode       # Vi-mode indicator
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-  char          # Prompt character
-)
+# Terminal theme: spacheship-promt
+export SPACESHIP_DOCKER_SHOW=false
+export SPACESHIP_PROMPT_DEFAULT_PREFIX="# "
+export SPACESHIP_PROMPT_SEPARATE_LINE=false
+export SPACESHIP_GIT_STATUS_DIVERGED="??"
 
 plugins=(git elixir fzf zsh-autosuggestions zsh-syntax-highlighting)
 
@@ -97,3 +89,4 @@ alias e=$EDITOR
 alias zshconfig="e ~/.zshrc"
 alias ohmyzsh="e ~/.oh-my-zsh"
 alias crontab="VIM_CRONTAB=true crontab"
+alias dockerbash="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash"
