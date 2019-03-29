@@ -16,8 +16,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
 Plug 'scrooloose/nerdtree'
-" Code formating and go to definition
-Plug 'w0rp/ale'
 " elmo
 Plug 'elmcast/elm-vim'
 " Polyglot loads language support on demand!
@@ -32,9 +30,10 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
-" elixir and phoenix stuff
-" Plug 'c-brenn/phoenix.vim'
-Plug 'slashmili/alchemist.vim'
+" " elixir and phoenix stuff
+Plug 'elixir-editors/vim-elixir'
+" " Plug 'c-brenn/phoenix.vim'
+" Plug 'slashmili/alchemist.vim'
 " vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
 " only for hackers
@@ -52,15 +51,10 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " startify (recent files)
 Plug 'mhinz/vim-startify'
 " Git
-" Show diff with style
+" " Show diff with style
 Plug 'mhinz/vim-signify'
-" Terraform
-Plug 'hashivim/vim-terraform'
-Plug 'vim-syntastic/syntastic'
-Plug 'juliosueiras/vim-terraform-completion'
-" Vim test
-Plug 'janko-m/vim-test'
-" Initialize plugin system
+" Code formating and go to definition
+Plug 'w0rp/ale'
 call plug#end()
 
 source $HOME/.config/nvim/general.vim
