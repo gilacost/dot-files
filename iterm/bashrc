@@ -1,2 +1,0 @@
-# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-# launch zsh -c "source ~/.zshrc && source ~/.zprofile"

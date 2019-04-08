@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# TODO(pepito) make a session with chunkwm and skhd to make kitty work with alvivi
-# TODO(set iterm appeaeance dark)
 #
 # Bootstrap script for setting up a new OSX machine
 #
@@ -94,7 +92,6 @@ brew install caskroom/cask/brew-cask
 
 CASKS=(
     kitty
-    iterm2
     docker
     flux
     spotify
@@ -105,8 +102,6 @@ CASKS=(
     vlc
     evernote
 )
-    #spectacle
-    #karabiner-elements
 
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
