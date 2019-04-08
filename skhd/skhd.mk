@@ -4,7 +4,7 @@ ifdef SKHDRC
 INSTALLERS += skhdrc
 CLEANERS   += clean_skhdrc
 
-SKHDRC_SRC := $(DOTFILES)/skhdrc/skhdrc
+SKHDRC_SRC := $(DOTFILES)/skhd/skhdrc
 SKHDRC     := $(DST_DIR)/.skhdrc
 
 

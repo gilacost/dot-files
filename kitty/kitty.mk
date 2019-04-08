@@ -19,7 +19,7 @@ KITTY_NVIM_SES     := $(DST_DIR)/.nvim.session
 
 kitty: banner_install_kitty $(KITTY_CONFIG_DIR) $(KITTY_CONFIG) $(KITTY_NVIM_SES)
 
-$(KITTY_CONFIG_DIR): 
+$(KITTY_CONFIG_DIR):
 	$(MKDIR) $@
 
 $(KITTY_CONFIG):
