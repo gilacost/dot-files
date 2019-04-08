@@ -90,15 +90,7 @@ brew cleanup
 
 echo "Installing cask..."
 brew cask
-# brew install caskroom/cask/brew-cask
-
-# echo "installing GPG"
-# brew upgrade gnupg  # This has a make step which takes a while
-# brew link --overwrite gnupg
-# brew install pinentry-mac
-# echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
-# killall gpg-agent
-# echo "test" | gpg --clearsign  # on linux it's gpg2 but brew stays as gpg
+brew install caskroom/cask/brew-cask
 
 CASKS=(
     kitty

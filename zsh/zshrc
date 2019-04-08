@@ -88,5 +88,4 @@ alias vi=$EDITOR
 alias e=$EDITOR
 alias zshconfig="e ~/.zshrc"
 alias ohmyzsh="e ~/.oh-my-zsh"
-alias crontab="VIM_CRONTAB=true crontab"
 alias dockerbash="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash"
