@@ -3,10 +3,10 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin"
 
 # Load direnv
 eval "$(direnv hook zsh)"
-
-# Load asdf
 autoload -Uz compinit
 compinit
+
+# Load asdf
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
