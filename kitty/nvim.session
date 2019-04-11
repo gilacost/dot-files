@@ -1,5 +1,5 @@
 layout tall
 title nvim
 cd ~/Projects
-launch zsh -c "source ~/.zshrc && nvim"
+launch zsh -c "cd ~/ && source .zshrc && nvim"
 

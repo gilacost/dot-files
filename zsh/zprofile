@@ -23,4 +23,4 @@ export NVM_DIR="$HOME/.nvm"
 [[ -f $HOME/.zprofile_local ]] && source $HOME/.zprofile_local
 
 # # Ask kitty to use config from ~/.config (even on MacOS)
-# export KITTY_CONFIG_DIRECTORY="$HOME/.config/kitty"
+export KITTY_CONFIG_DIRECTORY="$HOME/.config/kitty"
