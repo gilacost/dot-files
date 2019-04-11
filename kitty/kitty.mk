@@ -1,4 +1,4 @@
-KITTY := $(shell command -v kitty 2>/dev/null)
+KITTY := $(shell command -v ls 2>/dev/null)
 
 ifdef KITTY
 INSTALLERS += kitty
@@ -6,7 +6,7 @@ CLEANERS   += clean_kitty
 
 KITTY_CONFIG_DIR   := ~/Library/Preferences/kitty
 KITTY_CONFIG_SRC   := $(DOTFILES)/kitty/kitty.conf
-KITTY_CONFIG       := $(KITTY_CONFIG_DIR)/kitty.conf
+KITTY_CONFIG_DST   := $(KITTY_CONFIG_DIR)/kitty.conf
 KITTY_NVIM_SES_SRC := $(DOTFILES)/kitty/nvim.session
 KITTY_NVIM_SES     := $(DST_DIR)/.nvim.session
 
