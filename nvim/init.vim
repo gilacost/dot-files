@@ -30,10 +30,9 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-vinegar'
 " " elixir and phoenix stuff
 Plug 'elixir-editors/vim-elixir'
-" " Plug 'c-brenn/phoenix.vim'
-" Plug 'slashmili/alchemist.vim'
 " vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
 " only for hackers
@@ -62,8 +61,3 @@ source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/keys.vim
 source $HOME/.config/nvim/statusline.vim
 source $HOME/.config/nvim/projections.vim
-
-if $VIM_CRONTAB == "true"
-    set nobackup
-    set nowritebackup
-endif

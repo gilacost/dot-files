@@ -43,10 +43,6 @@
   noremap <Left> <Nop>
   noremap <Right> <Nop>
 
-" nerdtree
-  nmap <F2> :NERDTreeToggle<CR>
-  " nmap <F3> :TagbarToggle<CR>
-
 " test-vim
   nnoremap <leader>tf :TestFile<CR>
   nnoremap <leader>tl :TestNearest<CR>
