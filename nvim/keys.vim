@@ -55,7 +55,6 @@
 
 " Tabs
 noremap <silent> nt :tabnew<CR>
-map <silent> <C-w> :q<CR>
 noremap <M-Left> gT
 noremap <M-Right> gt
 " Remap arrow keys to change between buffers
