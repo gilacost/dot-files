@@ -59,6 +59,10 @@ call plug#end()
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let $FZF_DEFAULT_COMMAND = 'ag -g ""'
     set mouse=""
+" redraw
+    set lazyredraw
+    set synmaxcol=128
+    syntax sync minlines=256
 " show invisibles
 " use the system clipboard for yank/put/delete
     set clipboard+=unnamed,unnamedplus
@@ -104,11 +108,6 @@ call plug#end()
     autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " Set JSON on mustached json files
     autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
-
-    augroup terminal " Terminal emulation
-    autocmd TermOpen * setlocal nospell
-    autocmd TermOpen * setlocal nonumber
-    augroup END
 " Rename current file
     function! RenameFile()
         let old_name = expand('%')
@@ -230,18 +229,6 @@ let g:vim_markdown_folding_level = 2
 " Rename File
   map <leader>n :call RenameFile()<cr>
 
-" " open in terminal mode
-"   nnoremap <leader>zz :terminal<CR>
-"   nnoremap <leader>zh :new<CR>:terminal<CR>
-"   nnoremap <leader>zv :vnew<CR>:terminal<CR>
-"   tnoremap <Esc> <C-\><C-n>```
-"   noremap <Leader>sc :Ag<CR>
-"   noremap <Leader>lc :lclose<cr>
-"   noremap <Leader>lo :lopen<cr>
-"   noremap <Up> <Nop>
-"   noremap <Down> <Nop>
-"   noremap <Left> <Nop>
-"   noremap <Right> <Nop>
 "" Buffer Navigation
 :nnoremap <C-n> :bnext<CR>
 :nnoremap <C-p> :bprevious<CR>

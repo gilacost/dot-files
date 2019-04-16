@@ -111,6 +111,7 @@ export VIMCONFIG=~/.config/$EDITOR
 export VIMDATA=~/.local/share/$EDITOR
 # aliases
 #git branch -l | peco | xargs git checkout
+alias gbr="git branch | grep -v "master" | xargs git branch -D"
 alias vim=$EDITOR
 alias vi=$EDITOR
 alias e=$EDITOR
