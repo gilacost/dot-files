@@ -30,10 +30,9 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-vinegar'
 " " elixir and phoenix stuff
 Plug 'elixir-editors/vim-elixir'
-" " Plug 'c-brenn/phoenix.vim'
-" Plug 'slashmili/alchemist.vim'
 " vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
 " only for hackers
@@ -56,14 +55,245 @@ Plug 'mhinz/vim-signify'
 " Code formating and go to definition
 Plug 'w0rp/ale'
 call plug#end()
+"""""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+    set mouse=""
+" redraw
+    set lazyredraw
+    set synmaxcol=128
+    syntax sync minlines=256
+" show invisibles
+" use the system clipboard for yank/put/delete
+    set clipboard+=unnamed,unnamedplus
+    set number
+" Indent
+    set shiftwidth=2   " number of spaces to use for each step of (auto)indent.
+    set shiftround     " round indent to multiple of 'shiftwidth'
+    set smarttab
+    set autoindent
+    set copyindent
+    set smartindent
+    set colorcolumn=80,100
+    set tabstop=2 " - Two spaces wide
+    set softtabstop=2
+    set expandtab " - Expand them all
+    set shiftwidth=2 " - Indent by 2 spaces by default
+    set hlsearch " Highlight search results
+    set incsearch " Incremental search, search as you type
+    set ignorecase " Ignore case when searching
+    set smartcase " Ignore case when searching lowercase
+    set cursorline " highlight cursor position
+    set cursorcolumn
+    set title "set the title of the iterm tab
+" More natural splits
+    set splitbelow          " Horizontal split below current.
+    set splitright          " Vertical split to right of current.
+" Show non visual chars
+" non-printable character display settings when :set list
+    set noswapfile " Disable Swap Files
+" Terrapou
+    set nocompatible
+    syntax on
+    filetype plugin indent on
+    set spell spelllang=en_us
+" " Status line syntastic
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+" (Optional)Remove Info(Preview) window
+    set completeopt-=preview
+" (Optional)Hide Info(Preview) window after completions
+    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" Set JSON on mustached json files
+    autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
+" Rename current file
+    function! RenameFile()
+        let old_name = expand('%')
+        let new_name = input('New file name: ', expand('%'), 'file')
+        if new_name != '' && new_name != old_name
+            exec ':saveas ' . new_name
+            exec ':silent !rm ' . old_name
+            redraw!
+        endif
+    endfunction
+    set termguicolors
+    set background=dark
+    colorscheme gruvbox
+" FZF functions
+" This command now supports CTRL-T, CTRL-V, and CTRL-X key bindings
+" and opens fzf according to g:fzf_layout setting.
+command! Buffers call fzf#run(fzf#wrap(
+    \ {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}))
+" This extends the above example to open fzf in fullscreen
+" when the command is run with ! suffix (Buffers!)
+command! -bang Buffers call fzf#run(fzf#wrap(
+    \ {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}, <bang>0))
 
-source $HOME/.config/nvim/general.vim
-source $HOME/.config/nvim/plugins.vim
-source $HOME/.config/nvim/keys.vim
-source $HOME/.config/nvim/statusline.vim
-source $HOME/.config/nvim/projections.vim
+highlight ExtraWhitespace ctermbg=red guibg=red
+au ColorScheme * highlight ExtraWhitespace guibg=red
+au BufEnter * match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
-if $VIM_CRONTAB == "true"
-    set nobackup
-    set nowritebackup
-endif
+function! TrimWhiteSpace()
+    %s/\s\+$//e
+endfunction
+autocmd BufWritePre * :call TrimWhiteSpace()
+"""""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
+" " startyify
+let g:startify_change_to_vcs_root = 1
+
+" vim-jsx
+let g:jsx_ext_required = 0
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
+" ALE - Asynchronous Linting Engine
+let g:ale_fix_on_save = 1
+let g:ale_sign_column_always = 1
+" let g:ale_lint_on_text_changed = 'never'
+let g:ale_sign_error = 'E'
+let g:ale_sign_warning = 'W'
+let g:ale_elm_make_use_global = 1
+let g:ale_elm_format_use_global = 1
+let g:ale_linters = {
+      \ 'elixir': ['mix'],
+      \ 'javascript': ['eslint'],
+      \ 'scss': ['scss-lint'],
+      \}
+let g:ale_fixers = {
+      \ 'elixir': ['mix_format', 'remove_trailing_lines', 'trim_whitespace'],
+      \ 'javascript': ['prettier'],
+      \ 'scss': ['prettier']
+      \}
+
+" vim-javascript
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+
+" Elm Cast
+let g:elm_detailed_complete = 1
+let g:elm_format_autosave = 1
+
+" Disable polyglot in favor of real language packs
+" Polyglot is great but it doesn't activate all the functionalities for all
+" languages in order to make it load fast.
+let g:polyglot_disabled = ['elm', 'markdown']
+
+" Ultisnips
+let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
+let g:UltiSnipsSnippetDirectories = ["snips", "priv_snips", "UltiSnips" ]
+let g:UltiSnipsEditSplit = "vertical"
+
+" " signify (gutter for git)
+let g:signify_vcs_list = ['git']
+let g:signify_sign_change = '~'
+let g:signify_sign_changedelete = '!'
+let g:signify_realtime = 1
+
+" Show those languages with syntax highliting inside Markdown
+let g:vim_markdown_folding_level = 2
+"""""""""""""""""""""" KEYS """"""""""""""""""""""""""""""""
+" Buffers
+  nmap <LEADER>b :Buffers<CR>
+  nmap <LEADER>bb :Buffers!<CR>
+
+" DEOPLETE
+  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" Signify
+  nmap <leader>sd :SignifyDiff<CR>
+
+" Fuzzy Finder (review)
+  nnoremap <leader>ff :FZFFiles<cr>
+  nnoremap <leader>fb :FZFBuffers<cr>
+
+" Edit and reload vimrc
+  nnoremap <leader>ve :edit $MYVIMRC<CR>
+  nnoremap <leader>vr :source $MYVIMRC<CR>
+
+" Errors list
+  nnoremap <leader>lo :lopen<CR>
+  nnoremap <leader>lc :lclose<CR>
+
+" Tabs management
+  nnoremap <leader><TAB> gt
+  nnoremap <leader><S-TAB> gT
+
+" Exit vim
+  nnoremap <silent><leader>qq :qall<CR>
+
+" Rename File
+  map <leader>n :call RenameFile()<cr>
+
+"" Buffer Navigation
+:nnoremap <C-n> :bnext<CR>
+:nnoremap <C-p> :bprevious<CR>
+
+" Terminal emulation
+augroup terminal
+autocmd TermOpen * setlocal nospell
+autocmd TermOpen * setlocal nonumber
+autocmd TermOpen * setlocal scrollback=1000
+augroup END
+nnoremap <leader>zz :terminal<CR>
+nnoremap <leader>zh :new<CR>:terminal<CR>
+nnoremap <leader>zv :vnew<CR>:terminal<CR>
+tnoremap <Esc> <C-\><C-n>
+
+" test-vim
+  nnoremap <leader>tf :TestFile<CR>
+  nnoremap <leader>tl :TestNearest<CR>
+  nnoremap <leader>tr :TestLast<CR>
+  nnoremap <leader>to :Copen<CR>
+  nnoremap <leader>tv :TestVisit<CR>
+
+" Show undo list
+" nnoremap <leader>u :GundoToggle<CR>
+
+" Tabs
+noremap <silent> nt :tabnew<CR>
+noremap <M-Left> gT
+noremap <M-Right> gt
+" Remap arrow keys to change between buffers
+noremap <C-S-Up> <C-w>k
+noremap <C-S-Down> <C-w>j
+noremap <C-S-Left> <C-w>h
+noremap <C-S-Right> <C-w>l
+
+" quick list and location list
+nnoremap <leader>qo :copen<CR>
+nnoremap <leader>qc :cclose<CR>
+
+"""""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
+let g:airline_theme='gruvbox'
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_section_b = '%{strftime("%c")}'
+let g:airline_section_y = 'BN: %{bufnr("%")}'
+
+"""""""""""""""""""""" PROJECTIONS """"""""""""""""""""""""""""""""
+
+let g:projectionist_heuristics = {
+      \  "mix.exs": {
+      \    "lib/*.ex": {
+      \      "type": "lib",
+      \      "alternate": "test/{}_test.exs"
+      \    },
+      \    "test/*_test.exs": {
+      \      "type": "test",
+      \      "alternate": "lib/{}.ex"
+      \    },
+      \    "mix.exs": {
+      \      "type": "mix"
+      \    },
+      \    "config/config.exs": {
+      \      "type": "config"
+      \    }
+      \  }
+      \ }
+
