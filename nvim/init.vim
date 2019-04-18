@@ -197,9 +197,6 @@ let g:signify_realtime = 1
 " Show those languages with syntax highliting inside Markdown
 let g:vim_markdown_folding_level = 2
 """""""""""""""""""""" KEYS """"""""""""""""""""""""""""""""
-" Buffers
-  nmap <LEADER>b :Buffers<CR>
-  nmap <LEADER>bb :Buffers!<CR>
 
 " DEOPLETE
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -208,8 +205,9 @@ let g:vim_markdown_folding_level = 2
   nmap <leader>sd :SignifyDiff<CR>
 
 " Fuzzy Finder (review)
-  nnoremap <leader>ff :FZFFiles<cr>
-  nnoremap <leader>fb :FZFBuffers<cr>
+  noremap <leader>sc :Ag<CR>
+  noremap <C-p> :FZF<CR>
+  noremap <Leader>sg :GitFiles<CR>
 
 " Edit and reload vimrc
   nnoremap <leader>ve :edit $MYVIMRC<CR>
@@ -230,8 +228,8 @@ let g:vim_markdown_folding_level = 2
   map <leader>n :call RenameFile()<cr>
 
 "" Buffer Navigation
-:nnoremap <C-n> :bnext<CR>
-:nnoremap <C-p> :bprevious<CR>
+  :nnoremap <C-k> :bnext<CR>
+  :nnoremap <C-l> :bprevious<CR>
 
 " Terminal emulation
 augroup terminal
@@ -243,13 +241,6 @@ nnoremap <leader>zz :terminal<CR>
 nnoremap <leader>zh :new<CR>:terminal<CR>
 nnoremap <leader>zv :vnew<CR>:terminal<CR>
 tnoremap <Esc> <C-\><C-n>
-
-" test-vim
-  nnoremap <leader>tf :TestFile<CR>
-  nnoremap <leader>tl :TestNearest<CR>
-  nnoremap <leader>tr :TestLast<CR>
-  nnoremap <leader>to :Copen<CR>
-  nnoremap <leader>tv :TestVisit<CR>
 
 " Show undo list
 " nnoremap <leader>u :GundoToggle<CR>
@@ -263,6 +254,11 @@ noremap <C-S-Up> <C-w>k
 noremap <C-S-Down> <C-w>j
 noremap <C-S-Left> <C-w>h
 noremap <C-S-Right> <C-w>l
+
+" AG
+noremap <Leader>sc :Ag<CR>
+noremap <Leader>lc :lclose<cr>
+noremap <Leader>lo :lopen<cr>
 
 " quick list and location list
 nnoremap <leader>qo :copen<CR>
