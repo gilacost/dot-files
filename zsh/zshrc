@@ -9,9 +9,9 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 POWERLEVEL9K_MODE='nerdfont-complete'
 
 # gruvbox in shell
-BASE16_SCHEME=gruvbox-dark-soft
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
-[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
+# BASE16_SCHEME=gruvbox-dark-soft
+# BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
+# [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
 # Enable enable reverse search in zsh
 bindkey -v
@@ -60,12 +60,7 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
-# Terminal theme: spacheship-promt
-export SPACESHIP_DOCKER_SHOW=false
-export SPACESHIP_PROMPT_DEFAULT_PREFIX="# "
-export SPACESHIP_PROMPT_SEPARATE_LINE=false
-export SPACESHIP_GIT_STATUS_DIVERGED="??"
+ZSH_THEME="agnoster"
 
 plugins=(git elixir fzf zsh-autosuggestions zsh-syntax-highlighting)
 

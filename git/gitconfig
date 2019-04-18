@@ -34,7 +34,7 @@
   autosquash = true
 [rerere]
   enabled = true
-[init]
-  templatedir = ~/Repos/dot-files/git/templates
+; [init]
+;   templatedir = ~/Repos/dot-files/git/templates
 [include]
   path = ~/.gitconfig_local
