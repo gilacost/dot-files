@@ -1,13 +1,2 @@
 #!/bin/bash
 
-read -r -d '' fail_words <<- EOM
-  >>>>>>
-  <<<<<<
-  ======
-EOM
-
-while read -r line
-do
-  grep -q "$line" <(git diff --cached) && echo "Fail words found: '$line' Fix your commit damn it..." && exit 1
-done <<< "$fail_words"
-exit 0
