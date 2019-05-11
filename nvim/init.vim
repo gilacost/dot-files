@@ -10,8 +10,10 @@ filetype off
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
+" erlang no chinese shit
+Plug 'vim-erlang/vim-erlang-compiler'
 " gruvox theme and theme selection
- Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 " SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
