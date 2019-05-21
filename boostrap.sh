@@ -43,6 +43,7 @@ brew tap crisidev/homebrew-chunkwm
 
 #brew install
 PACKAGES=(
+    lsd
     direnv
     asdf
     chunkwm
@@ -131,7 +132,7 @@ defaultbrowser firefox
 
 echo "ESTO NO SE QUE ES..."
 #Esto no se que es
-defaults write -g ApplePressAndHoldEnabled -bool true
+defaults write -g ApplePressAndHoldEnabled -bool false
 
 echo "Set fast key repeat rate"
 # Set fast key repeat rate
