@@ -8,11 +8,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 # Powerlevel 9k bar config
 POWERLEVEL9K_MODE='nerdfont-complete'
 
-# gruvbox in shell
-# BASE16_SCHEME=gruvbox-dark-soft
-# BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-$BASE16_SCHEME.sh"
-# [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
-
 # Enable enable reverse search in zsh
 bindkey -v
 bindkey '^R' history-incremental-search-backward
@@ -99,7 +94,7 @@ export NVM_DIR="$HOME/.nvm"
 export KITTY_CONFIG_DIRECTORY="$HOME/.config/kitty"
 #########################  OLD ZPROFILE ########################################
 
-export EDITOR='nvim'
+export EDITOR='nvr'
 export VISUAL=$EDITOR
 
 export VIMCONFIG=~/.config/$EDITOR
