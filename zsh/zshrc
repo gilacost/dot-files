@@ -69,18 +69,15 @@ source $ZSH/oh-my-zsh.sh
 # -*- mode: shell-script; -*-
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin"
 
-# Load direnv
-eval "$(direnv hook zsh)"
+# Load direnv zsh and ssh keys
+eval "$(direnv hook zsh ssh-agent -s)"
+ssh-add ~/.ssh/*_rsa
 
 # Load asdf
 autoload -Uz compinit
 compinit
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
-
-# Load ssh keys
-# eval "$(ssh-agent -s)"
-# ssh-add ~/.ssh/*_rsa
 
 # .zshrc_local is meant to keep private configurations, it is out of version
 # management.
