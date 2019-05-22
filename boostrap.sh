@@ -73,7 +73,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   ssh-keygen -t rsa -b 4096 -N '' -C "${REPLY}" -f ~/.ssh/github_rsa
 fi
 
-
 #asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
 
@@ -86,6 +85,12 @@ brew install ${PACKAGES[@]}
 
 echo "Cleaning up..."
 brew cleanup
+
+#ZSH pluggins
+cd ~/.oh-my-zsh/custom/plugins
+git clone https://github.com/gusaiani/elixir-oh-my-zsh.git elixir
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
 
 echo "Installing cask..."
 brew cask
