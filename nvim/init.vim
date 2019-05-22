@@ -12,8 +12,8 @@ filetype off
 call plug#begin('~/.config/nvim/plugged')
 " erlang no chinese shit
 Plug 'vim-erlang/vim-erlang-compiler'
-" gruvox theme and theme selection
-Plug 'morhetz/gruvbox'
+" dracula theme and theme selection
+Plug 'dracula/vim', { 'as': 'dracula' }
 " SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
@@ -120,9 +120,9 @@ call plug#end()
             redraw!
         endif
     endfunction
-    set termguicolors
-    set background=dark
-    colorscheme gruvbox
+    " set termguicolors
+    " set background=dark
+    color dracula
 " FZF functions
 " This command now supports CTRL-T, CTRL-V, and CTRL-X key bindings
 " and opens fzf according to g:fzf_layout setting.
@@ -267,7 +267,7 @@ nnoremap <leader>qo :copen<CR>
 nnoremap <leader>qc :cclose<CR>
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
-let g:airline_theme='gruvbox'
+let g:airline_theme='dracula'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
