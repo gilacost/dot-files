@@ -14,6 +14,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'vim-erlang/vim-erlang-compiler'
 " dracula theme and theme selection
 Plug 'dracula/vim', { 'as': 'dracula' }
+" ruby on fails
+ Plug 'vim-ruby/vim-ruby'
 " SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
@@ -110,6 +112,9 @@ call plug#end()
     autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " Set JSON on mustached json files
     autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
+" Delete git buffer when hidden
+    autocmd FileType gitcommit set bufhidden=delete
+    autocmd FileType markdown setlocal spell wrap textwidth=80
 " Rename current file
     function! RenameFile()
         let old_name = expand('%')
