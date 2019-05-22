@@ -70,8 +70,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin"
 
 # Load direnv zsh and ssh keys
-# eval "$(direnv hook zsh ssh-agent -s)"
 eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh ssh-agent -s)"
 # ssh-add ~/.ssh/*_rsa
 
 # Load asdf
