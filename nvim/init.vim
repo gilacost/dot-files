@@ -10,8 +10,10 @@ filetype off
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
-" erlang no chinese shit
-Plug 'vim-erlang/vim-erlang-compiler'
+" easy motion
+Plug 'easymotion/vim-easymotion'
+" set up working directory for project
+Plug 'airblade/vim-rooter'
 " dracula theme and theme selection
 Plug 'dracula/vim', { 'as': 'dracula' }
 " ruby on fails
@@ -90,7 +92,13 @@ call plug#end()
     set cursorline " highlight cursor position
     set cursorcolumn
     set title "set the title of the iterm tab
+set synmaxcol=150
+"syntax sync minlines=256
+set lazyredraw
+set ttyfast
+set regexpengine=1
 " More natural splits
+"
     set splitbelow          " Horizontal split below current.
     set splitright          " Vertical split to right of current.
 " Show non visual chars
