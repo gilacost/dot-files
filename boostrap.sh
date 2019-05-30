@@ -44,6 +44,7 @@ brew tap crisidev/homebrew-chunkwm
 #brew install
 PACKAGES=(
     lsd
+    bat
     direnv
     asdf
     chunkwm
