@@ -2,7 +2,7 @@
 
 [user]
   name = gilacost
-  email = gilacost@users.noreply.github.com
+  email = josep.giralt@derivco.se
 	; signingkey = C2E6E14F
 [commit]
 	; gpgsign = true

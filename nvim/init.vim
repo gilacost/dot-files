@@ -10,14 +10,18 @@ filetype off
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
+" buffer explorer
+Plug 'jlanzarotta/bufexplorer'
 " easy motion
 Plug 'easymotion/vim-easymotion'
 " set up working directory for project
 Plug 'airblade/vim-rooter'
 " dracula theme and theme selection
 Plug 'dracula/vim', { 'as': 'dracula' }
+" zenburn theme and theme selection
+Plug 'jnurmine/Zenburn', { 'as': 'zenburn' }
 " ruby on fails
- Plug 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby'
 " SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
@@ -32,7 +36,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
 " Pope's mailic
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
@@ -133,8 +137,6 @@ set regexpengine=1
             redraw!
         endif
     endfunction
-    " set termguicolors
-    " set background=dark
     color dracula
 " FZF functions
 " This command now supports CTRL-T, CTRL-V, and CTRL-X key bindings
