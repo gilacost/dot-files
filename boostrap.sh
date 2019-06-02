@@ -92,6 +92,7 @@ cd ~/.oh-my-zsh/custom/plugins
 git clone https://github.com/gusaiani/elixir-oh-my-zsh.git elixir
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
 echo "Installing cask..."
 brew cask
