@@ -6,24 +6,14 @@ export ZSH=$HOME/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="refined"
 
+plugins=(git elixir fzf zsh-autosuggestions zsh-syntax-highlighting)
+
 source $ZSH/oh-my-zsh.sh
-
-# plugins=(git elixir fzf zsh-autosuggestions zsh-syntax-highlighting)
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-#########################  OLD ZPROFILE ########################################
-# # -*- mode: shell-script; -*-
-# export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin"
-
-# Load direnv zsh and ssh keys
-# eval "$(direnv hook zsh)"
-# eval "$(direnv hook zsh ssh-agent -s)"
-# ssh-add ~/.ssh/*_rsa
-
 # Load asdf
 # autoload -Uz compinit
 # compinit
