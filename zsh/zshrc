@@ -14,28 +14,21 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Load asdf
-# autoload -Uz compinit
-# compinit
+## Load asdf
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
-export ZSH_DISABLE_COMPFIX=true
+#export ZSH_DISABLE_COMPFIX=true
 
-# Enable enable reverse search in zsh
+## Enable enable reverse search in zsh
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
-#NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-source $(brew --prefix nvm)/nvm.sh
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
+##NVM
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+# source $(brew --prefix nvm)/nvm.sh
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
