@@ -70,15 +70,52 @@ export VISUAL=$EDITOR
 
 export VIMCONFIG=~/.config/$EDITOR
 export VIMDATA=~/.local/share/$EDITOR
+
 # aliases
-alias gbr="git branch | grep -v "master" | xargs git branch -D"
 alias vim=$EDITOR
 alias vi=$EDITOR
 alias e=$EDITOR
-alias zshconfig="e ~/.zshrc"
-alias ohmyzsh="e ~/.oh-my-zsh"
-alias dockerbash="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash"
+# GIT
+alias gbr="git branch | grep -v "master" | xargs git branch -D"
 alias gcoi="git branch --all | peco | sed 's/remotes\/origin\///g' | xargs git checkout"
+# GIT alvivi shit
+# Git Status Interactive - Not Added ===================================================
+function gsina {
+  git status --porcelain \
+  | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
+  | peco \
+  | awk '{ print "'`git rev-parse --show-toplevel`'/"$2 }'
+}
+alias g='git'
+alias ga='git add'
+alias gai='gsina | xargs git add'
+alias gaip='gsina | xargs -o git add -p'
+alias gb='git branch'
+alias gbdi='git branch | peco | xargs git branch -d'
+alias gc='git commit'
+alias gco='git checkout'
+alias gcoi="git branch --all | peco | sed 's/remotes\/origin\///g' | xargs git checkout"
+alias gd='git diff'
+alias gdi='gsina | xargs -o git diff'
+alias gf='git fetch --all'
+alias gh='git stash'
+alias ghl='git stash list'
+alias ghp='git stash pop'
+alias git='noglob git'
+alias gl='git log'
+alias gp='git push'
+alias gpo='git push origin'
+alias gpot='git push origin --tags'
+alias gpuo='git push -u origin `git rev-parse --abbrev-ref HEAD`'
+alias gr='git reset'
+alias gri='gsina | git reset'
+alias gs='git status'
+alias gull='git pull'
+alias grc='git rev-list -n 1 HEAD --'
+# ======================================================================================
+
+alias zshconfig="e ~/.zshrc"
+alias dockerbash="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash"
 alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'

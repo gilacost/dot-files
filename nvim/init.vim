@@ -96,13 +96,12 @@ call plug#end()
     set cursorline " highlight cursor position
     set cursorcolumn
     set title "set the title of the iterm tab
-set synmaxcol=150
+    set synmaxcol=150
 "syntax sync minlines=256
-set lazyredraw
-set ttyfast
-set regexpengine=1
+    set lazyredraw
+    set ttyfast
+    set regexpengine=1
 " More natural splits
-"
     set splitbelow          " Horizontal split below current.
     set splitright          " Vertical split to right of current.
 " Show non visual chars
@@ -138,15 +137,6 @@ set regexpengine=1
         endif
     endfunction
     color dracula
-" FZF functions
-" This command now supports CTRL-T, CTRL-V, and CTRL-X key bindings
-" and opens fzf according to g:fzf_layout setting.
-command! Buffers call fzf#run(fzf#wrap(
-    \ {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}))
-" This extends the above example to open fzf in fullscreen
-" when the command is run with ! suffix (Buffers!)
-command! -bang Buffers call fzf#run(fzf#wrap(
-    \ {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}, <bang>0))
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 au ColorScheme * highlight ExtraWhitespace guibg=red
@@ -234,52 +224,45 @@ let g:vim_markdown_folding_level = 2
   nnoremap <leader>lo :lopen<CR>
   nnoremap <leader>lc :lclose<CR>
 
-" Tabs management
-  nnoremap <leader><TAB> gt
-  nnoremap <leader><S-TAB> gT
-
 " Exit vim
   nnoremap <silent><leader>qq :qall<CR>
 
 " Rename File
   map <leader>n :call RenameFile()<cr>
 
-"" Buffer Navigation
-  :nnoremap <C-k> :bnext<CR>
-  :nnoremap <C-l> :bprevious<CR>
-
 " Terminal emulation
-augroup terminal
-autocmd TermOpen * setlocal nospell
-autocmd TermOpen * setlocal nonumber
-autocmd TermOpen * setlocal scrollback=1000
-augroup END
-nnoremap <leader>zz :terminal<CR>
-nnoremap <leader>zh :new<CR>:terminal<CR>
-nnoremap <leader>zv :vnew<CR>:terminal<CR>
-tnoremap <Esc> <C-\><C-n>
+  augroup terminal
+  autocmd TermOpen * setlocal nospell
+  autocmd TermOpen * setlocal nonumber
+  autocmd TermOpen * setlocal scrollback=1000
+  augroup END
+  nnoremap <leader>zz :terminal<CR>
+  nnoremap <leader>zh :new<CR>:terminal<CR>
+  nnoremap <leader>zv :vnew<CR>:terminal<CR>
+  tnoremap <Esc> <C-\><C-n>
 
 " Show undo list
 " nnoremap <leader>u :GundoToggle<CR>
 
 " Tabs
-noremap <silent> nt :tabnew<CR>
-noremap <M-Left> gT
-noremap <M-Right> gt
+  noremap <silent> nt :tabnew<CR>
+  noremap <M-Left> gT
+  noremap <M-Right> gt
+
 " Remap arrow keys to change between buffers
-noremap <C-S-Up> <C-w>k
-noremap <C-S-Down> <C-w>j
-noremap <C-S-Left> <C-w>h
-noremap <C-S-Right> <C-w>l
+  noremap <C-S-Up> <C-w>k
+  noremap <C-S-Down> <C-w>j
+  noremap <C-S-Left> <C-w>h
+  noremap <C-S-Right> <C-w>l
 
 " AG
-noremap <Leader>sc :Ag<CR>
-noremap <Leader>lc :lclose<cr>
-noremap <Leader>lo :lopen<cr>
+  noremap <Leader>sc :Ag<CR>
+  noremap <Leader>lc :lclose<cr>
+  noremap <Leader>lo :lopen<cr>
 
 " quick list and location list
-nnoremap <leader>qo :copen<CR>
-nnoremap <leader>qc :cclose<CR>
+  nnoremap <leader>qo :copen<CR>
+  nnoremap <leader>qc :cclose<CR>
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
 let g:airline_theme='dracula'

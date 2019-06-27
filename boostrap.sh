@@ -40,7 +40,6 @@ brew install findutils
 brew install bash
 
 brew tap crisidev/homebrew-chunkwm
-
 #brew install
 PACKAGES=(
     lsd
