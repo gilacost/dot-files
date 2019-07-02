@@ -208,6 +208,10 @@ let g:vim_markdown_folding_level = 2
 " DEOPLETE
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
+" Support nested vim
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <C-v><Esc> <Esc>
+
 " Signify
   nmap <leader>sd :SignifyDiff<CR>
 
