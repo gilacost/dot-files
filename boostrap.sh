@@ -42,6 +42,8 @@ brew install bash
 brew tap crisidev/homebrew-chunkwm
 #brew install
 PACKAGES=(
+    autoconf
+    wxmac
     lsd
     bat
     direnv
