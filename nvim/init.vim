@@ -10,16 +10,16 @@ filetype off
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
+" ansible yaml
+Plug 'chase/vim-ansible-yaml'
 " buffer explorer
 Plug 'jlanzarotta/bufexplorer'
 " easy motion
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 " set up working directory for project
 Plug 'airblade/vim-rooter'
 " dracula theme and theme selection
 Plug 'dracula/vim', { 'as': 'dracula' }
-" zenburn theme and theme selection
-Plug 'jnurmine/Zenburn', { 'as': 'zenburn' }
 " ruby on fails
 Plug 'vim-ruby/vim-ruby'
 " SQL completion
@@ -94,7 +94,7 @@ call plug#end()
     set ignorecase " Ignore case when searching
     set smartcase " Ignore case when searching lowercase
     set cursorline " highlight cursor position
-    set cursorcolumn
+    " set cursorcolumn
     set title "set the title of the iterm tab
     set synmaxcol=150
 "syntax sync minlines=256
@@ -111,7 +111,7 @@ call plug#end()
     set nocompatible
     syntax on
     filetype plugin indent on
-    set spell spelllang=en_us
+    " set spell spelllang=en_us
 " " Status line syntastic
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
