@@ -10,16 +10,14 @@ filetype off
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
-" ansible yaml
-Plug 'chase/vim-ansible-yaml'
 " buffer explorer
 Plug 'jlanzarotta/bufexplorer'
 " easy motion
 " Plug 'easymotion/vim-easymotion'
 " set up working directory for project
 Plug 'airblade/vim-rooter'
-" dracula theme and theme selection
-Plug 'dracula/vim', { 'as': 'dracula' }
+" Oceanic Next theme and theme selection
+Plug 'mhartington/oceanic-next'
 " ruby on fails
 Plug 'vim-ruby/vim-ruby'
 " SQL completion
@@ -60,8 +58,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " startify (recent files)
 Plug 'mhinz/vim-startify'
 " Git
-" " Show diff with style
-Plug 'mhinz/vim-signify'
+" " " Show diff with style
+Plug 'airblade/vim-gitgutter'
 " Code formating and go to definition
 Plug 'w0rp/ale'
 call plug#end()
@@ -69,6 +67,13 @@ call plug#end()
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let $FZF_DEFAULT_COMMAND = 'ag -g ""'
     set mouse=""
+    " Persistent undo
+    set hidden
+    set undofile
+    set undodir=$HOME/.vim/undo
+
+    set undolevels=1000
+    set undoreload=10000
 " redraw
     set lazyredraw
     set synmaxcol=128
@@ -107,14 +112,12 @@ call plug#end()
 " Show non visual chars
 " non-printable character display settings when :set list
     set noswapfile " Disable Swap Files
-" Terrapou
-    set nocompatible
-    syntax on
-    filetype plugin indent on
+" Theme
+    syntax enable
+    colorscheme OceanicNext
     " set spell spelllang=en_us
 " " Status line syntastic
     set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
 " (Optional)Remove Info(Preview) window
     set completeopt-=preview
@@ -136,7 +139,6 @@ call plug#end()
             redraw!
         endif
     endfunction
-    color dracula
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 au ColorScheme * highlight ExtraWhitespace guibg=red
@@ -195,12 +197,6 @@ let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
 let g:UltiSnipsSnippetDirectories = ["snips", "priv_snips", "UltiSnips" ]
 let g:UltiSnipsEditSplit = "vertical"
 
-" " signify (gutter for git)
-let g:signify_vcs_list = ['git']
-let g:signify_sign_change = '~'
-let g:signify_sign_changedelete = '!'
-let g:signify_realtime = 1
-
 " Show those languages with syntax highliting inside Markdown
 let g:vim_markdown_folding_level = 2
 """""""""""""""""""""" KEYS """"""""""""""""""""""""""""""""
@@ -211,9 +207,6 @@ let g:vim_markdown_folding_level = 2
 " Support nested vim
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-v><Esc> <Esc>
-
-" Signify
-  nmap <leader>sd :SignifyDiff<CR>
 
 " Fuzzy Finder (review)
   noremap <leader>sc :Ag<CR>
@@ -249,7 +242,7 @@ let g:vim_markdown_folding_level = 2
 " nnoremap <leader>u :GundoToggle<CR>
 
 " Tabs
-  noremap <silent> nt :tabnew<CR>
+  noremap <silent> nt :tabnew<CR>:terminal<CR>
   noremap <M-Left> gT
   noremap <M-Right> gt
 
@@ -269,7 +262,7 @@ let g:vim_markdown_folding_level = 2
   nnoremap <leader>qc :cclose<CR>
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
-let g:airline_theme='dracula'
+let g:airline_theme='oceanicnext'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1

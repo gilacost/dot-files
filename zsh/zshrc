@@ -1,15 +1,16 @@
 export ZSH=$HOME/.oh-my-zsh
+# enables iex history between sessions
 export ERL_AFLAGS="-kernel shell_history enabled"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="refined"
 
-plugins=(git elixir fzf zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zshrc_local
+eval "$(rbenv init -)"
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -53,6 +54,8 @@ setopt always_to_end
 zstyle ':completion:*' menu select # select completions with arrow keys
 zstyle ':completion:*' group-name '' # group results by category
 zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
+# Turn off all beeps
+unsetopt BEEP
 
 # # Ask kitty to use config from ~/.config (even on MacOS)
 export KITTY_CONFIG_DIRECTORY="$HOME/.config/kitty"
@@ -89,6 +92,7 @@ function gsina {
 }
 alias g='git'
 alias ga='git add'
+alias gst='git status'
 alias gai='gsina | xargs git add'
 alias gaip='gsina | xargs -o git add -p'
 alias gb='git branch'
@@ -113,6 +117,7 @@ alias gri='gsina | git reset'
 alias gs='git status'
 alias gull='git pull'
 alias grc='git rev-list -n 1 HEAD --'
+alias gapa='git add --patch'
 # ======================================================================================
 
 alias zshconfig="e ~/.zshrc"
@@ -123,3 +128,12 @@ alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 alias cat='bat'
+
+# POWERLEVEL9K_MODE='nerdfont-complete'
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+# source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# source ~/.p10k.zsh
+autoload -U promptinit; promptinit
+prompt pure

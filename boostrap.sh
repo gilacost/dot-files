@@ -42,6 +42,9 @@ brew install bash
 brew tap crisidev/homebrew-chunkwm
 #brew install
 PACKAGES=(
+    rbenv
+    coreutils
+    gpg
     autoconf
     wxmac
     lsd
@@ -81,6 +84,8 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
 #install asdf plugins
 asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
 
 echo "Installing packages..."
 brew install ${PACKAGES[@]}
