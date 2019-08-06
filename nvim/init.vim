@@ -12,8 +12,6 @@ filetype off
 call plug#begin('~/.config/nvim/plugged')
 " buffer explorer
 Plug 'jlanzarotta/bufexplorer'
-" easy motion
-" Plug 'easymotion/vim-easymotion'
 " set up working directory for project
 Plug 'airblade/vim-rooter'
 " Oceanic Next theme and theme selection
@@ -44,7 +42,7 @@ Plug 'elixir-editors/vim-elixir'
 " vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
 " only for hackers
-" Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 " neovim dispatch adapter
 Plug 'radenling/vim-dispatch-neovim'
 " fancy status bar
@@ -246,20 +244,31 @@ let g:vim_markdown_folding_level = 2
   noremap <M-Left> gT
   noremap <M-Right> gt
 
-" Remap arrow keys to change between buffers
-  noremap <C-S-Up> <C-w>k
-  noremap <C-S-Down> <C-w>j
-  noremap <C-S-Left> <C-w>h
-  noremap <C-S-Right> <C-w>l
-
 " AG
   noremap <Leader>sc :Ag<CR>
+
+" Quick Fix
   noremap <Leader>lc :lclose<cr>
   noremap <Leader>lo :lopen<cr>
 
 " quick list and location list
   nnoremap <leader>qo :copen<CR>
   nnoremap <leader>qc :cclose<CR>
+
+" Easy Motion
+map  <Leader>f <Plug>(easymotion-bd-f)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+nmap s <Plug>(easymotion-s2)
+
+let g:EasyMotion_use_smartsign_us = 1
+le g:EasyMotion_smartcase = 1
+
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" le replacer hack
+:nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
 let g:airline_theme='oceanicnext'
