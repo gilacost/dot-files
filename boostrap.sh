@@ -98,7 +98,7 @@ cd ~/.oh-my-zsh/custom/plugins
 git clone https://github.com/gusaiani/elixir-oh-my-zsh.git elixir
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+# git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
 echo "Installing cask..."
 brew cask
@@ -137,7 +137,9 @@ PYTHON_PACKAGES=(
 sudo pip3 install ${PYTHON_PACKAGES[@]}
 
 #echo "Installing global npm packages..."
-#npm install marked -g
+npm install marked pure-prompt -g
+#pure promt
+npm install --global pure-prompt
 
 echo "Configuring OSX..."
 #set default browser to be firefox
