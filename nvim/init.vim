@@ -10,8 +10,6 @@ filetype off
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
-" buffer explorer
-Plug 'jlanzarotta/bufexplorer'
 " set up working directory for project
 Plug 'airblade/vim-rooter'
 " Oceanic Next theme and theme selection
@@ -203,6 +201,12 @@ let g:vim_markdown_folding_level = 2
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Support nested vim
+  nnoremap <leader>t :terminal<CR>
+
+" Remove all buffers but current
+  nnoremap <leader>rb :bufdo bd!<CR>
+
+" Support nested vim
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-v><Esc> <Esc>
 
@@ -262,7 +266,7 @@ map <Leader>k <Plug>(easymotion-k)
 nmap s <Plug>(easymotion-s2)
 
 let g:EasyMotion_use_smartsign_us = 1
-le g:EasyMotion_smartcase = 1
+let g:EasyMotion_smartcase = 1
 
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)

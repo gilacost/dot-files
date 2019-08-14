@@ -109,7 +109,7 @@ CASKS=(
     docker
     flux
     spotify
-    franz
+    station
     firefox
     google-chrome
     slack

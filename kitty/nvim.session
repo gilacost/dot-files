@@ -1,5 +1,5 @@
 layout tall
 title nvim
-cd ~/Repos/derivco_spain/
+cd ~/Repos
 launch zsh -c "source ~/.zshrc && nvr"
 
