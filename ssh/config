@@ -1,0 +1,4 @@
+Host *
+     User root
+     Port 22
+     IdentityFile ~/.ssh/github_rsa
