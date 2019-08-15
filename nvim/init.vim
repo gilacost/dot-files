@@ -135,6 +135,14 @@ call plug#end()
             redraw!
         endif
     endfunction
+" close all buffers but current
+    function! CloseAllBuffersButCurrent()
+      let curr = bufnr("%")
+      let last = bufnr("$")
+
+      if curr > 1    | silent! execute "1,".(curr-1)."bd!"     | endif
+      if curr < last | silent! execute (curr+1).",".last."bd!" | endif
+    endfunction
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 au ColorScheme * highlight ExtraWhitespace guibg=red
@@ -201,10 +209,10 @@ let g:vim_markdown_folding_level = 2
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Support nested vim
-  nnoremap <leader>t :terminal<CR>
+  noremap <leader>to :terminal<CR>
 
 " Remove all buffers but current
-  nnoremap <leader>rb :bufdo bd!<CR>
+  noremap <leader>rb :call CloseAllBuffersButCurrent()<CR>
 
 " Support nested vim
   tnoremap <Esc> <C-\><C-n>
