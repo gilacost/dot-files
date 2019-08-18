@@ -14,6 +14,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-rooter'
 " Oceanic Next theme and theme selection
 Plug 'mhartington/oceanic-next'
+Plug 'ayu-theme/ayu-vim' " or other package manager
 " ruby on fails
 Plug 'vim-ruby/vim-ruby'
 " SQL completion
@@ -110,8 +111,21 @@ call plug#end()
     set noswapfile " Disable Swap Files
 " Theme
     syntax enable
-    colorscheme OceanicNext
-    " set spell spelllang=en_us
+    " colorscheme OceanicNext
+    set termguicolors     " enable true colors support
+"Change theme depending on the time of day
+    let hr = (strftime('%H'))
+    if hr >= 19
+     let ayucolor="mirage" " for mirage version of theme
+    elseif hr >= 8
+     let ayucolor="light"  " for light version of theme
+    elseif hr >= 0
+     let ayucolor="mirage" " for mirage version of theme
+    endif
+    " let ayucolor="light"  " for light version of theme
+    " let ayucolor="dark"   " for dark version of theme
+    colorscheme ayu
+    set spell spelllang=en_us
 " " Status line syntastic
     set statusline+=%#warningmsg#
     set statusline+=%*
