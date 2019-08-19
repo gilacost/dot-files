@@ -117,10 +117,13 @@ call plug#end()
     let hr = (strftime('%H'))
     if hr >= 19
      let ayucolor="mirage" " for mirage version of theme
+     let g:airline_theme='ayu_mirage'
     elseif hr >= 8
      let ayucolor="light"  " for light version of theme
+     let g:airline_theme='ayu_light'
     elseif hr >= 0
      let ayucolor="mirage" " for mirage version of theme
+     let g:airline_theme='ayu_mirage'
     endif
     " let ayucolor="light"  " for light version of theme
     " let ayucolor="dark"   " for dark version of theme
@@ -297,7 +300,6 @@ omap / <Plug>(easymotion-tn)
 :nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
-let g:airline_theme='oceanicnext'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
