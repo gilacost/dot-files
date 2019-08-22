@@ -111,23 +111,22 @@ call plug#end()
     set noswapfile " Disable Swap Files
 " Theme
     syntax enable
-    " colorscheme OceanicNext
     set termguicolors     " enable true colors support
 "Change theme depending on the time of day
     let hr = (strftime('%H'))
-    if hr >= 19
-     let ayucolor="mirage" " for mirage version of theme
-     let g:airline_theme='ayu_mirage'
+    if hr >= 17
+     colorscheme OceanicNext
+     let g:airline_theme='oceanicnext'
     elseif hr >= 8
+     colorscheme ayu
      let ayucolor="light"  " for light version of theme
      let g:airline_theme='ayu_light'
     elseif hr >= 0
-     let ayucolor="mirage" " for mirage version of theme
-     let g:airline_theme='ayu_mirage'
+     colorscheme OceanicNext
+     let g:airline_theme='oceanicnext'
     endif
     " let ayucolor="light"  " for light version of theme
     " let ayucolor="dark"   " for dark version of theme
-    colorscheme ayu
     set spell spelllang=en_us
 " " Status line syntastic
     set statusline+=%#warningmsg#
