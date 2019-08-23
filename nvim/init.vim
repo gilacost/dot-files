@@ -14,7 +14,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-rooter'
 " Oceanic Next theme and theme selection
 Plug 'mhartington/oceanic-next'
-Plug 'ayu-theme/ayu-vim' " or other package manager
+Plug 'lifepillar/vim-solarized8'
 " ruby on fails
 Plug 'vim-ruby/vim-ruby'
 " SQL completion
@@ -36,6 +36,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-fugitive'
 " " elixir and phoenix stuff
 Plug 'elixir-editors/vim-elixir'
 " vim dispatch allows to run external commands asynchronously
@@ -118,15 +119,13 @@ call plug#end()
      colorscheme OceanicNext
      let g:airline_theme='oceanicnext'
     elseif hr >= 8
-     colorscheme ayu
-     let ayucolor="light"  " for light version of theme
-     let g:airline_theme='ayu_light'
+     set background=light
+     colorscheme solarized8
+     let g:airline_theme='solarized'
     elseif hr >= 0
      colorscheme OceanicNext
      let g:airline_theme='oceanicnext'
     endif
-    " let ayucolor="light"  " for light version of theme
-    " let ayucolor="dark"   " for dark version of theme
     set spell spelllang=en_us
 " " Status line syntastic
     set statusline+=%#warningmsg#
