@@ -14,7 +14,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-rooter'
 " Oceanic Next theme and theme selection
 Plug 'mhartington/oceanic-next'
-Plug 'lifepillar/vim-solarized8'
 " ruby on fails
 Plug 'vim-ruby/vim-ruby'
 " SQL completion
@@ -109,23 +108,12 @@ call plug#end()
     set splitright          " Vertical split to right of current.
 " Show non visual chars
 " non-printable character display settings when :set list
-    set noswapfile " Disable Swap Files
+    " set noswapfile " Disable Swap Files
 " Theme
     syntax enable
     set termguicolors     " enable true colors support
 "Change theme depending on the time of day
-    let hr = (strftime('%H'))
-    if hr >= 17
-     colorscheme OceanicNext
-     let g:airline_theme='oceanicnext'
-    elseif hr >= 8
-     set background=light
-     colorscheme solarized8
-     let g:airline_theme='solarized'
-    elseif hr >= 0
-     colorscheme OceanicNext
-     let g:airline_theme='oceanicnext'
-    endif
+
     set spell spelllang=en_us
 " " Status line syntastic
     set statusline+=%#warningmsg#
@@ -270,6 +258,17 @@ let g:vim_markdown_folding_level = 2
   noremap <silent> nt :tabnew<CR>:terminal<CR>
   noremap <M-Left> gT
   noremap <M-Right> gt
+" splits
+  nnoremap <C-J> <C-W><C-J>
+  nnoremap <C-K> <C-W><C-K>
+  nnoremap <C-L> <C-W><C-L>
+  nnoremap <C-H> <C-W><C-H>
+"Max out the height of the current split
+" ctrl + w _
+"Max out the width of the current split
+" ctrl + w |
+"Normalize all split sizes, which is very handy when resizing terminal
+" ctrl + w =
 
 " AG
   noremap <Leader>sc :Ag<CR>
@@ -283,19 +282,19 @@ let g:vim_markdown_folding_level = 2
   nnoremap <leader>qc :cclose<CR>
 
 " Easy Motion
-map  <Leader>f <Plug>(easymotion-bd-f)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-nmap s <Plug>(easymotion-s2)
+  map  <Leader>f <Plug>(easymotion-bd-f)
+  map <Leader>j <Plug>(easymotion-j)
+  map <Leader>k <Plug>(easymotion-k)
+  nmap s <Plug>(easymotion-s2)
 
-let g:EasyMotion_use_smartsign_us = 1
-let g:EasyMotion_smartcase = 1
+  let g:EasyMotion_use_smartsign_us = 1
+  let g:EasyMotion_smartcase = 1
 
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
+  map  / <Plug>(easymotion-sn)
+  omap / <Plug>(easymotion-tn)
 
 " le replacer hack
-:nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
+  :nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
 let g:airline#extensions#ale#enabled = 1
