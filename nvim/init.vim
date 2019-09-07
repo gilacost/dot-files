@@ -61,158 +61,161 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 call plug#end()
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-    set mouse=""
-    " Persistent undo
-    set hidden
-    set undofile
-    set undodir=$HOME/.vim/undo
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+  set mouse=""
+  " Persistent undo
+  set hidden
+  set undofile
+  set undodir=$HOME/.vim/undo
 
-    set undolevels=1000
-    set undoreload=10000
+  set undolevels=1000
+  set undoreload=10000
 " redraw
-    set lazyredraw
-    set synmaxcol=128
-    syntax sync minlines=256
+  set lazyredraw
+  set synmaxcol=128
+  syntax sync minlines=256
 " show invisibles
 " use the system clipboard for yank/put/delete
-    set clipboard+=unnamed,unnamedplus
-    set number
+  set clipboard+=unnamed,unnamedplus
+  set number
 " Indent
-    set shiftwidth=2   " number of spaces to use for each step of (auto)indent.
-    set shiftround     " round indent to multiple of 'shiftwidth'
-    set smarttab
-    set autoindent
-    set copyindent
-    set smartindent
-    set colorcolumn=80,100
-    set tabstop=2 " - Two spaces wide
-    set softtabstop=2
-    set expandtab " - Expand them all
-    set shiftwidth=2 " - Indent by 2 spaces by default
-    set hlsearch " Highlight search results
-    set incsearch " Incremental search, search as you type
-    set ignorecase " Ignore case when searching
-    set smartcase " Ignore case when searching lowercase
-    set cursorline " highlight cursor position
-    " set cursorcolumn
-    set title "set the title of the iterm tab
-    set synmaxcol=150
+  set shiftwidth=2   " number of spaces to use for each step of (auto)indent.
+  set shiftround     " round indent to multiple of 'shiftwidth'
+  set smarttab
+  set autoindent
+  set copyindent
+  set smartindent
+  set colorcolumn=80,100
+  set tabstop=2 " - Two spaces wide
+  set softtabstop=2
+  set expandtab " - Expand them all
+  set shiftwidth=2 " - Indent by 2 spaces by default
+  set hlsearch " Highlight search results
+  set incsearch " Incremental search, search as you type
+  set ignorecase " Ignore case when searching
+  set smartcase " Ignore case when searching lowercase
+  set cursorline " highlight cursor position
+  " set cursorcolumn
+  set title "set the title of the iterm tab
+  set synmaxcol=150
 "syntax sync minlines=256
-    set lazyredraw
-    set ttyfast
-    set regexpengine=1
+  set lazyredraw
+  set ttyfast
+  set regexpengine=1
 " More natural splits
-    set splitbelow          " Horizontal split below current.
-    set splitright          " Vertical split to right of current.
+  set splitbelow          " Horizontal split below current.
+  set splitright          " Vertical split to right of current.
 " Show non visual chars
 " non-printable character display settings when :set list
     " set noswapfile " Disable Swap Files
 " Theme
-    syntax enable
-    set termguicolors     " enable true colors support
+  syntax enable
+  set termguicolors     " enable true colors support
 "Change theme depending on the time of day
-
-    set spell spelllang=en_us
-" " Status line syntastic
-    set statusline+=%#warningmsg#
-    set statusline+=%*
+  colorscheme OceanicNext
+  let g:airline_theme='oceanicnext'
+  set spell spelllang=en_us
+" Status line syntastic
+  set statusline+=%#warningmsg#
+  set statusline+=%*
+  " set statusline+=%{FugitiveStatusline()}
 " (Optional)Remove Info(Preview) window
-    set completeopt-=preview
+  set completeopt-=preview
 " (Optional)Hide Info(Preview) window after completions
-    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+  autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+  autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " Set JSON on mustached json files
-    autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
-" Delete git buffer when hidden
-    autocmd FileType gitcommit set bufhidden=delete
-    autocmd FileType markdown setlocal spell wrap textwidth=80
+  autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
+" Del te git buffer when hidden
+  autocmd FileType gitcommit set bufhidden=delete
+  autocmd FileType markdown setlocal spell wrap textwidth=80
 " Rename current file
-    function! RenameFile()
-        let old_name = expand('%')
-        let new_name = input('New file name: ', expand('%'), 'file')
-        if new_name != '' && new_name != old_name
-            exec ':saveas ' . new_name
-            exec ':silent !rm ' . old_name
-            redraw!
-        endif
-    endfunction
+  function! RenameFile()
+      let old_name = expand('%')
+      let new_name = input('New file name: ', expand('%'), 'file')
+      if new_name != '' && new_name != old_name
+          exec ':saveas ' . new_name
+          exec ':silent !rm ' . old_name
+          redraw!
+      endif
+  endfunction
 " close all buffers but current
-    function! CloseAllBuffersButCurrent()
-      let curr = bufnr("%")
-      let last = bufnr("$")
+  function! CloseAllBuffersButCurrent()
+    let curr = bufnr("%")
+    let last = bufnr("$")
 
-      if curr > 1    | silent! execute "1,".(curr-1)."bd!"     | endif
-      if curr < last | silent! execute (curr+1).",".last."bd!" | endif
-    endfunction
+    if curr > 1    | silent! execute "1,".(curr-1)."bd!"     | endif
+    if curr < last | silent! execute (curr+1).",".last."bd!" | endif
+  endfunction
+" terminal in insert mode
+  if has('nvim')
+      autocmd TermOpen term://* startinsert
+  endif
 
-highlight ExtraWhitespace ctermbg=red guibg=red
-au ColorScheme * highlight ExtraWhitespace guibg=red
-au BufEnter * match ExtraWhitespace /\s\+$/
-au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-au InsertLeave * match ExtraWhiteSpace /\s\+$/
+  highlight ExtraWhitespace ctermbg=red guibg=red
+  au ColorScheme * highlight ExtraWhitespace guibg=red
+  au BufEnter * match ExtraWhitespace /\s\+$/
+  au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
-function! TrimWhiteSpace()
-    %s/\s\+$//e
-endfunction
-autocmd BufWritePre * :call TrimWhiteSpace()
+  function! TrimWhiteSpace()
+      %s/\s\+$//e
+  endfunction
+  autocmd BufWritePre * :call TrimWhiteSpace()
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
 " " startyify
-let g:startify_change_to_vcs_root = 1
+  let g:startify_change_to_vcs_root = 1
 
 " vim-jsx
-let g:jsx_ext_required = 0
+  let g:jsx_ext_required = 0
 
 " deoplete
-let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_at_startup = 1
 
 " ALE - Asynchronous Linting Engine
-let g:ale_fix_on_save = 1
-let g:ale_sign_column_always = 1
+  let g:ale_fix_on_save = 1
+  let g:ale_sign_column_always = 1
 " let g:ale_lint_on_text_changed = 'never'
-let g:ale_sign_error = 'E'
-let g:ale_sign_warning = 'W'
-let g:ale_elm_make_use_global = 1
-let g:ale_elm_format_use_global = 1
-let g:ale_linters = {
+  let g:ale_sign_error = 'E'
+  let g:ale_sign_warning = 'W'
+  let g:ale_elm_make_use_global = 1
+  let g:ale_elm_format_use_global = 1
+  let g:ale_linters = {
       \ 'elixir': ['mix'],
       \ 'javascript': ['eslint'],
       \ 'scss': ['scss-lint'],
       \}
-let g:ale_fixers = {
+  let g:ale_fixers = {
       \ 'elixir': ['mix_format', 'remove_trailing_lines', 'trim_whitespace'],
       \ 'javascript': ['prettier'],
       \ 'scss': ['prettier']
       \}
 
 " vim-javascript
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
+  let g:javascript_plugin_jsdoc = 1
+  let g:javascript_plugin_flow = 1
 
 " Elm Cast
-let g:elm_detailed_complete = 1
-let g:elm_format_autosave = 1
+  let g:elm_detailed_complete = 1
+  let g:elm_format_autosave = 1
 
 " Disable polyglot in favor of real language packs
 " Polyglot is great but it doesn't activate all the functionalities for all
 " languages in order to make it load fast.
-let g:polyglot_disabled = ['elm', 'markdown']
+  let g:polyglot_disabled = ['elm', 'markdown']
 
 " Ultisnips
-let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
-let g:UltiSnipsSnippetDirectories = ["snips", "priv_snips", "UltiSnips" ]
-let g:UltiSnipsEditSplit = "vertical"
+  let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
+  let g:UltiSnipsSnippetDirectories = ["snips", "priv_snips", "UltiSnips" ]
+  let g:UltiSnipsEditSplit = "vertical"
 
 " Show those languages with syntax highliting inside Markdown
-let g:vim_markdown_folding_level = 2
+  let g:vim_markdown_folding_level = 2
 """""""""""""""""""""" KEYS """"""""""""""""""""""""""""""""
 
 " DEOPLETE
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" Support nested vim
-  noremap <leader>to :terminal<CR>
 
 " Remove all buffers but current
   noremap <leader>rb :call CloseAllBuffersButCurrent()<CR>
@@ -246,9 +249,9 @@ let g:vim_markdown_folding_level = 2
   autocmd TermOpen * setlocal nonumber
   autocmd TermOpen * setlocal scrollback=1000
   augroup END
-  nnoremap <leader>zz :terminal<CR>
-  nnoremap <leader>zh :new<CR>:terminal<CR>
-  nnoremap <leader>zv :vnew<CR>:terminal<CR>
+  noremap <leader>zz :terminal<CR>
+  noremap <leader>zh :new<CR>:terminal<CR>
+  noremap <leader>zv :vnew<CR>:terminal<CR>
   tnoremap <Esc> <C-\><C-n>
 
 " Show undo list
@@ -270,7 +273,7 @@ let g:vim_markdown_folding_level = 2
 "Normalize all split sizes, which is very handy when resizing terminal
 " ctrl + w =
 
-" AG
+"AG
   noremap <Leader>sc :Ag<CR>
 
 " Quick Fix
@@ -302,6 +305,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_section_b = '%{strftime("%c")}'
 let g:airline_section_y = 'BN: %{bufnr("%")}'
+let g:airline_section_x = '%{FugitiveStatusline()}'
 
 """""""""""""""""""""" PROJECTIONS """"""""""""""""""""""""""""""""
 
