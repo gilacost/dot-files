@@ -54,11 +54,12 @@ Plug  'jceb/vim-orgmode'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " startify (recent files)
 Plug 'mhinz/vim-startify'
-" Git
-" " " Show diff with style
+" Git Show diff with style
 Plug 'airblade/vim-gitgutter'
 " Code formating and go to definition
 Plug 'w0rp/ale'
+" Tab rename
+Plug 'gcmt/taboo.vim' " Tab rename
 call plug#end()
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1

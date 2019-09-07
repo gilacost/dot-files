@@ -130,11 +130,7 @@ alias lla='ls -la'
 alias lt='ls --tree'
 alias cat='bat'
 
-# POWERLEVEL9K_MODE='nerdfont-complete'
-# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
-
+source ~/enhancd/init.sh
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# source ~/.p10k.zsh
 autoload -U promptinit; promptinit
 prompt pure
