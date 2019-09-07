@@ -26,8 +26,9 @@ Plug 'elmcast/elm-vim'
 Plug 'sheerun/vim-polyglot'
 " Fuzzy finder
 " Plugin outside ~/.vim/plugged with post-update hook TO BE REMOVED
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim' " Fuzzy Search
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim' " Fuzzy Search
+Plug 'cloudhead/neovim-fuzzy'
 " Pope's mailic
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
@@ -60,10 +61,12 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 " Tab rename
 Plug 'gcmt/taboo.vim' " Tab rename
+"fancy icons
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+  " let $FZF_DEFAULT_COMMAND = 'ag -g ""'
   set mouse=""
   " Persistent undo
   set hidden
@@ -227,7 +230,8 @@ call plug#end()
 
 " Fuzzy Finder (review)
   noremap <leader>sc :Ag<CR>
-  noremap <C-p> :FZF<CR>
+  "noremap <C-p> :FZF<CR>
+  nnoremap <C-p> :FuzzyOpen<CR>
   noremap <Leader>sg :GitFiles<CR>
 
 " Edit and reload vimrc
