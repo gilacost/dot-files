@@ -60,6 +60,7 @@ PACKAGES=(
     graphviz
     nvm
     zsh
+    fzy
     fzf
     rename
     the_silver_searcher
