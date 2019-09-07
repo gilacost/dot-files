@@ -99,6 +99,8 @@ git clone https://github.com/gusaiani/elixir-oh-my-zsh.git elixir
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
 # git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+#enhancecd
+git clone https://github.com/b4b4r07/enhancd ~/enhancd
 
 echo "Installing cask..."
 brew cask
