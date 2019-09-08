@@ -102,6 +102,8 @@ git clone https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
 # git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 #enhancecd
 git clone https://github.com/b4b4r07/enhancd ~/enhancd
+#language server elixir
+git clone git@github.com:elixir-lsp/elixir-ls.git ~/elixir-ls
 
 echo "Installing cask..."
 brew cask
