@@ -188,13 +188,15 @@ call plug#end()
   au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
-  augroup elixir
-    nnoremap <leader>ef :! elixir %<cr>
-    autocmd FileType elixir nnoremap <c-]> :ALEGoToDefinition<CR>
-  augroup END
-
-  let g:airline_theme='oceanicnext'
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
+" ALE
+  augroup elixir
+    nnoremap <leader>ef :! elixir %<CR>
+    autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinition<CR>
+    autocmd FileType elixir nnoremap <C-d> :ALEHover<CR>
+  augroup END
+  nmap <silent> <C-n> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-b> <Plug>(ale_next_wrap)
 " RIPGREP
   let g:rg_binary = '/usr/local/bin/rg'
 
@@ -330,14 +332,11 @@ call plug#end()
   map  / <Plug>(easymotion-sn)
   omap / <Plug>(easymotion-tn)
 
-" ALE
-  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-  nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
 " le replacer hack
   :nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
+  let g:airline_theme='oceanicnext'
   let g:airline#extensions#ale#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
@@ -366,3 +365,8 @@ let g:projectionist_heuristics = {
       \    }
       \  }
       \ }
+
+  "Refresh devicons
+  if exists('g:loaded_webdevicons')
+      call webdevicons#refresh()
+  endif
