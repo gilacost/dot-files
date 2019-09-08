@@ -70,7 +70,8 @@ Plug 'gcmt/taboo.vim' " Tab rename
 call plug#end()
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+  let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow --vimgrep --glob "!.git/*"'
+
   "
   set mouse=""
   " Persistent undo
@@ -138,6 +139,13 @@ call plug#end()
 " Del te git buffer when hidden
   autocmd FileType gitcommit set bufhidden=delete
   autocmd FileType markdown setlocal spell wrap textwidth=80
+" RG
+  command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
 " Rename current file
   function! RenameFile()
       let old_name = expand('%')
