@@ -42,7 +42,9 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
 " " elixir and phoenix stuff
-Plug 'elixir-editors/vim-elixir'
+" Plug 'elixir-editors/vim-elixir'
+"fancy icons
+Plug 'ryanoasis/vim-devicons'
 " vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
 " only for hackers
@@ -65,8 +67,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 " Tab rename
 Plug 'gcmt/taboo.vim' " Tab rename
-"fancy icons
-Plug 'ryanoasis/vim-devicons'
 call plug#end()
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -123,7 +123,6 @@ call plug#end()
   set termguicolors     " enable true colors support
 "Change theme depending on the time of day
   colorscheme OceanicNext
-  let g:airline_theme='oceanicnext'
   set spell spelllang=en_us
 " Status line syntastic
   set statusline+=%#warningmsg#
@@ -150,9 +149,6 @@ call plug#end()
       endif
   endfunction
 " Compile elixir ls
-  let g:elixirls = {
-  \ 'path': printf('%s/%s', stdpath('config'), 'bundle/elixir-ls'),
-  \ }
   function! ElixirlsCompile()
     let l:commands = join([
       \ 'asdf install',
@@ -194,8 +190,10 @@ call plug#end()
 
   augroup elixir
     nnoremap <leader>ef :! elixir %<cr>
-    autocmd FileType elixir nnoremap <c-]> :ALEGoToDefinition<cr>
+    autocmd FileType elixir nnoremap <c-]> :ALEGoToDefinition<CR>
   augroup END
+
+  let g:airline_theme='oceanicnext'
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
 " RIPGREP
   let g:rg_binary = '/usr/local/bin/rg'
