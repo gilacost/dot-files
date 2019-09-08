@@ -15,7 +15,9 @@ Plug 'airblade/vim-rooter'
 " Oceanic Next theme and theme selection
 Plug 'mhartington/oceanic-next'
 " ruby on fails
-Plug 'vim-ruby/vim-ruby'
+" Plug 'vim-ruby/vim-ruby'
+" Remove highlight when move the cursor after a search
+Plug 'romainl/vim-cool'
 " SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
@@ -26,9 +28,11 @@ Plug 'elmcast/elm-vim'
 Plug 'sheerun/vim-polyglot'
 " Fuzzy finder
 " Plugin outside ~/.vim/plugged with post-update hook TO BE REMOVED
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim' " Fuzzy Search
-Plug 'cloudhead/neovim-fuzzy'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim' " Fuzzy Search
+" Plug 'cloudhead/neovim-fuzzy'
+" Rip grep
+" Plug 'jremmen/vim-ripgrep'
 " Pope's mailic
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
@@ -66,7 +70,8 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  " let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+  let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+  "
   set mouse=""
   " Persistent undo
   set hidden
@@ -144,13 +149,37 @@ call plug#end()
           redraw!
       endif
   endfunction
-" close all buffers but current
-  function! CloseAllBuffersButCurrent()
-    let curr = bufnr("%")
-    let last = bufnr("$")
+" Compile elixir ls
+  let g:elixirls = {
+  \ 'path': printf('%s/%s', stdpath('config'), 'bundle/elixir-ls'),
+  \ }
+  function! ElixirlsCompile()
+    let l:commands = join([
+      \ 'asdf install',
+      \ 'cd /Users/pepo/Repos/elixir-ls',
+      \ 'mix local.hex --force',
+      \ 'mix local.rebar --force',
+      \ 'mix deps.get',
+      \ 'mix compile',
+      \ 'mix elixir_ls.release'
+      \ ], '&&')
 
-    if curr > 1    | silent! execute "1,".(curr-1)."bd!"     | endif
-    if curr < last | silent! execute (curr+1).",".last."bd!" | endif
+    echom '>>> Compiling elixirls'
+    silent call system(l:commands)
+    echom '>>> elixirls compiled'
+  endfunction
+" Linter status
+  function! LinterStatus() abort
+      let l:counts = ale#statusline#Count(bufnr('%'))
+
+      let l:all_errors = l:counts.error + l:counts.style_error
+      let l:all_non_errors = l:counts.total - l:all_errors
+
+      return l:counts.total == 0 ? 'OK' : printf(
+      \   '%dW %dE',
+      \   all_non_errors,
+      \   all_errors
+      \)
   endfunction
 " terminal in insert mode
   if has('nvim')
@@ -163,12 +192,15 @@ call plug#end()
   au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
-  function! TrimWhiteSpace()
-      %s/\s\+$//e
-  endfunction
-  autocmd BufWritePre * :call TrimWhiteSpace()
+  augroup elixir
+    nnoremap <leader>ef :! elixir %<cr>
+    autocmd FileType elixir nnoremap <c-]> :ALEGoToDefinition<cr>
+  augroup END
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
-" " startyify
+" RIPGREP
+  let g:rg_binary = '/usr/local/bin/rg'
+
+" startyify
   let g:startify_change_to_vcs_root = 1
 
 " vim-jsx
@@ -180,21 +212,30 @@ call plug#end()
 " ALE - Asynchronous Linting Engine
   let g:ale_fix_on_save = 1
   let g:ale_sign_column_always = 1
-" let g:ale_lint_on_text_changed = 'never'
+  " let g:ale_lint_on_text_changed = 'never'
   let g:ale_sign_error = 'E'
   let g:ale_sign_warning = 'W'
-  let g:ale_elm_make_use_global = 1
-  let g:ale_elm_format_use_global = 1
-  let g:ale_linters = {
-      \ 'elixir': ['mix'],
-      \ 'javascript': ['eslint'],
-      \ 'scss': ['scss-lint'],
-      \}
-  let g:ale_fixers = {
-      \ 'elixir': ['mix_format', 'remove_trailing_lines', 'trim_whitespace'],
-      \ 'javascript': ['prettier'],
-      \ 'scss': ['prettier']
-      \}
+
+  let g:ale_linters = {}
+  let g:ale_linters.scss = ['stylelint']
+  let g:ale_linters.css = ['stylelint']
+  let g:ale_linters.elixir = ['elixir-ls']
+  let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
+
+  let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+  let g:ale_fixers.javascript = ['eslint']
+  let g:ale_fixers.scss = ['stylelint']
+  let g:ale_fixers.css = ['stylelint']
+  let g:ale_fixers.elm = ['format']
+  let g:ale_fixers.ruby = ['rubocop']
+  let g:ale_ruby_rubocop_executable = 'bundle'
+  let g:ale_fixers.elixir = ['mix_format']
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  let g:ale_elixir_elixir_ls_release = '/Users/pepo/Repos/elixir-ls/release'
+
+  " Write this in your vimrc file
+  let g:ale_set_loclist = 0
+  let g:ale_set_quickfix = 1
 
 " vim-javascript
   let g:javascript_plugin_jsdoc = 1
@@ -221,17 +262,14 @@ call plug#end()
 " DEOPLETE
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" Remove all buffers but current
-  noremap <leader>rb :call CloseAllBuffersButCurrent()<CR>
-
 " Support nested vim
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-v><Esc> <Esc>
 
 " Fuzzy Finder (review)
-  noremap <leader>sc :Ag<CR>
-  "noremap <C-p> :FZF<CR>
-  nnoremap <C-p> :FuzzyOpen<CR>
+  noremap <leader>sc :Rg<CR>
+  noremap <C-p> :FZF<CR>
+  " nnoremap <C-p> :FuzzyOpen<CR>
   noremap <Leader>sg :GitFiles<CR>
 
 " Edit and reload vimrc
@@ -241,6 +279,10 @@ call plug#end()
 " Errors list
   nnoremap <leader>lo :lopen<CR>
   nnoremap <leader>lc :lclose<CR>
+
+" quick list and location list
+  nnoremap <leader>qo :copen<CR>
+  nnoremap <leader>qc :cclose<CR>
 
 " Exit vim
   nnoremap <silent><leader>qq :qall<CR>
@@ -278,17 +320,6 @@ call plug#end()
 "Normalize all split sizes, which is very handy when resizing terminal
 " ctrl + w =
 
-"AG
-  noremap <Leader>sc :Ag<CR>
-
-" Quick Fix
-  noremap <Leader>lc :lclose<cr>
-  noremap <Leader>lo :lopen<cr>
-
-" quick list and location list
-  nnoremap <leader>qo :copen<CR>
-  nnoremap <leader>qc :cclose<CR>
-
 " Easy Motion
   map  <Leader>f <Plug>(easymotion-bd-f)
   map <Leader>j <Plug>(easymotion-j)
@@ -301,16 +332,21 @@ call plug#end()
   map  / <Plug>(easymotion-sn)
   omap / <Plug>(easymotion-tn)
 
+" ALE
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
 " le replacer hack
   :nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_section_b = '%{strftime("%c")}'
-let g:airline_section_y = 'BN: %{bufnr("%")}'
-let g:airline_section_x = '%{FugitiveStatusline()}'
+  let g:airline#extensions#ale#enabled = 1
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline_powerline_fonts = 1
+  let g:airline_section_b = '%{strftime("%c")}'
+  let g:airline_section_y = 'BN: %{bufnr("%")}'
+  let g:airline_section_x = '%{FugitiveStatusline()}'
+  let g:airline_section_c = '%{LinterStatus()}'
 
 """""""""""""""""""""" PROJECTIONS """"""""""""""""""""""""""""""""
 
@@ -332,4 +368,3 @@ let g:projectionist_heuristics = {
       \    }
       \  }
       \ }
-
