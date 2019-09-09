@@ -130,7 +130,7 @@ alias lla='ls -la'
 alias lt='ls --tree'
 alias cat='bat'
 
-source ~/enhancd/init.sh
+# source ~/enhancd/init.sh
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 autoload -U promptinit; promptinit
 prompt pure
