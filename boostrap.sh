@@ -54,6 +54,7 @@ PACKAGES=(
     chunkwm
     koekeishiya/formulae/skhd
     neovim
+    ripgrep
     python3
     ack
     git
