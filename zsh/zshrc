@@ -10,6 +10,8 @@ plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zshrc_local
+source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 eval "$(rbenv init -)"
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -129,8 +131,6 @@ alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 alias cat='bat'
-
-# source ~/enhancd/init.sh
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-autoload -U promptinit; promptinit
-prompt pure
+# autoload -U promptinit; promptinit
+# prompt pure
