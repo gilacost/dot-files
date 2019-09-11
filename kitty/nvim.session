@@ -1,5 +1,3 @@
-layout tall
-title nvim
 cd ~/Repos
+title pantanal
 launch zsh -c "source ~/.zshrc && nvr"
-
