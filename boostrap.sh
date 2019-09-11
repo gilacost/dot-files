@@ -39,10 +39,13 @@ brew install findutils
 # Install Bash 4
 brew install bash
 
-brew tap crisidev/homebrew-chunkwm
+brew tap koekeishiya/formulae
 #brew install
 PACKAGES=(
+    koekeishiya/formulae/skhd
+    yabai
     rbenv
+    graphql-playground
     coreutils
     gpg
     autoconf
@@ -51,8 +54,6 @@ PACKAGES=(
     bat
     direnv
     asdf
-    chunkwm
-    koekeishiya/formulae/skhd
     neovim
     ripgrep
     python3
@@ -100,7 +101,7 @@ cd ~/.oh-my-zsh/custom/plugins
 git clone https://github.com/gusaiani/elixir-oh-my-zsh.git elixir
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
-# git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 #enhancecd
 git clone https://github.com/b4b4r07/enhancd ~/enhancd
 #language server elixir
@@ -186,6 +187,6 @@ echo "auto hide menu bar"
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
 # installing dotfiles
-make install
+cd ~/Repos/dot-files/ && make
 
 echo "Bootstrapping complete"
