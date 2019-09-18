@@ -10,6 +10,8 @@ filetype off
 " - Avoid using standard Vim directory names like 'plugin'
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
+" test that please
+Plug 'janko/vim-test'
 " set up working directory for project
 Plug 'airblade/vim-rooter'
 " Oceanic Next theme and theme selection
@@ -265,6 +267,9 @@ call plug#end()
 
 " Show those languages with syntax highliting inside Markdown
   let g:vim_markdown_folding_level = 2
+
+" le test
+  let test#strategy = 'neovim'
 """""""""""""""""""""" KEYS """"""""""""""""""""""""""""""""
 
 " DEOPLETE
@@ -342,6 +347,13 @@ call plug#end()
 
 " le replacer hack
   :nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
+
+" le test
+  nmap <silent> t<C-n> :TestNearest<CR>
+  nmap <silent> t<C-f> :TestFile<CR>
+  nmap <silent> t<C-s> :TestSuite<CR>
+  nmap <silent> t<C-l> :TestLast<CR>
+  nmap <silent> t<C-g> :TestVisit<CR>
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
   let g:airline_theme='oceanicnext'
