@@ -45,6 +45,7 @@ PACKAGES=(
     koekeishiya/formulae/skhd
     yabai
     rbenv
+    tig
     graphql-playground
     coreutils
     gpg
