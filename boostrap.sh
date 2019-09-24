@@ -43,6 +43,7 @@ brew tap koekeishiya/formulae
 #brew install
 PACKAGES=(
     koekeishiya/formulae/skhd
+    jq
     yabai
     rbenv
     tig
