@@ -290,8 +290,8 @@ call plug#end()
   nnoremap <leader>vr :source $MYVIMRC<CR>
 
 " Errors list
-  nnoremap <leader>lo :lopen<CR>
-  nnoremap <leader>lc :lclose<CR>
+  nnoremap <leader>lo :ALEDetail<CR>
+  nnoremap <leader>ln :ALENext<CR>
 
 " quick list and location list
   nnoremap <leader>qo :copen<CR>
@@ -354,6 +354,9 @@ call plug#end()
   nmap <silent> t<C-s> :TestSuite<CR>
   nmap <silent> t<C-l> :TestLast<CR>
   nmap <silent> t<C-g> :TestVisit<CR>
+
+" ALE
+"
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
   let g:airline_theme='oceanicnext'
