@@ -26,6 +26,8 @@ Plug 'vim-scripts/SQLComplete.vim'
 Plug 'scrooloose/nerdtree'
 " elmo
 Plug 'elmcast/elm-vim'
+" RUST
+Plug 'rust-lang/rust.vim'
 " Polyglot loads language support on demand!
 Plug 'sheerun/vim-polyglot'
 " Fuzzy finder

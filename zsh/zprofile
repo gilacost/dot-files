@@ -24,3 +24,5 @@ export NVM_DIR="$HOME/.nvm"
 
 # # Ask kitty to use config from ~/.config (even on MacOS)
 # export KITTY_CONFIG_DIRECTORY="$HOME/.config/kitty"
+
+export PATH="$HOME/.cargo/bin:$PATH"
