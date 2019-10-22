@@ -22,6 +22,7 @@ eval "$(rbenv init -)"
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
+export PATH="$HOME/.cargo/bin:$PATH"
 #export ZSH_DISABLE_COMPFIX=true
 
 ## Enable enable reverse search in zsh
@@ -125,6 +126,9 @@ alias gapa='git add --patch'
 alias zshconfig="e ~/.zshrc"
 alias dockerbash="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash"
 alias dockerrm="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}"
+alias dockerrmiall='docker rmi "$(docker images -a -q)"'
+alias dockerrmall='docker rm "$(docker ps -a -q)"'
+alias dockerstopall='docker stop "$(docker ps -a -q)"'
 alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
