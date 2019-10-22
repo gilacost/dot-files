@@ -38,3 +38,7 @@
 ;   templatedir = ~/Repos/dot-files/git/templates
 [include]
   path = ~/.gitconfig_local
+[diff]
+    tool = diffmerge
+[difftool "diffmerge"]
+    cmd = /Applications/Diffmerge.app/Contents/MacOS/diffmerge $LOCAL $REMOTE
