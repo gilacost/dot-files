@@ -164,7 +164,7 @@ call plug#end()
   function! ElixirlsCompile()
     let l:commands = join([
       \ 'asdf install',
-      \ 'cd /Users/pepo/Repos/elixir-ls',
+      \ 'cd /Users/josepg/Repos/elixir-ls',
       \ 'mix local.hex --force',
       \ 'mix local.rebar --force',
       \ 'mix deps.get',
@@ -224,16 +224,17 @@ call plug#end()
 " ALE - Asynchronous Linting Engine
   let g:ale_fix_on_save = 1
   let g:ale_sign_column_always = 1
-  " let g:ale_lint_on_text_changed = 'never'
+  let g:ale_lint_on_text_changed = 'never'
   let g:ale_sign_error = 'E'
   let g:ale_sign_warning = 'W'
 
+" %!python -m json.tool
   let g:ale_linters = {}
   let g:ale_linters.scss = ['stylelint']
   let g:ale_linters.css = ['stylelint']
   let g:ale_linters.elixir = ['elixir-ls']
-  " let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
-  let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
+" let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
+" let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
 
   let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
   let g:ale_fixers.javascript = ['eslint']
@@ -244,9 +245,9 @@ call plug#end()
   let g:ale_ruby_rubocop_executable = 'bundle'
   let g:ale_fixers.elixir = ['mix_format']
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  let g:ale_elixir_elixir_ls_release = '/Users/pepo/Repos/elixir-ls/release'
+  let g:ale_elixir_elixir_ls_release = '/Users/josepg/Repos/elixir-ls/release'
 
-  " Write this in your vimrc file
+" Write this in your vimrc file
   let g:ale_set_loclist = 0
   let g:ale_set_quickfix = 1
 
