@@ -133,10 +133,13 @@ alias gapa='git add --patch'
 
 alias zshconfig="e ~/.zshrc"
 alias dockerbash="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash"
+alias dockersh="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/sh"
 alias dockerrm="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}"
+alias dockerlogs="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker logs -f {}"
 alias dockerrmiall='docker rmi "$(docker images -a -q)"'
 alias dockerrmall='docker rm "$(docker ps -a -q)"'
 alias dockerstopall='docker stop "$(docker ps -a -q)"'
+
 alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
