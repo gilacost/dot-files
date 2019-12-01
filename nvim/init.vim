@@ -233,17 +233,15 @@ call plug#end()
   let g:ale_linters.scss = ['stylelint']
   let g:ale_linters.css = ['stylelint']
   let g:ale_linters.elixir = ['elixir-ls']
-" let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
-" let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
+  let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
 
+  let g:ale_fixers.elixir = ['mix_format']
   let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
   let g:ale_fixers.javascript = ['eslint']
   let g:ale_fixers.scss = ['stylelint']
   let g:ale_fixers.css = ['stylelint']
   let g:ale_fixers.elm = ['format']
-  let g:ale_fixers.ruby = ['rubocop']
   let g:ale_ruby_rubocop_executable = 'bundle'
-  let g:ale_fixers.elixir = ['mix_format']
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
   let g:ale_elixir_elixir_ls_release = '/Users/josepg/Repos/elixir-ls/release'
 
