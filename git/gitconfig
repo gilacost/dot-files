@@ -2,10 +2,10 @@
 
 [user]
   name = gilacost
-  email = josep.giralt@derivco.se
-	; signingkey = C2E6E14F
+  email = JosepGiraltDlacoste@gmail.com
+	signingkey = CB696542
 [commit]
-	; gpgsign = true
+	gpgsign = true
 [gpg]
 	program = gpg
 [color]
