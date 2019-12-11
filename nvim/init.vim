@@ -164,7 +164,7 @@ call plug#end()
 "
   function! ElixirlsCompile()
     let l:commands = join([
-      \ 'cd /Users/pepo/Repos/elixir-ls',
+      \ 'cd '.$HOME.'/Repos/elixir-ls',
       \ 'asdf install',
       \ 'mix local.hex --force',
       \ 'mix local.rebar --force',
