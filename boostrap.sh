@@ -59,6 +59,7 @@ PACKAGES=(
     asdf
     neovim
     ripgrep
+    python2
     python3
     ack
     git
@@ -144,14 +145,13 @@ brew cask install ${FONTS[@]}
 
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
+    neovim
     neovim-remote
 )
-sudo pip3 install ${PYTHON_PACKAGES[@]}
 
-#echo "Installing global npm packages..."
-npm install marked pure-prompt -g
-#pure promt
-npm install --global pure-prompt
+pip install ${PYTHON_PACKAGES[@]}
+pip3 install ${PYTHON_PACKAGES[@]}
+#todo install ruby neovim and npm neovim
 
 echo "Configuring OSX..."
 #set default browser to be firefox
