@@ -45,6 +45,7 @@ PACKAGES=(
     koekeishiya/formulae/skhd
     cloc
     jq
+    gpg1
     yabai
     rbenv
     tig
@@ -78,6 +79,14 @@ PACKAGES=(
     terminal-notifier
 )
 
+# GPG
+brew upgrade gnupg
+brew link --overwrite gnupg
+brew install pinentry-mac
+echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+killall gpg-agent
+echo "test" | gpg --clearsign
+
 read -p "Do you want to generate a new ssh key for github?" -n 1 -r; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   read -p "input your email:" -n 1 -r; echo
@@ -93,6 +102,7 @@ asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf plugin-add terraform https://github.com/Banno/asdf-hashicorp.git
+asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
 
 echo "Installing packages..."
