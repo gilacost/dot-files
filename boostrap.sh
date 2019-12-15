@@ -91,6 +91,7 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
 asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf plugin-add terraform https://github.com/Banno/asdf-hashicorp.git
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
 
 echo "Installing packages..."
@@ -115,6 +116,7 @@ brew cask
 brew install caskroom/cask/brew-cask
 
 CASKS=(
+    diffmerge
     kitty
     docker
     flux
