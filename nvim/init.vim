@@ -237,6 +237,7 @@ call plug#end()
   let g:ale_linters.scss = ['stylelint']
   let g:ale_linters.css = ['stylelint']
   let g:ale_linters.elixir = ['elixir-ls']
+  let g:ale_linters.terraform = ['tflint']
 
   let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -245,6 +246,7 @@ call plug#end()
   \   'scss': ['stylelint'],
   \   'css': ['stylelint'],
   \   'elm': ['format'],
+  \   'terraform': ['terraform'],
   \}
 
   let g:ale_ruby_rubocop_executable = 'bundle'
