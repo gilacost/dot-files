@@ -4,7 +4,7 @@
   email = JosepGiraltDlacoste@gmail.com
 	signingkey = CB696542
 [commit]
-	gpgsign = true
+	; gpgsign = true
 [gpg]
 	program = gpg
 [color]
