@@ -19,6 +19,7 @@ OH_MY_ZSH_DST						:= $(DST_DIR)/.oh-my-zsh
 zsh: banner_install_zsh $(ZSHRC) $(OH_MY_ZSH_DST) $(P10K)
 
 $(ZSHRC):
+	@touch $(DST_DIR)/.zshrc_local
 	$(LINK) $(ZSHRC_SRC) $@
 
 $(P10K):
