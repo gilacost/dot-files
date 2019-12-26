@@ -187,9 +187,12 @@ echo "Show filename extensions by default"
 # Show filename extensions by default
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+echo "Auto hide dock"
+# Auto hide dock
+defaults write com.apple.Dock autohide -bool TRUE; killall Dock
+
 echo "Enable tap-to-click"
 # Enable tap-to-click
-
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1

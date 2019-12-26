@@ -1,6 +1,9 @@
 export ZSH=$HOME/.oh-my-zsh
 # enables iex history between sessions
 export ERL_AFLAGS="-kernel shell_history enabled"
+
+export MACOSX_DEPLOYMENT_TARGET=10.14
+export KERL_CONFIGURE_OPTIONS="--without-javac"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
