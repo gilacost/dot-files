@@ -140,6 +140,7 @@ CASKS=(
     slack
     vlc
     1password
+    grammarly
 )
 
 echo "Installing cask apps..."
@@ -188,8 +189,10 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 echo "Enable tap-to-click"
 # Enable tap-to-click
+
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 echo "show battery percentage"
 # show battery percentage
