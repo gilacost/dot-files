@@ -50,7 +50,6 @@ PACKAGES=(
     yabai
     rbenv
     tig
-    graphql-playground
     coreutils
     gpg
     autoconf
@@ -80,6 +79,12 @@ PACKAGES=(
     terminal-notifier
 )
 
+#YABAI
+sudo yabai --install-sa
+
+echo "Installing packages..."
+brew install ${PACKAGES[@]}
+
 # GPG
 brew upgrade gnupg
 brew link --overwrite gnupg
@@ -90,7 +95,7 @@ echo "test" | gpg --clearsign
 
 read -p "Do you want to generate a new ssh key for github?" -n 1 -r; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  read -p "input your email:" -n 1 -r; echo
+  read -p "input your email:" -r; echo
   echo "generating ssh key for ${REPLY}"
   ssh-keygen -t rsa -b 4096 -N '' -C "${REPLY}" -f ~/.ssh/github_rsa
 fi
@@ -106,20 +111,16 @@ asdf plugin-add terraform https://github.com/Banno/asdf-hashicorp.git
 asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
 
-echo "Installing packages..."
-brew install ${PACKAGES[@]}
-
 echo "Cleaning up..."
 brew cleanup
 
 #ZSH pluggins
-cd ~/.oh-my-zsh/custom/plugins
+cd $HOME/.oh-my-zsh/plugins
 git clone https://github.com/gusaiani/elixir-oh-my-zsh.git elixir
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-#enhancecd
-git clone https://github.com/b4b4r07/enhancd ~/enhancd
+git clone https://github.com/romkatv/powerlevel10k.git ../themes/powerlevel10k
+
 #language server elixir
 git clone git@github.com:elixir-lsp/elixir-ls.git ~/elixir-ls
 
@@ -138,7 +139,7 @@ CASKS=(
     google-chrome
     slack
     vlc
-    evernote
+    1password
 )
 
 echo "Installing cask apps..."
@@ -148,9 +149,8 @@ echo "Installing fonts..."
 brew tap caskroom/fonts
 FONTS=(
     font-hack-nerd-font
-    font-hack-nerd-font-mono
-    font-firacode-nerd-font
-    font-firacode-nerd-font-mono
+    font-fira-code
+    therm
 )
 brew cask install ${FONTS[@]}
 
@@ -160,13 +160,13 @@ PYTHON_PACKAGES=(
     neovim-remote
 )
 
-pip install ${PYTHON_PACKAGES[@]}
-pip3 install ${PYTHON_PACKAGES[@]}
+pip3 install --user ${PYTHON_PACKAGES[@]}
+# pip install --user ${PYTHON_PACKAGES[@]}
 #todo install ruby neovim and npm neovim
 
 echo "Configuring OSX..."
 #set default browser to be firefox
-defaultbrowser firefox
+defaultbrowser chrome
 
 echo "ESTO NO SE QUE ES..."
 #Esto no se que es
@@ -203,6 +203,6 @@ echo "auto hide menu bar"
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
 # installing dotfiles
-cd ~/Repos/dot-files/ && make
+cd $HOME/Repos/dot-files/ && make
 
 echo "Bootstrapping complete"

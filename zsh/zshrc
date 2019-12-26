@@ -6,11 +6,11 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting git git-extras docker docker-compose git-auto-fetch ansible)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zshrc_local
-source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
+source $ZSH/themes/powerlevel10k/powerlevel10k.zsh-theme
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 eval "$(rbenv init -)"
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -23,6 +23,7 @@ eval "$(rbenv init -)"
 . $HOME/.asdf/completions/asdf.bash
 
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$PATH:`python3 -c 'import site; print(site.USER_BASE)'`/bin"
 #export ZSH_DISABLE_COMPFIX=true
 
 ## Enable enable reverse search in zsh
