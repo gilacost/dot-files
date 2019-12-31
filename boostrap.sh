@@ -127,6 +127,7 @@ git clone git@github.com:elixir-lsp/elixir-ls.git ~/elixir-ls
 echo "Installing cask..."
 brew cask
 brew install caskroom/cask/brew-cask
+brew tap dorukgezici/cask
 
 CASKS=(
     diffmerge
@@ -141,6 +142,8 @@ CASKS=(
     vlc
     1password
     grammarly
+    slack
+    popcorn-time
 )
 
 echo "Installing cask apps..."
@@ -151,6 +154,7 @@ brew tap caskroom/fonts
 FONTS=(
     font-hack-nerd-font
     font-fira-code
+    font-fontawesome
     therm
 )
 brew cask install ${FONTS[@]}
