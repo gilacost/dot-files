@@ -144,6 +144,7 @@ CASKS=(
     grammarly
     slack
     popcorn-time
+    recordit
 )
 
 echo "Installing cask apps..."
