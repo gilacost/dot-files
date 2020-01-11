@@ -42,6 +42,7 @@ brew install bash
 brew tap koekeishiya/formulae
 #brew install
 PACKAGES=(
+    az
     koekeishiya/formulae/skhd
     tflint
     cloc
