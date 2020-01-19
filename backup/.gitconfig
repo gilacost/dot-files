@@ -1,0 +1,43 @@
+# -*- mode: gitconfig; -*-
+[user]
+  name = gilacost
+  email = josepgiraltdlacoste@gmail.com
+  signingkey = B3380190
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[core]
+  excludesfile = ~/.gitignore
+  autocrlf = input
+	editor = nvr -cc split --remote-wait
+[apply]
+  whitespace = fix
+[format]
+  pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
+[alias]
+  amend = commit --amend --no-edit
+  co = checkout
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative
+  nb = checkout -b
+  ri = rebase -i
+  rim = rebase -i master
+  s = status --short -b
+[push]
+  default = current
+[rebase]
+  autosquash = true
+[rerere]
+  enabled = true
+; [init]
+;   templatedir = ~/Repos/dot-files/git/templates
+[include]
+  path = ~/.gitconfig_local
+[diff]
+    tool = diffmerge
+[difftool "diffmerge"]
+    cmd = /Applications/Diffmerge.app/Contents/MacOS/diffmerge $LOCAL $REMOTE
