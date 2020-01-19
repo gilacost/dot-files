@@ -78,6 +78,7 @@ PACKAGES=(
     defaultbrowser
     peco
     terminal-notifier
+    pre-commit
 )
 
 #YABAI
