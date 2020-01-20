@@ -196,6 +196,12 @@ call plug#end()
       autocmd TermOpen term://* startinsert
   endif
 
+  highlight ExtraWhitespace ctermbg=red guibg=red
+  au ColorScheme * highlight ExtraWhitespace guibg=red
+  au BufEnter * match ExtraWhitespace /\s\+$/
+  au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  au InsertLeave * match ExtraWhiteSpace /\s\+$/
+
   " let g:ruby_host_prog=$HOME.'/.gem/ruby/2.6.0/bin/neovim-ruby-host'
   let g:python_host_prog='/usr/local/bin/python2.7'
   let g:python3_host_prog='/usr/local/bin/python3.7'
@@ -220,6 +226,34 @@ call plug#end()
 " deoplete
   let g:deoplete#enable_at_startup = 1
 
+" %!python -m json.tool
+  let g:ale_linters = {
+  \   'elixir': ['elixir-ls'],
+  \   'ansible': ['ansible-lint'],
+  \   'dockerfile': ['hadolint'],
+  \   'terraform': ['tflint'],
+  \}
+
+  " \   'rust': ['rls'],
+  " \   'javascript': ['prettier'],
+  " \   'scss': ['stylelint'],
+  " \   'css': ['stylelint'],
+  " \   'yaml': ['prettier'],
+  " \   'json': ['prettier'],
+  let g:ale_fixers = {
+  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \   'elixir': ['mix_format'],
+  \   'elm': ['format'],
+  \   'rust': ['rustfmt'],
+  \   'terraform': ['terraform'],
+  \}
+
+  " \   'scss': ['stylelint'],
+  " \   'css': ['stylelint'],
+  " \   'javascript': ['prettier'],
+  " \   'yaml': ['prettier'],
+  " \   'json': ['prettier'],
+
 " ALE - Asynchronous Linting Engine
   let g:ale_fix_on_save = 1
   let g:ale_sign_column_always = 1
@@ -227,44 +261,12 @@ call plug#end()
   let g:ale_sign_error = 'E'
   let g:ale_sign_warning = 'W'
 
-" %!python -m json.tool
-  let g:ale_linters = {}
-  let g:ale_linters.scss = ['stylelint']
-  let g:ale_linters.css = ['stylelint']
-  let g:ale_linters.elixir = ['elixir-ls']
-  let g:ale_linters.terraform = ['tflint']
-let g:ale_linters = {
-  \   'javascript': ['prettier', 'eslint'],
-  \   'scss': ['stylelint'],
-  \   'css': ['stylelint'],
-  \   'elixir': ['elixir-ls'],
-  \   'ansible': ['ansible-lint'],
-  \   'dockerfile': ['hadolint'],
-  \   'rust': ['rls'],
-  \   'yaml': ['prettier'],
-  \   'json': ['prettier'],
-  \   'terraform': ['tflint']
-}
-
-  let g:ale_fixers = {
-  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-  \   'javascript': ['esprettierint'],
-  \   'yaml': ['prettier'],
-  \   'json': ['prettier'],
-  \   'elixir': ['mix_format'],
-  \   'scss': ['stylelint'],
-  \   'css': ['stylelint'],
-  \   'elm': ['format'],
-      \'rust': ['rustfmt'],
-  \   'terraform': ['terraform'],
-  \}
-
-  " let g:ale_ruby_rubocop_executable = 'bundle'
-  " let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  let g:ale_ruby_rubocop_executable = 'bundle'
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
   let g:ale_elixir_elixir_ls_release = $HOME.'/Repos/elixir-ls/release'
 
 " Write this in your vimrc file
-  let g:ale_set_loclist = 1
+  " let g:ale_set_loclist = 1
   let g:ale_set_quickfix = 1
 
 " vim-javascript
