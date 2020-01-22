@@ -166,6 +166,7 @@ echo "Installing Python packages..."
 PYTHON_PACKAGES=(
     neovim
     neovim-remote
+    aws-cli
 )
 
 pip3 install --user ${PYTHON_PACKAGES[@]}

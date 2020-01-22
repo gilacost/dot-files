@@ -232,27 +232,27 @@ call plug#end()
   \   'ansible': ['ansible-lint'],
   \   'dockerfile': ['hadolint'],
   \   'terraform': ['tflint'],
+  \   'yaml': ['prettier'],
+  \   'json': ['prettier'],
   \}
 
   " \   'rust': ['rls'],
   " \   'javascript': ['prettier'],
   " \   'scss': ['stylelint'],
   " \   'css': ['stylelint'],
-  " \   'yaml': ['prettier'],
-  " \   'json': ['prettier'],
   let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
   \   'elixir': ['mix_format'],
   \   'elm': ['format'],
   \   'rust': ['rustfmt'],
   \   'terraform': ['terraform'],
+  \   'yaml': ['prettier'],
+  \   'json': ['prettier'],
   \}
 
   " \   'scss': ['stylelint'],
   " \   'css': ['stylelint'],
   " \   'javascript': ['prettier'],
-  " \   'yaml': ['prettier'],
-  " \   'json': ['prettier'],
 
 " ALE - Asynchronous Linting Engine
   let g:ale_fix_on_save = 1
