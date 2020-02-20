@@ -179,7 +179,7 @@ defaultbrowser chrome
 
 echo "ESTO NO SE QUE ES..."
 #Esto no se que es
-defaults write -g ApplePressAndHoldEnabled -bool false
+defaults write -g ApplePressAndHoldEnabled -bool true
 
 echo "Set fast key repeat rate"
 # Set fast key repeat rate
