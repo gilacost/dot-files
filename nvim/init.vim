@@ -234,10 +234,10 @@ call plug#end()
   \   'terraform': ['tflint'],
   \   'yaml': ['prettier'],
   \   'json': ['prettier'],
+  \   'javascript': ['prettier'],
   \}
 
   " \   'rust': ['rls'],
-  " \   'javascript': ['prettier'],
   " \   'scss': ['stylelint'],
   " \   'css': ['stylelint'],
   let g:ale_fixers = {
