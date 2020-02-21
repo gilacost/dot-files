@@ -248,11 +248,11 @@ call plug#end()
   \   'terraform': ['terraform'],
   \   'yaml': ['prettier'],
   \   'json': ['prettier'],
+  \   'javascript': ['prettier'],
   \}
 
   " \   'scss': ['stylelint'],
   " \   'css': ['stylelint'],
-  " \   'javascript': ['prettier'],
 
 " ALE - Asynchronous Linting Engine
   let g:ale_fix_on_save = 1
