@@ -80,9 +80,6 @@ PACKAGES=(
     pre-commit
 )
 
-#YABAI
-sudo yabai --install-sa
-
 echo "Installing packages..."
 brew install ${PACKAGES[@]}
 
