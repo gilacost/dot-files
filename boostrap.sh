@@ -48,7 +48,6 @@ PACKAGES=(
     cloc
     jq
     gpg1
-    yabai
     rbenv
     tig
     coreutils

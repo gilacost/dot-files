@@ -203,8 +203,8 @@ call plug#end()
   au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
   " let g:ruby_host_prog=$HOME.'/.gem/ruby/2.6.0/bin/neovim-ruby-host'
-  let g:python_host_prog='/usr/local/bin/python2.7'
-  let g:python3_host_prog='/usr/local/bin/python3.7'
+  let g:python_host_prog='/usr/bin/python2.7'
+  let g:python3_host_prog='/usr/bin/python3'
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
 " ALE
   augroup elixir
