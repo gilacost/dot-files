@@ -42,42 +42,42 @@ brew install bash
 brew tap koekeishiya/formulae
 #brew install
 PACKAGES=(
-    az
-    koekeishiya/formulae/skhd
-    tflint
-    cloc
-    jq
-    gpg1
-    rbenv
-    tig
-    coreutils
-    gpg
-    autoconf
-    wxmac
-    lsd
-    bat
-    direnv
-    asdf
-    neovim
-    ripgrep
-    python2
-    python3
     ack
-    git
-    graphviz
-    nvm
-    zsh
-    fzy
-    fzf
-    rename
-    the_silver_searcher
-    tree
-    wget
+    asdf
+    autoconf
+    awscli
+    az
+    bat
+    cloc
+    coreutils
     curl
     defaultbrowser
+    direnv
+    fzf
+    git
+    gpg
+    gpg1
+    graphviz
+    jq
+    koekeishiya/formulae/skhd
+    lsd
+    neovim
+    nvm
     peco
-    terminal-notifier
     pre-commit
+    python2
+    python3
+    rbenv
+    rename
+    ripgrep
+    terminal-notifier
+    tflint
+    the_silver_searcher
+    tig
+    tree
+    wget
+    wxmac
+    zsh
 )
 
 echo "Installing packages..."
@@ -134,13 +134,10 @@ CASKS=(
     flux
     spotify
     station
-    firefox
     google-chrome
-    slack
     vlc
     1password
     grammarly
-    slack
     popcorn-time
     recordit
 )
@@ -151,11 +148,10 @@ brew cask install ${CASKS[@]}
 echo "Installing fonts..."
 brew tap caskroom/fonts
 FONTS=(
-    font-hack-nerd-font
-    font-fira-code
     font-fontawesome
     therm
 )
+
 brew cask install ${FONTS[@]}
 
 echo "Installing Python packages..."
