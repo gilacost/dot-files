@@ -14,15 +14,13 @@ GITIGNORE     := $(DST_DIR)/.gitignore
 git: banner_install_git $(GITCONFIG) $(GITIGNORE)
 
 $(GITCONFIG):
-	$(LINK) $(GITCONFIG_SRC) $@
+	$(CP) $(GITCONFIG_SRC) $@
 
 $(GITIGNORE):
-	$(LINK) $(GITIGNORE_SRC) $@
+	$(CP) $(GITIGNORE_SRC) $@
 
 clean_git: banner_clean_git
 	$(RM) $(GITCONFIG)
 	$(RM) $(GITIGNORE)
 
 endif
-
-
