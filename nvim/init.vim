@@ -14,8 +14,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'janko/vim-test'
 " set up working directory for project
 Plug 'airblade/vim-rooter'
-" Oceanic Next theme and theme selection
-Plug 'mhartington/oceanic-next'
+" Gruvbox theme and theme selection
+Plug 'sainnhe/gruvbox-material'
 " ruby on fails
 Plug 'vim-ruby/vim-ruby'
 " Remove highlight when move the cursor after a search
@@ -76,8 +76,6 @@ Plug 'hashivim/vim-terraform'
 call plug#end()
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow --vimgrep --glob "!.git/*"'
-
   "
   set mouse=""
   " Persistent undo
@@ -126,9 +124,19 @@ call plug#end()
 " non-printable character display settings when :set list
 " Theme
   syntax enable
-  set termguicolors     " enable true colors support
+" GRUVBOSS
+" important!!
+  set termguicolors
+" for dark version
+  set background=dark
+" for light version
+" set background=light
+" set contrast
+" this configuration option should be placed before `colorscheme gruvbox-material`
+" available values: 'hard', 'medium'(default), 'soft'
+  let g:gruvbox_material_background = 'hard'
+  colorscheme gruvbox-material
 "Change theme depending on the time of day
-  colorscheme OceanicNext
   set spell spelllang=en_us
 " Status line syntastic
   set statusline+=%#warningmsg#
@@ -144,13 +152,16 @@ call plug#end()
 " Del te git buffer when hidden
   autocmd FileType gitcommit set bufhidden=delete
   autocmd FileType markdown setlocal spell wrap textwidth=80
+
+" FZF magic
+" Files
+  command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 " RG
   command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-  \   <bang>0)
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+    \   fzf#vim#with_preview(), <bang>0)
 " Rename current file
   function! RenameFile()
       let old_name = expand('%')
@@ -303,7 +314,7 @@ call plug#end()
 
 " Fuzzy Finder (review)
   noremap <leader>sc :Rg<CR>
-  noremap <C-p> :FZF<CR>
+  noremap <C-p> :Files<CR>
   " nnoremap <C-p> :FuzzyOpen<CR>
   noremap <Leader>sg :GitFiles<CR>
 
@@ -358,7 +369,7 @@ call plug#end()
 " ctrl + w =
 
 " Easy Motion
-  map  <Leader>f <Plug>(easymotion-bd-f)
+  map <Leader>f <Plug>(easymotion-bd-f)
   map <Leader>j <Plug>(easymotion-j)
   map <Leader>k <Plug>(easymotion-k)
   nmap s <Plug>(easymotion-s2)
@@ -383,18 +394,19 @@ call plug#end()
 "
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
-  let g:airline_theme='oceanicnext'
+  let g:airline_theme='gruvbox_material'
   let g:airline#extensions#ale#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
   let g:airline_section_b = '%{strftime("%c")}'
   let g:airline_section_y = 'BN: %{bufnr("%")}'
   let g:airline_section_x = '%{FugitiveStatusline()}'
+
   let g:airline_section_c = '%{LinterStatus()}'
 
 """""""""""""""""""""" PROJECTIONS """"""""""""""""""""""""""""""""
 
-let g:projectionist_heuristics = {
+  let g:projectionist_heuristics = {
       \  "mix.exs": {
       \    "lib/*.ex": {
       \      "type": "lib",
