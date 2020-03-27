@@ -14,10 +14,10 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'janko/vim-test'
 " set up working directory for project
 Plug 'airblade/vim-rooter'
-" Gruvbox theme and theme selection
-Plug 'sainnhe/gruvbox-material'
 " Waka waka
 Plug 'wakatime/vim-wakatime'
+" theme selection
+Plug 'mhartington/oceanic-next'
 " ruby on fails
 Plug 'vim-ruby/vim-ruby'
 " Remove highlight when move the cursor after a search
@@ -125,20 +125,12 @@ call plug#end()
 " Show non visual chars
 " non-printable character display settings when :set list
 " Theme
+" For Neovim 0.1.3 and 0.1.4
   syntax enable
-" GRUVBOSS
-" important!!
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
-" for dark version
-  set background=dark
-" for light version
-" set background=light
-" set contrast
-" this configuration option should be placed before `colorscheme gruvbox-material`
-" available values: 'hard', 'medium'(default), 'soft'
-  let g:gruvbox_material_background = 'hard'
-  colorscheme gruvbox-material
-"Change theme depending on the time of day
+  colorscheme OceanicNext
+" Change theme depending on the time of day
   set spell spelllang=en_us
 " Status line syntastic
   set statusline+=%#warningmsg#
@@ -222,7 +214,7 @@ call plug#end()
 " ALE
   augroup elixir
     nnoremap <leader>ef :! elixir %<CR>
-    autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinition<CR>
+    autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinitionInVSplit<CR>
     autocmd FileType elixir nnoremap <C-d> :ALEHover<CR>
   augroup END
   nmap <silent> <C-n> <Plug>(ale_previous_wrap)
@@ -396,7 +388,8 @@ call plug#end()
 "
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
-  let g:airline_theme='gruvbox_material'
+      \
+  let g:airline_theme='oceanicnext'
   let g:airline#extensions#ale#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
@@ -428,6 +421,6 @@ call plug#end()
       \ }
 
   "Refresh devicons
-  if exists('g:loaded_webdevicons')
-      call webdevicons#refresh()
-  endif
+  " if exists('g:loaded_webdevicons')
+  "     call webdevicons#refresh()
+  " endif
