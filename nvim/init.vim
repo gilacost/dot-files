@@ -16,6 +16,8 @@ Plug 'janko/vim-test'
 Plug 'airblade/vim-rooter'
 " Gruvbox theme and theme selection
 Plug 'sainnhe/gruvbox-material'
+" Waka waka
+Plug 'wakatime/vim-wakatime'
 " ruby on fails
 Plug 'vim-ruby/vim-ruby'
 " Remove highlight when move the cursor after a search
