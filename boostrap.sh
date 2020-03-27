@@ -65,7 +65,6 @@ PACKAGES=(
     nvm
     peco
     pre-commit
-    python2
     python3
     rbenv
     rename
