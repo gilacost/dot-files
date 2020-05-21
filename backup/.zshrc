@@ -11,6 +11,8 @@ export KERL_CONFIGURE_OPTIONS="--without-javac"
 
 plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting git git-extras docker docker-compose git-auto-fetch ansible)
 
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 source $ZSH/oh-my-zsh.sh
 source ~/.zshrc_local
 source $ZSH/themes/powerlevel10k/powerlevel10k.zsh-theme
@@ -27,6 +29,8 @@ eval "$(rbenv init -)"
 
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH:`python3 -c 'import site; print(site.USER_BASE)'`/bin"
+export PATH="$PATH:/Users/pepo/Repos/epmd"
+
 #export ZSH_DISABLE_COMPFIX=true
 
 ## Enable enable reverse search in zsh
@@ -70,7 +74,7 @@ export KITTY_CONFIG_DIRECTORY="$HOME/.config/kitty"
 export FZF_BASE='~/.fzf/bin/bin'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Use ripgrep as FZF's default search in order to respect .gitignore
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
 
 #LOCALE
 export LC_CTYPE=en_US.UTF-8
@@ -154,3 +158,14 @@ function servport {
   lsof -t -i:$1
 }
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+rpt() {
+  CMD=$(fc -ln | tail -2 | head -1)
+  echo "repeating until success: $CMD"
+  until $CMD
+  do
+    sleep 1
+  done
+}
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /Users/pepo/.asdf/installs/terraform/0.12.24/bin/terraform terraform

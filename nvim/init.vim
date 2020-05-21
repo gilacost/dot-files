@@ -5,10 +5,6 @@ let mapleader      = "\<SPACE>"
 let maplocalleader = ","
 
 filetype off
-" Specify a directory for plugins
-" - For Neovim: ~/.local/share/nvim/plugged
-" - Avoid using standard Vim directory names like 'plugin'
-" Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
 " test that please
 Plug 'janko/vim-test'
@@ -26,19 +22,14 @@ Plug 'romainl/vim-cool'
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
 Plug 'scrooloose/nerdtree'
+" Emmet
+Plug 'mattn/emmet-vim'
 " elmo
 Plug 'elmcast/elm-vim'
 " RUST
 Plug 'rust-lang/rust.vim'
 " Polyglot loads language support on demand!
 Plug 'sheerun/vim-polyglot'
-" Fuzzy finder
-" Plugin outside ~/.vim/plugged with post-update hook TO BE REMOVED
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim' " Fuzzy Search
-" Plug 'cloudhead/neovim-fuzzy'
-" Rip grep
-" Plug 'jremmen/vim-ripgrep'
 " Pope's mailic
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
@@ -47,8 +38,6 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
-" " elixir and phoenix stuff
-" Plug 'elixir-editors/vim-elixir'
 "fancy icons
 Plug 'ryanoasis/vim-devicons'
 " vim dispatch allows to run external commands asynchronously
@@ -75,6 +64,10 @@ Plug 'w0rp/ale'
 Plug 'gcmt/taboo.vim' " Tab rename
 " Terraform
 Plug 'hashivim/vim-terraform'
+" Fuzzy finder
+" Plugin outside ~/.vim/plugged with post-update hook TO BE REMOVED
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim' " Fuzzy Search
 call plug#end()
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -102,7 +95,7 @@ call plug#end()
   set autoindent
   set copyindent
   set smartindent
-  set colorcolumn=80,100
+  set colorcolumn=80,100,120
   set tabstop=2 " - Two spaces wide
   set softtabstop=2
   set expandtab " - Expand them all
@@ -132,12 +125,9 @@ call plug#end()
   colorscheme OceanicNext
 " Change theme depending on the time of day
   set spell spelllang=en_us
-" Status line syntastic
-  set statusline+=%#warningmsg#
-  set statusline+=%*
-  set statusline+=%{FugitiveStatusline()}
 " (Optional)Remove Info(Preview) window
   set completeopt-=preview
+  set noswapfile
 " (Optional)Hide Info(Preview) window after completions
   autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
   autocmd InsertLeave * if pumvisible() == 0|pclose|endif
@@ -146,28 +136,11 @@ call plug#end()
 " Del te git buffer when hidden
   autocmd FileType gitcommit set bufhidden=delete
   autocmd FileType markdown setlocal spell wrap textwidth=80
+" EMMET
+  let g:user_emmet_install_global = 0
+  autocmd FileType html,css EmmetInstall
 
-" FZF magic
-" Files
-  command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-" RG
-  command! -bang -nargs=* Rg
-    \ call fzf#vim#grep(
-    \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-    \   fzf#vim#with_preview(), <bang>0)
-" Rename current file
-  function! RenameFile()
-      let old_name = expand('%')
-      let new_name = input('New file name: ', expand('%'), 'file')
-      if new_name != '' && new_name != old_name
-          exec ':saveas ' . new_name
-          exec ':silent !rm ' . old_name
-          redraw!
-      endif
-  endfunction
 " Compile elixir ls
-"
   function! ElixirlsCompile()
     let l:commands = join([
       \ 'cd '.$HOME.'/Repos/elixir-ls',
@@ -196,6 +169,16 @@ call plug#end()
       \   all_errors
       \)
   endfunction
+" Rename current file
+  function! RenameFile()
+      let old_name = expand('%')
+      let new_name = input('New file name: ', expand('%'), 'file')
+      if new_name != '' && new_name != old_name
+          exec ':saveas ' . new_name
+          exec ':silent !rm ' . old_name
+          redraw!
+      endif
+  endfunction
 " terminal in insert mode
   if has('nvim')
       autocmd TermOpen term://* startinsert
@@ -219,6 +202,9 @@ call plug#end()
   augroup END
   nmap <silent> <C-n> <Plug>(ale_previous_wrap)
   nmap <silent> <C-b> <Plug>(ale_next_wrap)
+" FZF
+  let g:fzf_preview_window = 'right:60%'
+
 " RIPGREP
   let g:rg_binary = '/usr/local/bin/rg'
 
@@ -239,25 +225,29 @@ call plug#end()
   \   'terraform': ['tflint'],
   \   'yaml': ['prettier'],
   \   'json': ['prettier'],
+  \   'css': ['prettier'],
+  \   'scss': ['prettier'],
+  \   'html': ['tidy', 'prettier'],
   \   'javascript': ['prettier'],
+  \   'typescript': ['tsserver', 'tslint'],
   \}
 
-  " \   'rust': ['rls'],
-  " \   'scss': ['stylelint'],
-  " \   'css': ['stylelint'],
-  let g:ale_fixers = {
-  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-  \   'elixir': ['mix_format'],
-  \   'elm': ['format'],
-  \   'rust': ['rustfmt'],
-  \   'terraform': ['terraform'],
-  \   'yaml': ['prettier'],
-  \   'json': ['prettier'],
-  \   'javascript': ['prettier'],
-  \}
+   let g:ale_fixers = {
+   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+   \   'html': ['prettier'],
+   \   'elixir': ['mix_format'],
+   \   'elm': ['format'],
+   \   'rust': ['rustfmt'],
+   \   'terraform': ['terraform'],
+   \   'yaml': ['prettier'],
+   \   'json': ['prettier'],
+   \   'css': ['prettier'],
+   \   'scss': ['prettier'],
+   \   'javascript': ['prettier'],
+   \   'typescript': ['prettier'],
+   \}
 
-  " \   'scss': ['stylelint'],
-  " \   'css': ['stylelint'],
+  let g:ale_javascript_xo_options = "--plug=react --prettier"
 
 " ALE - Asynchronous Linting Engine
   let g:ale_fix_on_save = 1
@@ -297,6 +287,24 @@ call plug#end()
 
 " le test
   let test#strategy = 'neovim'
+
+" FZF override
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+
+function! s:delete_buffers(lines)
+  execute 'bwipeout!' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
 """""""""""""""""""""" KEYS """"""""""""""""""""""""""""""""
 
 " DEOPLETE
@@ -309,7 +317,9 @@ call plug#end()
 " Fuzzy Finder (review)
   noremap <leader>sc :Rg<CR>
   noremap <C-p> :Files<CR>
-  " nnoremap <C-p> :FuzzyOpen<CR>
+  noremap <C-o> :Buffers<CR>
+  noremap <C-i> :BD<CR>
+  noremap <C-c> :bd!<CR>
   noremap <Leader>sg :GitFiles<CR>
 
 " Edit and reload vimrc
@@ -384,8 +394,8 @@ call plug#end()
   nmap <silent> t<C-l> :TestLast<CR>
   nmap <silent> t<C-g> :TestVisit<CR>
 
-" ALE
-"
+" Current directory
+  nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
       \
@@ -421,6 +431,6 @@ call plug#end()
       \ }
 
   "Refresh devicons
-  " if exists('g:loaded_webdevicons')
-  "     call webdevicons#refresh()
-  " endif
+  if exists('g:loaded_webdevicons')
+      call webdevicons#refresh()
+  endif
