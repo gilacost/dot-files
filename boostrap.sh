@@ -42,7 +42,8 @@ brew install bash
 brew tap koekeishiya/formulae
 #brew install
 PACKAGES=(
-    ack
+    tidy-html5
+    watch
     asdf
     autoconf
     awscli
@@ -132,8 +133,8 @@ CASKS=(
     docker
     flux
     spotify
-    station
     google-chrome
+    google-cloud-sdk
     vlc
     1password
     grammarly
