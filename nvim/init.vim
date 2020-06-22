@@ -18,6 +18,8 @@ Plug 'mhartington/oceanic-next'
 Plug 'vim-ruby/vim-ruby'
 " Remove highlight when move the cursor after a search
 Plug 'romainl/vim-cool'
+" Vim go
+Plug 'fatih/vim-go'
 " SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
@@ -68,6 +70,7 @@ Plug 'hashivim/vim-terraform'
 " Plugin outside ~/.vim/plugged with post-update hook TO BE REMOVED
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
+
 call plug#end()
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -190,9 +193,6 @@ call plug#end()
   au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
-  " let g:ruby_host_prog=$HOME.'/.gem/ruby/2.6.0/bin/neovim-ruby-host'
-  let g:python_host_prog='/usr/bin/python2.7'
-  let g:python3_host_prog='/usr/bin/python3'
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
 " ALE
   augroup elixir
@@ -217,7 +217,6 @@ call plug#end()
 " deoplete
   let g:deoplete#enable_at_startup = 1
 
-" %!python -m json.tool
   let g:ale_linters = {
   \   'elixir': ['elixir-ls'],
   \   'ansible': ['ansible-lint'],
@@ -230,6 +229,7 @@ call plug#end()
   \   'html': ['tidy', 'prettier'],
   \   'javascript': ['prettier'],
   \   'typescript': ['tsserver', 'tslint'],
+  \   'go': [],
   \}
 
    let g:ale_fixers = {
@@ -245,9 +245,53 @@ call plug#end()
    \   'scss': ['prettier'],
    \   'javascript': ['prettier'],
    \   'typescript': ['prettier'],
+   \   'go': [],
    \}
 
-  let g:ale_javascript_xo_options = "--plug=react --prettier"
+"""""""""""""""""""""" VIM-Go Setup """"""""""""""""""""""""""""""""
+" tab width of 4"
+  au FileType go set noexpandtab
+  au FileType go set shiftwidth=4
+  au FileType go set softtabstop=4
+  au FileType go set tabstop=4
+
+  " Map keys to GoDecls
+  au FileType go nnoremap <buffer> <C-d> :GoDecls<cr>
+  au FileType go nnoremap <buffer> <C-g> :GoDeclsDir<cr>
+  au FileType go nnoremap <leader>gd :GoDefType<cr>
+  "au FileType go nnoremap <Leader>gi :GoSameIdsToggle<CR>
+  let g:go_auto_sameids = 0
+  au FileType go nnoremap <Leader>ga :GoAlternate<CR>
+  au FileType go nnoremap <Leader>gc :GoCoverageToggle<CR>
+  au FileType go nnoremap <Leader>gr :GoRename<CR>
+
+  "Hightlight everything"
+  let g:go_highlight_build_constraints = 1
+  let g:go_highlight_extra_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_functions = 1
+  "let g:go_highlight_function_parameters = 1
+  let g:go_highlight_function_calls = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_types = 1
+  let g:go_highlight_methods = 1
+  "let g:go_auto_sameids = 1
+
+  "Auto import dependencies"
+  "let g:go_fmt_command = "gofmt"
+  let g:go_fmt_command = "gofumports"
+
+  let g:go_fmt_options = {
+      \ 'gofmt': '-s',
+      \ }
+
+  "Use this option to auto |:GoFmt| on save
+  let g:go_fmt_autosave = 1
+  "Disable showing a location list when |'g:go_fmt_command'| fails
+  "ALE is in charge of getting the errors on save.
+  let g:go_fmt_fail_silently = 1
+"""""""""""""""""""""" VIM-Go Setup """"""""""""""""""""""""""""""""
 
 " ALE - Asynchronous Linting Engine
   let g:ale_fix_on_save = 1
@@ -261,7 +305,7 @@ call plug#end()
   let g:ale_elixir_elixir_ls_release = $HOME.'/Repos/elixir-ls/release'
 
 " Write this in your vimrc file
-  " let g:ale_set_loclist = 1
+  let g:ale_set_loclist = 0
   let g:ale_set_quickfix = 1
 
 " vim-javascript

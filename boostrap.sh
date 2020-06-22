@@ -66,6 +66,7 @@ PACKAGES=(
     nvm
     peco
     pre-commit
+    python
     python3
     rbenv
     rename
@@ -107,6 +108,7 @@ asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf plugin-add terraform https://github.com/Banno/asdf-hashicorp.git
 asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
 
 echo "Cleaning up..."
@@ -162,14 +164,13 @@ PYTHON_PACKAGES=(
 )
 
 pip3 install --user ${PYTHON_PACKAGES[@]}
-# pip install --user ${PYTHON_PACKAGES[@]}
+pip2 install --user ${PYTHON_PACKAGES[@]}
 #todo install ruby neovim and npm neovim
 
 echo "Configuring OSX..."
 #set default browser to be firefox
 defaultbrowser chrome
 
-echo "ESTO NO SE QUE ES..."
 #Esto no se que es
 defaults write -g ApplePressAndHoldEnabled -bool true
 
