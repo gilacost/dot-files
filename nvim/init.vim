@@ -53,7 +53,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug  'jceb/vim-orgmode'
 "Dark powered asynchronous completion framework for neovim/Vim8
 " Use tab for completion if visible if not normal tab
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " startify (recent files)
 Plug 'mhinz/vim-startify'
 " Git Show diff with style
@@ -66,7 +66,7 @@ Plug 'gcmt/taboo.vim' " Tab rename
 Plug 'hashivim/vim-terraform'
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'amiralies/coc-elixir', {'do': 'yarn install && yarn prepack'}
+Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 " Fuzzy finder
 " Plugin outside ~/.vim/plugged with post-update hook TO BE REMOVED
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -130,7 +130,7 @@ call plug#end()
 " Change theme depending on the time of day
   set spell spelllang=en_us
 " (Optional)Remove Info(Preview) window
-  set completeopt-=preview
+  " set completeopt-=preview
   set noswapfile
 " (Optional)Hide Info(Preview) window after completions
   autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -216,10 +216,10 @@ call plug#end()
   let g:jsx_ext_required = 0
 
 " deoplete
-  let g:deoplete#enable_at_startup = 1
+"   let g:deoplete#enable_at_startup = 1
 
   let g:ale_linters = {
-  \   'elixir': ['mix compile'],
+  \   'elixir': [],
   \   'ansible': ['ansible-lint'],
   \   'dockerfile': ['hadolint'],
   \   'terraform': ['tflint'],
@@ -250,6 +250,93 @@ call plug#end()
    \   'typescript': ['prettier'],
    \   'go': [],
    \}
+"""""""""""""""""""""""" COC """"""""""""""""""""""""""""""""""""""
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 """""""""""""""""""""" VIM-Go Setup """"""""""""""""""""""""""""""""
 " tab width of 4"
@@ -280,10 +367,10 @@ call plug#end()
   let g:go_highlight_types = 1
   let g:go_highlight_methods = 1
   "let g:go_auto_sameids = 1
+  " let g:go_bin_path = $HOME."/.asdf/installs/golang/1.14.4/go/bin"
 
   "Auto import dependencies"
-  "let g:go_fmt_command = "gofmt"
-  let g:go_fmt_command = "gofumports"
+  let g:go_fmt_command = "gofmt"
 
   let g:go_fmt_options = {
       \ 'gofmt': '-s',
@@ -353,8 +440,8 @@ command! BD call fzf#run(fzf#wrap({
 \ }))
 """""""""""""""""""""" KEYS """"""""""""""""""""""""""""""""
 
-" DEOPLETE
-  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" " DEOPLETE
+"   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Support nested vim
   tnoremap <Esc> <C-\><C-n>
