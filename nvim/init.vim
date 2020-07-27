@@ -14,12 +14,10 @@ Plug 'airblade/vim-rooter'
 Plug 'wakatime/vim-wakatime'
 " theme selection
 Plug 'mhartington/oceanic-next'
-" ruby on fails
-Plug 'vim-ruby/vim-ruby'
 " Remove highlight when move the cursor after a search
 Plug 'romainl/vim-cool'
 " Vim go
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " SQL completion
 Plug 'vim-scripts/SQLComplete.vim'
 " Folder navigation
@@ -66,6 +64,9 @@ Plug 'w0rp/ale'
 Plug 'gcmt/taboo.vim' " Tab rename
 " Terraform
 Plug 'hashivim/vim-terraform'
+
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'amiralies/coc-elixir', {'do': 'yarn install && yarn prepack'}
 " Fuzzy finder
 " Plugin outside ~/.vim/plugged with post-update hook TO BE REMOVED
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -98,7 +99,7 @@ call plug#end()
   set autoindent
   set copyindent
   set smartindent
-  set colorcolumn=80,100,120
+  set colorcolumn=60,80,100,120
   set tabstop=2 " - Two spaces wide
   set softtabstop=2
   set expandtab " - Expand them all
@@ -218,18 +219,19 @@ call plug#end()
   let g:deoplete#enable_at_startup = 1
 
   let g:ale_linters = {
-  \   'elixir': ['elixir-ls'],
+  \   'elixir': ['mix compile'],
   \   'ansible': ['ansible-lint'],
   \   'dockerfile': ['hadolint'],
   \   'terraform': ['tflint'],
   \   'yaml': ['prettier'],
+  \   'yml': ['prettier'],
   \   'json': ['prettier'],
   \   'css': ['prettier'],
   \   'scss': ['prettier'],
   \   'html': ['tidy', 'prettier'],
   \   'javascript': ['prettier'],
   \   'typescript': ['tsserver', 'tslint'],
-  \   'go': [],
+  \   'go': ['golint', 'errcheck', 'deadcode', 'vet']
   \}
 
    let g:ale_fixers = {
@@ -240,6 +242,7 @@ call plug#end()
    \   'rust': ['rustfmt'],
    \   'terraform': ['terraform'],
    \   'yaml': ['prettier'],
+   \   'yml': ['prettier'],
    \   'json': ['prettier'],
    \   'css': ['prettier'],
    \   'scss': ['prettier'],
@@ -251,16 +254,16 @@ call plug#end()
 """""""""""""""""""""" VIM-Go Setup """"""""""""""""""""""""""""""""
 " tab width of 4"
   au FileType go set noexpandtab
-  au FileType go set shiftwidth=4
-  au FileType go set softtabstop=4
-  au FileType go set tabstop=4
+  au FileType go set shiftwidth=8
+  au FileType go set softtabstop=8
+  au FileType go set tabstop=8
 
   " Map keys to GoDecls
   au FileType go nnoremap <buffer> <C-d> :GoDecls<cr>
   au FileType go nnoremap <buffer> <C-g> :GoDeclsDir<cr>
   au FileType go nnoremap <leader>gd :GoDefType<cr>
   "au FileType go nnoremap <Leader>gi :GoSameIdsToggle<CR>
-  let g:go_auto_sameids = 0
+  " let g:go_auto_sameids = 0
   au FileType go nnoremap <Leader>ga :GoAlternate<CR>
   au FileType go nnoremap <Leader>gc :GoCoverageToggle<CR>
   au FileType go nnoremap <Leader>gr :GoRename<CR>
@@ -300,7 +303,6 @@ call plug#end()
   let g:ale_sign_error = 'E'
   let g:ale_sign_warning = 'W'
 
-  let g:ale_ruby_rubocop_executable = 'bundle'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
   let g:ale_elixir_elixir_ls_release = $HOME.'/Repos/elixir-ls/release'
 

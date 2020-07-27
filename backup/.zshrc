@@ -31,7 +31,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH:`python3 -c 'import site; print(site.USER_BASE)'`/bin"
 export PATH="$PATH:/Users/pepo/Repos/epmd"
 
-#export ZSH_DISABLE_COMPFIX=true
+#GO packages
+export $(go env | grep GOPATH | sed 's/"//g')
+export PATH=$PATH:$GOPATH/bin
 
 ## Enable enable reverse search in zsh
 bindkey -v
@@ -165,6 +167,11 @@ rpt() {
   do
     sleep 1
   done
+}
+
+#
+docker_tags() {
+  curl "https://registry.hub.docker.com/v2/repositories/library/$1/tags/" |jq '."results"[]["name"]'
 }
 
 autoload -U +X bashcompinit && bashcompinit
