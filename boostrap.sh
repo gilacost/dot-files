@@ -66,14 +66,11 @@ PACKAGES=(
     nvm
     peco
     pre-commit
-    python
     python3
-    rbenv
     rename
     ripgrep
     terminal-notifier
     tflint
-    the_silver_searcher
     tig
     tree
     wget
@@ -115,6 +112,7 @@ echo "Cleaning up..."
 brew cleanup
 
 #ZSH pluggins
+mkdir -p $HOME/.oh-my-zsh/plugins
 cd $HOME/.oh-my-zsh/plugins
 git clone https://github.com/gusaiani/elixir-oh-my-zsh.git elixir
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting
@@ -130,6 +128,7 @@ brew install caskroom/cask/brew-cask
 brew tap dorukgezici/cask
 
 CASKS=(
+    zoomus
     diffmerge
     kitty
     docker
@@ -142,17 +141,19 @@ CASKS=(
     grammarly
     popcorn-time
     recordit
+    notion
+    karabiner-elements
 )
 
 echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
 
 echo "Installing fonts..."
-brew tap caskroom/fonts
-FONTS=(
-    font-fontawesome
-    therm
-)
+# brew tap caskroom/fonts
+# FONTS=(
+#     font-fontawesome
+#     therm
+# )
 
 brew cask install ${FONTS[@]}
 
@@ -162,9 +163,9 @@ PYTHON_PACKAGES=(
     neovim-remote
     aws-cli
 )
-
+MACOSX_DEPLOYMENT_TARGET=10.15
 pip3 install --user ${PYTHON_PACKAGES[@]}
-pip2 install --user ${PYTHON_PACKAGES[@]}
+#pip2 install --user ${PYTHON_PACKAGES[@]}
 #todo install ruby neovim and npm neovim
 
 echo "Configuring OSX..."
