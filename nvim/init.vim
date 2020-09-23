@@ -54,6 +54,7 @@ Plug  'jceb/vim-orgmode'
 "Dark powered asynchronous completion framework for neovim/Vim8
 " Use tab for completion if visible if not normal tab
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'mildred/vim-bufmru'
 " startify (recent files)
 Plug 'mhinz/vim-startify'
 " Git Show diff with style
@@ -133,7 +134,7 @@ call plug#end()
   set termguicolors
   colorscheme OceanicNext
 " Change theme depending on the time of day
-  set spell spelllang=en_us
+  set spell spelllang=en_gb
 " (Optional)Remove Info(Preview) window
   " set completeopt-=preview
   set noswapfile
@@ -242,6 +243,7 @@ call plug#end()
    \   'go': [],
    \}
 """""""""""""""""""""""" COC """"""""""""""""""""""""""""""""""""""
+autocmd FileType elixir let b:coc_root_patterns = ['mix.exs']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -518,6 +520,11 @@ command! BD call fzf#run(fzf#wrap({
   nmap <silent> t<C-l> :TestLast<CR>
   nmap <silent> t<C-g> :TestVisit<CR>
 
+" le buffers
+" Tab and Shift-Tab in normal mode to navigate buffers
+  map <Tab> :BufMRUNext<CR>
+  map <S-Tab> :BufMRUPrev<CR>
+
 " Current directory
   nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
@@ -530,7 +537,6 @@ command! BD call fzf#run(fzf#wrap({
   let g:airline_section_b = '%{strftime("%c")}'
   let g:airline_section_y = 'BN: %{bufnr("%")}'
   let g:airline_section_x = '%{FugitiveStatusline()}'
-
   let g:airline_section_c = '%{LinterStatus()}'
 
 """""""""""""""""""""" PROJECTIONS """"""""""""""""""""""""""""""""

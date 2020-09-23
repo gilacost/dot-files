@@ -12,6 +12,9 @@ export KERL_CONFIGURE_OPTIONS="--without-javac"
 
 plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting git git-extras docker docker-compose git-auto-fetch ansible)
 
+export $(go env | grep GOPATH | sed 's/"//g')
+export PATH=$PATH:$GOPATH/bin
+
 source $ZSH/oh-my-zsh.sh
 source ~/.zshrc_local
 source $ZSH/themes/powerlevel10k/powerlevel10k.zsh-theme
