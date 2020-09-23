@@ -42,8 +42,6 @@ brew install bash
 brew tap koekeishiya/formulae
 #brew install
 PACKAGES=(
-    tidy-html5
-    watch
     asdf
     autoconf
     awscli
@@ -66,13 +64,17 @@ PACKAGES=(
     nvm
     peco
     pre-commit
+    pstree
     python3
     rename
     ripgrep
+    telnet
     terminal-notifier
     tflint
+    tidy-html5
     tig
     tree
+    watch
     wget
     wxmac
     zsh
@@ -165,8 +167,8 @@ PYTHON_PACKAGES=(
 )
 MACOSX_DEPLOYMENT_TARGET=10.15
 pip3 install --user ${PYTHON_PACKAGES[@]}
-#pip2 install --user ${PYTHON_PACKAGES[@]}
-#todo install ruby neovim and npm neovim
+pip2 install --user ${PYTHON_PACKAGES[@]}
+#todo install ruby neovim and npm neovim and prettier (requires nodejs)
 
 echo "Configuring OSX..."
 #set default browser to be firefox
