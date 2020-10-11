@@ -20,13 +20,17 @@
 [format]
   pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
 [alias]
-  amend = commit --amend --no-edit
   co = checkout
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative
-  nb = checkout -b
-  ri = rebase -i
-  rim = rebase -i master
-  s = status --short -b
+  recommit = commit --amend -m
+  commend = commit --amend --no-edit
+  here = !git init && git add . && git commit -m \"Initialized a new repository\"
+  search = grep
+  who = blame
+  zip = archive --format=tar.gz -o ../repo.tar.gz
+  lonely = clone --single-branch --branch
+  plg = log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative
+  fresh = filter-branch --prune-empty --subdirectory-filter
 [push]
   default = current
 [rebase]

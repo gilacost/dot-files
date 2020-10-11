@@ -1,36 +1,35 @@
 set encoding=utf-8 " default character encoding
 
 " Set leader keys before anything else
-let mapleader      = "\<SPACE>"
-let maplocalleader = ","
+let mapleader      = '\<SPACE>'
+let maplocalleader = ','
+
+" Disable polyglot in favor of real language packs
+" Polyglot is great but it doesn't activate all the functionalities for all
+" languages in order to make it load fast.
+let g:polyglot_disabled = ['elm', 'markdown']
 
 filetype off
 call plug#begin('~/.config/nvim/plugged')
-" test that please
 Plug 'janko/vim-test'
-" set up working directory for project
+
 Plug 'airblade/vim-rooter'
-" Waka waka
 Plug 'wakatime/vim-wakatime'
-" theme selection
+
 Plug 'mhartington/oceanic-next'
-" Remove highlight when move the cursor after a search
 Plug 'romainl/vim-cool'
-" Vim go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" SQL completion
+
 Plug 'vim-scripts/SQLComplete.vim'
-" Folder navigation
+
 Plug 'scrooloose/nerdtree'
-" Emmet
+
 Plug 'mattn/emmet-vim'
-" elmo
+
 Plug 'elmcast/elm-vim'
-" RUST
+
 Plug 'rust-lang/rust.vim'
-" Polyglot loads language support on demand!
 Plug 'sheerun/vim-polyglot'
-" Pope's mailic
+
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
@@ -38,119 +37,112 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
-"fancy icons
+
 Plug 'ryanoasis/vim-devicons'
-" vim dispatch allows to run external commands asynchronously
 Plug 'tpope/vim-dispatch'
-" only for hackers
 Plug 'easymotion/vim-easymotion'
-" neovim dispatch adapter
+
+
 Plug 'radenling/vim-dispatch-neovim'
-" fancy status bar
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Org mode
+
 Plug  'jceb/vim-orgmode'
-"Dark powered asynchronous completion framework for neovim/Vim8
-" Use tab for completion if visible if not normal tab
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'mildred/vim-bufmru'
-" startify (recent files)
+
 Plug 'mhinz/vim-startify'
-" Git Show diff with style
+
 Plug 'airblade/vim-gitgutter'
-" Code formating and go to definition
-Plug 'w0rp/ale'
-" Tab rename
-Plug 'gcmt/taboo.vim' " Tab rename
-" Terraform
+
+Plug '~/Repos/ale'
+
+Plug 'gcmt/taboo.vim'
+
 Plug 'hashivim/vim-terraform'
-" COC
+
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
-" Erlang
+
+Plug 'hyhugh/coc-erlang_ls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'vim-erlang/vim-erlang-omnicomplete'
-" Elixir
+
+Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'elixir-editors/vim-elixir'
-" Fuzzy finder
-" Plugin outside ~/.vim/plugged with post-update hook TO BE REMOVED
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
-
 call plug#end()
+
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  "
+
   set mouse=""
-  " Persistent undo
+
   set hidden
   set undofile
   set undodir=$HOME/.vim/undo
 
   set undolevels=1000
   set undoreload=10000
-" redraw
+
   set lazyredraw
   set synmaxcol=128
   syntax sync minlines=256
-" show invisibles
-" use the system clipboard for yank/put/delete
+
+
   set clipboard+=unnamed,unnamedplus
   set number
-" Indent
-  set shiftwidth=2   " number of spaces to use for each step of (auto)indent.
-  set shiftround     " round indent to multiple of 'shiftwidth'
+
+  set shiftwidth=2
+  set shiftround
   set smarttab
   set autoindent
   set copyindent
   set smartindent
   set colorcolumn=60,80,100,120
-  set tabstop=2 " - Two spaces wide
+  set tabstop=2
   set softtabstop=2
-  set expandtab " - Expand them all
-  set shiftwidth=2 " - Indent by 2 spaces by default
-  set hlsearch " Highlight search results
-  set incsearch " Incremental search, search as you type
-  set ignorecase " Ignore case when searching
-  set smartcase " Ignore case when searching lowercase
-  set cursorline " highlight cursor position
-  " set cursorcolumn
-  set title "set the title of the iterm tab
+  set expandtab
+  set shiftwidth=2
+  set hlsearch
+  set incsearch
+  set ignorecase
+  set smartcase
+  set cursorline
+
+  set title
   set synmaxcol=150
-"syntax sync minlines=256
+
   set lazyredraw
   set ttyfast
   set regexpengine=1
-" More natural splits
-  set splitbelow          " Horizontal split below current.
-  set splitright          " Vertical split to right of current.
-" Show non visual chars
-" non-printable character display settings when :set list
-" Theme
-" For Neovim 0.1.3 and 0.1.4
+
+  set splitbelow
+  set splitright
+
   syntax enable
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
   colorscheme OceanicNext
-" Change theme depending on the time of day
+
   set spell spelllang=en_gb
-" (Optional)Remove Info(Preview) window
-  " set completeopt-=preview
+
+
   set noswapfile
-" (Optional)Hide Info(Preview) window after completions
+
   autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
   autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-" Set JSON on mustached json files
+
   autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
-" Del te git buffer when hidden
+
   autocmd FileType gitcommit set bufhidden=delete
   autocmd FileType markdown setlocal spell wrap textwidth=80
-" EMMET
+
   let g:user_emmet_install_global = 0
   autocmd FileType html,css EmmetInstall
 
-" Linter status
   function! LinterStatus() abort
       let l:counts = ale#statusline#Count(bufnr('%'))
 
@@ -207,7 +199,7 @@ call plug#end()
   let g:jsx_ext_required = 0
 
 " deoplete
-"   let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_at_startup = 1
 
   let g:ale_linters = {
   \   'elixir': [],
@@ -223,13 +215,13 @@ call plug#end()
   \   'html': ['tidy', 'prettier'],
   \   'javascript': ['prettier'],
   \   'typescript': ['tsserver', 'tslint'],
-  \   'go': ['golint', 'errcheck', 'deadcode', 'vet']
   \}
 
    let g:ale_fixers = {
    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
    \   'html': ['prettier'],
    \   'elixir': ['mix_format'],
+   \   'erlang': ['erl_fmt'],
    \   'elm': ['format'],
    \   'rust': ['rustfmt'],
    \   'terraform': ['terraform'],
@@ -240,7 +232,6 @@ call plug#end()
    \   'scss': ['prettier'],
    \   'javascript': ['prettier'],
    \   'typescript': ['prettier'],
-   \   'go': [],
    \}
 """""""""""""""""""""""" COC """"""""""""""""""""""""""""""""""""""
 autocmd FileType elixir let b:coc_root_patterns = ['mix.exs']
@@ -263,7 +254,7 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("patch-8.1.1564")
+if has('patch-8.1.1564')
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
@@ -331,51 +322,6 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-"""""""""""""""""""""" VIM-Go Setup """"""""""""""""""""""""""""""""
-" tab width of 4"
-  au FileType go set noexpandtab
-  au FileType go set shiftwidth=8
-  au FileType go set softtabstop=8
-  au FileType go set tabstop=8
-
-  " Map keys to GoDecls
-  au FileType go nnoremap <buffer> <C-d> :GoDecls<cr>
-  au FileType go nnoremap <buffer> <C-g> :GoDeclsDir<cr>
-  au FileType go nnoremap <leader>gd :GoDefType<cr>
-  "au FileType go nnoremap <Leader>gi :GoSameIdsToggle<CR>
-  " let g:go_auto_sameids = 0
-  au FileType go nnoremap <Leader>ga :GoAlternate<CR>
-  au FileType go nnoremap <Leader>gc :GoCoverageToggle<CR>
-  au FileType go nnoremap <Leader>gr :GoRename<CR>
-
-  "Hightlight everything"
-  let g:go_highlight_build_constraints = 1
-  let g:go_highlight_extra_types = 1
-  let g:go_highlight_fields = 1
-  let g:go_highlight_functions = 1
-  "let g:go_highlight_function_parameters = 1
-  let g:go_highlight_function_calls = 1
-  let g:go_highlight_operators = 1
-  let g:go_highlight_structs = 1
-  let g:go_highlight_types = 1
-  let g:go_highlight_methods = 1
-  "let g:go_auto_sameids = 1
-  " let g:go_bin_path = $HOME."/.asdf/installs/golang/1.14.4/go/bin"
-
-  "Auto import dependencies"
-  let g:go_fmt_command = "gofmt"
-
-  let g:go_fmt_options = {
-      \ 'gofmt': '-s',
-      \ }
-
-  "Use this option to auto |:GoFmt| on save
-  let g:go_fmt_autosave = 1
-  "Disable showing a location list when |'g:go_fmt_command'| fails
-  "ALE is in charge of getting the errors on save.
-  let g:go_fmt_fail_silently = 1
-"""""""""""""""""""""" VIM-Go Setup """"""""""""""""""""""""""""""""
-
 " ALE - Asynchronous Linting Engine
   let g:ale_fix_on_save = 1
   let g:ale_sign_column_always = 1
@@ -398,15 +344,11 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
   let g:elm_detailed_complete = 1
   let g:elm_format_autosave = 1
 
-" Disable polyglot in favor of real language packs
-" Polyglot is great but it doesn't activate all the functionalities for all
-" languages in order to make it load fast.
-  let g:polyglot_disabled = ['elm', 'markdown']
 
 " Ultisnips
   let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
-  let g:UltiSnipsSnippetDirectories = ["snips", "priv_snips", "UltiSnips" ]
-  let g:UltiSnipsEditSplit = "vertical"
+  let g:UltiSnipsSnippetDirectories = ['snips', 'priv_snips', 'UltiSnips' ]
+  let g:UltiSnipsEditSplit = 'vertical'
 
 " Show those languages with syntax highliting inside Markdown
   let g:vim_markdown_folding_level = 2
@@ -542,90 +484,90 @@ command! BD call fzf#run(fzf#wrap({
 """""""""""""""""""""" PROJECTIONS """"""""""""""""""""""""""""""""
 
   let g:projectionist_heuristics = {
-      \  "mix.exs": {
-      \     "lib/**/views/*_view.ex": {
-      \       "type": "view",
-      \       "alternate": "test/{dirname}/views/{basename}_view_test.exs",
-      \       "template": [
-      \         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}View do",
-      \         "  use {dirname|camelcase|capitalize}, :view",
-      \         "end"
+      \  'mix.exs': {
+      \     'lib/**/views/*_view.ex': {
+      \       'type': 'view',
+      \       'alternate': 'test/{dirname}/views/{basename}_view_test.exs',
+      \       'template': [
+      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}View do',
+      \         '  use {dirname|camelcase|capitalize}, :view',
+      \         'end'
       \       ]
       \     },
-      \     "test/**/views/*_view_test.exs": {
-      \       "alternate": "lib/{dirname}/views/{basename}_view.ex",
-      \       "type": "test",
-      \       "template": [
-      \         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ViewTest do",
-      \         "  use ExUnit.Case, async: true",
-      \         "",
-      \         "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}View",
-      \         "end"
+      \     'test/**/views/*_view_test.exs': {
+      \       'alternate': 'lib/{dirname}/views/{basename}_view.ex',
+      \       'type': 'test',
+      \       'template': [
+      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ViewTest do',
+      \         '  use ExUnit.Case, async: true',
+      \         '',
+      \         '  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}View',
+      \         'end'
       \       ]
       \     },
-      \     "lib/**/controllers/*_controller.ex": {
-      \       "type": "controller",
-      \       "alternate": "test/{dirname}/controllers/{basename}_controller_test.exs",
-      \       "template": [
-      \         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Controller do",
-      \         "  use {dirname|camelcase|capitalize}, :controller",
-      \         "end"
+      \     'lib/**/controllers/*_controller.ex': {
+      \       'type': 'controller',
+      \       'alternate': 'test/{dirname}/controllers/{basename}_controller_test.exs',
+      \       'template': [
+      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Controller do',
+      \         '  use {dirname|camelcase|capitalize}, :controller',
+      \         'end'
       \       ]
       \     },
-      \     "test/**/controllers/*_controller_test.exs": {
-      \       "alternate": "lib/{dirname}/controllers/{basename}_controller.ex",
-      \       "type": "test",
-      \       "template": [
-      \         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ControllerTest do",
-      \         "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
-      \         "end"
+      \     'test/**/controllers/*_controller_test.exs': {
+      \       'alternate': 'lib/{dirname}/controllers/{basename}_controller.ex',
+      \       'type': 'test',
+      \       'template': [
+      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ControllerTest do',
+      \         '  use {dirname|camelcase|capitalize}.ConnCase, async: true',
+      \         'end'
       \       ]
       \     },
-      \     "lib/**/channels/*_channel.ex": {
-      \       "type": "channel",
-      \       "alternate": "test/{dirname}/channels/{basename}_channel_test.exs",
-      \       "template": [
-      \         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Channel do",
-      \         "  use {dirname|camelcase|capitalize}, :channel",
-      \         "end"
+      \     'lib/**/channels/*_channel.ex': {
+      \       'type': 'channel',
+      \       'alternate': 'test/{dirname}/channels/{basename}_channel_test.exs',
+      \       'template': [
+      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Channel do',
+      \         '  use {dirname|camelcase|capitalize}, :channel',
+      \         'end'
       \       ]
       \     },
-      \     "test/**/channels/*_channel_test.exs": {
-      \       "alternate": "lib/{dirname}/channels/{basename}_channel.ex",
-      \       "type": "test",
-      \       "template": [
-      \         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ChannelTest do",
-      \         "  use {dirname|camelcase|capitalize}.ChannelCase, async: true",
-      \         "",
-      \         "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Channel",
-      \         "end"
+      \     'test/**/channels/*_channel_test.exs': {
+      \       'alternate': 'lib/{dirname}/channels/{basename}_channel.ex',
+      \       'type': 'test',
+      \       'template': [
+      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ChannelTest do',
+      \         '  use {dirname|camelcase|capitalize}.ChannelCase, async: true',
+      \         '',
+      \         '  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Channel',
+      \         'end'
       \       ]
       \     },
-      \     "test/**/features/*_test.exs": {
-      \       "type": "feature",
-      \       "template": [
-      \         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Test do",
-      \         "  use {dirname|camelcase|capitalize}.FeatureCase, async: true",
-      \         "end"
+      \     'test/**/features/*_test.exs': {
+      \       'type': 'feature',
+      \       'template': [
+      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Test do',
+      \         '  use {dirname|camelcase|capitalize}.FeatureCase, async: true',
+      \         'end'
       \       ]
       \     },
-      \     "lib/*.ex": {
-      \       "alternate": "test/{}_test.exs",
-      \       "type": "source",
-      \       "template": [
-      \         "defmodule {camelcase|capitalize|dot} do",
-      \         "end"
+      \     'lib/*.ex': {
+      \       'alternate': 'test/{}_test.exs',
+      \       'type': 'source',
+      \       'template': [
+      \         'defmodule {camelcase|capitalize|dot} do',
+      \         'end'
       \       ]
       \     },
-      \     "test/*_test.exs": {
-      \       "alternate": "lib/{}.ex",
-      \       "type": "test",
-      \       "template": [
-      \         "defmodule {camelcase|capitalize|dot}Test do",
-      \         "  use ExUnit.Case, async: true",
-      \         "",
-      \         "  alias {camelcase|capitalize|dot}",
-      \         "end"
+      \     'test/*_test.exs': {
+      \       'alternate': 'lib/{}.ex',
+      \       'type': 'test',
+      \       'template': [
+      \         'defmodule {camelcase|capitalize|dot}Test do',
+      \         '  use ExUnit.Case, async: true',
+      \         '',
+      \         '  alias {camelcase|capitalize|dot}',
+      \         'end'
       \       ]
       \     }
       \   }

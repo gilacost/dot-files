@@ -103,12 +103,17 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
 
 #install asdf plugins
 asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+asdf plugin-add rebar https://github.com/Stratus3D/asdf-rebar.git
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf plugin-add terraform https://github.com/Banno/asdf-hashicorp.git
+asdf plugin-add packer https://github.com/Banno/asdf-hashicorp.git
 asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+asdf plugin-add yarn
+
+asdf install yarn latest
 
 echo "Cleaning up..."
 brew cleanup
@@ -123,6 +128,8 @@ git clone https://github.com/romkatv/powerlevel10k.git ../themes/powerlevel10k
 
 #language server elixir
 git clone git@github.com:elixir-lsp/elixir-ls.git ~/elixir-ls
+#language server erlang
+git clone git@github.com:erlang-ls/erlang_ls.git ~/erlang-ls
 
 echo "Installing cask..."
 brew cask
