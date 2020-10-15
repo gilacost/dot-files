@@ -1,12 +1,9 @@
 set encoding=utf-8 " default character encoding
 
 " Set leader keys before anything else
-let mapleader      = '\<SPACE>'
+let mapleader      = "\<SPACE>"
 let maplocalleader = ','
 
-" Disable polyglot in favor of real language packs
-" Polyglot is great but it doesn't activate all the functionalities for all
-" languages in order to make it load fast.
 let g:polyglot_disabled = ['elm', 'markdown']
 
 filetype off
@@ -42,21 +39,20 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-dispatch'
 Plug 'easymotion/vim-easymotion'
 
-
 Plug 'radenling/vim-dispatch-neovim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug  'jceb/vim-orgmode'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'mildred/vim-bufmru'
 
 Plug 'mhinz/vim-startify'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug '~/Repos/ale'
+Plug 'https://github.com/gilacost/ale.git', { 'branch': 'allow-erlfmt-as-fixer' }
+" Plug '~/Repos/ale'
 
 Plug 'gcmt/taboo.vim'
 
@@ -66,7 +62,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 Plug 'hyhugh/coc-erlang_ls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'vim-erlang/vim-erlang-runtime'
-Plug 'vim-erlang/vim-erlang-omnicomplete'
+" Plug 'vim-erlang/vim-erlang-omnicomplete'
 
 Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'elixir-editors/vim-elixir'
@@ -90,7 +86,6 @@ call plug#end()
   set lazyredraw
   set synmaxcol=128
   syntax sync minlines=256
-
 
   set clipboard+=unnamed,unnamedplus
   set number
@@ -128,7 +123,6 @@ call plug#end()
   colorscheme OceanicNext
 
   set spell spelllang=en_gb
-
 
   set noswapfile
 
@@ -197,9 +191,6 @@ call plug#end()
 
 " vim-jsx
   let g:jsx_ext_required = 0
-
-" deoplete
-  let g:deoplete#enable_at_startup = 1
 
   let g:ale_linters = {
   \   'elixir': [],
@@ -375,9 +366,6 @@ command! BD call fzf#run(fzf#wrap({
 \ }))
 """""""""""""""""""""" KEYS """"""""""""""""""""""""""""""""
 
-" " DEOPLETE
-"   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
 " Support nested vim
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-v><Esc> <Esc>
@@ -428,11 +416,16 @@ command! BD call fzf#run(fzf#wrap({
   noremap <silent> nt :tabnew<CR>:terminal<CR>
   noremap <M-Left> gT
   noremap <M-Right> gt
+
 " splits
   nnoremap <C-J> <C-W><C-J>
   nnoremap <C-K> <C-W><C-K>
   nnoremap <C-L> <C-W><C-L>
   nnoremap <C-H> <C-W><C-H>
+
+" resizing
+  nnoremap <C-v> <C-w>\|<C-w>_
+  nnoremap <C-b> <C-w>=
 "Max out the height of the current split
 " ctrl + w _
 "Max out the width of the current split

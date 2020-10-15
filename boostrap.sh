@@ -166,6 +166,14 @@ echo "Installing fonts..."
 
 brew cask install ${FONTS[@]}
 
+#TODO
+   # 4699  pip install vim-vint
+   # 4700  pip install --user vim-vint
+   # 4701  pip3 install --user vim-vint
+   # 4702  pip3.8 install --user vim-vint
+   # 4708  pip install pathlib
+# >  4710  pip install typing
+
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
     neovim
