@@ -49,9 +49,11 @@ GITIGNORE     := $(DST_DIR)/.gitignore
 git: banner_install_git $(GITCONFIG) $(GITIGNORE)
 
 $(GITCONFIG):
+	$(RM) $(GITCONFIG)
 	$(LINK) $(GITCONFIG_SRC) $@
 
 $(GITIGNORE):
+	$(RM) $(GITIGNORE)
 	$(LINK) $(GITIGNORE_SRC) $@
 
 clean_git: banner_clean_git
@@ -240,6 +242,27 @@ clean_karabiner: banner_clean_karabiner
 				$(RM) $(KARABINER_CONFIG_SRC)
 endif
 ##############KARABINER###################
+##############COC#########################
+COC := $(shell command -v ls 2>/dev/null)
+
+ifdef COC
+INSTALLERS += coc
+CLEANERS   += clean_coc
+
+COC_CONFIG_SRC := $(DOTFILES)/coc/coc-settings.json
+COC_CONFIG_DST := $(DST_DIR)/.config/coc-settings.json
+
+.PHONY: coc clean_coc
+
+coc: banner_install_coc $(COC_CONFIG_DST)
+
+$(COC_CONFIG_DST):
+				$(LINK) $(COC_CONFIG_SRC) $@
+
+clean_coc: banner_clean_coc
+				$(RM) $(COC_CONFIG_SRC)
+endif
+##############COC#########################
 
 install: $(INSTALLERS)
 
