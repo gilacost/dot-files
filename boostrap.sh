@@ -47,13 +47,16 @@ PACKAGES=(
     awscli
     az
     bat
+    bind
     cloc
     coreutils
     curl
     defaultbrowser
     direnv
     fzf
+    gh
     git
+    glow
     gpg
     gpg1
     graphviz
@@ -77,6 +80,7 @@ PACKAGES=(
     watch
     wget
     wxmac
+    yamllint
     zsh
 )
 

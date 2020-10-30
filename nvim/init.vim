@@ -13,8 +13,15 @@ Plug 'janko/vim-test'
 Plug 'airblade/vim-rooter'
 Plug 'wakatime/vim-wakatime'
 
-Plug 'mhartington/oceanic-next'
+" Plug 'mhartington/oceanic-next'
+" Plug 'glepnir/oceanic-material'
+" Plug 'sainnhe/forest-night'
+
+Plug 'sainnhe/gruvbox-material'
 Plug 'romainl/vim-cool'
+
+Plug 'Yggdroot/indentLine'
+Plug 'pedrohdz/vim-yaml-folds'
 
 Plug 'vim-scripts/SQLComplete.vim'
 
@@ -34,6 +41,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-abolish'
 
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-dispatch'
@@ -44,7 +52,7 @@ Plug 'radenling/vim-dispatch-neovim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug  'jceb/vim-orgmode'
+Plug 'jceb/vim-orgmode'
 Plug 'mildred/vim-bufmru'
 
 Plug 'mhinz/vim-startify'
@@ -61,8 +69,6 @@ Plug 'hashivim/vim-terraform'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 Plug 'hyhugh/coc-erlang_ls', {'do': 'yarn install --frozen-lockfile'}
-Plug 'vim-erlang/vim-erlang-runtime'
-" Plug 'vim-erlang/vim-erlang-omnicomplete'
 
 Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'elixir-editors/vim-elixir'
@@ -119,8 +125,16 @@ call plug#end()
 
   syntax enable
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  set termguicolors
-  colorscheme OceanicNext
+
+  if has('termguicolors')
+    set termguicolors
+  endif
+  let g:gruvbox_material_background = 'medium'
+  let g:gruvbox_material_enable_italic = 1
+  let g:gruvbox_material_disable_italic_comment = 0
+  " colorscheme OceanicNext
+  " set background=dark
+  colorscheme gruvbox-material
 
   set spell spelllang=en_gb
 
@@ -194,12 +208,12 @@ call plug#end()
 
   let g:ale_linters = {
   \   'elixir': [],
-  \   'erlang': ['syntaxerl'],
+  \   'erlang': [],
   \   'ansible': ['ansible-lint'],
   \   'dockerfile': ['hadolint'],
   \   'terraform': ['tflint'],
-  \   'yaml': ['prettier'],
-  \   'yml': ['prettier'],
+  \   'yaml': ['yamllint'],
+  \   'yml': ['yamllint'],
   \   'json': ['prettier'],
   \   'css': ['prettier'],
   \   'scss': ['prettier'],
@@ -224,6 +238,13 @@ call plug#end()
    \   'javascript': ['prettier'],
    \   'typescript': ['prettier'],
    \}
+"""""""""""""""""""""""" YAML """"""""""""""""""""""""""""""""""""""
+" za: Toggle current fold
+" zR: Expand all folds
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+let g:indentLine_char = '⦙'
+set foldlevelstart=20
+"""""""""""""""""""""""" YAML """"""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""" COC """"""""""""""""""""""""""""""""""""""
 autocmd FileType elixir let b:coc_root_patterns = ['mix.exs']
 " TextEdit might fail if hidden is not set.
@@ -335,7 +356,6 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
   let g:elm_detailed_complete = 1
   let g:elm_format_autosave = 1
 
-
 " Ultisnips
   let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
   let g:UltiSnipsSnippetDirectories = ['snips', 'priv_snips', 'UltiSnips' ]
@@ -374,7 +394,7 @@ command! BD call fzf#run(fzf#wrap({
   noremap <leader>sc :Rg<CR>
   noremap <C-p> :Files<CR>
   noremap <C-o> :Buffers<CR>
-  noremap <C-i> :BD<CR>
+  noremap <Leader>i :BD<CR>
   noremap <C-c> :bd!<CR>
   noremap <Leader>sg :GitFiles<CR>
 
@@ -424,7 +444,7 @@ command! BD call fzf#run(fzf#wrap({
   nnoremap <C-H> <C-W><C-H>
 
 " resizing
-  nnoremap <C-v> <C-w>\|<C-w>_
+  nnoremap <C-n> <C-w>\|<C-w>_
   nnoremap <C-b> <C-w>=
 "Max out the height of the current split
 " ctrl + w _
@@ -465,7 +485,7 @@ command! BD call fzf#run(fzf#wrap({
 
 """""""""""""""""""""" STATUSLINE """"""""""""""""""""""""""""""""
       \
-  let g:airline_theme='oceanicnext'
+  let g:airline_theme='gruvbox_material'
   let g:airline#extensions#ale#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
