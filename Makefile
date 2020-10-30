@@ -49,10 +49,10 @@ GITIGNORE     := $(DST_DIR)/.gitignore
 git: banner_install_git $(GITCONFIG) $(GITIGNORE)
 
 $(GITCONFIG):
-	$(CP) $(GITCONFIG_SRC) $@
+	$(LINK) $(GITCONFIG_SRC) $@
 
 $(GITIGNORE):
-	$(CP) $(GITIGNORE_SRC) $@
+	$(LINK) $(GITIGNORE_SRC) $@
 
 clean_git: banner_clean_git
 	$(RM) $(GITCONFIG)
@@ -71,11 +71,6 @@ KITTY_CONFIG_SRC   := $(DOTFILES)/kitty/kitty.conf
 KITTY_CONFIG       := $(KITTY_CONFIG_DIR)/kitty.conf
 KITTY_NVIM_SES_SRC := $(DOTFILES)/kitty/nvim.session
 KITTY_NVIM_SES     := $(DST_DIR)/.nvim.session
-
-# brew cask install kitty
-# mkdir -p ~/Library/Preferences/kitty
-# cp ./kitty/kitty.conf ~/Library/Preferences/kitty/kitty.conf
-# cp ./kitty/nvim.session ~/.nvim.session
 
 .PHONY: kitty clean_kitty
 
@@ -202,6 +197,49 @@ clean_zsh: banner_clean_zsh
 				$(RM) $(P10K)
 endif
 ##############ZSH#########################
+##############WAKA########################
+WAKA := $(shell command -v ls 2>/dev/null)
+
+ifdef WAKA
+INSTALLERS += waka
+CLEANERS   += clean_waka
+
+WAKA_CONFIG_SRC := $(DOTFILES)/wakatime/wakatime.cfg
+WAKA_CONFIG_DST := $(DST_DIR)/.wakatime.cfg
+
+.PHONY: waka clean_waka
+
+waka: banner_install_waka $(WAKA_CONFIG_DST)
+
+$(WAKA_CONFIG_DST):
+				$(LINK) $(WAKA_CONFIG_SRC) $@
+
+
+clean_waka: banner_clean_waka
+				$(RM) $(WAKA_CONFIG_SRC)
+endif
+##############WAKA########################
+##############KARABINER###################
+KARABINER := $(shell command -v ls 2>/dev/null)
+
+ifdef KARABINER
+INSTALLERS += karabiner
+CLEANERS   += clean_karabiner
+
+KARABINER_CONFIG_SRC := $(DOTFILES)/karabiner/karabiner.json
+KARABINER_CONFIG_DST := $(DST_DIR)/.config/karabiner/karabiner.json
+
+.PHONY: karabiner clean_karabiner
+
+karabiner: banner_install_karabiner $(KARABINER_CONFIG_DST)
+
+$(KARABINER_CONFIG_DST):
+				$(LINK) $(KARABINER_CONFIG_SRC) $@
+
+clean_karabiner: banner_clean_karabiner
+				$(RM) $(KARABINER_CONFIG_SRC)
+endif
+##############KARABINER###################
 
 install: $(INSTALLERS)
 

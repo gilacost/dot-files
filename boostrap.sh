@@ -91,9 +91,11 @@ brew install ${PACKAGES[@]}
 brew upgrade gnupg
 brew link --overwrite gnupg
 brew install pinentry-mac
+mkdir -p $HOME/.gnupg
 echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
 killall gpg-agent
 echo "test" | gpg --clearsign
+# GPG
 
 read -p "Do you want to generate a new ssh key for github?" -n 1 -r; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -106,6 +108,8 @@ fi
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.2
 
 #install asdf plugins
+
+asdf plugin-add java https://github.com/halcyon/asdf-java.git
 asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 asdf plugin-add rebar https://github.com/Stratus3D/asdf-rebar.git
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
@@ -162,24 +166,14 @@ echo "Installing cask apps..."
 brew cask install ${CASKS[@]}
 
 echo "Installing fonts..."
-# brew tap caskroom/fonts
-# FONTS=(
-#     font-fontawesome
-#     therm
-# )
-
-brew cask install ${FONTS[@]}
-
-#TODO
-   # 4699  pip install vim-vint
-   # 4700  pip install --user vim-vint
-   # 4701  pip3 install --user vim-vint
-   # 4702  pip3.8 install --user vim-vint
-   # 4708  pip install pathlib
-# >  4710  pip install typing
+tar -xzf fira_code_icursive_s12.tar.gz
+cp Fira\ Code\ iCursive\ S12/* ~/Library/fonts
 
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
+    pathlib
+    typing
+    vim-vint
     neovim
     neovim-remote
     aws-cli
@@ -192,6 +186,9 @@ pip2 install --user ${PYTHON_PACKAGES[@]}
 echo "Configuring OSX..."
 #set default browser to be firefox
 defaultbrowser chrome
+
+# auto-hide dock
+defaults write com.apple.Dock autohide -bool TRUE; killall Dock
 
 #Esto no se que es
 defaults write -g ApplePressAndHoldEnabled -bool true
@@ -227,9 +224,18 @@ defaults write com.apple.menuextra.battery ShowPercent YES
 #bluetooth in menu bar
 open '/System/Library/CoreServices/Menu Extras/Bluetooth.menu'
 
+# show hidden files by default
+# defaults write com.apple.Finder AppleShowAllFiles true
+
+
 echo "auto hide menu bar"
 # auto hide menu bar
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
+
+# remove all keyboard layouts
+# sudo rm /Library/Preferences/com.apple.keyboardtype.plist
+
+killall Finder
 
 # installing dotfiles
 cd $HOME/Repos/dot-files/ && make
