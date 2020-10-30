@@ -14,12 +14,9 @@
 # Custom Host Name
 HOSTNAME_RESULT="$(scutil --get HostName 2>&1 > /dev/null)"
 if [[ $HOSTNAME_RESULT =~ "not set" ]]; then
-  read -p "Do you want to change the computer name? " -n 1 -r; echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    read -p "New Computer Name: " -r; echo
-    sudo scutil --set HostName $REPLY
-    echo "Restart terminal session to see results"
-  fi
+  read -p "New Computer Name: " -r; echo
+  sudo scutil --set HostName $REPLY
+  echo "Restart terminal session to see results"
 fi
 
 echo "Starting bootstrapping"
@@ -68,6 +65,7 @@ PACKAGES=(
     peco
     pre-commit
     pstree
+    python@2
     python3
     rename
     ripgrep
@@ -175,6 +173,7 @@ PYTHON_PACKAGES=(
     typing
     vim-vint
     neovim
+    pynvim
     neovim-remote
     aws-cli
 )

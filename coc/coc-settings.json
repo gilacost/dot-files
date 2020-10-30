@@ -1,0 +1,5 @@
+{
+  "elixir.pathToElixirLS": "~/Repos/elixir-ls/release/language_server.sh",
+  "erlang_ls.erlang_ls_path": "~/Repos/erlang_ls/_build/default/bin/erlang_ls",
+  "erlang_ls.trace.server": "off"
+}
