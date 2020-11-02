@@ -1,2 +1,1 @@
-mv ~/.config/coc-settings.json
- move to backup
+INSTALL ELIXIR AND ERLANG LS via bootstrap
