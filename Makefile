@@ -119,29 +119,6 @@ clean_nvim: banner_clean_nvim
 				$(RM) $(NVIM_DST_DIR)
 endif
 ##############NVIM########################
-##############SKHD########################
-SKHDRC := $(shell command -v ls 2>/dev/null) #change to be skhdrc
-
-ifdef SKHDRC
-INSTALLERS += skhdrc
-CLEANERS   += clean_skhdrc
-
-SKHDRC_SRC := $(DOTFILES)/skhd/skhdrc
-SKHDRC     := $(DST_DIR)/.skhdrc
-
-
-.PHONY: skhdrc clean_skhdrc
-
-skhdrc: banner_install_skhdrc $(SKHDRC)
-
-$(SKHDRC):
-				$(LINK) $(SKHDRC_SRC) $@
-
-clean_skhdrc: banner_clean_skhdrc
-				$(RM) $(SKHDRC)
-
-endif
-##############SKHD########################
 ##############SSH#########################
 SSH := $(shell command -v ssh 2>/dev/null)
 
@@ -263,6 +240,30 @@ clean_coc: banner_clean_coc
 				$(RM) $(COC_CONFIG_SRC)
 endif
 ##############COC#########################
+##############ASDF########################
+ASDF := $(shell command -v asdf 2>/dev/null)
+
+ifdef ASDF
+INSTALLERS += asdf
+CLEANERS   += clean_asdf
+
+ASDF_SRC := $(DOTFILES)/asdf/tool-versions
+ASDF_DST := $(DST_DIR)/.tool-versions
+
+
+.PHONY: asdf clean_asdf
+
+asdf: banner_install_tool_versions $(ASDF_DST)
+
+$(ASDF_DST):
+				$(LINK) $(ASDF_SRC) $@
+				cd ${HOME} && asdf install
+
+clean_asdf: banner_clean_asdf
+				$(RM) $(ASDF_DST)
+
+endif
+##############ASDF########################
 
 install: $(INSTALLERS)
 
