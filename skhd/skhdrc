@@ -1,0 +1,2 @@
+# open terminal
+cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --session ~/.nvim.session --single-instance -d ~
