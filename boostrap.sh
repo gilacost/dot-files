@@ -56,6 +56,7 @@ PACKAGES=(
     glow
     gpg
     gpg1
+    kubectl
     graphviz
     jq
     koekeishiya/formulae/skhd
@@ -65,9 +66,9 @@ PACKAGES=(
     peco
     pre-commit
     pstree
-    python@2
     python3
     rename
+    rg
     ripgrep
     telnet
     terminal-notifier
@@ -133,9 +134,9 @@ git clone https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
 git clone https://github.com/romkatv/powerlevel10k.git ../themes/powerlevel10k
 
 #language server elixir
-git clone git@github.com:elixir-lsp/elixir-ls.git ~/elixir-ls
+git clone git@github.com:elixir-lsp/elixir-ls.git ~/.elixir-ls
 #language server erlang
-git clone git@github.com:erlang-ls/erlang_ls.git ~/erlang-ls
+git clone git@github.com:erlang-ls/erlang_ls.git ~/.erlang-ls
 
 echo "Installing cask..."
 brew cask
@@ -175,11 +176,10 @@ PYTHON_PACKAGES=(
     neovim
     pynvim
     neovim-remote
-    aws-cli
 )
 MACOSX_DEPLOYMENT_TARGET=10.15
-pip3 install --user ${PYTHON_PACKAGES[@]}
-pip2 install --user ${PYTHON_PACKAGES[@]}
+pip3.9 install --user ${PYTHON_PACKAGES[@]}
+pip2.7 install --user ${PYTHON_PACKAGES[@]}
 #todo install ruby neovim and npm neovim and prettier (requires nodejs)
 
 echo "Configuring OSX..."
