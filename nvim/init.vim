@@ -441,6 +441,7 @@ command! BD call fzf#run(fzf#wrap({
   autocmd TermOpen * setlocal nospell
   autocmd TermOpen * setlocal nonumber
   autocmd TermOpen * setlocal scrollback=1000
+  autocmd TermOpen * setlocal norelativenumber
   augroup END
   noremap <leader>zz :terminal<CR>
   noremap <leader>zv :vnew<CR>:terminal<CR>
