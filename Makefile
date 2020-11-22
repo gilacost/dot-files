@@ -221,27 +221,6 @@ clean_waka: banner_clean_waka
 				$(RM) $(WAKA_CONFIG_SRC)
 endif
 ##############WAKA########################
-##############KARABINER###################
-KARABINER := $(shell command -v ls 2>/dev/null)
-
-ifdef KARABINER
-INSTALLERS += karabiner
-CLEANERS   += clean_karabiner
-
-KARABINER_CONFIG_SRC := $(DOTFILES)/karabiner/karabiner.json
-KARABINER_CONFIG_DST := $(DST_DIR)/.config/karabiner/karabiner.json
-
-.PHONY: karabiner clean_karabiner
-
-karabiner: banner_install_karabiner $(KARABINER_CONFIG_DST)
-
-$(KARABINER_CONFIG_DST):
-				$(LINK) $(KARABINER_CONFIG_SRC) $@
-
-clean_karabiner: banner_clean_karabiner
-				$(RM) $(KARABINER_CONFIG_SRC)
-endif
-##############KARABINER###################
 ##############COC#########################
 COC := $(shell command -v ls 2>/dev/null)
 

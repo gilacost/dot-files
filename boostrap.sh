@@ -56,10 +56,11 @@ PACKAGES=(
     glow
     gpg
     gpg1
-    kubectl
     graphviz
+    hadolint
     jq
     koekeishiya/formulae/skhd
+    kubectl
     lsd
     neovim
     nvm
@@ -144,21 +145,22 @@ brew install caskroom/cask/brew-cask
 brew tap dorukgezici/cask
 
 CASKS=(
-    zoomus
+    1password
     diffmerge
-    kitty
     docker
     flux
-    spotify
     google-chrome
     google-cloud-sdk
-    vlc
-    1password
     grammarly
+    inkscape
+    karabiner-elements
+    kitty
+    notion
     popcorn-time
     recordit
-    notion
-    karabiner-elements
+    spotify
+    vlc
+    zoomus
 )
 
 echo "Installing cask apps..."

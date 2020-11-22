@@ -6,7 +6,7 @@ let maplocalleader = ','
 
 let g:polyglot_disabled = ['elm', 'markdown']
 
-filetype off
+" filetype off
 call plug#begin('~/.config/nvim/plugged')
 Plug 'janko/vim-test'
 
@@ -60,7 +60,6 @@ Plug 'mhinz/vim-startify'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'https://github.com/gilacost/ale.git', { 'branch': 'allow-erlfmt-as-fixer' }
-" Plug '~/Repos/ale'
 
 Plug 'gcmt/taboo.vim'
 
@@ -150,10 +149,9 @@ call plug#end()
   autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
 
   autocmd FileType gitcommit set bufhidden=delete
-  autocmd FileType markdown setlocal spell wrap textwidth=80
 
   let g:user_emmet_install_global = 0
-  autocmd FileType html,css EmmetInstall
+  " autocmd FileType html,css EmmetInstall
 
   function! LinterStatus() abort
       let l:counts = ale#statusline#Count(bufnr('%'))
@@ -221,7 +219,8 @@ call plug#end()
   \   'json': ['prettier'],
   \   'css': ['prettier'],
   \   'scss': ['prettier'],
-  \   'html': ['tidy', 'prettier'],
+  \   'markdown': ['writegood'],
+  \   'html': ['prettier', 'writegood'],
   \   'javascript': ['prettier'],
   \   'typescript': ['tsserver', 'tslint'],
   \}
@@ -230,7 +229,7 @@ call plug#end()
    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
    \   'html': ['prettier'],
    \   'elixir': ['mix_format'],
-   \   'erlang': ['erl_fmt'],
+   \   'erlang': ['erlfmt'],
    \   'elm': ['format'],
    \   'rust': ['rustfmt'],
    \   'terraform': ['terraform'],
