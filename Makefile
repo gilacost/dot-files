@@ -266,6 +266,29 @@ clean_asdf: banner_clean_asdf
 
 endif
 ##############ASDF########################
+##############PSQL########################
+PSQL := $(shell command -v psql 2>/dev/null)
+
+ifdef PSQL
+INSTALLERS += psql
+CLEANERS   += clean_psql
+
+ASDF_SRC := $(DOTFILES)/psql/psqlrc
+ASDF_DST := $(DST_DIR)/.psqlrc
+
+
+.PHONY: psql clean_psql
+
+psql: banner_install_psql $(PSQL_DST)
+
+$(PSQL_DST):
+				$(LINK) $(PSQL_SRC) $@
+
+clean_psql: banner_clean_psql
+				$(RM) $(PSQL_DST)
+
+endif
+##############PSQL########################
 
 install: $(INSTALLERS)
 

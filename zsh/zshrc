@@ -24,6 +24,7 @@ source $ZSH/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 
 export PATH="$PATH:$HOME/Library/Python/3.9/bin:$HOME/Library/Python/2.7/bin"
+export PATH="/usr/local/sbin:$PATH"
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -103,6 +104,29 @@ function gsina {
   | peco \
   | awk '{ print "'`git rev-parse --show-toplevel`'/"$2 }'
 }
+
+function ctdeps {
+  mix xref graph --sink $1 --only-nodes
+}
+
+function depstree {
+  mix xref graph --sink $1
+}
+
+function depstreefilter {
+  # Filters deps tree. Defaults to compile
+  # which will only list the transitive deps
+  mix xref graph --sink $1 --label ${2:=compile}
+}
+
+function depsgraph {
+  mix xref graph --format stats
+}
+# docker run --network container:stonehenge_app_run_bd39ef36a432 praqma/network-mu ltitool ping redis
+
+# speeding up dev by changing plug init mode
+# config :phoenix, :plug_init_mode, :runtime
+
 alias g='git'
 alias ga='git add'
 alias gst='git status'
@@ -141,6 +165,9 @@ alias dockerlogs="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | s
 alias dockerrmiall='docker rmi "$(docker images -a -q)"'
 alias dockerrmall='docker rm "$(docker ps -a -q)"'
 alias dockerstopall='docker stop "$(docker ps -a -q)"'
+
+alias kubelogs="kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl logs {}"
+alias kubeinitcontext="aws eks --region $AWS_REGION update-kubeconfig --name $1"
 
 alias ls='lsd'
 alias l='ls -l'

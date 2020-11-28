@@ -1,0 +1,45 @@
+-- Set client encoding to UTF8 (to match what is on the server).
+\encoding UTF8
+
+-- [user]@[host]:[port]/[db]['*' if we are in a transaction]['#' if we are root-like; '>' otherwise]
+\set PROMPT1 '%n@%M:%>/%/%x%# '
+
+-- Ensure second prompt is empty, to facilitate easier copying
+-- of multiline SQL statements from a psql session into other
+-- tools / text editors.
+\set PROMPT2 ''
+
+-- Ensure autocompleted keywords stay lowercase.
+\set COMP_KEYWORD_CASE lower
+
+-- Make history ignore all lines entered that were preceded by spaces, and
+-- ignore any entries that matched the previous line entered.
+\set HISTCONTROL ignoreboth
+
+-- Keep a different history file for each database name we log in to, and
+-- for each user we log into that database as.
+\set HISTFILE ~/.psql_history- :HOST - :DBNAME - :USER
+
+-- Keep the last 2,000 commands.
+\set HISTSIZE 2000
+
+-- Do NOT automatically commit after every statement.
+\set AUTOCOMMIT off
+
+-- In interactive transactions, allow recovery after errors within
+-- transactions. In non-interactive transactions (e.g. those in piped
+-- input), do not.
+\set ON_ERROR_ROLLBACK interactive
+
+-- Instead of displaying nulls as blank space, which look the same as empty
+-- strings (but are not the same!), show nulls as [NULL].
+\pset null '[NULL]'
+
+-- Show pretty unicode lines between rows and columns in select results.
+\pset linestyle unicode
+
+-- Show pretty lines around the outside of select results.
+\pset border 2
+
+-- Show how long it takes to run each query.
+\timing
