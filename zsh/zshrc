@@ -12,7 +12,7 @@ export KERL_INSTALL_HTMLDOCS=yes
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting git git-extras docker docker-compose git-auto-fetch ansible)
+plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting git git-extras docker docker-compose ansible)
 
 export $(go env | grep GOPATH | sed 's/"//g')
 export PATH=$PATH:$GOPATH/bin
