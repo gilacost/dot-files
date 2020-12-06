@@ -123,9 +123,13 @@ function depsgraph {
   mix xref graph --format stats
 }
 # docker run --network container:stonehenge_app_run_bd39ef36a432 praqma/network-mu ltitool ping redis
-
+#
+# curl -L -s 'https://registry.hub.docker.com/v2/repositories/library/alpine/tags?page_size=1024' |jq '."results"[]["name"]'
+#
 # speeding up dev by changing plug init mode
 # config :phoenix, :plug_init_mode, :runtime
+#
+# ❯ docker inspect stonehenge_app:latest --format='{{json .Config.Labels}}' | jq
 
 alias g='git'
 alias ga='git add'
