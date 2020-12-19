@@ -1,24 +1,18 @@
 # -*- mode: gitconfig; -*-
 [user]
   name = gilacost
-  email = josepgiraltdlacoste@gmail.com
-  signingkey = B3380190
+  email = josep.dlacoste@prima.it
+  signingkey = 76684616
+
 [commit]
-	; gpgsign = true
+	gpgsign = true
+
 [gpg]
 	program = gpg
-[color]
-  diff = auto
-  status = auto
-  branch = auto
-[core]
-  excludesfile = ~/.gitignore
-  autocrlf = input
-	editor = nvr -cc split --remote-wait
+
 [apply]
   whitespace = fix
-[format]
-  pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
+
 [alias]
   co = checkout
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative
@@ -31,17 +25,37 @@
   lonely = clone --single-branch --branch
   plg = log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative
   fresh = filter-branch --prune-empty --subdirectory-filter
+
 [push]
   default = current
+
 [rebase]
   autosquash = true
+
 [rerere]
   enabled = true
 ; [init]
 ;   templatedir = ~/Repos/dot-files/git/templates
+
 [include]
   path = ~/.gitconfig_local
-[diff]
-    tool = diffmerge
-[difftool "diffmerge"]
-    cmd = /Applications/Diffmerge.app/Contents/MacOS/diffmerge $LOCAL $REMOTE
+
+[core]
+  excludesfile = ~/.gitignore
+  autocrlf = input
+	editor = nvr -cc split --remote-wait
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    syntax-theme = Dracula
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
