@@ -1,5 +1,8 @@
 {
-  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
-  "erlang_ls.erlang_ls_path": "~/.erlang-ls/_build/default/bin/erlang_ls",
-  "erlang_ls.trace.server": "off"
+  "codeLens.enable": true,
+  "diagnostic-languageserver.filetypes": {
+    "elixir": ["mix_credo", "mix_credo_compile"],
+    "eelixir": ["mix_credo", "mix_credo_compile"]
+  },
+  "elixir.pathToElixirLS": " ~/.config/nvim/plugged/elixir-ls/release/language_server.sh"
 }
