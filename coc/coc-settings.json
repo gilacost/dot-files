@@ -1,5 +1,6 @@
 {
   "codeLens.enable": true,
+  "erlang_ls.erlang_ls_path": "~/.erlang-ls/_build/default/bin/erlang_ls",
   "diagnostic-languageserver.filetypes": {
     "elixir": ["mix_credo", "mix_credo_compile"],
     "eelixir": ["mix_credo", "mix_credo_compile"]
