@@ -53,6 +53,7 @@ PACKAGES=(
     fzf
     gh
     git
+    git-delta
     glow
     gpg
     gpg1
