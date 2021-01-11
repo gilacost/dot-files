@@ -150,6 +150,7 @@ CASKS=(
     diffmerge
     docker
     flux
+    gimp
     google-chrome
     google-cloud-sdk
     grammarly
