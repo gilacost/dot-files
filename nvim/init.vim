@@ -5,6 +5,7 @@ let mapleader      = "\<SPACE>"
 let maplocalleader = ','
 
 let g:polyglot_disabled = ['elm', 'markdown']
+" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
 " filetype off
 call plug#begin('~/.config/nvim/plugged')
@@ -13,7 +14,8 @@ Plug 'janko/vim-test'
 Plug 'airblade/vim-rooter'
 Plug 'wakatime/vim-wakatime'
 
-Plug 'mhartington/oceanic-next'
+Plug 'joshdick/onedark.vim'
+" Plug 'mhartington/oceanic-next'
 " Plug 'glepnir/oceanic-material'
 " Plug 'sainnhe/forest-night'
 
@@ -132,7 +134,8 @@ call plug#end()
   let g:gruvbox_material_background = 'medium'
   let g:gruvbox_material_enable_italic = 1
   let g:gruvbox_material_disable_italic_comment = 0
-  colorscheme OceanicNext
+  " colorscheme OceanicNext
+  colorscheme onedark
   " set background=dark
   " colorscheme gruvbox-material
 
@@ -464,7 +467,8 @@ command! BD call fzf#run(fzf#wrap({
 
 """""""""""""""""""""" SATUSLINE """"""""""""""""""""""""""""""""
       \
-  let g:airline_theme='oceanicnext'
+  " let g:airline_theme='oceanicnext'
+  let g:airline_theme='onedark'
   let g:airline#extensions#ale#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1

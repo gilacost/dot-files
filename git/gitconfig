@@ -1,11 +1,11 @@
 # -*- mode: gitconfig; -*-
 [user]
   name = gilacost
-  email = josep.dlacoste@prima.it
-  signingkey = 76684616
+  email = josepgiraltdlacoste@gmail.com
+  signingkey = 6104CFB1
 
 [commit]
-	gpgsign = true
+	; gpgsign = true
 
 [gpg]
 	program = gpg
