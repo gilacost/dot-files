@@ -186,6 +186,8 @@ pip3.9 install --user ${PYTHON_PACKAGES[@]}
 pip2.7 install --user ${PYTHON_PACKAGES[@]}
 #todo install ruby neovim and npm neovim and prettier (requires nodejs)
 
+# npm install --global pure-prompt
+
 echo "Configuring OSX..."
 #set default browser to be firefox
 defaultbrowser chrome
