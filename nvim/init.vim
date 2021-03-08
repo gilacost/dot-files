@@ -69,6 +69,7 @@ Plug 'gcmt/taboo.vim'
 Plug 'hashivim/vim-terraform'
 
 Plug 'elixir-editors/vim-elixir'
+Plug 'SirVer/ultisnips'
 
 Plug 'elixir-lsp/elixir-ls', { 'do': { -> g:ElixirLS.compile_sync() } }
 
@@ -87,6 +88,7 @@ call plug#end()
 
   set undolevels=1000
   set undoreload=10000
+  set scrollback=100000
 
   set lazyredraw
   set synmaxcol=128
@@ -189,7 +191,7 @@ call plug#end()
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
 " ALE
   augroup elixir
-    autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinitionInVSplit<CR>
+    autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinition<CR>
     autocmd FileType elixir nnoremap <C-d> :ALEHover<CR>
   augroup END
   nmap <silent> <C-n> <Plug>(ale_previous_wrap)
@@ -225,7 +227,7 @@ call plug#end()
   let g:ale_set_quickfix = 1
 
   let g:ale_linters = {
-  \   'elixir': ['elixir-ls'],
+  \   'elixir': ['elixir-ls', 'mix'],
   \   'erlang': [],
   \   'ansible': ['ansible-lint'],
   \   'dockerfile': ['hadolint'],
@@ -238,14 +240,14 @@ call plug#end()
   \   'markdown': ['writegood'],
   \   'html': ['prettier', 'writegood'],
   \   'javascript': ['prettier'],
-  \   'typescript': ['tsserver', 'tslint'],
   \}
+
 
    let g:ale_fixers = {
    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
    \   'html': ['prettier'],
    \   'elixir': ['mix_format'],
-   \   'erlang': ['erlfmt'],
+   \   'erlang': [],
    \   'elm': ['format'],
    \   'rust': ['rustfmt'],
    \   'terraform': ['terraform'],
@@ -255,7 +257,6 @@ call plug#end()
    \   'css': ['prettier'],
    \   'scss': ['prettier'],
    \   'javascript': ['prettier'],
-   \   'typescript': ['prettier'],
    \}
 "
 " GitGutter
@@ -337,16 +338,24 @@ set foldlevelstart=20
   let g:elm_detailed_complete = 1
   let g:elm_format_autosave = 1
 
-" Ultisnips
-  let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
-  let g:UltiSnipsSnippetDirectories = ['snips', 'priv_snips', 'UltiSnips' ]
-  let g:UltiSnipsEditSplit = 'vertical'
+" " Ultisnips
+"   let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
+"   let g:UltiSnipsSnippetDirectories = ['snips', 'priv_snips', 'UltiSnips' ]
+"   let g:UltiSnipsEditSplit = 'vertical'
 
 " Show those languages with syntax highliting inside Markdown
   let g:vim_markdown_folding_level = 2
 
 " le test
   let test#strategy = 'neovim'
+
+  "TODO ensure dir created
+
+   let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/util_snips']
+   let g:UltiSnipsExpandTrigger="<tab>"
+   let g:UltiSnipsJumpForwardTrigger="<tab>"
+   let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+   let g:UltiSnipsEditSplit = 'vertical'
 
 " FZF override
 function! s:list_buffers()
