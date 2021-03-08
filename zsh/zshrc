@@ -20,7 +20,7 @@ unset KERL_INSTALL_HTMLDOCS
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
- plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting git git-extras docker docker-compose ansible)
+plugins=(elixir fzf zsh-autosuggestions zsh-syntax-highlighting git git-extras docker docker-compose ansible)
 
 
 # TODO run in the background
@@ -182,7 +182,7 @@ alias dockerrmiall='docker rmi "$(docker images -a -q)"'
 alias dockerrmall='docker rm "$(docker ps -a -q)"'
 alias dockerstopall='docker stop "$(docker ps -a -q)"'
 
-alias kubelogs="kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl logs {}"
+alias kubelogs="kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}"
 alias kubeinitcontext="aws eks --region $AWS_REGION update-kubeconfig --name $1"
 
 alias ls='lsd'
