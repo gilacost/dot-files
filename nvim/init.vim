@@ -14,8 +14,8 @@ Plug 'janko/vim-test'
 Plug 'airblade/vim-rooter'
 Plug 'wakatime/vim-wakatime'
 
-Plug 'joshdick/onedark.vim'
-" Plug 'mhartington/oceanic-next'
+" Plug 'joshdick/onedark.vim'
+Plug 'mhartington/oceanic-next'
 " Plug 'glepnir/oceanic-material'
 " Plug 'sainnhe/forest-night'
 
@@ -26,6 +26,9 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
+
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
 Plug 'romainl/vim-cool'
 
@@ -78,7 +81,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'elixir-editors/vim-elixir'
 Plug 'SirVer/ultisnips'
 
-Plug 'elixir-lsp/elixir-ls', { 'do': { -> g:ElixirLS.compile_sync() } }
+" Plug 'elixir-lsp/elixir-ls', { 'do': { -> g:ElixirLS.compile_sync() } }
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " Fuzzy Search
@@ -143,8 +146,8 @@ call plug#end()
   let g:gruvbox_material_background = 'medium'
   let g:gruvbox_material_enable_italic = 1
   let g:gruvbox_material_disable_italic_comment = 0
-  " colorscheme OceanicNext
-  colorscheme onedark
+  colorscheme OceanicNext
+  " colorscheme onedark
   " set background=dark
   " colorscheme gruvbox-material
 
@@ -225,36 +228,21 @@ call plug#end()
 " ALE - Asynchronous Linting Engine
   let g:ale_fix_on_save = 1
   let g:ale_sign_column_always = 1
-  let g:ale_lint_on_text_changed = 'always'
-  let g:ale_sign_error = 'E'
-  let g:ale_sign_warning = 'W'
+  let g:ale_lint_on_text_changed = 'never'
+  let g:ale_lint_on_insert_leave = 0
 
-  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  let g:ale_elixir_elixir_ls_release = $HOME.'/.config/nvim/plugged/elixir-ls/release'
+  " let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  let g:ale_elixir_elixir_ls_release = $HOME. '/.local/share/vim-lsp-settings/servers/elixir-ls'
 
 " " https://github.com/JakeBecker/elixir-ls/issues/54
-  let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
+  " let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
 
 " Write this in your vimrc file
   let g:ale_set_loclist = 0
   let g:ale_set_quickfix = 1
-
-  let g:ale_linters = {
-  \   'elixir': ['elixir-ls', 'mix'],
-  \   'erlang': [],
-  \   'ansible': ['ansible-lint'],
-  \   'dockerfile': ['hadolint'],
-  \   'terraform': ['tflint'],
-  \   'yaml': ['yamllint'],
-  \   'yml': ['yamllint'],
-  \   'json': ['prettier'],
-  \   'css': ['prettier'],
-  \   'scss': ['prettier'],
-  \   'markdown': ['writegood'],
-  \   'html': ['prettier', 'writegood'],
-  \   'javascript': ['prettier'],
-  \}
-
+  let g:ale_sign_error = 'E'
+  let g:ale_sign_warning = 'W'
+  let g:ale_set_highlights = 0
 
    let g:ale_fixers = {
    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -271,6 +259,22 @@ call plug#end()
    \   'scss': ['prettier'],
    \   'javascript': ['prettier'],
    \}
+
+  let g:ale_linters = {
+  \   'elixir': ['elixir-ls', 'mix'],
+  \   'erlang': ['erlang_ls'],
+  \   'ansible': ['ansible-lint'],
+  \   'dockerfile': ['hadolint'],
+  \   'terraform': ['tflint'],
+  \   'yaml': ['yamllint'],
+  \   'yml': ['yamllint'],
+  \   'json': ['prettier'],
+  \   'css': ['prettier'],
+  \   'scss': ['prettier'],
+  \   'markdown': ['writegood'],
+  \   'html': ['prettier', 'writegood'],
+  \   'javascript': ['prettier'],
+  \}
 "
 " GitGutter
 "
@@ -289,54 +293,6 @@ call plug#end()
   noremap <Leader>hp :GitGutterPrevHunk<CR>
   noremap <Leader>hs :GitGutterStageHunk<CR>
   noremap <Leader>hu :GitGutterUndoHunk<CR>
-"""""""""""""""""""""""" ELIXIR LS """"""""""""""""""""""""""""""""""
-let g:ElixirLS = {}
-let ElixirLS.path = stdpath('config').'/plugged/elixir-ls'
-let ElixirLS.lsp = ElixirLS.path.'/release/language_server.sh'
-let ElixirLS.cmd = join([
-        \ 'cp .release-tool-versions .tool-versions &&',
-        \ 'asdf install &&',
-        \ 'mix do',
-        \ 'local.hex --force --if-missing,',
-        \ 'local.rebar --force,',
-        \ 'deps.get,',
-        \ 'compile,',
-        \ 'elixir_ls.release &&',
-        \ 'rm .tool-versions'
-        \ ], ' ')
-
-function ElixirLS.on_stdout(_job_id, data, _event)
-  let self.output[-1] .= a:data[0]
-  call extend(self.output, a:data[1:])
-endfunction
-
-let ElixirLS.on_stderr = function(ElixirLS.on_stdout)
-
-function ElixirLS.on_exit(_job_id, exitcode, _event)
-  if a:exitcode[0] == 0
-    echom '>>> ElixirLS compiled'
-  else
-    echoerr join(self.output, ' ')
-    echoerr '>>> ElixirLS compilation failed'
-  endif
-endfunction
-
-function ElixirLS.compile()
-  let me = copy(g:ElixirLS)
-  let me.output = ['']
-  echom '>>> compiling ElixirLS'
-  let me.id = jobstart('cd ' . me.path . ' && git pull && ' . me.cmd, me)
-endfunction
-
-" If you want to wait on the compilation only when running :PlugUpdate
-" then have the post-update hook use this function instead:
-
-function ElixirLS.compile_sync()
-  echom '>>> compiling ElixirLS'
-  call system(g:ElixirLS.cmd)
-  echom '>>> ElixirLS compiled'
-endfunction
-"""""""""""""""""""""""" ELIXIR LS """"""""""""""""""""""""""""""""""
 """""""""""""""""""""""" YAML """"""""""""""""""""""""""""""""""""""
 " za: Toggle current fold
 " zR: Expand all folds
@@ -491,8 +447,8 @@ command! BD call fzf#run(fzf#wrap({
 
 """""""""""""""""""""" SATUSLINE """"""""""""""""""""""""""""""""
       \
-  " let g:airline_theme='oceanicnext'
-  let g:airline_theme='onedark'
+  let g:airline_theme='oceanicnext'
+  " let g:airline_theme='onedark'
   let g:airline#extensions#ale#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
