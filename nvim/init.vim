@@ -20,6 +20,13 @@ Plug 'joshdick/onedark.vim'
 " Plug 'sainnhe/forest-night'
 
 " Plug 'sainnhe/gruvbox-material'
+" Typescript
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'jparise/vim-graphql'
+
 Plug 'romainl/vim-cool'
 
 Plug 'Yggdroot/indentLine'
@@ -155,6 +162,12 @@ call plug#end()
   let g:user_emmet_install_global = 0
   " autocmd FileType html,css EmmetInstall
 
+  function! Repeat()
+    let times = input("Count: ")
+    let char  = input("Char: ")
+    exe ":normal a" . repeat(char, times)
+  endfunction
+
   function! LinterStatus() abort
       let l:counts = ale#statusline#Count(bufnr('%'))
 
@@ -270,6 +283,8 @@ call plug#end()
   let g:gitgutter_sign_removed = '·'
   let g:gitgutter_sign_removed_first_line = '·'
   let g:gitgutter_sign_modified_removed = '·'
+  let g:test#preserve_screen = 1
+
   noremap <Leader>hn :GitGutterNextHunk<CR>
   noremap <Leader>hp :GitGutterPrevHunk<CR>
   noremap <Leader>hs :GitGutterStageHunk<CR>

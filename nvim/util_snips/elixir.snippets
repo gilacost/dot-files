@@ -8,6 +8,10 @@ snippet defl "defines a new function" !b
 def ${1:name}(${2:params}), do: $3
 endsnippet
 
+snippet err "error tuple" !b
+{ :error, ${1:error} }
+endsnippet
+
 snippet defp "defines a private method with a multiline block" !b
 defp ${1:name}(${2:params}) do
   $3
