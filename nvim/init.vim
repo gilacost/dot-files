@@ -28,7 +28,9 @@ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
 
 Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+" Plug 'mattn/vim-lsp-settings'
+"
+Plug 'https://github.com/gilacost/vim-lsp-settings.git', { 'branch': 'update-elixir-lsp-release-version' }
 
 Plug 'romainl/vim-cool'
 
@@ -207,8 +209,8 @@ call plug#end()
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
 " ALE
   augroup elixir
-    autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinition<CR>
-    autocmd FileType elixir nnoremap <C-d> :ALEHover<CR>
+    autocmd FileType elixir nnoremap <C-]> :LspDefinition<CR>
+    autocmd FileType elixir nnoremap <C-d> :LspHover<CR>
   augroup END
   nmap <silent> <C-n> <Plug>(ale_previous_wrap)
   nmap <silent> <C-b> <Plug>(ale_next_wrap)
@@ -235,7 +237,7 @@ call plug#end()
   let g:ale_elixir_elixir_ls_release = $HOME. '/.local/share/vim-lsp-settings/servers/elixir-ls'
 
 " " https://github.com/JakeBecker/elixir-ls/issues/54
-  " let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
+  let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
 
 " Write this in your vimrc file
   let g:ale_set_loclist = 0
