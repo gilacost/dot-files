@@ -27,7 +27,7 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
 
-Plug 'prabirshrestha/vim-lsp'
+" Plug 'prabirshrestha/vim-lsp'
 " Plug 'mattn/vim-lsp-settings'
 "
 Plug 'https://github.com/gilacost/vim-lsp-settings.git', { 'branch': 'update-elixir-lsp-release-version' }
@@ -74,6 +74,7 @@ Plug 'mhinz/vim-startify'
 Plug 'airblade/vim-gitgutter'
 
 " Plug 'https://github.com/gilacost/ale.git', { 'branch': 'allow-erlfmt-as-fixer' }
+" Plug 'dense-analysis/ale', { 'tag': 'v2.7.0' }
 Plug 'dense-analysis/ale'
 
 Plug 'gcmt/taboo.vim'
@@ -209,11 +210,9 @@ call plug#end()
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
 " ALE
   augroup elixir
-    autocmd FileType elixir nnoremap <C-]> :LspDefinition<CR>
-    autocmd FileType elixir nnoremap <C-d> :LspHover<CR>
+    autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinition<CR>
+    autocmd FileType elixir nnoremap <C-d> :ALEHover<CR>
   augroup END
-  nmap <silent> <C-n> <Plug>(ale_previous_wrap)
-  nmap <silent> <C-b> <Plug>(ale_next_wrap)
 
 " FZF
   let g:fzf_preview_window = 'right:60%'
@@ -232,19 +231,14 @@ call plug#end()
   let g:ale_sign_column_always = 1
   let g:ale_lint_on_text_changed = 'never'
   let g:ale_lint_on_insert_leave = 0
+  let g:ale_hover_to_preview = 1
 
   " let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  let g:ale_elixir_elixir_ls_release = $HOME. '/.local/share/vim-lsp-settings/servers/elixir-ls'
+  let g:ale_elixir_elixir_ls_release = $HOME. '/Repos/elixir-ls/release'
 
 " " https://github.com/JakeBecker/elixir-ls/issues/54
   let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
 
-" Write this in your vimrc file
-  let g:ale_set_loclist = 0
-  let g:ale_set_quickfix = 1
-  let g:ale_sign_error = 'E'
-  let g:ale_sign_warning = 'W'
-  let g:ale_set_highlights = 0
 
    let g:ale_fixers = {
    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -263,7 +257,7 @@ call plug#end()
    \}
 
   let g:ale_linters = {
-  \   'elixir': ['elixir-ls', 'mix'],
+  \   'elixir': ['mix', 'elixir-ls'],
   \   'erlang': ['erlang_ls'],
   \   'ansible': ['ansible-lint'],
   \   'dockerfile': ['hadolint'],
@@ -277,6 +271,13 @@ call plug#end()
   \   'html': ['prettier', 'writegood'],
   \   'javascript': ['prettier'],
   \}
+
+" Write this in your vimrc file
+  let g:ale_set_loclist = 0
+  let g:ale_set_quickfix = 1
+  let g:ale_sign_error = 'E'
+  let g:ale_sign_warning = 'W'
+  let g:ale_set_highlights = 0
 "
 " GitGutter
 "
@@ -366,8 +367,11 @@ command! BD call fzf#run(fzf#wrap({
   nnoremap <leader>vr :source $MYVIMRC<CR>
 
 " Errors list
-  nnoremap <leader>lo :ALEDetail<CR>
+  nnoremap <leader>lm :ALEPrevious<CR>
   nnoremap <leader>ln :ALENext<CR>
+
+" Ale restart
+  nnoremap <leader>lr :ALEReset<CR>
 
 " quick list and location list
   nnoremap <leader>qo :copen<CR>
