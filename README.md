@@ -1,32 +1,67 @@
-# Dev Environment
-This works only in OSX for the time being ;)
-Feel free to use. Clone this repo and run `./bootstrap.sh`.
+* My configuration
+  [[https://builtwithnix.org][https://img.shields.io/badge/Built_With-Nix-5277C3.svg?logo=nixos&labelColor=73C3D5]]
 
-These are my dotfiles.
+  OSX configurations, expressed in [[https://nixos.org/nix][Nix]]
 
-# Credit
+* Installation requirements
 
-I copied the wole Makefile structure for the installation from
-from Fran's dotfiles https://github.com/nciscoj/dot-files.
+In order to be able to install some casks we require `homebrew` installed.
 
-# Todo
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew analytics off
+```
 
-mv to mackup
+## Casks list
 
-# Random commands
+```nix
+  homebrew.casks = [
+   "firefox"
+   "1password"
+   "docker"
+   "grammarly"
+   "inkscape"
+   "recordit"
+   "spotify"
+   "vlc"
+   "zoom"
+   "kitty"
+  ];
+```
 
-- generate new gpg key
+## Install nix
 
-gpg --default-new-key-algo rsa4096 --gen-key
+**NOTE**: If you decide to encrypt the main Drive by enabling file vault, you will needwe need to create the `/nix` volume mannually. Follow these [instructions]
+(https://nixos.org/manual/nix/stable/#sect-macos-installation-recommended-notes)
 
-- list id for previous export, the id is after the '/'
+### Steps
 
-gpg --list-secret-keys --keyid-format LONG
+1) `sudo echo "nix" > /etc/synthetic.conf`
 
-- export public key
+2) `sudo diskutil apfs addVolume disk1 APFS 'Nix Store' -mountpoint /nix`
 
-gpg --armor --export REPLACE_WITH_EXTRACTED_ID
+3)`sudo vifs
+LABEL=Nix\040Store /nix apfs rw,nobrowse
+`
 
-- display id short version for gitconfig
+4) `sudo reboot`
 
-gpg --list-secret-keys --keyid-format SHORT
+5) `curl -L https://nixos.org/nix/install | sh -s -- --daemon`
+
+6) `./install.sh`
+
+## Useful commands
+
+* `nix-shell -p nix-info --run "nix-info -m"`
+
+next steps: 
+- zsh and all programs with home manager
+- keyboard language? enable and uk?
+- review all vim plugins
+- ale and language-servers
+- secrets in repo
+- move to flakes
+- yabai
+- sort ligatures
+- play with telescope
+- import snipets not prioritary
