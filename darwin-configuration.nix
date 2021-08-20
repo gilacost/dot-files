@@ -50,7 +50,7 @@
   # SERVICES #
   ############
 
- services.skhd = {
+  services.skhd = {
     enable = true;
     skhdConfig = ''
       cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --start-as=fullscreen --session ~/.nvim.session --single-instance -d ~

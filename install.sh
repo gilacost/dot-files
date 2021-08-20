@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # ssh-keygen -t rsa -b 4096 -N '' -C "${REPLY}" -f ~/.ssh/github_rsa
 
 if ! grep -q nix-darwin ~/.nix-channels; then
@@ -9,7 +8,7 @@ fi
 
 nix-channel --update
 
-export NIX_PATH=darwin=$HOME/.nix-defexpr/channels/darwin:$NIX_PATH    
+export NIX_PATH=darwin=$HOME/.nix-defexpr/channels/darwin:$NIX_PATH
 
 sudo rm /etc/shells /etc/zprofile /etc/zshrc
 nix-build '<darwin>' -A installer --out-link /tmp/nix-darwin && /tmp/nix-darwin/bin/darwin-installer
@@ -21,6 +20,11 @@ ln -s  $HOME/Repos/dot-files/configuration.nix $HOME/.config/nixpkgs/darwin-conf
 
 darwin-rebuild switch -I "darwin-config=$HOME/.config/nixpkgs/darwin-configuration.nix"
 
+# DERIVATIONS
+
+nix-env -i -f elixirls.nix
+# nix-env -i -f erlangls.nix
+
 # HOME MANAGER
 
 if ! grep -q home-manager ~/.nix-channels; then
@@ -31,11 +35,11 @@ nix-channel --update
 nix-shell '<home-manager>' -A install
 
 ln -s  $HOME/Repos/dot-files/home.nix $HOME/.nixpkgs/home.nix
+ln -s  $HOME/Repos/dot-files/elixirls.nix $HOME/.nixpkgs/elixirls.nix
 ln -s  $HOME/Repos/dot-files/colorscheme.nix $HOME/.nixpkgs/colorscheme.nix
-ln -s  $HOME/Repos/dot-files/init.vim $HOME/.nixpkgse/init.vim
+ln -s  $HOME/Repos/dot-files/init.vim $HOME/.nixpkgs/init.vim
+ln -s  $HOME/Repos/dot-files/init.lua $HOME/.nixpkgs/init.lua
 ln -s  $HOME/Repos/dot-files/kitty.conf $HOME/.config/kitty.conf
 ln -s  $HOME/Repos/dot-files/nvim.session $HOME/.nvim.session
 
 home-manager switch
-
-
