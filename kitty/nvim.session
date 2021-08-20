@@ -1,3 +1,0 @@
-cd ~/Repos
-title pantanal
-launch zsh -c "source ~/.zshrc && nvim"

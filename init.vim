@@ -1,94 +1,9 @@
 set encoding=utf-8 " default character encoding
 
 " Set leader keys before anything else
+"
 let mapleader      = "\<SPACE>"
 let maplocalleader = ','
-
-let g:polyglot_disabled = ['elm', 'markdown']
-" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-
-" filetype off
-call plug#begin('~/.config/nvim/plugged')
-Plug 'janko/vim-test'
-
-Plug 'airblade/vim-rooter'
-Plug 'wakatime/vim-wakatime'
-
-" Plug 'joshdick/onedark.vim'
-Plug 'mhartington/oceanic-next'
-" Plug 'glepnir/oceanic-material'
-" Plug 'sainnhe/forest-night'
-
-" Plug 'sainnhe/gruvbox-material'
-" Typescript
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'jparise/vim-graphql'
-
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
-"
-Plug 'https://github.com/gilacost/vim-lsp-settings.git', { 'branch': 'update-elixir-lsp-release-version' }
-
-Plug 'romainl/vim-cool'
-
-Plug 'Yggdroot/indentLine'
-Plug 'pedrohdz/vim-yaml-folds'
-
-Plug 'vim-scripts/SQLComplete.vim'
-
-Plug 'scrooloose/nerdtree'
-
-Plug 'mattn/emmet-vim'
-
-Plug 'elmcast/elm-vim'
-
-Plug 'rust-lang/rust.vim'
-Plug 'sheerun/vim-polyglot'
-
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-abolish'
-
-Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-dispatch'
-Plug 'easymotion/vim-easymotion'
-
-Plug 'radenling/vim-dispatch-neovim'
-
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-Plug 'jceb/vim-orgmode'
-Plug 'mildred/vim-bufmru'
-
-Plug 'mhinz/vim-startify'
-
-Plug 'airblade/vim-gitgutter'
-
-" Plug 'https://github.com/gilacost/ale.git', { 'branch': 'allow-erlfmt-as-fixer' }
-" Plug 'dense-analysis/ale', { 'tag': 'v2.7.0' }
-Plug 'dense-analysis/ale'
-
-Plug 'gcmt/taboo.vim'
-
-Plug 'hashivim/vim-terraform'
-
-Plug 'elixir-editors/vim-elixir'
-Plug 'SirVer/ultisnips'
-
-" Plug 'elixir-lsp/elixir-ls', { 'do': { -> g:ElixirLS.compile_sync() } }
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim' " Fuzzy Search
-call plug#end()
 
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -139,20 +54,13 @@ call plug#end()
 
   syntax enable
 
-  let g:python3_host_prog = '/usr/local/bin/python3'
-
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
   if has('termguicolors')
     set termguicolors
   endif
-  let g:gruvbox_material_background = 'medium'
-  let g:gruvbox_material_enable_italic = 1
-  let g:gruvbox_material_disable_italic_comment = 0
+
   colorscheme OceanicNext
-  " colorscheme onedark
-  " set background=dark
-  " colorscheme gruvbox-material
 
   set spell spelllang=en_gb
 
@@ -174,18 +82,18 @@ call plug#end()
     exe ":normal a" . repeat(char, times)
   endfunction
 
-  function! LinterStatus() abort
-      let l:counts = ale#statusline#Count(bufnr('%'))
-
-      let l:all_errors = l:counts.error + l:counts.style_error
-      let l:all_non_errors = l:counts.total - l:all_errors
-
-      return l:counts.total == 0 ? 'OK' : printf(
-      \   '%dW %dE',
-      \   all_non_errors,
-      \   all_errors
-      \)
-  endfunction
+" function! LinterStatus() abort
+"     let l:counts = ale#statusline#Count(bufnr('%'))
+"
+"     let l:all_errors = l:counts.error + l:counts.style_error
+"     let l:all_non_errors = l:counts.total - l:all_errors
+"
+"     return l:counts.total == 0 ? 'OK' : printf(
+"     \   '%dW %dE',
+"     \   all_non_errors,
+"     \   all_errors
+"     \)
+" endfunction
 " Rename current file
   function! RenameFile()
       let old_name = expand('%')
@@ -208,11 +116,11 @@ call plug#end()
   au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
-" ALE
-  augroup elixir
-    autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinition<CR>
-    autocmd FileType elixir nnoremap <C-d> :ALEHover<CR>
-  augroup END
+" " ALE
+"   augroup elixir
+"     autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinition<CR>
+"     autocmd FileType elixir nnoremap <C-d> :ALEHover<CR>
+"   augroup END
 
 " FZF
   let g:fzf_preview_window = 'right:60%'
@@ -226,58 +134,58 @@ call plug#end()
 " vil-jsx
   let g:jsx_ext_required = 0
 
-" ALE - Asynchronous Linting Engine
-  let g:ale_fix_on_save = 1
-  let g:ale_sign_column_always = 1
-  let g:ale_lint_on_text_changed = 'never'
-  let g:ale_lint_on_insert_leave = 0
-  let g:ale_hover_to_preview = 1
+" " ALE - Asynchronous Linting Engine
+"   let g:ale_fix_on_save = 1
+"   let g:ale_sign_column_always = 1
+"   let g:ale_lint_on_text_changed = 'never'
+"   let g:ale_lint_on_insert_leave = 0
+"   let g:ale_hover_to_preview = 1
 
-  " let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  let g:ale_elixir_elixir_ls_release = $HOME. '/Repos/elixir-ls/release'
+"   " let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"   let g:ale_elixir_elixir_ls_release = $HOME. '/Repos/elixir-ls/release'
 
-" " https://github.com/JakeBecker/elixir-ls/issues/54
-  let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
+" " " https://github.com/JakeBecker/elixir-ls/issues/54
+"   let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
 
 
-   let g:ale_fixers = {
-   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-   \   'html': ['prettier'],
-   \   'elixir': ['mix_format'],
-   \   'erlang': [],
-   \   'elm': ['format'],
-   \   'rust': ['rustfmt'],
-   \   'terraform': ['terraform'],
-   \   'yaml': ['prettier'],
-   \   'yml': ['prettier'],
-   \   'json': ['prettier'],
-   \   'css': ['prettier'],
-   \   'scss': ['prettier'],
-   \   'javascript': ['prettier'],
-   \}
+"    let g:ale_fixers = {
+"    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+"    \   'html': ['prettier'],
+"    \   'elixir': ['mix_format'],
+"    \   'erlang': [],
+"    \   'elm': ['format'],
+"    \   'rust': ['rustfmt'],
+"    \   'terraform': ['terraform'],
+"    \   'yaml': ['prettier'],
+"    \   'yml': ['prettier'],
+"    \   'json': ['prettier'],
+"    \   'css': ['prettier'],
+"    \   'scss': ['prettier'],
+"    \   'javascript': ['prettier'],
+"    \}
 
-  let g:ale_linters = {
-  \   'elixir': ['mix', 'elixir-ls'],
-  \   'erlang': ['erlang_ls'],
-  \   'ansible': ['ansible-lint'],
-  \   'dockerfile': ['hadolint'],
-  \   'terraform': ['tflint'],
-  \   'yaml': ['yamllint'],
-  \   'yml': ['yamllint'],
-  \   'json': ['prettier'],
-  \   'css': ['prettier'],
-  \   'scss': ['prettier'],
-  \   'markdown': ['writegood'],
-  \   'html': ['prettier', 'writegood'],
-  \   'javascript': ['prettier'],
-  \}
+"   let g:ale_linters = {
+"   \   'elixir': ['mix', 'elixir-ls'],
+"   \   'erlang': ['erlang_ls'],
+"   \   'ansible': ['ansible-lint'],
+"   \   'dockerfile': ['hadolint'],
+"   \   'terraform': ['tflint'],
+"   \   'yaml': ['yamllint'],
+"   \   'yml': ['yamllint'],
+"   \   'json': ['prettier'],
+"   \   'css': ['prettier'],
+"   \   'scss': ['prettier'],
+"   \   'markdown': ['writegood'],
+"   \   'html': ['prettier', 'writegood'],
+"   \   'javascript': ['prettier'],
+"   \}
 
-" Write this in your vimrc file
-  let g:ale_set_loclist = 0
-  let g:ale_set_quickfix = 1
-  let g:ale_sign_error = 'E'
-  let g:ale_sign_warning = 'W'
-  let g:ale_set_highlights = 0
+" " Write this in your vimrc file
+"   let g:ale_set_loclist = 0
+"   let g:ale_set_quickfix = 1
+"   let g:ale_sign_error = 'E'
+"   let g:ale_sign_warning = 'W'
+"   let g:ale_set_highlights = 0
 "
 " GitGutter
 "
@@ -325,11 +233,11 @@ set foldlevelstart=20
 
   "TODO ensure dir created
 
-   let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/util_snips']
-   let g:UltiSnipsExpandTrigger="<tab>"
-   let g:UltiSnipsJumpForwardTrigger="<tab>"
-   let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-   let g:UltiSnipsEditSplit = 'vertical'
+   " let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/util_snips']
+   " let g:UltiSnipsExpandTrigger="<tab>"
+   " let g:UltiSnipsJumpForwardTrigger="<tab>"
+   " let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+   " let g:UltiSnipsEditSplit = 'vertical'
 
 " FZF override
 function! s:list_buffers()
@@ -367,11 +275,11 @@ command! BD call fzf#run(fzf#wrap({
   nnoremap <leader>vr :source $MYVIMRC<CR>
 
 " Errors list
-  nnoremap <leader>lm :ALEPrevious<CR>
-  nnoremap <leader>ln :ALENext<CR>
+  " nnoremap <leader>lm :ALEPrevious<CR>
+  " nnoremap <leader>ln :ALENext<CR>
 
-" Ale restart
-  nnoremap <leader>lr :ALEReset<CR>
+" " Ale restart
+  " nnoremap <leader>lr :ALEReset<CR>
 
 " quick list and location list
   nnoremap <leader>qo :copen<CR>
@@ -414,6 +322,7 @@ command! BD call fzf#run(fzf#wrap({
 " resizing
   nnoremap <C-n> <C-w>\|<C-w>_
   nnoremap <C-b> <C-w>=
+
 "Max out the height of the current split
 " ctrl + w _
 "Max out the width of the current split
@@ -445,8 +354,8 @@ command! BD call fzf#run(fzf#wrap({
 
 " le buffers
 " Tab and Shift-Tab in normal mode to navigate buffers
-  map <Tab> :BufMRUNext<CR>
-  map <S-Tab> :BufMRUPrev<CR>
+  map <Tab> :bnext<CR>
+  map <S-Tab> :bprevious<CR>
 
 " Current directory
   nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -461,7 +370,7 @@ command! BD call fzf#run(fzf#wrap({
   let g:airline_section_b = '%{strftime("%c")}'
   let g:airline_section_y = 'BN: %{bufnr("%")}'
   let g:airline_section_x = '%{FugitiveStatusline()}'
-  let g:airline_section_c = '%{LinterStatus()}'
+  " let g:airline_section_c = '%{LinterStatus()}'
 
 """""""""""""""""""""" PROJECTIONS """"""""""""""""""""""""""""""""
 
