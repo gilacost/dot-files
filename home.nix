@@ -1,10 +1,15 @@
 { config, pkgs, ... }:
 {
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+    }))
+  ];
+
   programs.home-manager.enable = true;
 
   home.username = "pepo";
   home.homeDirectory = "/Users/pepo";
-
   home.stateVersion = "21.11";
 
   ############
@@ -44,7 +49,6 @@
       # pkgs.rename
       # pkgs.telnet
       # pkgs.terminal-notifier
-      # pkgs.tflint
       # pkgs.html-tidy
       # pkgs.watch
       # pkgs.wxmac
@@ -52,16 +56,26 @@
 
     # IASS
     terraform
-    tflint
 
-    yamllint
+    # linting/fixing
+    yamllint # review and move to node packages
+    hadolint
+    # prettier
+    # writegood
+    # ansible-lint
+    tflint
+    rustfmt
+    nixfmt
+    # elm-format
 
     # cloud
     awscli
     azure-cli
     google-cloud-sdk
 
-    hadolint
+    # programming languages
+    elixir
+    erlang
   ];
 
   programs.bat.enable = true;
@@ -107,7 +121,7 @@
     # [core]      pager = delta
 
     lfs.enable = true;
-    # todo with mkoption 
+    # todo with mkoption
     # https://github.com/nix-community/home-manager/blob/master/modules/programs/git.nix#L168
     # alias = {
     #     co = "checkout";
@@ -184,7 +198,7 @@
     '';
    # initExtraBeforeCompInit = builtins.readFile ./functions.zsh;
 
-   sessionVariables = { 
+   sessionVariables = {
      ERL_AFLAGS = "-kernel shell_history enabled";
      KITTY_CONFIG_DIRECTORY= "~/.config/kitty";
      NIX_PATH= "$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
@@ -246,11 +260,16 @@
   ###################
 
   programs.neovim = {
+    package = pkgs.neovim-nightly;
     enable = true;
     vimAlias = true;
+    withNodeJs = true;
+    withRuby = true;
+    withPython3 = true;
 
     extraConfig = ''
       ${builtins.readFile ./init.vim}
+      ${builtins.readFile ./init.lua}
     '';
 
 
@@ -264,14 +283,24 @@
       # vim-wakatime
       # vim-cool
       # indentLine
-
+      # " Plug 'https://github.com/gilacost/ale.git', { 'branch': 'allow-erlfmt-as-fixer' }
+      # " Plug 'dense-analysis/ale', { 'tag': 'v2.7.0' }
+      # Plug 'dense-analysis/ale'
+      # Plug 'gcmt/taboo.vim'
+      # Plug 'SirVer/ultisnips'
       ##REVIEW###
 
-      # programming languages
+      # Git
+      vim-fugitive
+      vim-gitgutter
+      vim-rhubarb #review
+
+      # Programming
+      emmet-vim
+      vim-nix
       vim-javascript
       vim-jsx-typescript
       vim-graphql
-      vim-nix
       emmet-vim
       rust-vim
       vim-terraform
@@ -279,7 +308,7 @@
       vim-elixir
 
       # appearence
-      oceanic-next
+      vim-one
       vim-airline
       vim-airline-themes
       vim-devicons
@@ -290,30 +319,21 @@
       vim-startify
       fzf-vim
 
-      # todo lsp
-
       # pope
       vim-commentary
       vim-surround
       vim-commentary
       vim-unimpaired
-      vim-surround
       vim-projectionist
       vim-speeddating #review this
       vim-vinegar
-      vim-fugitive
       vim-abolish
 
-      # git
-      vim-gitgutter # review docs
-      vim-fugitive # review docs
-
-
-      # " Plug 'https://github.com/gilacost/ale.git', { 'branch': 'allow-erlfmt-as-fixer' }
-      # " Plug 'dense-analysis/ale', { 'tag': 'v2.7.0' }
-      # Plug 'dense-analysis/ale'
-      # Plug 'gcmt/taboo.vim'
-      # Plug 'SirVer/ultisnips'
+      # linting / fixing / lsp
+      ale
+      lspsaga-nvim
+      nvim-compe
+      nvim-lspconfig
     ];
   };
 }

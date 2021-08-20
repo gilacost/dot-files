@@ -60,7 +60,8 @@ let maplocalleader = ','
     set termguicolors
   endif
 
-  colorscheme OceanicNext
+  colorscheme one
+  set background=dark
 
   set spell spelllang=en_gb
 
@@ -71,7 +72,21 @@ let maplocalleader = ','
 
   autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
 
-  autocmd FileType gitcommit set bufhidden=delete
+  "
+  " Vim as Git tool
+  "
+
+  autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
+
+  "
+  " Fugitive
+  "
+
+  if has('nvim')
+    let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+  endif
+  noremap <Leader>gs :Gstatus<cr>
+  autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
 
   let g:user_emmet_install_global = 0
   " autocmd FileType html,css EmmetInstall
@@ -82,18 +97,18 @@ let maplocalleader = ','
     exe ":normal a" . repeat(char, times)
   endfunction
 
-" function! LinterStatus() abort
-"     let l:counts = ale#statusline#Count(bufnr('%'))
-"
-"     let l:all_errors = l:counts.error + l:counts.style_error
-"     let l:all_non_errors = l:counts.total - l:all_errors
-"
-"     return l:counts.total == 0 ? 'OK' : printf(
-"     \   '%dW %dE',
-"     \   all_non_errors,
-"     \   all_errors
-"     \)
-" endfunction
+ function! LinterStatus() abort
+     let l:counts = ale#statusline#Count(bufnr('%'))
+
+     let l:all_errors = l:counts.error + l:counts.style_error
+     let l:all_non_errors = l:counts.total - l:all_errors
+
+     return l:counts.total == 0 ? 'OK' : printf(
+     \   '%dW %dE',
+     \   all_non_errors,
+     \   all_errors
+     \)
+ endfunction
 " Rename current file
   function! RenameFile()
       let old_name = expand('%')
@@ -135,57 +150,52 @@ let maplocalleader = ','
   let g:jsx_ext_required = 0
 
 " " ALE - Asynchronous Linting Engine
-"   let g:ale_fix_on_save = 1
-"   let g:ale_sign_column_always = 1
-"   let g:ale_lint_on_text_changed = 'never'
-"   let g:ale_lint_on_insert_leave = 0
-"   let g:ale_hover_to_preview = 1
+  let g:ale_fix_on_save = 1
+  let g:ale_sign_column_always = 1
+  let g:ale_lint_on_text_changed = 'never'
+  let g:ale_lint_on_insert_leave = 0
+  let g:ale_hover_to_preview = 1
 
-"   " let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-"   let g:ale_elixir_elixir_ls_release = $HOME. '/Repos/elixir-ls/release'
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-" " " https://github.com/JakeBecker/elixir-ls/issues/54
-"   let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
+   let g:ale_fixers = {
+   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+   \   'html': ['prettier'],
+   \   'elixir': ['mix_format'],
+   \   'erlang': [],
+   \   'elm': ['format'],
+   \   'rust': ['rustfmt'],
+   \   'terraform': ['terraform'],
+   \   'yaml': ['prettier'],
+   \   'yml': ['prettier'],
+   \   'json': ['prettier'],
+   \   'css': ['prettier'],
+   \   'scss': ['prettier'],
+   \   'javascript': ['prettier'],
+   \}
 
-
-"    let g:ale_fixers = {
-"    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-"    \   'html': ['prettier'],
-"    \   'elixir': ['mix_format'],
-"    \   'erlang': [],
-"    \   'elm': ['format'],
-"    \   'rust': ['rustfmt'],
-"    \   'terraform': ['terraform'],
-"    \   'yaml': ['prettier'],
-"    \   'yml': ['prettier'],
-"    \   'json': ['prettier'],
-"    \   'css': ['prettier'],
-"    \   'scss': ['prettier'],
-"    \   'javascript': ['prettier'],
-"    \}
-
-"   let g:ale_linters = {
-"   \   'elixir': ['mix', 'elixir-ls'],
-"   \   'erlang': ['erlang_ls'],
-"   \   'ansible': ['ansible-lint'],
-"   \   'dockerfile': ['hadolint'],
-"   \   'terraform': ['tflint'],
-"   \   'yaml': ['yamllint'],
-"   \   'yml': ['yamllint'],
-"   \   'json': ['prettier'],
-"   \   'css': ['prettier'],
-"   \   'scss': ['prettier'],
-"   \   'markdown': ['writegood'],
-"   \   'html': ['prettier', 'writegood'],
-"   \   'javascript': ['prettier'],
-"   \}
+  let g:ale_linters = {
+  \   'elixir': ['mix'],
+  \   'erlang': [],
+  \   'ansible': [],
+  \   'dockerfile': ['hadolint'],
+  \   'terraform': ['tflint'],
+  \   'yaml': ['yamllint'],
+  \   'yml': ['yamllint'],
+  \   'json': ['prettier'],
+  \   'css': ['prettier'],
+  \   'scss': ['prettier'],
+  \   'markdown': ['writegood'],
+  \   'html': ['prettier', 'writegood'],
+  \   'javascript': ['prettier'],
+  \}
 
 " " Write this in your vimrc file
-"   let g:ale_set_loclist = 0
-"   let g:ale_set_quickfix = 1
-"   let g:ale_sign_error = 'E'
-"   let g:ale_sign_warning = 'W'
-"   let g:ale_set_highlights = 0
+  let g:ale_set_loclist = 0
+  let g:ale_set_quickfix = 1
+  let g:ale_sign_error = 'E'
+  let g:ale_sign_warning = 'W'
+  let g:ale_set_highlights = 0
 "
 " GitGutter
 "
@@ -205,8 +215,6 @@ let maplocalleader = ','
   noremap <Leader>hs :GitGutterStageHunk<CR>
   noremap <Leader>hu :GitGutterUndoHunk<CR>
 """""""""""""""""""""""" YAML """"""""""""""""""""""""""""""""""""""
-" za: Toggle current fold
-" zR: Expand all folds
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 let g:indentLine_char = '⦙'
 set foldlevelstart=20
@@ -215,10 +223,6 @@ set foldlevelstart=20
 " vim-javascript
   let g:javascript_plugin_jsdoc = 1
   let g:javascript_plugin_flow = 1
-
-" Elm Cast
-  let g:elm_detailed_complete = 1
-  let g:elm_format_autosave = 1
 
 " " Ultisnips
 "   let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
@@ -296,14 +300,19 @@ command! BD call fzf#run(fzf#wrap({
   autocmd TermOpen * setlocal nospell
   autocmd TermOpen * setlocal nonumber
   autocmd TermOpen * setlocal scrollback=1000
-  autocmd TermOpen * setlocal norelativenumber
+  autocmd TermOpen * setlocal signcolumn=no
   augroup END
-  noremap <leader>zz :terminal<CR>
-  noremap <leader>zv :vnew<CR>:terminal<CR>
-  noremap <leader>zvm :vnew<CR>:terminal iex -S mix<CR>
-  noremap <leader>zh :new<CR>:terminal<CR>
-  noremap <leader>zhm :new<CR>:terminal iex -S mix<CR>
+  nnoremap <leader>zz :terminal<CR>
+  nnoremap <leader>zh :new<CR>:terminal<CR>
+  nnoremap <leader>zv :vnew<CR>:terminal<CR>
   tnoremap <Esc> <C-\><C-n>
+  tnoremap <C-v><Esc> <Esc>
+  highlight! link TermCursor Cursor
+  highlight! TermCursorNC guibg=teal guifg=white ctermbg=1 ctermfg=15
+
+  " https://github.com/neovim/neovim/issues/11072
+  au TermEnter * setlocal scrolloff=0
+  au TermLeave * setlocal scrolloff=10
 
 " Show undo list
 " nnoremap <leader>u :GundoToggle<CR>
@@ -362,9 +371,9 @@ command! BD call fzf#run(fzf#wrap({
 
 """""""""""""""""""""" SATUSLINE """"""""""""""""""""""""""""""""
       \
-  let g:airline_theme='oceanicnext'
-  " let g:airline_theme='onedark'
-  let g:airline#extensions#ale#enabled = 1
+  " let g:airline_theme='one'
+  let g:airline_theme='onedark'
+  " let g:airline#extensions#ale#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
   let g:airline_section_b = '%{strftime("%c")}'

@@ -1,11 +1,13 @@
-* My configuration
-  [[https://builtwithnix.org][https://img.shields.io/badge/Built_With-Nix-5277C3.svg?logo=nixos&labelColor=73C3D5]]
+# My configuration
 
-  OSX configurations, expressed in [[https://nixos.org/nix][Nix]]
 
-* Installation requirements
+![https://builtwithnix.org](https://img.shields.io/badge/Built_With-Nix-5277C3.svg?logo=nixos&labelColor=73C3D5)
 
-In order to be able to install some casks we require `homebrew` installed.
+OSX configurations, expressed in [Nix](https://nixos.org/nix)
+
+## Installation requirements
+
+`homebrew` installed to enable `casks`.
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -54,14 +56,21 @@ LABEL=Nix\040Store /nix apfs rw,nobrowse
 
 * `nix-shell -p nix-info --run "nix-info -m"`
 
-next steps: 
-- zsh and all programs with home manager
+next steps:
+- is colorschem even needed
+- functions zsh
+- git extra config
+- review all lspsga commands with maps
+- play with telescope
+- acabar el tour
+- erlan-ls
+- review all maps
 - keyboard language? enable and uk?
 - review all vim plugins
+- review all confs with alvivi's and tidy owns
 - ale and language-servers
 - secrets in repo
 - move to flakes
 - yabai
 - sort ligatures
-- play with telescope
 - import snipets not prioritary
