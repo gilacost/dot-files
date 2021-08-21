@@ -33,7 +33,7 @@ brew analytics off
 
 ## Install nix
 
-**NOTE**: If you decide to encrypt the main Drive by enabling file vault, you will needwe need to create the `/nix` volume mannually. Follow these [instructions](https://nixos.org/manual/nix/stable/#sect-macos-installation-recommended-notes).
+**NOTE**: If you decide to encrypt the main Drive by enabling file vault, you will need to create the `/nix` volume manually. Follow these [instructions](https://nixos.org/manual/nix/stable/#sect-macos-installation-recommended-notes).
 
 ### Steps
 
@@ -54,10 +54,9 @@ brew analytics off
 * `nix-shell -p nix-info --run "nix-info -m"`
 
 next steps:
-- secrets in repo
 - review all lspsga commands with maps
 - play with telescope
-- lua and nix languag servers
+- lua terraform and nix language servers
 - acabar el tour
 - erlan-ls, clone and import local overlay
 - review all maps
