@@ -32,12 +32,11 @@ brew analytics off
 ```
 
 ## lang-server
+talk about node2nix
 
-nix-env -i -f elixir.nix --show-trace
-nix-env -iA nixpkgs.nodePackages.node2nix
-<!-- node2nix -i <(echo '["stylelint-lsp", "vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]') -->
+nix-env -i -f modules/elixirls.nix --show-trace
 node2nix -i <(echo '["vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]')
-nix-env -i -f node/default.nix
+nix-env -i -f modules/node/default.nix --show-trace
 
 ## Install nix
 
@@ -62,24 +61,21 @@ nix-env -i -f node/default.nix
 * `nix-shell -p nix-info --run "nix-info -m"`
 
 next steps:
-- review compe
-- acabar el tour
+- review compe plugin
 - erlan-ls, clone and import local overlay
+- disable linting for ale and restore fixing (prettier, mix format terraform, etc)
+- acabar el tour
 - review all maps
 - hadolint somewhere (pre-commit docker?)
-- keyboard language? enable and uk?
+- keyboard language? enable and uk? thinks about other defaults
 - review all vim plugins
-- review compe plugin
 - review all confs with alvivi's and tidy owns
 - yabai
-- import snipets not prioritary
-- reorder folder (refactor and tidy)
 - play with telescope
-- gacer list y tal mas fugitive and co
-- key ratation
+- hacer list y tal mas fugitive and co
+- key rotation
 - sort ligatures
 - move to flakes
-- disable linting for ale and restore fixing (prettier, mix format terraform, etc)
 
 ## SSH
 

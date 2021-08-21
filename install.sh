@@ -14,7 +14,6 @@ sudo rm /etc/shells /etc/zprofile /etc/zshrc
 nix-build '<darwin>' -A installer --out-link /tmp/nix-darwin && /tmp/nix-darwin/bin/darwin-installer
 
 /tmp/nix-darwin/bin/darwin-installer -y
-#'~/.nixpkgs/darwin-configuration.nix
 
 ln -s  $HOME/Repos/dot-files/configuration.nix $HOME/.config/nixpkgs/darwin-configuration.nix
 
@@ -22,8 +21,9 @@ darwin-rebuild switch -I "darwin-config=$HOME/.config/nixpkgs/darwin-configurati
 
 # DERIVATIONS
 
-nix-env -i -f elixirls.nix
 # nix-env -i -f erlangls.nix
+nix-env -i -f modules/elixirls.nix
+nix-env -i -f modules/node/default.nix
 
 # HOME MANAGER
 
@@ -34,12 +34,15 @@ fi
 nix-channel --update
 nix-shell '<home-manager>' -A install
 
-ln -s  $HOME/Repos/dot-files/home.nix $HOME/.nixpkgs/home.nix
-ln -s  $HOME/Repos/dot-files/elixirls.nix $HOME/.nixpkgs/elixirls.nix
-ln -s  $HOME/Repos/dot-files/colorscheme.nix $HOME/.nixpkgs/colorscheme.nix
-ln -s  $HOME/Repos/dot-files/init.vim $HOME/.nixpkgs/init.vim
-ln -s  $HOME/Repos/dot-files/init.lua $HOME/.nixpkgs/init.lua
-ln -s  $HOME/Repos/dot-files/kitty.conf $HOME/.config/kitty.conf
-ln -s  $HOME/Repos/dot-files/nvim.session $HOME/.nvim.session
+DOT_DIR=$HOME/Repos/dot-files
+
+ln -s  $DOT_DIR/home.nix $HOME/.nixpkgs/home.nix
+ln -s  $DOT_DIR/darwin-configuration.nix $HOME/.nixpkgs/darwin-configuration.nix
+
+ln -s  $DOT_DIR/conf.d/editor/init.vim $HOME/.config/init.vim
+ln -s  $DOT_DIR/conf.d/editor/init.lua $HOME/.config/init.lua
+
+ln -s  $DOT_DIR/conf.d/terminal/nvim.session $HOME/.config/nvim.session
+ln -s  $DOT_DIR/conf.d/terminal/kitty.conf $HOME/.config/kitty.conf
 
 home-manager switch
