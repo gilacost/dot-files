@@ -6,197 +6,121 @@ let mapleader      = "\<SPACE>"
 let maplocalleader = ','
 
 """""""""""""""""""""" GENERAL""""""""""""""""""""""""""""""""
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-  set mouse=""
+set mouse=""
 
-  set hidden
-  set undofile
-  set undodir=$HOME/.vim/undo
+set hidden
+set undofile
+set undodir=$HOME/.vim/undo
 
-  set undolevels=1000
-  set undoreload=10000
-  set scrollback=100000
+set undolevels=1000
+set undoreload=10000
+set scrollback=100000
 
-  set lazyredraw
-  set synmaxcol=128
-  syntax sync minlines=256
+set lazyredraw
+set synmaxcol=128
+syntax sync minlines=256
 
-  set clipboard+=unnamed,unnamedplus
-  set number
+set clipboard+=unnamed,unnamedplus
+set number
 
-  set shiftwidth=2
-  set shiftround
-  set smarttab
-  set autoindent
-  set copyindent
-  set smartindent
-  set colorcolumn=60,80,100,120
-  set tabstop=2
-  set softtabstop=2
-  set expandtab
-  set shiftwidth=2
-  set hlsearch
-  set incsearch
-  set ignorecase
-  set smartcase
-  set cursorline
+set shiftwidth=2
+set shiftround
+set smarttab
+set autoindent
+set copyindent
+set smartindent
+set colorcolumn=60,80,100,120
+set tabstop=2
+set softtabstop=2
+set expandtab
+set shiftwidth=2
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set cursorline
 
-  set title
-  set synmaxcol=150
+set title
+set synmaxcol=150
 
-  set lazyredraw
-  set ttyfast
-  set regexpengine=1
+set lazyredraw
+set ttyfast
+set regexpengine=1
 
-  set splitbelow
-  set splitright
+set splitbelow
+set splitright
 
-  syntax enable
+syntax enable
 
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-  if has('termguicolors')
-    set termguicolors
-  endif
+if has('termguicolors')
+  set termguicolors
+endif
 
-  colorscheme one
-  set background=dark
+colorscheme one
+set background=dark
 
-  set spell spelllang=en_gb
+set spell spelllang=en_gb
 
-  set noswapfile
+set noswapfile
 
-  autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-  autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-  autocmd BufRead,BufNewFile *.json.mustache set filetype=json.mustache
+" autocmd BufWritePre * lua vim.lsp.buf.formatting()
 
   "
   " Vim as Git tool
   "
-
-  autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
+autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
 
   "
   " Fugitive
   "
 
-  if has('nvim')
-    let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-  endif
-  noremap <Leader>gs :Gstatus<cr>
-  autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
+if has('nvim')
+  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+endif
+noremap <Leader>gs :Gstatus<cr>
+autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
 
-  let g:user_emmet_install_global = 0
-  " autocmd FileType html,css EmmetInstall
+highlight ExtraWhitespace ctermbg=red guibg=red
+au ColorScheme * highlight ExtraWhitespace guibg=red
+au BufEnter * match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
-  function! Repeat()
-    let times = input("Count: ")
-    let char  = input("Char: ")
-    exe ":normal a" . repeat(char, times)
-  endfunction
-
- function! LinterStatus() abort
-     let l:counts = ale#statusline#Count(bufnr('%'))
-
-     let l:all_errors = l:counts.error + l:counts.style_error
-     let l:all_non_errors = l:counts.total - l:all_errors
-
-     return l:counts.total == 0 ? 'OK' : printf(
-     \   '%dW %dE',
-     \   all_non_errors,
-     \   all_errors
-     \)
- endfunction
-" Rename current file
-  function! RenameFile()
-      let old_name = expand('%')
-      let new_name = input('New file name: ', expand('%'), 'file')
-      if new_name != '' && new_name != old_name
-          exec ':saveas ' . new_name
-          exec ':silent !rm ' . old_name
-          redraw!
-      endif
-  endfunction
 " terminal in insert mode
-  if has('nvim')
-      autocmd TermOpen term://* startinsert
-  endif
+if has('nvim')
+    autocmd TermOpen term://* startinsert
+endif
 
-  highlight ExtraWhitespace ctermbg=red guibg=red
-  au ColorScheme * highlight ExtraWhitespace guibg=red
-  au BufEnter * match ExtraWhitespace /\s\+$/
-  au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  au InsertLeave * match ExtraWhiteSpace /\s\+$/
+" Terminal emulation
+augroup terminal
+autocmd TermOpen * setlocal nospell
+autocmd TermOpen * setlocal nonumber
+autocmd TermOpen * setlocal scrollback=1000
+autocmd TermOpen * setlocal signcolumn=no
+augroup END
+nnoremap <leader>zz :terminal<CR>
+nnoremap <leader>zh :new<CR>:terminal<CR>
+nnoremap <leader>zv :vnew<CR>:terminal<CR>
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
+highlight! link TermCursor Cursor
+highlight! TermCursorNC guibg=teal guifg=white ctermbg=1 ctermfg=15
+
+  " https://github.com/neovim/neovim/issues/11072
+au TermEnter * setlocal scrolloff=0
+au TermLeave * setlocal scrolloff=10
 
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
-" " ALE
-"   augroup elixir
-"     autocmd FileType elixir nnoremap <C-]> :ALEGoToDefinition<CR>
-"     autocmd FileType elixir nnoremap <C-d> :ALEHover<CR>
-"   augroup END
-
-" FZF
-  let g:fzf_preview_window = 'right:60%'
-
-" RIPGREP
-  let g:rg_binary = '/usr/local/bin/rg'
-
 " startyify
   let g:startify_change_to_vcs_root = 1
 
-" vil-jsx
-  let g:jsx_ext_required = 0
-
-" " ALE - Asynchronous Linting Engine
-  let g:ale_fix_on_save = 1
-  let g:ale_sign_column_always = 1
-  let g:ale_lint_on_text_changed = 'never'
-  let g:ale_lint_on_insert_leave = 0
-  let g:ale_hover_to_preview = 1
-
-  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-   let g:ale_fixers = {
-   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-   \   'html': ['prettier'],
-   \   'elixir': ['mix_format'],
-   \   'erlang': [],
-   \   'elm': ['format'],
-   \   'rust': ['rustfmt'],
-   \   'terraform': ['terraform'],
-   \   'yaml': ['prettier'],
-   \   'yml': ['prettier'],
-   \   'json': ['prettier'],
-   \   'css': ['prettier'],
-   \   'scss': ['prettier'],
-   \   'javascript': ['prettier'],
-   \}
-
-  let g:ale_linters = {
-  \   'elixir': ['mix'],
-  \   'erlang': [],
-  \   'ansible': [],
-  \   'dockerfile': ['hadolint'],
-  \   'terraform': ['tflint'],
-  \   'yaml': ['yamllint'],
-  \   'yml': ['yamllint'],
-  \   'json': ['prettier'],
-  \   'css': ['prettier'],
-  \   'scss': ['prettier'],
-  \   'markdown': ['writegood'],
-  \   'html': ['prettier', 'writegood'],
-  \   'javascript': ['prettier'],
-  \}
-
-" " Write this in your vimrc file
-  let g:ale_set_loclist = 0
-  let g:ale_set_quickfix = 1
-  let g:ale_sign_error = 'E'
-  let g:ale_sign_warning = 'W'
-  let g:ale_set_highlights = 0
-"
 " GitGutter
 "
   let g:gitgutter_eager = 1    " runs diffs on buffer switch
@@ -219,9 +143,9 @@ let maplocalleader = ','
   " nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
   " vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
   " -- show hover doc
-  " nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+  nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
   " -- scroll down hover doc or scroll in definition preview
-  nnoremap <silent> K <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+  " nnoremap <silent> K <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
   " -- show signature help
   nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
   " -- rename
@@ -235,24 +159,13 @@ let maplocalleader = ','
   " -- jump diagnostic
   nnoremap <silent> [e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
   nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
+  nnoremap <silent> ff <cmd>lua vim.lsp.buf.formatting()<CR>
 """""""""""""""""""""""" LSPSAGA """""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""" YAML """"""""""""""""""""""""""""""""""""""
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-let g:indentLine_char = '⦙'
-set foldlevelstart=20
-"""""""""""""""""""""""" YAML """"""""""""""""""""""""""""""""""""""
-
-" vim-javascript
-  let g:javascript_plugin_jsdoc = 1
-  let g:javascript_plugin_flow = 1
 
 " " Ultisnips
 "   let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
 "   let g:UltiSnipsSnippetDirectories = ['snips', 'priv_snips', 'UltiSnips' ]
 "   let g:UltiSnipsEditSplit = 'vertical'
-
-" Show those languages with syntax highliting inside Markdown
-  let g:vim_markdown_folding_level = 2
 
 " le test
   let test#strategy = 'neovim'
@@ -265,23 +178,40 @@ set foldlevelstart=20
    " let g:UltiSnipsJumpBackwardTrigger="<c-b>"
    " let g:UltiSnipsEditSplit = 'vertical'
 
-" FZF override
-function! s:list_buffers()
-  redir => list
-  silent ls
-  redir END
-  return split(list, "\n")
-endfunction
+  " FZF override
+  function! s:list_buffers()
+    redir => list
+    silent ls
+    redir END
+    return split(list, "\n")
+  endfunction
 
-function! s:delete_buffers(lines)
-  execute 'bwipeout!' join(map(a:lines, {_, line -> split(line)[0]}))
-endfunction
+  function! s:delete_buffers(lines)
+    execute 'bwipeout!' join(map(a:lines, {_, line -> split(line)[0]}))
+  endfunction
 
-command! BD call fzf#run(fzf#wrap({
-  \ 'source': s:list_buffers(),
-  \ 'sink*': { lines -> s:delete_buffers(lines) },
-  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
-\ }))
+  command! BD call fzf#run(fzf#wrap({
+    \ 'source': s:list_buffers(),
+    \ 'sink*': { lines -> s:delete_buffers(lines) },
+    \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+    \ }))
+
+  function! Repeat()
+    let times = input("Count: ")
+    let char  = input("Char: ")
+    exe ":normal a" . repeat(char, times)
+  endfunction
+
+" Rename current file
+  function! RenameFile()
+      let old_name = expand('%')
+      let new_name = input('New file name: ', expand('%'), 'file')
+      if new_name != '' && new_name != old_name
+          exec ':saveas ' . new_name
+          exec ':silent !rm ' . old_name
+          redraw!
+      endif
+  endfunction
 """""""""""""""""""""" KEYS """"""""""""""""""""""""""""""""
 
 " Support nested vim
@@ -291,50 +221,17 @@ command! BD call fzf#run(fzf#wrap({
 " Fuzzy Finder (review)
   noremap <leader>sc :Rg<CR>
   noremap <C-p> :Files<CR>
-  noremap <C-o> :Buffers<CR>
+  noremap <Leader>o :Buffers<CR>
   noremap <Leader>i :BD<CR>
   noremap <C-c> :bd!<CR>
   noremap <Leader>sg :GitFiles<CR>
-
-" Edit and reload vimrc
-  nnoremap <leader>ve :edit $MYVIMRC<CR>
-  nnoremap <leader>vr :source $MYVIMRC<CR>
-
-" Errors list
-  " nnoremap <leader>lm :ALEPrevious<CR>
-  " nnoremap <leader>ln :ALENext<CR>
-
-" " Ale restart
-  " nnoremap <leader>lr :ALEReset<CR>
 
 " quick list and location list
   nnoremap <leader>qo :copen<CR>
   nnoremap <leader>qc :cclose<CR>
 
-" Exit vim
-  nnoremap <silent><leader>qq :qall<CR>
-
 " Rename File
   map <leader>n :call RenameFile()<cr>
-
-" Terminal emulation
-  augroup terminal
-  autocmd TermOpen * setlocal nospell
-  autocmd TermOpen * setlocal nonumber
-  autocmd TermOpen * setlocal scrollback=1000
-  autocmd TermOpen * setlocal signcolumn=no
-  augroup END
-  nnoremap <leader>zz :terminal<CR>
-  nnoremap <leader>zh :new<CR>:terminal<CR>
-  nnoremap <leader>zv :vnew<CR>:terminal<CR>
-  tnoremap <Esc> <C-\><C-n>
-  tnoremap <C-v><Esc> <Esc>
-  highlight! link TermCursor Cursor
-  highlight! TermCursorNC guibg=teal guifg=white ctermbg=1 ctermfg=15
-
-  " https://github.com/neovim/neovim/issues/11072
-  au TermEnter * setlocal scrolloff=0
-  au TermLeave * setlocal scrolloff=10
 
 " Show undo list
 " nnoremap <leader>u :GundoToggle<CR>
@@ -383,7 +280,6 @@ command! BD call fzf#run(fzf#wrap({
   nmap <silent> t<C-l> :TestLast<CR>
   nmap <silent> t<C-g> :TestVisit<CR>
 
-" le buffers
 " Tab and Shift-Tab in normal mode to navigate buffers
   map <Tab> :bnext<CR>
   map <S-Tab> :bprevious<CR>
@@ -393,15 +289,12 @@ command! BD call fzf#run(fzf#wrap({
 
 """""""""""""""""""""" SATUSLINE """"""""""""""""""""""""""""""""
       \
-  " let g:airline_theme='one'
   let g:airline_theme='onedark'
-  " let g:airline#extensions#ale#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
   let g:airline_section_b = '%{strftime("%c")}'
   let g:airline_section_y = 'BN: %{bufnr("%")}'
   let g:airline_section_x = '%{FugitiveStatusline()}'
-  " let g:airline_section_c = '%{LinterStatus()}'
 
 """""""""""""""""""""" PROJECTIONS """"""""""""""""""""""""""""""""
 
