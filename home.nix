@@ -82,6 +82,8 @@
 
   programs.fzf.enable = true;
 
+  programs.gpg.enable = true;
+
   programs.lsd = {
     enable = true;
     enableAliases = true;
@@ -108,51 +110,21 @@
       };
     };
 
-    # interactive.diffFilter = "delta --color-only";
-
-    # [apply] whitespace = fix
-    # [push] default = current
-    # [rebase] autosquash = true
-    # [rerere] enabled = true
-    # [core]
-    #   excludesfile = ~/.gitignore
-    #   autocrlf = input
-    # 	editor = nvr -cc split --remote-wait
-    # [core]      pager = delta
-
     lfs.enable = true;
-    # todo with mkoption
-    # https://github.com/nix-community/home-manager/blob/master/modules/programs/git.nix#L168
-    # alias = {
-    #     co = "checkout";
-    #     l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative";
-    #     recommit = "commit --amend -m";
-    #     commend = "commit --amend --no-edit";
-    #     here = "!git init && git add . && git commit -m \"Initialized a new repository\"";
-    #     search = "grep";
-    #     who = "blame";
-    #     zip = "archive --format=tar.gz -o ../repo.tar.gz";
-    #     lonely = "clone --single-branch --branch";
-    #     plg = "log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative";
-    #     fresh = "filter-branch --prune-empty --subdirectory-filter";
-    # };
 
     userEmail = "josepgiraltdlacoste@gmail.com";
     userName = "Josep Giralt D'Lacoste";
-    # signing = {
-    #   key = "9A8F06C7265E82FB";
-    #   signByDefault = true;
-    # };
-    # commit = { gpgsign = true} ;
-    # gpg.program = gpg;
 
+    signing = {
+      key = "FB5A0E2669939728";
+      signByDefault = true;
+    };
 
     extraConfig = {
       "difftool \"nvr\"" = { cmd = "nvr -s -d $LOCAL $REMOTE"; };
       "mergetool \"nvr\"" = {
         cmd = "nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='";
       };
-      delta.features = "side-by-side line-numbers decorations";
       diff = { tool = "nvr"; };
       init = { defaultBranch = "main"; };
       merge = {
@@ -161,6 +133,26 @@
       };
       mergetool = { prompt = false; };
       pull.ff = "only";
+      apply = { whitefix = "fix"; };
+      push = { default = "current"; };
+      rebase = { autosquash = true; };
+      rerere = { enabled = true; }; #review
+      core = {
+    	  editor = "nvr -cc split --remote-wait";
+      };
+      alias = {
+        co = "checkout";
+        l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative";
+        recommit = "commit --amend -m";
+        commend = "commit --amend --no-edit";
+        here = "!git init && git add . && git commit -m \"Initialized a new repository\"";
+        search = "grep";
+        who = "blame";
+        zip = "archive --format=tar.gz -o ../repo.tar.gz";
+        lonely = "clone --single-branch --branch";
+        plg = "log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative";
+        fresh = "filter-branch --prune-empty --subdirectory-filter";
+      };
     };
     ignores = [ ".elixir_ls" "cover" "deps" "node_modules" ];
   };
@@ -195,6 +187,33 @@
     alias e=$EDITOR
 
     unsetopt BEEP
+
+    function gsina {
+      git status --porcelain \
+      | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
+      | peco \
+      | awk '{ print "'`git rev-parse --show-toplevel`'/"$2 }'
+    }
+
+    function ctdeps {
+      mix xref graph --sink $1 --only-nodes
+    }
+
+    function depstree {
+      mix xref graph --sink $1
+    }
+
+    function depstreefilter {
+      # Filters deps tree. Defaults to compile
+      # which will only list the transitive deps
+      # compile should be default
+      mix xref graph --sink $1 --label $2
+    }
+
+    function depsgraph {
+      mix xref graph --format stats
+    }
+
     '';
    # initExtraBeforeCompInit = builtins.readFile ./functions.zsh;
 
@@ -203,7 +222,6 @@
      KITTY_CONFIG_DIRECTORY= "~/.config/kitty";
      NIX_PATH= "$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
      FZF_DEFAULT_COMMAND="rg --files --hidden --follow";
-     # export VIMDATA=~/.local/share/$EDITOR
    };
 
 
@@ -283,9 +301,6 @@
       # vim-wakatime
       # vim-cool
       # indentLine
-      # " Plug 'https://github.com/gilacost/ale.git', { 'branch': 'allow-erlfmt-as-fixer' }
-      # " Plug 'dense-analysis/ale', { 'tag': 'v2.7.0' }
-      # Plug 'dense-analysis/ale'
       # Plug 'gcmt/taboo.vim'
       # Plug 'SirVer/ultisnips'
       ##REVIEW###

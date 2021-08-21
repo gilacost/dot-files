@@ -1,4 +1,4 @@
-# My configuration
+# My dot-files
 
 
 ![https://builtwithnix.org](https://img.shields.io/badge/Built_With-Nix-5277C3.svg?logo=nixos&labelColor=73C3D5)
@@ -33,8 +33,7 @@ brew analytics off
 
 ## Install nix
 
-**NOTE**: If you decide to encrypt the main Drive by enabling file vault, you will needwe need to create the `/nix` volume mannually. Follow these [instructions]
-(https://nixos.org/manual/nix/stable/#sect-macos-installation-recommended-notes)
+**NOTE**: If you decide to encrypt the main Drive by enabling file vault, you will needwe need to create the `/nix` volume mannually. Follow these [instructions](https://nixos.org/manual/nix/stable/#sect-macos-installation-recommended-notes).
 
 ### Steps
 
@@ -42,9 +41,7 @@ brew analytics off
 
 2) `sudo diskutil apfs addVolume disk1 APFS 'Nix Store' -mountpoint /nix`
 
-3)`sudo vifs
-LABEL=Nix\040Store /nix apfs rw,nobrowse
-`
+3) `sudo vifs LABEL=Nix\040Store /nix apfs rw,nobrowse`
 
 4) `sudo reboot`
 
@@ -57,20 +54,47 @@ LABEL=Nix\040Store /nix apfs rw,nobrowse
 * `nix-shell -p nix-info --run "nix-info -m"`
 
 next steps:
-- is colorschem even needed
-- functions zsh
-- git extra config
+- gpg
+- yabai
+- secrets in repo
 - review all lspsga commands with maps
 - play with telescope
+- lua and nix languag servers
 - acabar el tour
-- erlan-ls
+- erlan-ls, clone and import local overlay
 - review all maps
 - keyboard language? enable and uk?
 - review all vim plugins
 - review all confs with alvivi's and tidy owns
-- ale and language-servers
-- secrets in repo
 - move to flakes
-- yabai
 - sort ligatures
 - import snipets not prioritary
+- reorder forlder (refactor and tidy)
+
+## SSH
+
+## GPG
+
+1) generate new gpg key
+
+```bash
+gpg --default-new-key-algo rsa4096 --gen-key`
+```
+
+2) show id for previous export, the id is after the '/'
+
+```bash
+ gpg --list-secret-keys --keyid-format LONG
+```
+
+3) export public key
+
+```bash
+ gpg --armor --export REPLACE_WITH_EXTRACTED_ID
+```
+
+4) display id short version for gitconfig
+
+```bash
+gpg --list-secret-keys --keyid-format SHORT
+```
