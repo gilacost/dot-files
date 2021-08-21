@@ -54,8 +54,6 @@ brew analytics off
 * `nix-shell -p nix-info --run "nix-info -m"`
 
 next steps:
-- gpg
-- yabai
 - secrets in repo
 - review all lspsga commands with maps
 - play with telescope
@@ -65,11 +63,14 @@ next steps:
 - review all maps
 - keyboard language? enable and uk?
 - review all vim plugins
+- review compe plugin
 - review all confs with alvivi's and tidy owns
+- yabai
 - move to flakes
 - sort ligatures
 - import snipets not prioritary
-- reorder forlder (refactor and tidy)
+- reorder folder (refactor and tidy)
+- dissable alias suggestion
 
 ## SSH
 
@@ -78,7 +79,7 @@ next steps:
 1) generate new gpg key
 
 ```bash
-gpg --default-new-key-algo rsa4096 --gen-key`
+gpg --full-generate-key
 ```
 
 2) show id for previous export, the id is after the '/'
