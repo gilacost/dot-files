@@ -25,6 +25,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    nodePackages.node2nix
     git-crypt
     neovim-remote
     ripgrep
@@ -41,7 +42,7 @@
     jq
     htop
     ripgrep
-    bind # what whas this for ?
+    bind # review
     cloc
     gh
     glow
@@ -151,10 +152,7 @@
         recommit = "commit --amend -m";
         commend = "commit --amend --no-edit";
         here = "!git init && git add . && git commit -m \"Initialized a new repository\"";
-        search = "grep";
-        who = "blame";
         zip = "archive --format=tar.gz -o ../repo.tar.gz";
-        lonely = "clone --single-branch --branch";
         plg = "log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative";
         fresh = "filter-branch --prune-empty --subdirectory-filter";
       };
@@ -192,7 +190,7 @@
       alias e=$EDITOR
 
       unsetopt BEEP
- 
+
       unsetopt correct
 
       function gsina {
@@ -233,7 +231,7 @@
 
 
     shellAliases = {
-      # GIT
+      # git
       gbr = "git branch | grep -v \"master\" | xargs git branch -D";
       gcoi = "git branch --all | peco | sed 's/remotes\/origin\///g' | xargs git checkout";
       g = "git";
@@ -249,10 +247,10 @@
       gdi = "gsina | xargs -o git diff";
       gf = "git fetch --all";
       # alias gh='git stash'
+      gpf = "git push --force-with-lease";
       ghl = "git stash list";
       ghp = "git stash pop";
       git = "noglob git";
-      gl = "git log";
       gp = "git push";
       gpo = "git push origin";
       gpot = "git push origin --tags";
@@ -293,23 +291,19 @@
     withPython3 = true;
 
     extraConfig = ''
-      ${builtins.readFile ./init.vim}
-      ${builtins.readFile ./init.lua}
+      ${builtins.readFile ~/.config/init.vim}
+      ${builtins.readFile ~/.config/init.lua}
     '';
 
 
     plugins = with pkgs.vimPlugins; [
       vim-test
-      # vim-dispatch # is this necessary?
-      # vim-dispatch-neovim # is this necessary?
 
-      ##REVIEW###
+      ###REVIEW###
       # vim-rooter
       # vim-wakatime
       # vim-cool
       # indentLine
-      # Plug 'gcmt/taboo.vim'
-      # Plug 'SirVer/ultisnips'
       ##REVIEW###
 
       # Git
