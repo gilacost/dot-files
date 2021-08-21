@@ -37,7 +37,6 @@
         ];
       }
     )
-    # montserrat
     fd
     jq
     htop
@@ -64,10 +63,10 @@
     # pkgs.wxmac
     ### TO REVIEW
 
-
     # linting/fixing review this? will this be needed with language servers
     terraform-ls
     rnix-lsp
+
     # hadolint
     # tflint
     # rustfmt

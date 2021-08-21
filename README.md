@@ -61,7 +61,6 @@ nix-env -i -f modules/node/default.nix --show-trace
 * `nix-shell -p nix-info --run "nix-info -m"`
 
 next steps:
-- review compe plugin
 - erlan-ls, clone and import local overlay
 - disable linting for ale and restore fixing (prettier, mix format terraform, etc)
 - acabar el tour
