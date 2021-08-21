@@ -2,9 +2,13 @@
 {
   nixpkgs = {
     overlays = [
-      (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-      }))
+      (
+        import (
+          builtins.fetchTarball {
+            url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+          }
+        )
+      )
     ];
   };
 
@@ -25,11 +29,13 @@
     neovim-remote
     ripgrep
     silver-searcher
-    (nerdfonts.override {
-      fonts = [
-        "Iosevka"
-      ];
-    })
+    (
+      nerdfonts.override {
+        fonts = [
+          "Iosevka"
+        ];
+      }
+    )
     # montserrat
     fd
     jq
@@ -43,33 +49,28 @@
     wget
     tig
     tree
+    telnet
 
     ### TO REVIEW
-      # pkgs.coreutils
-      # pkgs.kubectl
-      # pkgs.pre-commit
-      # pkgs.pstree
-      # pkgs.rename
-      # pkgs.telnet
-      # pkgs.terminal-notifier
-      # pkgs.html-tidy
-      # pkgs.watch
-      # pkgs.wxmac
+    # pkgs.coreutils
+    # pkgs.kubectl
+    # pkgs.pre-commit
+    # pkgs.pstree
+    # pkgs.rename
+    # pkgs.terminal-notifier
+    # pkgs.html-tidy
+    # pkgs.watch
+    # pkgs.wxmac
     ### TO REVIEW
 
-    # IASS
-    terraform
 
-    # linting/fixing
-    yamllint # review and move to node packages
-    hadolint
-    # prettier
-    # writegood
-    # ansible-lint
-    tflint
-    rustfmt
-    nixfmt
-    # elm-format
+    # linting/fixing review this? will this be needed with language servers
+    terraform-ls
+    rnix-lsp
+    # hadolint
+    # tflint
+    # rustfmt
+    # nixfmt
 
     # cloud
     awscli
@@ -79,6 +80,7 @@
     # programming languages
     elixir
     erlang
+    terraform
   ];
 
   programs.bat.enable = true;
@@ -100,7 +102,7 @@
     enable = true;
 
     delta = {
-      enable= true;
+      enable = true;
       options = {
         syntax-theme = "Monokai Extended Bright";
         features = "side-by-side line-numbers decorations";
@@ -141,7 +143,7 @@
       rebase = { autosquash = true; };
       rerere = { enabled = true; }; #review
       core = {
-    	  editor = "nvr -cc split --remote-wait";
+        editor = "nvr -cc split --remote-wait";
       };
       alias = {
         co = "checkout";
@@ -178,101 +180,103 @@
     };
 
     initExtra = ''
-    if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-      if [ -x "$(command -v nvr)" ]; then
-        # alias nvim=nvr
-        export EDITOR='nvr'
-      else
-        export EDITOR='echo "No nesting!"'
+      if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+        if [ -x "$(command -v nvr)" ]; then
+          # alias nvim=nvr
+          export EDITOR='nvr'
+        else
+          export EDITOR='echo "No nesting!"'
+        fi
       fi
-    fi
-    export VISUAL=$EDITOR
-    alias e=$EDITOR
+      export VISUAL=$EDITOR
+      alias e=$EDITOR
 
-    unsetopt BEEP
+      unsetopt BEEP
+ 
+      unsetopt correct
 
-    function gsina {
-      git status --porcelain \
-      | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
-      | peco \
-      | awk '{ print "'`git rev-parse --show-toplevel`'/"$2 }'
-    }
+      function gsina {
+        git status --porcelain \
+        | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
+        | peco \
+        | awk '{ print "'`git rev-parse --show-toplevel`'/"$2 }'
+      }
 
-    function ctdeps {
-      mix xref graph --sink $1 --only-nodes
-    }
+      function ctdeps {
+        mix xref graph --sink $1 --only-nodes
+      }
 
-    function depstree {
-      mix xref graph --sink $1
-    }
+      function depstree {
+        mix xref graph --sink $1
+      }
 
-    function depstreefilter {
-      # Filters deps tree. Defaults to compile
-      # which will only list the transitive deps
-      # compile should be default
-      mix xref graph --sink $1 --label $2
-    }
+      function depstreefilter {
+        # Filters deps tree. Defaults to compile
+        # which will only list the transitive deps
+        # compile should be default
+        mix xref graph --sink $1 --label $2
+      }
 
-    function depsgraph {
-      mix xref graph --format stats
-    }
+      function depsgraph {
+        mix xref graph --format stats
+      }
 
     '';
-   # initExtraBeforeCompInit = builtins.readFile ./functions.zsh;
+    # initExtraBeforeCompInit = builtins.readFile ./functions.zsh;
 
-   sessionVariables = {
-     ERL_AFLAGS = "-kernel shell_history enabled";
-     KITTY_CONFIG_DIRECTORY= "~/.config/kitty";
-     NIX_PATH= "$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
-     FZF_DEFAULT_COMMAND="rg --files --hidden --follow";
-   };
+    sessionVariables = {
+      ERL_AFLAGS = "-kernel shell_history enabled";
+      KITTY_CONFIG_DIRECTORY = "~/.config/kitty";
+      NIX_PATH = "$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
+      FZF_DEFAULT_COMMAND = "rg --files --hidden --follow";
+    };
 
 
-   shellAliases = {
-    # GIT
-    gbr = "git branch | grep -v \"master\" | xargs git branch -D";
-    gcoi = "git branch --all | peco | sed 's/remotes\/origin\///g' | xargs git checkout";
-    g="git";
-    ga="git add";
-    gst="git status";
-    gai="gsina | xargs git add";
-    gaip="gsina | xargs -o git add -p";
-    gb="git branch";
-    gbdi="git branch | peco | xargs git branch -d";
-    gc="git commit";
-    gco="git checkout";
-    gd="git diff";
-    gdi="gsina | xargs -o git diff";
-    gf="git fetch --all";
-    # alias gh='git stash'
-    ghl="git stash list";
-    ghp="git stash pop";
-    git="noglob git";
-    gl="git log";
-    gp="git push";
-    gpo="git push origin";
-    gpot="git push origin --tags";
-    gpuo="git push -u origin `git rev-parse --abbrev-ref HEAD`";
-    gr="git reset";
-    gri="gsina | git reset";
-    gs="git status";
-    gull="git pull";
-    grc="git rev-list -n 1 HEAD --";
-    gapa="git add --patch";
-    # DOCKER
-    dockerbash="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash";
-    dockersh="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/sh";
-    dockerrm="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}";
-    dockerlogs="docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker logs -f {}";
-    dockerrmiall="docker rmi \"$(docker images -a -q)\"";
-    dockerrmall="docker rm \"$(docker ps -a -q)\"";
-    dockerstopall="docker stop \"$(docker ps -a -q)\"";
-    # KUBE
-    kubelogs="kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
-    kubeinitcontext="aws eks --region $AWS_REGION update-kubeconfig --name $1";
-    # RAND
-    rm="rm -i";
-    cat="bat";
+    shellAliases = {
+      # GIT
+      gbr = "git branch | grep -v \"master\" | xargs git branch -D";
+      gcoi = "git branch --all | peco | sed 's/remotes\/origin\///g' | xargs git checkout";
+      g = "git";
+      ga = "git add";
+      gst = "git status";
+      gai = "gsina | xargs git add";
+      gaip = "gsina | xargs -o git add -p";
+      gb = "git branch";
+      gbdi = "git branch | peco | xargs git branch -d";
+      gc = "git commit";
+      gco = "git checkout";
+      gd = "git diff";
+      gdi = "gsina | xargs -o git diff";
+      gf = "git fetch --all";
+      # alias gh='git stash'
+      ghl = "git stash list";
+      ghp = "git stash pop";
+      git = "noglob git";
+      gl = "git log";
+      gp = "git push";
+      gpo = "git push origin";
+      gpot = "git push origin --tags";
+      gpuo = "git push -u origin `git rev-parse --abbrev-ref HEAD`";
+      gr = "git reset";
+      gri = "gsina | git reset";
+      gs = "git status";
+      gull = "git pull";
+      grc = "git rev-list -n 1 HEAD --";
+      gapa = "git add --patch";
+      # DOCKER
+      dockerbash = "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash";
+      dockersh = "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/sh";
+      dockerrm = "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}";
+      dockerlogs = "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker logs -f {}";
+      dockerrmiall = "docker rmi \"$(docker images -a -q)\"";
+      dockerrmall = "docker rm \"$(docker ps -a -q)\"";
+      dockerstopall = "docker stop \"$(docker ps -a -q)\"";
+      # KUBE
+      kubelogs = "kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
+      kubeinitcontext = "aws eks --region $AWS_REGION update-kubeconfig --name $1";
+      # RAND
+      rm = "rm -i";
+      cat = "bat";
     };
   };
 
@@ -324,6 +328,7 @@
       vim-terraform
       vim-orgmode
       vim-elixir
+      vim-lua
 
       # appearence
       vim-one
@@ -348,7 +353,6 @@
       vim-abolish
 
       # linting / fixing / lsp
-      ale
       lspsaga-nvim
       nvim-compe
       nvim-lspconfig

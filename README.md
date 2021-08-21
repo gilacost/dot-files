@@ -31,6 +31,14 @@ brew analytics off
   ];
 ```
 
+## lang-server
+
+nix-env -i -f elixir.nix --show-trace
+nix-env -iA nixpkgs.nodePackages.node2nix
+<!-- node2nix -i <(echo '["stylelint-lsp", "vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]') -->
+node2nix -i <(echo '["vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]')
+nix-env -i -f node/default.nix
+
 ## Install nix
 
 **NOTE**: If you decide to encrypt the main Drive by enabling file vault, you will need to create the `/nix` volume manually. Follow these [instructions](https://nixos.org/manual/nix/stable/#sect-macos-installation-recommended-notes).
@@ -54,25 +62,28 @@ brew analytics off
 * `nix-shell -p nix-info --run "nix-info -m"`
 
 next steps:
-- fix fzf --hidden files
-- prettier
-- play with telescope
-- lua terraform and nix language servers
+- review compe
 - acabar el tour
 - erlan-ls, clone and import local overlay
 - review all maps
+- hadolint somewhere (pre-commit docker?)
 - keyboard language? enable and uk?
 - review all vim plugins
 - review compe plugin
 - review all confs with alvivi's and tidy owns
 - yabai
-- move to flakes
-- sort ligatures
 - import snipets not prioritary
 - reorder folder (refactor and tidy)
-- dissable alias suggestion
+- play with telescope
+- gacer list y tal mas fugitive and co
+- key ratation
+- sort ligatures
+- move to flakes
+- disable linting for ale and restore fixing (prettier, mix format terraform, etc)
 
 ## SSH
+
+## git-crypt
 
 ## GPG
 
