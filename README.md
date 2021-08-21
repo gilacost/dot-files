@@ -54,7 +54,8 @@ brew analytics off
 * `nix-shell -p nix-info --run "nix-info -m"`
 
 next steps:
-- review all lspsga commands with maps
+- fix fzf --hidden files
+- prettier
 - play with telescope
 - lua terraform and nix language servers
 - acabar el tour
