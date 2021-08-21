@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
 {
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
+  nixpkgs = {
+    overlays = [
+      (import (builtins.fetchTarball {
       url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-    }))
-  ];
+      }))
+    ];
+  };
 
   programs.home-manager.enable = true;
 
@@ -19,6 +21,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    git-crypt
     neovim-remote
     ripgrep
     silver-searcher
@@ -116,7 +119,7 @@
     userName = "Josep Giralt D'Lacoste";
 
     signing = {
-      key = "FB5A0E2669939728";
+      key = "3842365AD84FF08A";
       signByDefault = true;
     };
 
