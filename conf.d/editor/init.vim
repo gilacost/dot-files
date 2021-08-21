@@ -140,20 +140,20 @@ au TermLeave * setlocal scrolloff=10
   noremap <Leader>hu :GitGutterUndoHunk<CR>
 """""""""""""""""""""""" LSPSAGA """""""""""""""""""""""""""""""""""
   nnoremap <silent> gh <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
-  " nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
-  " vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
-  " -- show hover doc
+  nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+  vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
+  " show hover doc
   nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
   " -- scroll down hover doc or scroll in definition preview
-  " nnoremap <silent> K <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+  " nnoremap <silent><leade> K <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
   " -- show signature help
   nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
   " -- rename
-  " nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
+  nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
   " -- preview definition
-  " nnoremap <silent> gd <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
+  nnoremap <silent> gd <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
   " -- show
-  " nnoremap <silent><leader>cd <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
+  nnoremap <silent><leader>cd <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
   " -- only show diagnostic if cursor is over the area
   nnoremap <silent><leader>cc <cmd>lua require'lspsaga.diagnostic'.show_cursor_diagnostics()<CR>
   " -- jump diagnostic
@@ -161,23 +161,8 @@ au TermLeave * setlocal scrolloff=10
   nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
   nnoremap <silent> ff <cmd>lua vim.lsp.buf.formatting()<CR>
 """""""""""""""""""""""" LSPSAGA """""""""""""""""""""""""""""""""""
-
-" " Ultisnips
-"   let g:UltiSnipsSnippetsDir = $HOME.'/.config/nvim/snips'
-"   let g:UltiSnipsSnippetDirectories = ['snips', 'priv_snips', 'UltiSnips' ]
-"   let g:UltiSnipsEditSplit = 'vertical'
-
 " le test
   let test#strategy = 'neovim'
-
-  "TODO ensure dir created
-
-   " let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/util_snips']
-   " let g:UltiSnipsExpandTrigger="<tab>"
-   " let g:UltiSnipsJumpForwardTrigger="<tab>"
-   " let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-   " let g:UltiSnipsEditSplit = 'vertical'
-
   " FZF override
   function! s:list_buffers()
     redir => list
@@ -286,6 +271,14 @@ au TermLeave * setlocal scrolloff=10
 
 " Current directory
   nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" Compe
+
+  " inoremap <silent><expr> <C-Space> compe#complete()
+  " inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+  " inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+  " inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+  " inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 """""""""""""""""""""" SATUSLINE """"""""""""""""""""""""""""""""
       \
