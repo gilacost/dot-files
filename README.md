@@ -59,9 +59,11 @@ nix-env -i -f modules/node/default.nix --show-trace
 ## Useful commands
 
 * `nix-shell -p nix-info --run "nix-info -m"`
+* `nix-env -q` list packages installed in env
+* `nix-env -e <package>`
 
 next steps:
-- erlan-ls, clone and import local overlay
+- read compe docs
 - disable linting for ale and restore fixing (prettier, mix format terraform, etc)
 - acabar el tour
 - review all maps
@@ -75,6 +77,7 @@ next steps:
 - key rotation
 - sort ligatures
 - move to flakes
+- tailwincss lsp
 
 ## SSH
 
