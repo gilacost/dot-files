@@ -25,9 +25,8 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    nodePackages.node2nix
-    git-crypt
     neovim-remote
+
     ripgrep
     silver-searcher
     (
@@ -37,6 +36,7 @@
         ];
       }
     )
+
     fd
     jq
     htop
@@ -50,6 +50,8 @@
     tig
     tree
     telnet
+    nodePackages.node2nix
+    git-crypt
 
     ### TO REVIEW
     # pkgs.coreutils
@@ -63,9 +65,11 @@
     # pkgs.wxmac
     ### TO REVIEW
 
-    # linting/fixing review this? will this be needed with language servers
+    # lsp
     terraform-ls
     rnix-lsp
+    elixir_ls
+    erlang-ls
 
     # hadolint
     # tflint
@@ -76,6 +80,8 @@
     awscli
     azure-cli
     google-cloud-sdk
+
+    rebar3
 
     # programming languages
     elixir
