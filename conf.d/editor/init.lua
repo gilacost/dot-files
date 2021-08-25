@@ -20,12 +20,15 @@ local nvim_lsp = require 'lspconfig'
   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   -- buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
+  -- SYSTEM PACKAGES
 nvim_lsp['elixirls'].setup {
   cmd = { '/Users/pepo/.nix-profile/bin/elixir-ls' },
 }
-
 nvim_lsp['erlangls'].setup{}
+nvim_lsp['terraformls'].setup{}
+nvim_lsp['rnix'].setup{}
 
+-- NODE PACKAGES
 nvim_lsp['jsonls'].setup {
   commands = {
     Format = {
@@ -35,10 +38,7 @@ nvim_lsp['jsonls'].setup {
     }
   }
 }
-
 nvim_lsp['dockerls'].setup{}
-nvim_lsp['rnix'].setup{}
-nvim_lsp['terraformls'].setup{}
 nvim_lsp['vimls'].setup{}
 
 vim.o.completeopt = "menuone,noselect"
