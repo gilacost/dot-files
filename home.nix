@@ -8,10 +8,10 @@
             url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
           }
         )
+
       )
     ];
   };
-
   programs.home-manager.enable = true;
 
   home.username = "pepo";
@@ -88,6 +88,7 @@
     erlang
     terraform
   ];
+
 
   programs.bat.enable = true;
 
@@ -357,4 +358,5 @@
       nvim-lspconfig
     ];
   };
+
 }
