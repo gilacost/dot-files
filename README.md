@@ -31,12 +31,6 @@ brew analytics off
   ];
 ```
 
-## lang-server
-talk about node2nix
-
-nix-env -i -f modules/elixirls.nix --show-trace
-node2nix -i <(echo '["vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]')
-nix-env -i -f modules/node/default.nix --show-trace
 
 ## Install nix
 
@@ -56,6 +50,26 @@ nix-env -i -f modules/node/default.nix --show-trace
 
 6) `./install.sh`
 
+
+## Language servers
+
+* `node2nix` [LINK TO PACKAGE] has been used to generate a derivations that contains
+this node packages:
+
+* `vscode-langservers-extracted`
+* `dockerfile-language-server-nodejs`
+* `vim-language-server
+
+By running:
+
+```bash
+node2nix -i <(echo '["vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]')
+```
+
+And then installing the generated default.nix like this
+
+`nix-env -i -f modules/node/default.nix --show-trace
+
 ## Useful commands
 
 * `nix-shell -p nix-info --run "nix-info -m"`
@@ -63,15 +77,17 @@ nix-env -i -f modules/node/default.nix --show-trace
 * `nix-env -e <package>`
 
 next steps:
+- use lua.nix and include elixir ls package
 - vim-vsnip
 - disable linting for ale and restore fixing (prettier, mix format terraform, etc)
+- review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
+- yabai
+- split vim init
 - acabar el tour
-- review all maps
 - hadolint somewhere (pre-commit docker?)
 - keyboard language? enable and uk? thinks about other defaults
 - review all vim plugins
 - review all confs with alvivi's and tidy owns
-- yabai
 - play with telescope
 - hacer list y tal mas fugitive and co
 - key rotation
