@@ -296,9 +296,17 @@
     withRuby = true;
     withPython3 = true;
 
+    # TODO replace fzf for telescope
+
     extraConfig = ''
-      ${builtins.readFile ~/.config/init.vim}
-      ${builtins.readFile ~/.config/init.lua}
+      ${builtins.readFile ./conf.d/editor/sets.vim}
+      ${builtins.readFile ./conf.d/editor/terminal.vim}
+      ${builtins.readFile ./conf.d/editor/git.vim}
+      ${builtins.readFile ./conf.d/editor/fzf.vim}
+      ${builtins.readFile ./conf.d/editor/projections.vim}
+      ${builtins.readFile ./conf.d/editor/init-lua.vim}
+      ${builtins.readFile ./conf.d/editor/init.vim}
+      ${(import ./lsp.nix) pkgs}
     '';
 
 
@@ -356,6 +364,9 @@
       lspsaga-nvim
       nvim-compe
       nvim-lspconfig
+
+      # snippets
+      vim-vsnip
     ];
   };
 

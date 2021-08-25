@@ -19,10 +19,28 @@ local nvim_lsp = require 'lspconfig'
   -- buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   -- buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  --
+-- LSP's capabilities for nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 
   -- SYSTEM PACKAGES
 nvim_lsp['elixirls'].setup {
-  cmd = { '/Users/pepo/.nix-profile/bin/elixir-ls' },
+  cmd = { '{{ELIXIR_LS_BIN}}' },
+  capabilities = capabilities,
 }
 nvim_lsp['erlangls'].setup{}
 nvim_lsp['terraformls'].setup{}
@@ -77,9 +95,8 @@ require'compe'.setup {
   };
 }
 
--- TODO styles and JS
+-- TODO tailwind
 -- TODO yaml
--- TODO erlang-ls
 
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
