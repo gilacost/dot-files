@@ -78,22 +78,22 @@ And then installing the generated default.nix like this
 
 next steps:
 - use lua.nix and include elixir ls package
-- vim-vsnip
+- review if capabilities can be added to all language servers
+- vim-vsnip installatin and bring nice snippets
 - disable linting for ale and restore fixing (prettier, mix format terraform, etc)
-- review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
 - yabai
-- split vim init
+- play with telescope
+- tailwincss lsp
+- review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
 - acabar el tour
 - hadolint somewhere (pre-commit docker?)
 - keyboard language? enable and uk? thinks about other defaults
 - review all vim plugins
 - review all confs with alvivi's and tidy owns
-- play with telescope
 - hacer list y tal mas fugitive and co
 - key rotation
 - sort ligatures
 - move to flakes
-- tailwincss lsp
 
 ## SSH
 
