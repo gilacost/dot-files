@@ -71,7 +71,7 @@
   homebrew.extraConfig = ''
     cask "firefox", args: { language: "en-GB" }
   '';
-    # cask "font-iosevka-nerd-font", arfs: { family: "Sans-serif" }
+  # cask "font-iosevka-nerd-font", arfs: { family: "Sans-serif" }
 
   homebrew.taps = [
     "homebrew/core"
@@ -79,16 +79,17 @@
   ];
 
   homebrew.casks = [
-   "firefox"
-   "1password"
-   "docker"
-   "grammarly"
-   "inkscape"
-   "recordit"
-   "spotify"
-   "vlc"
-   "zoom"
-   "kitty"
+    "adobe-acrobat-reader"
+    "firefox"
+    "1password"
+    "docker"
+    "grammarly"
+    "inkscape"
+    "recordit"
+    "spotify"
+    "vlc"
+    "zoom"
+    "kitty"
   ];
 
   nix.extraOptions = ''

@@ -63,7 +63,7 @@ nix-env -i -f modules/node/default.nix --show-trace
 * `nix-env -e <package>`
 
 next steps:
-- read compe docs
+- vim-vsnip
 - disable linting for ale and restore fixing (prettier, mix format terraform, etc)
 - acabar el tour
 - review all maps
