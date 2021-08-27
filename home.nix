@@ -306,7 +306,7 @@
       ${builtins.readFile ./conf.d/editor/projections.vim}
       ${builtins.readFile ./conf.d/editor/init-lua.vim}
       ${builtins.readFile ./conf.d/editor/init.vim}
-      ${(import ./lsp.nix) pkgs}
+      ${(import ./modules/lsp.nix) pkgs}
     '';
 
 

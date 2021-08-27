@@ -38,8 +38,12 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
   -- SYSTEM PACKAGES
+--nvim_lsp['elixirls'].setup {
+--  cmd = { '{{ELIXIR_LS_BIN}}' },
+--  capabilities = capabilities,
+--}
 nvim_lsp['elixirls'].setup {
-  cmd = { '{{ELIXIR_LS_BIN}}' },
+  cmd = { '/Users/pepo/.nix-profile/bin/elixir-ls' },
   capabilities = capabilities,
 }
 nvim_lsp['erlangls'].setup{}

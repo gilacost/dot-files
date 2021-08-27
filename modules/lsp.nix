@@ -1,4 +1,3 @@
 pkgs: ''
-  ${builtins.readFile ~/.config/init.lua}
+  ${builtins.readFile ../conf.d/editor/init-lua.vim}
 ''
-# STRINGREPLACE SOMETHING {{ELIXIR_LS_BIN}} for => "${pkgs.elixir_ls}/bin/elixir-ls"
