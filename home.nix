@@ -299,13 +299,13 @@
     # TODO replace fzf for telescope
 
     extraConfig = ''
+      ${builtins.readFile ./conf.d/editor/init.vim}
       ${builtins.readFile ./conf.d/editor/sets.vim}
       ${builtins.readFile ./conf.d/editor/terminal.vim}
       ${builtins.readFile ./conf.d/editor/git.vim}
       ${builtins.readFile ./conf.d/editor/fzf.vim}
       ${builtins.readFile ./conf.d/editor/projections.vim}
       ${builtins.readFile ./conf.d/editor/init-lua.vim}
-      ${builtins.readFile ./conf.d/editor/init.vim}
       ${(import ./modules/lsp.nix) pkgs}
     '';
 

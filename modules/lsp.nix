@@ -1,3 +1,3 @@
 pkgs: ''
-  ${builtins.readFile ../conf.d/editor/init-lua.vim}
+  ${(builtins.readFile ../conf.d/editor/init-lua.vim)}
 ''
