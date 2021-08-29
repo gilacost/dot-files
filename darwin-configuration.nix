@@ -32,7 +32,7 @@
 
   system.defaults.dock.autohide = true;
   system.defaults.dock.mru-spaces = false;
-  system.defaults.dock.orientation = "left";
+  system.defaults.dock.orientation = "bottom";
   system.defaults.dock.showhidden = true;
   system.defaults.dock.static-only = true;
 
@@ -53,7 +53,7 @@
   services.skhd = {
     enable = true;
     skhdConfig = ''
-      cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --start-as=fullscreen --session /Users/pepo/.nvim.session --single-instance -d /Users/pepo
+      cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --start-as=fullscreen --session /Users/pepo/.nvim.session --single-instance -d /Users/pepo/Repos
     '';
   };
 
@@ -79,6 +79,8 @@
   ];
 
   homebrew.casks = [
+    "surfshark"
+    "transmission"
     "adobe-acrobat-reader"
     "firefox"
     "1password"
