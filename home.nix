@@ -230,7 +230,6 @@
 
     sessionVariables = {
       ERL_AFLAGS = "-kernel shell_history enabled";
-      KITTY_CONFIG_DIRECTORY = "~/.config/kitty";
       NIX_PATH = "$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
       FZF_DEFAULT_COMMAND = "rg --files --hidden --follow";
     };
