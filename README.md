@@ -77,7 +77,6 @@ And then installing the generated default.nix like this
 * `nix-env -e <package>`
 
 next steps:
-- use lua.nix and include elixir ls package
 - review if capabilities can be added to all language servers
 - vim-vsnip installatin and bring nice snippets
 - disable linting for ale and restore fixing (prettier, mix format terraform, etc)
@@ -87,13 +86,14 @@ next steps:
 - review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
 - acabar el tour
 - hadolint somewhere (pre-commit docker?)
-- keyboard language? enable and uk? thinks about other defaults
+- keyboard language? enable and uk? things about other defaults
 - review all vim plugins
 - review all confs with alvivi's and tidy owns
 - hacer list y tal mas fugitive and co
 - key rotation
 - sort ligatures
 - move to flakes
+- use lua.nix and include elixir ls package
 
 ## SSH
 
