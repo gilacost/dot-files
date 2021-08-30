@@ -77,10 +77,21 @@ And then installing the generated default.nix like this
 * `nix-env -e <package>`
 
 next steps:
+- go to definition with ctrl + ]
+- alias for soft rm and force push with l
+- add erlfmt as fixer in ale registry
+- read kubernetes for dummies
+- deploy current sservice to kubernetes cluster
+- setup for all stuff of new project
+- add nur packages and firefox extensions
+- firefox vimium and firefox profiles
+- waka-time to secrets?
+- vim spell?
+- review unverified
+- review all alias
+- youtube dl
 - review if capabilities can be added to all language servers
-- vim-vsnip installatin and bring nice snippets
-- disable linting for ale and restore fixing (prettier, mix format terraform, etc)
-- yabai
+- vim-vsnip installation and bring nice snippets
 - play with telescope
 - tailwincss lsp
 - review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
@@ -91,9 +102,10 @@ next steps:
 - review all confs with alvivi's and tidy owns
 - hacer list y tal mas fugitive and co
 - key rotation
-- sort ligatures
 - move to flakes
 - use lua.nix and include elixir ls package
+- review all libraries from mcrae
+- compare 1password with pass or last pass
 
 ## SSH
 
@@ -124,3 +136,11 @@ gpg --full-generate-key
 ```bash
 gpg --list-secret-keys --keyid-format SHORT
 ```
+
+## Varmilo keyboard
+
+* `FN` + `a` for about 3 seconds until `capslock` flashes and keyboard will swap to `mac` mode.
+* `FN` + `w` for about 3 seconds until `capslock` flashes and keyboard will swap to `Windows` mode.
+* If `capslock` does not flash after pressing any of the previous combinations mentioned above. Keyboard
+should be already in mentioned mode.
+* `FN` + `ESC` for about 3 seconds until `capslock` flashes and keyboard will be reset to defaults.
