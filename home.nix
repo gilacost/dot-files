@@ -1,22 +1,11 @@
-{ config, pkgs, ... }:
-{
-  nixpkgs = {
-    overlays = [
-      (
-        import (
-          builtins.fetchTarball {
-            url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-          }
-        )
-
-      )
-    ];
-  };
+{ config, pkgs, ... }: {
   programs.home-manager.enable = true;
 
-  home.username = "pepo";
-  home.homeDirectory = "/Users/pepo";
-  home.stateVersion = "21.11";
+  home = {
+    username = "pepo";
+    homeDirectory = "/Users/pepo";
+    stateVersion = "21.11";
+  };
 
   ############
   # Packages #
@@ -29,13 +18,7 @@
 
     ripgrep
     silver-searcher
-    (
-      nerdfonts.override {
-        fonts = [
-          "Iosevka"
-        ];
-      }
-    )
+    (nerdfonts.override { fonts = [ "Iosevka" ]; })
 
     fd
     jq
@@ -70,11 +53,12 @@
     rnix-lsp
     elixir_ls
     erlang-ls
+    erlfmt
 
-    # hadolint
+    hadolint
     # tflint
     # rustfmt
-    # nixfmt
+    nixfmt
 
     # cloud
     awscli
@@ -88,7 +72,6 @@
     erlang
     terraform
   ];
-
 
   programs.bat.enable = true;
 
@@ -148,18 +131,19 @@
       apply = { whitefix = "fix"; };
       push = { default = "current"; };
       rebase = { autosquash = true; };
-      rerere = { enabled = true; }; #review
-      core = {
-        editor = "nvr -cc split --remote-wait";
-      };
+      rerere = { enabled = true; }; # review
+      core = { editor = "nvr -cc split --remote-wait"; };
       alias = {
         co = "checkout";
-        l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative";
+        l =
+          "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative";
         recommit = "commit --amend -m";
         commend = "commit --amend --no-edit";
-        here = "!git init && git add . && git commit -m \"Initialized a new repository\"";
+        here = ''
+          !git init && git add . && git commit -m "Initialized a new repository"'';
         zip = "archive --format=tar.gz -o ../repo.tar.gz";
-        plg = "log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative";
+        plg =
+          "log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative";
         fresh = "filter-branch --prune-empty --subdirectory-filter";
       };
     };
@@ -230,15 +214,16 @@
 
     sessionVariables = {
       ERL_AFLAGS = "-kernel shell_history enabled";
-      NIX_PATH = "$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
+      NIX_PATH =
+        "darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
       FZF_DEFAULT_COMMAND = "rg --files --hidden --follow";
     };
 
-
     shellAliases = {
       # git
-      gbr = "git branch | grep -v \"master\" | xargs git branch -D";
-      gcoi = "git branch --all | peco | sed 's/remotes\/origin\///g' | xargs git checkout";
+      gbr = ''git branch | grep -v "master" | xargs git branch -D'';
+      gcoi =
+        "git branch --all | peco | sed 's/remotes/origin///g' | xargs git checkout";
       g = "git";
       ga = "git add";
       gst = "git status";
@@ -267,16 +252,22 @@
       grc = "git rev-list -n 1 HEAD --";
       gapa = "git add --patch";
       # DOCKER
-      dockerbash = "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash";
-      dockersh = "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/sh";
-      dockerrm = "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}";
-      dockerlogs = "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker logs -f {}";
-      dockerrmiall = "docker rmi \"$(docker images -a -q)\"";
-      dockerrmall = "docker rm \"$(docker ps -a -q)\"";
-      dockerstopall = "docker stop \"$(docker ps -a -q)\"";
+      dockerbash =
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash";
+      dockersh =
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/sh";
+      dockerrm =
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}";
+      dockerlogs =
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker logs -f {}";
+      dockerrmiall = ''docker rmi "$(docker images -a -q)"'';
+      dockerrmall = ''docker rm "$(docker ps -a -q)"'';
+      dockerstopall = ''docker stop "$(docker ps -a -q)"'';
       # KUBE
-      kubelogs = "kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
-      kubeinitcontext = "aws eks --region $AWS_REGION update-kubeconfig --name $1";
+      kubelogs =
+        "kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
+      kubeinitcontext =
+        "aws eks --region $AWS_REGION update-kubeconfig --name $1";
       # RAND
       rm = "rm -i";
       cat = "bat";
@@ -288,7 +279,6 @@
   ###################
 
   programs.neovim = {
-    package = pkgs.neovim-nightly;
     enable = true;
     vimAlias = true;
     withNodeJs = true;
@@ -308,7 +298,6 @@
       ${(import ./modules/lsp.nix) pkgs}
     '';
 
-
     plugins = with pkgs.vimPlugins; [
       vim-test
 
@@ -322,7 +311,7 @@
       # Git
       vim-fugitive
       vim-gitgutter
-      vim-rhubarb #review
+      vim-rhubarb # review
 
       # Programming
       emmet-vim
@@ -355,7 +344,7 @@
       vim-commentary
       vim-unimpaired
       vim-projectionist
-      vim-speeddating #review this
+      vim-speeddating # review this
       vim-vinegar
       vim-abolish
 
@@ -363,10 +352,73 @@
       lspsaga-nvim
       nvim-compe
       nvim-lspconfig
+      ale
 
       # snippets
       vim-vsnip
     ];
+  };
+
+  ###########
+  # Firefox #
+  ###########
+  programs.firefox.enable = true;
+  # Handled by the Homebrew module
+  # This populates a dummy package to satsify the requirement
+  programs.firefox.package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
+  # programs.firefox.extensions =
+  #   with pkgs.nur.repos.rycee.firefox-addons; [
+  #     ublock-origin
+  #     browserpass
+  #     vimium
+  #     1pasword
+  #   ];
+
+  programs.firefox.profiles = let
+    userChrome = builtins.readFile ./conf.d/userChrome.css;
+    settings = {
+      "app.update.auto" = false;
+      "browser.startup.homepage" = "https://lobste.rs";
+      "browser.search.region" = "GB";
+      "browser.search.countryCode" = "GB";
+      "browser.search.isUS" = false;
+      "browser.ctrlTab.recentlyUsedOrder" = false;
+      "browser.newtabpage.enabled" = false;
+      "browser.bookmarks.showMobileBookmarks" = true;
+      "browser.uidensity" = 1;
+      "browser.urlbar.placeholderName" = "DuckDuckGo";
+      "browser.urlbar.update1" = true;
+      "distribution.searchplugins.defaultLocale" = "en-GB";
+      "general.useragent.locale" = "en-GB";
+      # "identity.fxaccounts.account.device.name" = config.networking.hostName;
+      "privacy.trackingprotection.enabled" = true;
+      "privacy.trackingprotection.socialtracking.enabled" = true;
+      "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
+      "reader.color_scheme" = "sepia";
+      "services.sync.declinedEngines" = "addons,passwords,prefs";
+      "services.sync.engine.addons" = false;
+      "services.sync.engineStatusChanged.addons" = true;
+      "services.sync.engine.passwords" = false;
+      "services.sync.engine.prefs" = false;
+      "services.sync.engineStatusChanged.prefs" = true;
+      "signon.rememberSignons" = false;
+      "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+    };
+  in {
+    home = {
+      inherit settings;
+      inherit userChrome;
+      id = 0;
+    };
+
+    work = {
+      inherit userChrome;
+      id = 1;
+      settings = settings // {
+        "browser.startup.homepage" = "about:blank";
+        "browser.urlbar.placeholderName" = "Google";
+      };
+    };
   };
 
 }

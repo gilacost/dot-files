@@ -112,13 +112,13 @@ let
         sha512 = "fimzjIVw506FBZLspTAXHdpvgvQebyjpNyLRd0e6drPPRq7gcrROeGWRyF81wLqFg5ijPgnOQbmfck5wdTqpSA==";
       };
     };
-    "typescript-4.3.5" = {
+    "typescript-4.4.2" = {
       name = "typescript";
       packageName = "typescript";
-      version = "4.3.5";
+      version = "4.4.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/typescript/-/typescript-4.3.5.tgz";
-        sha512 = "DqQgihaQ9cUrskJo9kIyW/+g0Vxsk8cDtZ52a3NGh0YNTfpUSArXSohyUGnvbPazEPLu398C0UxmKSOrPumUzA==";
+        url = "https://registry.npmjs.org/typescript/-/typescript-4.4.2.tgz";
+        sha512 = "gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==";
       };
     };
     "vscode-css-languageservice-5.1.4" = {
@@ -254,7 +254,7 @@ in
           sources."vscode-nls-4.1.2"
         ];
       })
-      sources."typescript-4.3.5"
+      sources."typescript-4.4.2"
       sources."vscode-css-languageservice-5.1.4"
       sources."vscode-html-languageservice-4.0.7"
       sources."vscode-json-languageservice-4.1.7"
@@ -319,15 +319,33 @@ in
   vim-language-server = nodeEnv.buildNodePackage {
     name = "vim-language-server";
     packageName = "vim-language-server";
-    version = "2.2.3";
+    version = "2.2.5";
     src = fetchurl {
-      url = "https://registry.npmjs.org/vim-language-server/-/vim-language-server-2.2.3.tgz";
-      sha512 = "dUaWfvqNM0IVwinwYHv6prKYEw4o/ayZtvceFBKdMCf91uYzKt64MLqD8ZA597JLheul/oEV1XKgpzLLPcfVVw==";
+      url = "https://registry.npmjs.org/vim-language-server/-/vim-language-server-2.2.5.tgz";
+      sha512 = "893GcGS5oFjBK2Dakdl4I0x8rtkgI+TOi44M9PmFU6YV+kwoLIRAxIcoF55rGiHFESCq98C+yjWn1OXznWgm7A==";
     };
     buildInputs = globalBuildInputs;
     meta = {
       description = "vim language server";
       homepage = "https://github.com/iamcco/vim-language-server#readme";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  prettier = nodeEnv.buildNodePackage {
+    name = "prettier";
+    packageName = "prettier";
+    version = "2.3.2";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/prettier/-/prettier-2.3.2.tgz";
+      sha512 = "lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==";
+    };
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Prettier is an opinionated code formatter";
+      homepage = "https://prettier.io";
       license = "MIT";
     };
     production = true;
