@@ -53,11 +53,8 @@
     rnix-lsp
     elixir_ls
     erlang-ls
-    erlfmt
 
     hadolint
-    # tflint
-    # rustfmt
     nixfmt
 
     # cloud
@@ -352,7 +349,7 @@
       lspsaga-nvim
       nvim-compe
       nvim-lspconfig
-      ale
+      # ale
 
       # snippets
       vim-vsnip
@@ -365,7 +362,7 @@
   programs.firefox.enable = true;
   # Handled by the Homebrew module
   # This populates a dummy package to satsify the requirement
-  programs.firefox.package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
+  programs.firefox.package = pkgs.runCommand "firefox-0.0.0" {} "mkdir $out";
   # programs.firefox.extensions =
   #   with pkgs.nur.repos.rycee.firefox-addons; [
   #     ublock-origin
@@ -404,21 +401,22 @@
       "signon.rememberSignons" = false;
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     };
-  in {
-    home = {
-      inherit settings;
-      inherit userChrome;
-      id = 0;
-    };
+  in
+    {
+      home = {
+        inherit settings;
+        inherit userChrome;
+        id = 0;
+      };
 
-    work = {
-      inherit userChrome;
-      id = 1;
-      settings = settings // {
-        "browser.startup.homepage" = "about:blank";
-        "browser.urlbar.placeholderName" = "Google";
+      work = {
+        inherit userChrome;
+        id = 1;
+        settings = settings // {
+          "browser.startup.homepage" = "about:blank";
+          "browser.urlbar.placeholderName" = "Google";
+        };
       };
     };
-  };
 
 }
