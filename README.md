@@ -77,12 +77,11 @@ And then installing the generated default.nix like this
 * `nix-env -e <package>`
 
 next steps:
-- go to definition with ctrl + ]
+- play with telescope
 - alias for soft rm and force push with l
-- add erlfmt as fixer in ale registry
-- read kubernetes for dummies
-- deploy current sservice to kubernetes cluster
+- read kubernetes fd
 - setup for all stuff of new project
+- deploy current service to kubernetes cluster
 - add nur packages and firefox extensions
 - firefox vimium and firefox profiles
 - waka-time to secrets?
@@ -92,7 +91,6 @@ next steps:
 - youtube dl
 - review if capabilities can be added to all language servers
 - vim-vsnip installation and bring nice snippets
-- play with telescope
 - tailwincss lsp
 - review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
 - acabar el tour

@@ -133,32 +133,15 @@ if exists('g:loaded_webdevicons')
     call webdevicons#refresh()
 endif
 
-
+autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
 """""""""""""""""""" ALE """"""""""""""""""""""""""""""""""""""""
-let g:ale_disable_lsp = 1
-let g:ale_linters_explicit = 1
-let g:ale_fix_on_save = 1
+" let g:ale_disable_lsp = 1
+" let g:ale_linters_explicit = 1
+" let g:ale_fix_on_save = 1
 
-let g:ale_linters = {
-   \   'dockerfile': ['hadolint']
-   \}
+" let g:ale_linters = {
+"    \   'dockerfile': ['hadolint']
+"    \}
 
-let g:ale_fixers = {
-   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-   \   'html': ['prettier'],
-   \   'nix': ['nixfmt'],
-   \   'n': ['nixfmt'],
-   \   'elixir': ['mix_format'],
-   \   'erlang': [],
-   \   'terraform': ['terraform'],
-   \   'yaml': ['prettier'],
-   \   'yml': ['prettier'],
-   \   'json': ['prettier'],
-   \   'css': ['prettier'],
-   \   'scss': ['prettier'],
-   \   'javascript': ['prettier'],
-   \}
-
-   " \   'erlang': ['erlfmt'],
-"   \   'elm': ['format'],
-"   \   'rust': ['rustfmt'],
+" let g:ale_fixers = {
+"    \}

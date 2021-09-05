@@ -148,17 +148,9 @@
     "spotify"
     "vlc"
     "kitty"
-    # "zoomus"
+    "zoom"
     # "slack"
   ];
-
-  # nix.extraOptions = ''
-  #   gc-keep-derivations = true
-  #   gc-keep-outputs = true
-  #   min-free = 17179870000
-  #   max-free = 17179870000
-  #   log-lines = 128
-  # '';
 
   nix.binaryCachePublicKeys = [ "cache.daiderd.com-1:R8KOWZ8lDaLojqD+v9dzXAqGn29gEzPTTbr/GIpCTrI=" ];
   nix.trustedBinaryCaches = [ https://d3i7ezr9vxxsfy.cloudfront.net ];
