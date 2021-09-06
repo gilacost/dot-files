@@ -77,7 +77,6 @@ And then installing the generated default.nix like this
 * `nix-env -e <package>`
 
 next steps:
-- play with telescope
 - alias for soft rm and force push with l
 - read kubernetes fd
 - setup for all stuff of new project
@@ -89,7 +88,6 @@ next steps:
 - review unverified
 - review all alias
 - youtube dl
-- review if capabilities can be added to all language servers
 - vim-vsnip installation and bring nice snippets
 - tailwincss lsp
 - review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
