@@ -78,7 +78,7 @@ And then installing the generated default.nix like this
 
 next steps:
 - tailwincss lsp
-- functions.sh
+- bash lsp?
 - setup for all stuff of new project
 - read kubernetes fd
 - deploy current service to kubernetes cluster
