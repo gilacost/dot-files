@@ -84,6 +84,14 @@ nvim_lsp['vimls'].setup{
   capabilities = capabilities,
   on_attach = on_attach,
 }
+nvim_lsp['tailwindcss'].setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+nvim_lsp['bashls'].setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
 
 -- NODE PACKAGES
 nvim_lsp['jsonls'].setup {
