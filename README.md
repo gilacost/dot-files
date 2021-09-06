@@ -58,14 +58,14 @@ this node packages:
 
 * `vscode-langservers-extracted`
 * `dockerfile-language-server-nodejs`
-* `vim-language-server
-* `@tailwindcss/language-server`
+* `vim-language-server`
+* `tailwindcss-language-server`
 * `bash-language-server`
 
 By running:
 
 ```bash
-node2nix -i <(echo '["@tailwindcss/language-server", "bash-language-server", \
+node2nix -i <(echo '["tailwindcss-language-server", "bash-language-server", \
 "vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]')
 ```
 
@@ -80,7 +80,6 @@ And then installing the generated default.nix like this
 * `nix-env -e <package>`
 
 next steps:
-- tree-sitter
 - setup for all stuff of new project
 - read kubernetes fd
 - deploy current service to kubernetes cluster
@@ -141,3 +140,4 @@ gpg --list-secret-keys --keyid-format SHORT
 * If `capslock` does not flash after pressing any of the previous combinations mentioned above. Keyboard
 should be already in mentioned mode.
 * `FN` + `ESC` for about 3 seconds until `capslock` flashes and keyboard will be reset to defaults.
+rm /Library/Preferences/com.apple.keyboardtype.plis

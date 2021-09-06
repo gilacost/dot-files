@@ -130,10 +130,7 @@
     cask "firefox", args: { language: "en-GB" }
   '';
 
-  homebrew.taps = [
-    "homebrew/core"
-    "homebrew/cask"
-  ];
+  homebrew.taps = [ "homebrew/core" "homebrew/cask" ];
 
   homebrew.casks = [
     "surfshark"
@@ -149,11 +146,12 @@
     "vlc"
     "kitty"
     "zoom"
-    # "slack"
+    "slack"
   ];
 
-  nix.binaryCachePublicKeys = [ "cache.daiderd.com-1:R8KOWZ8lDaLojqD+v9dzXAqGn29gEzPTTbr/GIpCTrI=" ];
-  nix.trustedBinaryCaches = [ https://d3i7ezr9vxxsfy.cloudfront.net ];
+  nix.binaryCachePublicKeys =
+    [ "cache.daiderd.com-1:R8KOWZ8lDaLojqD+v9dzXAqGn29gEzPTTbr/GIpCTrI=" ];
+  nix.trustedBinaryCaches = [ "https://d3i7ezr9vxxsfy.cloudfront.net" ];
   # review sandboxPaths
   nix.sandboxPaths = [ "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
   programs.nix-index.enable = true;

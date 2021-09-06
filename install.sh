@@ -51,3 +51,6 @@ export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
 #home manager not found in path
 
 home-manager switch
+
+mkdir -p $HOME/.config/rebar3
+ln -s  $DOT_DIR/conf.d/rebar.conf $HOME/.config/rebar3/rebar.conf

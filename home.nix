@@ -13,62 +13,98 @@
 
   fonts.fontconfig.enable = true;
 
-  home.packages = with pkgs; [
-    neovim-remote
+  home.packages = with pkgs;
+    with lib;
+    with beamPackages;
+    let
+      # buildRebar3 = lib.makeOverridable beamPackages.buildRebar3;
 
-    ripgrep
-    silver-searcher
-    (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      # katana_code = buildRebar3 {
+      #   name = "katana_code";
+      #   version = "0.2.1";
+      #   src = fetchHex {
+      #     pkg = "katana_code";
+      #     version = "0.2.1";
+      #     sha256 = "sha256-hEitP1bZgU+YoovmUPcZG91QZXXjRcwW1YZmCxD26ZI=";
+      #   };
+      #   beamDeps = [];
+      # };
 
-    fd
-    jq
-    htop
-    ripgrep
-    bind # review
-    cloc
-    gh
-    glow
-    peco
-    wget
-    tig
-    tree
-    telnet
-    nodePackages.node2nix
-    git-crypt
+      # rebar3_format = buildRebar3 {
+      #   name = "rebar3_format";
+      #   version = "0.8.2";
+      #   src = fetchHex {
+      #     pkg = "rebar3_format";
+      #     version = "0.8.2";
+      #     sha256 = "sha256-yo/ydjjCFpWT0USdrL6IlWNBk+0zNOkGtU/JfwgfUhM=";
+      #   };
+      #   beamDeps = [ katana_code ];
+      # };
+    in
+      [
+        # katana_code
+        # rebar3_format
 
-    ### TO REVIEW
-    # pkgs.coreutils
-    # pkgs.kubectl
-    # pkgs.pre-commit
-    # pkgs.pstree
-    # pkgs.rename
-    # pkgs.terminal-notifier
-    # pkgs.html-tidy
-    # pkgs.watch
-    # pkgs.wxmac
-    ### TO REVIEW
+        neovim-remote
 
-    # lsp
-    terraform-ls
-    rnix-lsp
-    elixir_ls
-    erlang-ls
+        ripgrep
+        silver-searcher
+        (
+          nerdfonts.override {
+            fonts = [ "Iosevka" ];
+          }
+        )
 
-    hadolint
-    nixfmt
+        fd
+        jq
+        htop
+        ripgrep
+        bind # review
+        cloc
+        gh
+        glow
+        peco
+        wget
+        tig
+        tree
+        telnet
+        nodePackages.node2nix
+        git-crypt
 
-    # cloud
-    awscli
-    azure-cli
-    google-cloud-sdk
+        ### TO REVIEW
+        # pkgs.coreutils
+        # pkgs.kubectl
+        # pkgs.pre-commit
+        # pkgs.pstree
+        # pkgs.rename
+        # pkgs.terminal-notifier
+        # pkgs.html-tidy
+        # pkgs.watch
+        # pkgs.wxmac
+        ### TO REVIEW
 
-    rebar3
+        # lsp
+        terraform-ls
+        rnix-lsp
+        elixir_ls
+        erlang-ls
 
-    # programming languages
-    elixir
-    erlang
-    terraform
-  ];
+        hadolint
+        nixfmt
+
+        # cloud
+        awscli
+        azure-cli
+        google-cloud-sdk
+
+        # (rebar3WithPlugins { globalPlugins = [ rebar3_format ]; })
+        rebar3
+
+        # programming languages
+        elixir
+        erlang
+        terraform
+      ];
 
   programs.bat.enable = true;
 
@@ -255,69 +291,85 @@
       ${(import ./modules/lsp.nix) pkgs}
     '';
 
-    plugins = with pkgs.vimPlugins; [
-      vim-test
+    plugins = with pkgs;
+      with pkgs.vimPlugins;
+      let
+        nvim-treesitter = vimUtils.buildVimPlugin {
+          name = "nvim-treesitter";
+          src = fetchFromGitHub {
+            owner = "nvim-treesitter";
+            repo = "nvim-treesitter";
+            rev = "1e4c846d01561821a737d08a6a5e2ac16d19c332";
+            sha256 = "0cl2h599i4xmvgm4k8cliiz43qz6xnirh1zb8sfibdnw0fbqfpa5";
+          };
+        };
+      in
+        [
+          vim-test
 
-      ###REVIEW###
-      # vim-rooter
-      # vim-wakatime
-      # vim-cool
-      # indentLine
-      ##REVIEW###
+          ###REVIEW###
+          # vim-rooter
+          # vim-wakatime
+          # vim-cool
+          # indentLine
+          ##REVIEW###
 
-      # Git
-      vim-fugitive
-      vim-gitgutter
-      vim-rhubarb # review
+          # Git
+          vim-fugitive
+          vim-gitgutter
+          vim-rhubarb # review
 
-      # Programming
-      emmet-vim
-      vim-nix
-      vim-javascript
-      vim-jsx-typescript
-      vim-graphql
-      emmet-vim
-      rust-vim
-      vim-terraform
-      vim-orgmode
-      vim-elixir
-      vim-lua
+          # Programming
+          emmet-vim
+          vim-nix
+          vim-javascript
+          vim-jsx-typescript
+          vim-graphql
+          emmet-vim
+          rust-vim
+          vim-terraform
+          vim-orgmode
+          vim-elixir
+          vim-lua
+          nvim-treesitter
+          nvim-treesitter-refactor
+          nvim-treesitter-textobjects
 
-      # Appearence
-      vim-one
-      vim-airline
-      vim-airline-themes
-      vim-devicons
+          # Appearence
+          vim-one
+          vim-airline
+          vim-airline-themes
+          vim-devicons
 
-      # Navigation
-      nerdtree
-      vim-easymotion
-      vim-startify
-      telescope-nvim
-      telescope-symbols-nvim
+          # Navigation
+          nerdtree
+          vim-easymotion
+          vim-startify
+          telescope-nvim
+          telescope-symbols-nvim
 
-      # Pope
-      vim-commentary
-      vim-surround
-      vim-commentary
-      vim-unimpaired
-      vim-projectionist
-      vim-speeddating # review this
-      vim-vinegar
-      vim-abolish
+          # Pope
+          vim-commentary
+          vim-surround
+          vim-commentary
+          vim-unimpaired
+          vim-projectionist
+          vim-speeddating # review this
+          vim-vinegar
+          vim-abolish
 
-      # Linting / Fixing / Lsp
-      lspsaga-nvim
-      nvim-compe
-      nvim-lspconfig
-      # ale
+          # Linting / Fixing / Lsp
+          lspsaga-nvim
+          nvim-compe
+          nvim-lspconfig
+          # ale
 
-      # Snippets
-      vim-vsnip
+          # Snippets
+          vim-vsnip
 
-      # Other
-      vim-wakatime
-    ];
+          # Other
+          vim-wakatime
+        ];
   };
 
   ###########
