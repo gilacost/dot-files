@@ -222,6 +222,8 @@
       gcoi =
         "git branch --all | peco | sed 's/remotes/origin///g' | xargs git checkout";
       g = "git";
+      gundo = "git reset --soft HEAD~1";
+      gfpl = "git push --force-with-lease";
       ga = "git add";
       gst = "git status";
       gai = "gsina | xargs git add";
