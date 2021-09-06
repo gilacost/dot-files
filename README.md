@@ -77,9 +77,8 @@ And then installing the generated default.nix like this
 * `nix-env -e <package>`
 
 next steps:
-- alias for soft rm and force push with l
-- read kubernetes fd
 - setup for all stuff of new project
+- read kubernetes fd
 - deploy current service to kubernetes cluster
 - add nur packages and firefox extensions
 - firefox vimium and firefox profiles
