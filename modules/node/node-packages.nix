@@ -1249,17 +1249,18 @@ let
   };
 in
 {
-  "@tailwindcss/language-server" = nodeEnv.buildNodePackage {
-    name = "_at_tailwindcss_slash_language-server";
-    packageName = "@tailwindcss/language-server";
-    version = "0.0.2";
+  tailwindcss-language-server = nodeEnv.buildNodePackage {
+    name = "tailwindcss-language-server";
+    packageName = "tailwindcss-language-server";
+    version = "0.0.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@tailwindcss/language-server/-/language-server-0.0.2.tgz";
-      sha512 = "mfZReKtr9GiA4J+H87oL1EOdfkBB93qyq8bZ/TbwiqqGdawqe75h20/qRnZ3N2REQO5nuRphz3s/6tQBSv5oMg==";
+      url = "https://registry.npmjs.org/tailwindcss-language-server/-/tailwindcss-language-server-0.0.1.tgz";
+      sha512 = "lMoncp8ICeUA1kLVaiKARRUKQxRndKtIelydoMgg3P2ZjAIfcptN8Nin848+VClr2wGoM3+9RZ71sDG1YrnX1g==";
     };
     buildInputs = globalBuildInputs;
     meta = {
-      description = "Tailwind CSS Language Server";
+      description = "";
+      homepage = "https://github.com/bradlc/tailwindcss-language-server/blob/master/README.md";
       license = "MIT";
     };
     production = true;
