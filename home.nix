@@ -206,6 +206,7 @@
         mix xref graph --format stats
       }
 
+      source $HOME/.zshrc_local
     '';
     # initExtraBeforeCompInit = builtins.readFile ./functions.zsh;
 
@@ -332,14 +333,14 @@
       vim-airline-themes
       vim-devicons
 
-      # navigation
+      # Navigation
       nerdtree
       vim-easymotion
       vim-startify
       telescope-nvim
       telescope-symbols-nvim
 
-      # pope
+      # Pope
       vim-commentary
       vim-surround
       vim-commentary
@@ -349,14 +350,17 @@
       vim-vinegar
       vim-abolish
 
-      # linting / fixing / lsp
+      # Linting / Fixing / Lsp
       lspsaga-nvim
       nvim-compe
       nvim-lspconfig
       # ale
 
-      # snippets
+      # Snippets
       vim-vsnip
+
+      # Other
+      vim-wakatime
     ];
   };
 

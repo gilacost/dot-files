@@ -77,18 +77,18 @@ And then installing the generated default.nix like this
 * `nix-env -e <package>`
 
 next steps:
+- tailwincss lsp
+- functions.sh
 - setup for all stuff of new project
 - read kubernetes fd
 - deploy current service to kubernetes cluster
 - add nur packages and firefox extensions
 - firefox vimium and firefox profiles
-- waka-time to secrets?
 - vim spell?
 - review unverified
 - review all alias
 - youtube dl
 - vim-vsnip installation and bring nice snippets
-- tailwincss lsp
 - review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
 - acabar el tour
 - hadolint somewhere (pre-commit docker?)
