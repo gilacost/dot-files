@@ -1,0 +1,8 @@
+{
+  "vim-rebar": {
+    "owner": "vim-erlang",
+    "repo": "vim-rebar",
+    "rev": "2f6440eb09b7e6e3322720ac91ce7e2cdeb413f9",
+    "sha256": "14waxw7ahs57nrrmgn5zsw2c9n7skmr0h6m90mj3q14ak4njzksb"
+  }
+}
