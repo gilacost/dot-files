@@ -51,7 +51,7 @@ brew analytics off
 6) `./install.sh`
 
 
-## Language servers
+## Language servers (NPM)
 
 * `node2nix` [LINK TO PACKAGE] has been used to generate a derivations that contains
 this node packages:
@@ -59,16 +59,19 @@ this node packages:
 * `vscode-langservers-extracted`
 * `dockerfile-language-server-nodejs`
 * `vim-language-server
+* `@tailwindcss/language-server`
+* `bash-language-server`
 
 By running:
 
 ```bash
-node2nix -i <(echo '["vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]')
+node2nix -i <(echo '["@tailwindcss/language-server", "bash-language-server", \
+"vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]')
 ```
 
 And then installing the generated default.nix like this
 
-`nix-env -i -f modules/node/default.nix --show-trace
+`nix-env -i -f modules/node/default.nix --show-trace`
 
 ## Useful commands
 
@@ -77,8 +80,7 @@ And then installing the generated default.nix like this
 * `nix-env -e <package>`
 
 next steps:
-- tailwincss lsp
-- bash lsp?
+- tree-sitter
 - setup for all stuff of new project
 - read kubernetes fd
 - deploy current service to kubernetes cluster
