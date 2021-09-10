@@ -146,6 +146,7 @@
     "transmission"
     "adobe-acrobat-reader"
     "firefox"
+    "kitty"
     "1password"
     "docker"
     "grammarly"
@@ -153,7 +154,6 @@
     "recordit"
     "spotify"
     "vlc"
-    "kitty"
     "zoom"
     "slack"
   ];

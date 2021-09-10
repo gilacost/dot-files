@@ -104,9 +104,7 @@ next steps:
 - review all confs with alvivi's and tidy owns
 - hacer list y tal mas fugitive and co
 - key rotation
-- move to flakes
 - use lua.nix and include elixir ls package
-- review all libraries from mcrae
 - compare 1password with pass or last pass
 
 ## SSH
@@ -146,4 +144,9 @@ gpg --list-secret-keys --keyid-format SHORT
 * If `capslock` does not flash after pressing any of the previous combinations mentioned above. Keyboard
 should be already in mentioned mode.
 * `FN` + `ESC` for about 3 seconds until `capslock` flashes and keyboard will be reset to defaults.
-rm /Library/Preferences/com.apple.keyboardtype.plis
+rm /Library/Preferences/com.apple.keyboardtype.plist
+
+nix build ~/.config/darwin\#darwinConfigurations.Pepos-MacBooks.system
+./result/sw/bin/darwin-rebuild switch --flake ~/.config/darwin
+
+leerme nix.dev for sure
