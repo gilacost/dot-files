@@ -1,4 +1,5 @@
 { config, pkgs, ... }: {
+
   programs.home-manager.enable = true;
 
   home = {
@@ -88,6 +89,7 @@
         rnix-lsp
         elixir_ls
         erlang-ls
+        # sumneko-lua-language-server
 
         hadolint
         nixfmt
@@ -96,6 +98,7 @@
         awscli
         azure-cli
         google-cloud-sdk
+        linode-cli
 
         # (rebar3WithPlugins { globalPlugins = [ rebar3_format ]; })
         rebar3
@@ -105,6 +108,11 @@
         erlang
         terraform
       ];
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+  # optional for nix flakes support
+  programs.direnv.nix-direnv.enableFlakes = true;
 
   programs.bat.enable = true;
 

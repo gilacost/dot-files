@@ -92,14 +92,23 @@ nvim_lsp['bashls'].setup{
   capabilities = capabilities,
   on_attach = on_attach,
 }
-
--- NODE PACKAGES
 nvim_lsp['jsonls'].setup {
   commands = {
     Format = {
       function()
         vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
       end
+    }
+  }
+}
+nvim_lsp['yamlls'].setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    yaml = {
+      schemas = {
+        kubernetes= "/*.yaml",
+      }
     }
   }
 }

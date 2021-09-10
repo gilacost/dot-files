@@ -54,3 +54,7 @@ home-manager switch
 
 mkdir -p $HOME/.config/rebar3
 ln -s  $DOT_DIR/conf.d/rebar.conf $HOME/.config/rebar3/rebar.conf
+
+
+ln -s  $DOT_DIR/conf.d/direnvrc $HOME/.direnvrc
+nix-env -iA nixpkgs.nixUnstable

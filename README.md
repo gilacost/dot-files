@@ -65,8 +65,8 @@ this node packages:
 By running:
 
 ```bash
-node2nix -i <(echo '["tailwindcss-language-server", "bash-language-server", \
-"vscode-langservers-extracted","dockerfile-language-server-nodejs", "vim-language-server"]')
+node2nix -i <(echo '["tailwindcss-language-server", "bash-language-server", "vscode-langservers-extracted" \
+,"dockerfile-language-server-nodejs", "vim-language-server", "yaml-language-server"]')
 ```
 
 And then installing the generated default.nix like this
@@ -80,6 +80,12 @@ And then installing the generated default.nix like this
 * `nix-env -e <package>`
 
 next steps:
+- kubctl zsh completions
+- compe and lsp trouble
+- lua language server
+- hadolint
+- kubernetes YAML schemas investigate
+- ale for prettier fix
 - setup for all stuff of new project
 - read kubernetes fd
 - deploy current service to kubernetes cluster
