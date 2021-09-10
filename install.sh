@@ -58,3 +58,7 @@ ln -s  $DOT_DIR/conf.d/rebar.conf $HOME/.config/rebar3/rebar.conf
 
 ln -s  $DOT_DIR/conf.d/direnvrc $HOME/.direnvrc
 nix-env -iA nixpkgs.nixUnstable
+
+
+nix build ./\#darwinConfigurations.homebook.system
+./result/sw/bin/darwin-rebuild switch --flake ./

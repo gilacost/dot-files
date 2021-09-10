@@ -39,4 +39,8 @@ function depsgraph {
   mix xref graph --format stats
 }
 
+source <(kubectl completion zsh)
+alias k=kubectl
+complete -F __start_kubectl k
+
 source $HOME/.zshrc_local
