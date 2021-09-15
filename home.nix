@@ -2,12 +2,6 @@
 
   programs.home-manager.enable = true;
 
-  home = {
-    username = "pepo";
-    homeDirectory = "/Users/pepo";
-    stateVersion = "21.11";
-  };
-
   ############
   # Packages #
   ############
