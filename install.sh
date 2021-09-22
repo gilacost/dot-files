@@ -24,9 +24,14 @@ $(nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild switch
 
 . /etc/static/bashrc
 
-# DERIVATIONS
+# NODE DERIVATIONS
 
 nix-env -i -f modules/node/default.nix
+
+# NUR
+
+ln -s  $HOME/Repos/dot-files/config.nix $HOME/.config/nixpkgs/config.nix
+nix-env -f '<nixpkgs>' -iA nur.repos.mic92.hello-nur
 
 # HOME MANAGER
 
@@ -40,10 +45,6 @@ nix-shell '<home-manager>' -A install
 DOT_DIR=$HOME/Repos/dot-files
 
 ln -s  $DOT_DIR/home.nix $HOME/.nixpkgs/home.nix
-
-ln -s  $DOT_DIR/conf.d/editor/init.vim $HOME/.config/init.vim
-ln -s  $DOT_DIR/conf.d/editor/init.lua $HOME/.config/init-lua.vim
-
 ln -s  $DOT_DIR/conf.d/terminal/nvim.session $HOME/.config/nvim.session
 ln -s  $DOT_DIR/conf.d/terminal/kitty.conf $HOME/.config/kitty/kitty.conf
 
@@ -52,13 +53,12 @@ export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
 
 home-manager switch
 
-mkdir -p $HOME/.config/rebar3
-ln -s  $DOT_DIR/conf.d/rebar.conf $HOME/.config/rebar3/rebar.conf
+# mkdir -p $HOME/.config/rebar3
+# ln -s  $DOT_DIR/conf.d/rebar.conf $HOME/.config/rebar3/rebar.conf
+
+# ln -s  $DOT_DIR/conf.d/direnvrc $HOME/.direnvrc
+# nix-env -iA nixpkgs.nixUnstable
 
 
-ln -s  $DOT_DIR/conf.d/direnvrc $HOME/.direnvrc
-nix-env -iA nixpkgs.nixUnstable
-
-
-nix build ./\#darwinConfigurations.homebook.system
-./result/sw/bin/darwin-rebuild switch --flake ./
+# nix build ./\#darwinConfigurations.homebook.system
+# ./result/sw/bin/darwin-rebuild switch --flake ./

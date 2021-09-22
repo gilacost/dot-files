@@ -9,103 +9,71 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs;
-    with lib;
-    with beamPackages;
-    let
-      # buildRebar3 = lib.makeOverridable beamPackages.buildRebar3;
+    [
+      neovim-remote
 
-      # katana_code = buildRebar3 {
-      #   name = "katana_code";
-      #   version = "0.2.1";
-      #   src = fetchHex {
-      #     pkg = "katana_code";
-      #     version = "0.2.1";
-      #     sha256 = "sha256-hEitP1bZgU+YoovmUPcZG91QZXXjRcwW1YZmCxD26ZI=";
-      #   };
-      #   beamDeps = [];
-      # };
+      ripgrep
+      silver-searcher
+      (
+        nerdfonts.override {
+          fonts = [ "Iosevka" ];
+        }
+      )
+      unixtools.watch
+      fd
+      jq
+      htop
+      ripgrep
+      bind # review
+      cloc
+      gh
+      glow
+      peco
+      wget
+      tig
+      tree
+      telnet
+      nodePackages.node2nix
+      git-crypt
 
-      # rebar3_format = buildRebar3 {
-      #   name = "rebar3_format";
-      #   version = "0.8.2";
-      #   src = fetchHex {
-      #     pkg = "rebar3_format";
-      #     version = "0.8.2";
-      #     sha256 = "sha256-yo/ydjjCFpWT0USdrL6IlWNBk+0zNOkGtU/JfwgfUhM=";
-      #   };
-      #   beamDeps = [ katana_code ];
-      # };
-    in
-      [
-        # katana_code
-        # rebar3_format
+      ### TO REVIEW
+      # pkgs.coreutils
+      # pkgs.kubectl
+      # pkgs.pre-commit
+      # pkgs.pstree
+      # pkgs.rename
+      # pkgs.terminal-notifier
+      # pkgs.html-tidy
+      # pkgs.watch
+      # pkgs.wxmac
+      ### TO REVIEW
 
-        neovim-remote
+      # lsp
+      terraform-ls
+      rnix-lsp
+      elixir_ls
+      erlang-ls
+      # sumneko-lua-language-server
 
-        ripgrep
-        silver-searcher
-        (
-          nerdfonts.override {
-            fonts = [ "Iosevka" ];
-          }
-        )
-        unixtools.watch
-        fd
-        jq
-        htop
-        ripgrep
-        bind # review
-        cloc
-        gh
-        glow
-        peco
-        wget
-        tig
-        tree
-        telnet
-        nodePackages.node2nix
-        git-crypt
+      hadolint
+      nixfmt
 
-        ### TO REVIEW
-        # pkgs.coreutils
-        # pkgs.kubectl
-        # pkgs.pre-commit
-        # pkgs.pstree
-        # pkgs.rename
-        # pkgs.terminal-notifier
-        # pkgs.html-tidy
-        # pkgs.watch
-        # pkgs.wxmac
-        ### TO REVIEW
+      # cloud
+      awscli
+      azure-cli
+      google-cloud-sdk
+      linode-cli
 
-        # lsp
-        terraform-ls
-        rnix-lsp
-        elixir_ls
-        erlang-ls
-        # sumneko-lua-language-server
+      rebar3
 
-        hadolint
-        nixfmt
-
-        # cloud
-        awscli
-        azure-cli
-        google-cloud-sdk
-        linode-cli
-
-        # (rebar3WithPlugins { globalPlugins = [ rebar3_format ]; })
-        rebar3
-
-        # programming languages
-        elixir
-        erlang
-        terraform
-      ];
+      # programming languages
+      elixir
+      erlang
+      terraform
+    ];
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  # optional for nix flakes support
   programs.direnv.nix-direnv.enableFlakes = true;
 
   programs.bat.enable = true;
@@ -381,13 +349,12 @@
   # Handled by the Homebrew module
   # This populates a dummy package to satsify the requirement
   programs.firefox.package = pkgs.runCommand "firefox-0.0.0" {} "mkdir $out";
-  # programs.firefox.extensions =
-  #   with pkgs.nur.repos.rycee.firefox-addons; [
-  #     ublock-origin
-  #     browserpass
-  #     vimium
-  #     1pasword
-  #   ];
+
+  programs.firefox.extensions =
+    with pkgs.nur.repos.rycee.firefox-addons; [
+      tridactyl
+      onepassword-password-manager
+    ];
 
   programs.firefox.profiles = let
     userChrome = builtins.readFile ./conf.d/userChrome.css;
