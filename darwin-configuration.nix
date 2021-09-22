@@ -323,6 +323,7 @@
     "vlc"
     "zoom"
     "slack"
+    "pop"
   ];
 
   programs.nix-index.enable = true;

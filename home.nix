@@ -49,7 +49,7 @@
             fonts = [ "Iosevka" ];
           }
         )
-
+        unixtools.watch
         fd
         jq
         htop
