@@ -312,6 +312,7 @@
           vim-airline-themes
           vim-devicons
           lspkind-nvim
+          nvim-web-devicons
 
           # Navigation
           nerdtree

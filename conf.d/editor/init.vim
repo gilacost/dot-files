@@ -4,7 +4,6 @@
 let mapleader      = "\<SPACE>"
 let maplocalleader = ','
 
-
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 if has('termguicolors')
   set termguicolors
@@ -119,7 +118,6 @@ map <S-Tab> :bprevious<CR>
 " Current directory
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
-
 """""""""""""""""""""" SATUSLINE """"""""""""""""""""""""""""""""
 let g:airline_theme='onedark'
 let g:airline#extensions#tabline#enabled = 1
@@ -133,7 +131,19 @@ if exists('g:loaded_webdevicons')
     call webdevicons#refresh()
 endif
 
+"""""""""""""""""""""format on save""""""""""""""""""""""""""""""
 autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
+"""""""""""""""""""""format on save""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+"""""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
+
 """""""""""""""""""" ALE """"""""""""""""""""""""""""""""""""""""
 " let g:ale_disable_lsp = 1
 " let g:ale_linters_explicit = 1
