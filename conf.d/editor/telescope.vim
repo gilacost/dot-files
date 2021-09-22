@@ -1,18 +1,22 @@
 lua << EOF
 local actions = require('telescope.actions')
+local trouble = require("trouble.providers.telescope")
+local telescope = require("telescope")
 
-require('telescope').setup {
+telescope.setup {
   defaults = {
     mappings = {
       i = {
+        ["<c-t>"] = trouble.open_with_trouble ,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
       },
       n = {
+        ["<c-t>"] = trouble.open_with_trouble,
         ["q"] = actions.close,
-      }
-    }
-  }
+      },
+    },
+  },
 }
 EOF
 
