@@ -258,6 +258,7 @@
       ${builtins.readFile ./conf.d/editor/projections.vim}
       ${builtins.readFile ./conf.d/editor/init-lua.vim}
       ${builtins.readFile ./conf.d/editor/telescope.vim}
+      ${builtins.readFile ./conf.d/editor/lspkind.vim}
       ${(import ./modules/lsp.nix) pkgs}
     '';
 
@@ -310,6 +311,7 @@
           vim-airline
           vim-airline-themes
           vim-devicons
+          lspkind-nvim
 
           # Navigation
           nerdtree
@@ -317,6 +319,7 @@
           vim-startify
           telescope-nvim
           telescope-symbols-nvim
+          trouble-nvim
 
           # Pope
           vim-commentary
