@@ -150,7 +150,14 @@
         fresh = "filter-branch --prune-empty --subdirectory-filter";
       };
     };
-    ignores = [ ".elixir_ls" "cover" "deps" "node_modules" ];
+    ignores = [
+      ".elixir_ls"
+      "cover"
+      "deps"
+      "node_modules"
+      ".direnv/"
+      ".envrc"
+    ];
   };
 
   ###################
