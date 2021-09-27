@@ -232,8 +232,35 @@
     };
 
     keyboard = {
+      # Remap backslash to tilde for non-us keyboards
+      # more info: https://jonnyzzz.com/blog/2017/12/04/macos-keys/
+      # https://www.grzegorowski.com/how-to-remap-single-mac-keyboard-key
+      # hidutil property --set '{ "UserKeyMapping":[ \
+      #     {"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}, \
+      #     {"HIDKeyboardModifierMappingSrc":0x700000035,"HIDKeyboardModifierMappingDst":0x700000064}, \
+      #   ] \
+      # }'
       enableKeyMapping = true;
-      remapCapsLockToControl = true;
+      userKeyMapping = [
+        (
+          {
+            HIDKeyboardModifierMappingSrc = 30064771129;
+            HIDKeyboardModifierMappingDst = 30064771296;
+          }
+        )
+        (
+          {
+            HIDKeyboardModifierMappingDst = 30064771125;
+            HIDKeyboardModifierMappingSrc = 30064771172;
+          }
+        )
+        (
+          {
+            HIDKeyboardModifierMappingDst = 30064771172;
+            HIDKeyboardModifierMappingSrc = 30064771125;
+          }
+        )
+      ];
     };
   };
 
