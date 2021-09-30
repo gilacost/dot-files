@@ -53,10 +53,17 @@
       rnix-lsp
       elixir_ls
       erlang-ls
+      nodePackages.bash-language-server
+      nodePackages.dockerfile-language-server-nodejs
+      nodePackages.vim-language-server
+      nodePackages.yaml-language-server
+
+      # nodePackages_latest.yaml-language-server
       # sumneko-lua-language-server
 
       hadolint
       nixfmt
+      nodePackages.prettier
 
       # cloud
       awscli
@@ -343,7 +350,7 @@
           lspsaga-nvim
           nvim-compe
           nvim-lspconfig
-          # ale
+          ale
 
           # Snippets
           vim-vsnip
