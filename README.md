@@ -57,16 +57,12 @@ brew analytics off
 this node packages:
 
 * `vscode-langservers-extracted`
-* `dockerfile-language-server-nodejs`
-* `vim-language-server`
 * `tailwindcss-language-server`
-* `bash-language-server`
 
 By running:
 
 ```bash
-node2nix -i <(echo '["tailwindcss-language-server", "bash-language-server", "vscode-langservers-extracted" \
-,"dockerfile-language-server-nodejs", "vim-language-server", "yaml-language-server"]')
+node2nix -i <(echo '["tailwindcss-language-server",  "vscode-langservers-extracted"]')
 ```
 
 And then installing the generated default.nix like this
