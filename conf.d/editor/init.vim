@@ -132,7 +132,7 @@ if exists('g:loaded_webdevicons')
 endif
 
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
-autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
+" autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
 
 """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
@@ -143,16 +143,37 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
+let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_trim = 1
+let g:neoformat_prettier = {
+  \ 'exe': '/Users/pepo/.nix-profile/bin/prettier',
+  \ 'args': ['--stdin-filepath', '"%:p"'],
+  \ 'stdin': 1,
+  \ }
+let g:neoformat_javascript_prettier = g:neoformat_prettier
+let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_json_prettier = g:neoformat_prettier
+let g:neoformat_enabled_json = ['prettier']
+let g:neoformat_css_prettier = g:neoformat_prettier
+let g:neoformat_enabled_css = ['prettier']
+let g:neoformat_typescript_prettier = g:neoformat_prettier
+let g:neoformat_enabled_typescript = ['prettier']
+let g:neoformat_yaml_prettier = g:neoformat_prettier
+let g:neoformat_enabled_yaml = ['prettier']
+augroup fmt
+  autocmd!
+  au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
+augroup END
 
 """""""""""""""""""" ALE """"""""""""""""""""""""""""""""""""""""
-let g:ale_disable_lsp = 1
-let g:ale_linters_explicit = 1
-let g:ale_fixers_explicit = 1
-let g:ale_fix_on_save = 1
+" let g:ale_disable_lsp = 1
+" let g:ale_linters_explicit = 1
+" let g:ale_fixers_explicit = 1
+" let g:ale_fix_on_save = 1
 
-let g:ale_linters = {
-   \  'dockerfile': ['hadolint']
-   \}
+" let g:ale_linters = {
+"    \  'dockerfile': ['hadolint']
+"    \}
 " \  'jsonnet': ['jsonnet-lint']
 "https://github.com/google/go-jsonnet
 "https://pkg.go.dev/github.com/google/go-jsonnet/cmd/jsonnetfmt
@@ -160,7 +181,7 @@ let g:ale_linters = {
 "https://github.com/kamilchm/go2nix
 "export PATH="$PATH:$GOPATH/bin"
 
-let g:ale_fixers = {
-   \  'yaml': ['prettier'],
-   \}
+" let g:ale_fixers = {
+"    \  'yaml': ['prettier'],
+"    \}
 " \  'jsonnet': ['jsonnetfmt'],

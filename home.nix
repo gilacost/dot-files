@@ -8,76 +8,76 @@
 
   fonts.fontconfig.enable = true;
 
-  home.packages = with pkgs;
-    [
-      neovim-remote
+  home.packages = with pkgs; [
+    neovim-remote
 
-      ripgrep
-      silver-searcher
-      (
-        nerdfonts.override {
-          fonts = [ "Iosevka" ];
-        }
-      )
-      unixtools.watch
-      fd
-      jq
-      htop
-      ripgrep
-      bind # review
-      cloc
-      gh
-      glow
-      peco
-      wget
-      tig
-      tree
-      telnet
-      nodePackages.node2nix
-      git-crypt
+    ripgrep
+    silver-searcher
+    (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    unixtools.watch
+    fd
+    jq
+    htop
+    ripgrep
+    bind # review
+    cloc
+    gh
+    glow
+    peco
+    wget
+    tig
+    tree
+    telnet
+    nodePackages.node2nix
+    git-crypt
+    dive
 
-      ### TO REVIEW
-      # pkgs.coreutils
-      # pkgs.kubectl
-      # pkgs.pre-commit
-      # pkgs.pstree
-      # pkgs.rename
-      # pkgs.terminal-notifier
-      # pkgs.html-tidy
-      # pkgs.watch
-      # pkgs.wxmac
-      ### TO REVIEW
+    ### TO REVIEW
+    # pkgs.coreutils
+    # pkgs.kubectl
+    # pkgs.pre-commit
+    # pkgs.pstree
+    # pkgs.rename
+    # pkgs.terminal-notifier
+    # pkgs.html-tidy
+    # pkgs.watch
+    # pkgs.wxmac
+    ### TO REVIEW
 
-      # lsp
-      terraform-ls
-      rnix-lsp
-      elixir_ls
-      erlang-ls
-      nodePackages.bash-language-server
-      nodePackages.dockerfile-language-server-nodejs
-      nodePackages.vim-language-server
-      nodePackages.yaml-language-server
+    # lsp
+    terraform-ls
+    rnix-lsp
+    elixir_ls
+    erlang-ls
+    nodePackages.bash-language-server
+    nodePackages.dockerfile-language-server-nodejs
+    nodePackages.vim-language-server
+    nodePackages.yaml-language-server
 
-      # nodePackages_latest.yaml-language-server
-      # sumneko-lua-language-server
+    # nodePackages_latest.yaml-language-server
+    # sumneko-lua-language-server
 
-      hadolint
-      nixfmt
-      nodePackages.prettier
+    hadolint
+    nixfmt
+    nodePackages.prettier
 
-      # cloud
-      awscli
-      azure-cli
-      google-cloud-sdk
-      linode-cli
+    # cloud
+    awscli
+    azure-cli
+    google-cloud-sdk
+    linode-cli
 
-      rebar3
+    # OPs
+    skaffold
+    minikube
 
-      # programming languages
-      elixir
-      erlang
-      terraform
-    ];
+    rebar3
+
+    # programming languages
+    elixir
+    erlang
+    terraform
+  ];
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
@@ -157,14 +157,8 @@
         fresh = "filter-branch --prune-empty --subdirectory-filter";
       };
     };
-    ignores = [
-      ".elixir_ls"
-      "cover"
-      "deps"
-      "node_modules"
-      ".direnv/"
-      ".envrc"
-    ];
+    ignores =
+      [ ".elixir_ls" "cover" "deps" "node_modules" ".direnv/" ".envrc" ];
   };
 
   ###################
@@ -288,76 +282,76 @@
             sha256 = "0cl2h599i4xmvgm4k8cliiz43qz6xnirh1zb8sfibdnw0fbqfpa5";
           };
         };
-      in
-        [
-          vim-test
+      in [
+        vim-test
 
-          ###REVIEW###
-          # vim-rooter
-          # vim-wakatime
-          # vim-cool
-          # indentLine
-          ##REVIEW###
+        ###REVIEW###
+        # vim-rooter
+        # vim-wakatime
+        # vim-cool
+        # indentLine
+        ##REVIEW###
 
-          # Git
-          vim-fugitive
-          vim-gitgutter
-          vim-rhubarb # review
+        # Git
+        vim-fugitive
+        vim-gitgutter
+        vim-rhubarb # review
 
-          # Programming
-          emmet-vim
-          vim-nix
-          vim-javascript
-          vim-jsx-typescript
-          vim-graphql
-          emmet-vim
-          rust-vim
-          vim-terraform
-          vim-orgmode
-          vim-elixir
-          vim-lua
-          nvim-treesitter
-          nvim-treesitter-refactor
-          nvim-treesitter-textobjects
+        # Programming
+        emmet-vim
+        vim-nix
+        vim-javascript
+        vim-jsx-typescript
+        vim-graphql
+        emmet-vim
+        rust-vim
+        vim-terraform
+        vim-orgmode
+        vim-elixir
+        vim-lua
+        nvim-treesitter
+        nvim-treesitter-refactor
+        nvim-treesitter-textobjects
 
-          # Appearence
-          vim-one
-          vim-airline
-          vim-airline-themes
-          vim-devicons
-          lspkind-nvim
-          nvim-web-devicons
+        # Appearence
+        vim-one
+        vim-airline
+        vim-airline-themes
+        vim-devicons
+        lspkind-nvim
+        nvim-web-devicons
 
-          # Navigation
-          nerdtree
-          vim-easymotion
-          vim-startify
-          telescope-nvim
-          telescope-symbols-nvim
-          trouble-nvim
+        # Navigation
+        nerdtree
+        vim-easymotion
+        vim-startify
+        telescope-nvim
+        telescope-symbols-nvim
+        trouble-nvim
 
-          # Pope
-          vim-commentary
-          vim-surround
-          vim-commentary
-          vim-unimpaired
-          vim-projectionist
-          vim-speeddating # review this
-          vim-vinegar
-          vim-abolish
+        # Pope
+        vim-commentary
+        vim-surround
+        vim-commentary
+        vim-unimpaired
+        vim-projectionist
+        vim-speeddating # review this
+        vim-vinegar
+        vim-abolish
 
-          # Linting / Fixing / Lsp
-          lspsaga-nvim
-          nvim-compe
-          nvim-lspconfig
-          ale
+        # Linting / Fixing / Lsp
+        lspsaga-nvim
+        nvim-compe
+        nvim-lspconfig
+        neoformat
+        # ale
 
-          # Snippets
-          vim-vsnip
+        # Snippets
+        vim-vsnip
 
-          # Other
-          vim-wakatime
-        ];
+        # Other
+        vim-wakatime
+      ];
   };
 
   ###########
@@ -366,13 +360,12 @@
   programs.firefox.enable = true;
   # Handled by the Homebrew module
   # This populates a dummy package to satsify the requirement
-  programs.firefox.package = pkgs.runCommand "firefox-0.0.0" {} "mkdir $out";
+  programs.firefox.package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
 
-  programs.firefox.extensions =
-    with pkgs.nur.repos.rycee.firefox-addons; [
-      tridactyl
-      onepassword-password-manager
-    ];
+  programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+    tridactyl
+    onepassword-password-manager
+  ];
 
   programs.firefox.profiles = let
     userChrome = builtins.readFile ./conf.d/userChrome.css;
@@ -404,21 +397,20 @@
       "signon.rememberSignons" = false;
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     };
-  in
-    {
-      home = {
-        inherit settings;
-        inherit userChrome;
-        id = 0;
-      };
+  in {
+    home = {
+      inherit settings;
+      inherit userChrome;
+      id = 0;
+    };
 
-      work = {
-        inherit userChrome;
-        id = 1;
-        settings = settings // {
-          "browser.startup.homepage" = "about:blank";
-          "browser.urlbar.placeholderName" = "Google";
-        };
+    work = {
+      inherit userChrome;
+      id = 1;
+      settings = settings // {
+        "browser.startup.homepage" = "about:blank";
+        "browser.urlbar.placeholderName" = "Google";
       };
     };
+  };
 }
