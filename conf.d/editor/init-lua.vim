@@ -108,6 +108,7 @@ nvim_lsp['yamlls'].setup{
     yaml = {
       schemas = {
         kubernetes = "*.yaml",
+--        skaffold = "skaffold.yaml",
       }
     }
   }

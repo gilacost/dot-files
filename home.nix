@@ -30,7 +30,6 @@
     telnet
     nodePackages.node2nix
     git-crypt
-    dive
 
     ### TO REVIEW
     # pkgs.coreutils
@@ -70,13 +69,15 @@
     # OPs
     skaffold
     minikube
+    dive
+    kind
+    terraform
 
     rebar3
 
     # programming languages
     elixir
     erlang
-    terraform
   ];
 
   programs.direnv.enable = true;
