@@ -1,6 +1,5 @@
 # My dot-files
 
-
 ![https://builtwithnix.org](https://img.shields.io/badge/Built_With-Nix-5277C3.svg?logo=nixos&labelColor=73C3D5)
 
 OSX configurations, expressed in [Nix](https://nixos.org/nix)
@@ -31,33 +30,31 @@ brew analytics off
   ];
 ```
 
-
 ## Install nix
 
 **NOTE**: If you decide to encrypt the main Drive by enabling file vault, you will need to create the `/nix` volume manually. Follow these [instructions](https://nixos.org/manual/nix/stable/#sect-macos-installation-recommended-notes).
 
 ### Steps
 
-1) `sudo echo "nix" > /etc/synthetic.conf`
+1. `sudo echo "nix" > /etc/synthetic.conf`
 
-2) `sudo diskutil apfs addVolume disk1 APFS 'Nix Store' -mountpoint /nix`
+2. `sudo vifs LABEL=Nix\040Store /nix apfs rw,nobrowse`
 
-3) `sudo vifs LABEL=Nix\040Store /nix apfs rw,nobrowse`
+3. `sudo reboot`
 
-4) `sudo reboot`
+4. `sudo diskutil apfs addVolume disk1 APFS 'Nix Store' -mountpoint /nix`
 
-5) `curl -L https://nixos.org/nix/install | sh -s -- --daemon`
+5. `curl -L https://nixos.org/nix/install | sh -s -- --daemon`
 
-6) `./install.sh`
-
+6. `./install.sh`
 
 ## Language servers (NPM)
 
-* `node2nix` [LINK TO PACKAGE] has been used to generate a derivations that contains
-this node packages:
+- `node2nix` [LINK TO PACKAGE] has been used to generate a derivations that contains
+  this node packages:
 
-* `vscode-langservers-extracted`
-* `tailwindcss-language-server`
+- `vscode-langservers-extracted`
+- `tailwindcss-language-server`
 
 By running:
 
@@ -71,11 +68,12 @@ And then installing the generated default.nix like this
 
 ## Useful commands
 
-* `nix-shell -p nix-info --run "nix-info -m"`
-* `nix-env -q` list packages installed in env
-* `nix-env -e <package>`
+- `nix-shell -p nix-info --run "nix-info -m"`
+- `nix-env -q` list packages installed in env
+- `nix-env -e <package>`
 
 next steps:
+
 - kubctl zsh completions
 - compe and lsp trouble
 - lua language server
@@ -109,25 +107,25 @@ next steps:
 
 ## GPG
 
-1) generate new gpg key
+1. generate new gpg key
 
 ```bash
 gpg --full-generate-key
 ```
 
-2) show id for previous export, the id is after the '/'
+2. show id for previous export, the id is after the '/'
 
 ```bash
  gpg --list-secret-keys --keyid-format LONG
 ```
 
-3) export public key
+3. export public key
 
 ```bash
  gpg --armor --export REPLACE_WITH_EXTRACTED_ID
 ```
 
-4) display id short version for gitconfig
+4. display id short version for gitconfig
 
 ```bash
 gpg --list-secret-keys --keyid-format SHORT
@@ -135,12 +133,12 @@ gpg --list-secret-keys --keyid-format SHORT
 
 ## Varmilo keyboard
 
-* `FN` + `a` for about 3 seconds until `capslock` flashes and keyboard will swap to `mac` mode.
-* `FN` + `w` for about 3 seconds until `capslock` flashes and keyboard will swap to `Windows` mode.
-* If `capslock` does not flash after pressing any of the previous combinations mentioned above. Keyboard
-should be already in mentioned mode.
-* `FN` + `ESC` for about 3 seconds until `capslock` flashes and keyboard will be reset to defaults.
-rm /Library/Preferences/com.apple.keyboardtype.plist
+- `FN` + `a` for about 3 seconds until `capslock` flashes and keyboard will swap to `mac` mode.
+- `FN` + `w` for about 3 seconds until `capslock` flashes and keyboard will swap to `Windows` mode.
+- If `capslock` does not flash after pressing any of the previous combinations mentioned above. Keyboard
+  should be already in mentioned mode.
+- `FN` + `ESC` for about 3 seconds until `capslock` flashes and keyboard will be reset to defaults.
+  rm /Library/Preferences/com.apple.keyboardtype.plist
 
 nix build ~/.config/darwin\#darwinConfigurations.Pepos-MacBooks.system
 ./result/sw/bin/darwin-rebuild switch --flake ~/.config/darwin
