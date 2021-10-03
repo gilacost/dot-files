@@ -165,23 +165,3 @@ augroup fmt
   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
 augroup END
 
-"""""""""""""""""""" ALE """"""""""""""""""""""""""""""""""""""""
-" let g:ale_disable_lsp = 1
-" let g:ale_linters_explicit = 1
-" let g:ale_fixers_explicit = 1
-" let g:ale_fix_on_save = 1
-
-" let g:ale_linters = {
-"    \  'dockerfile': ['hadolint']
-"    \}
-" \  'jsonnet': ['jsonnet-lint']
-"https://github.com/google/go-jsonnet
-"https://pkg.go.dev/github.com/google/go-jsonnet/cmd/jsonnetfmt
-"https://pkg.go.dev/github.com/google/go-jsonnet/cmd/jsonnet-lint
-"https://github.com/kamilchm/go2nix
-"export PATH="$PATH:$GOPATH/bin"
-
-" let g:ale_fixers = {
-"    \  'yaml': ['prettier'],
-"    \}
-" \  'jsonnet': ['jsonnetfmt'],
