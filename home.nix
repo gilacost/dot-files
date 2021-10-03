@@ -72,6 +72,7 @@
     dive
     kind
     terraform
+    kubectl
 
     rebar3
 
