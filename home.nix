@@ -29,6 +29,8 @@
     tree
     telnet
     nodePackages.node2nix
+
+    sops
     git-crypt
 
     ### TO REVIEW
@@ -73,12 +75,19 @@
     kind
     terraform
     kubectl
+    kubernetes-helm
+    google-cloud-sdk
+    terraformer
 
     rebar3
 
     # programming languages
     elixir
     erlang
+    go
+
+    # client
+    yarn
   ];
 
   programs.direnv.enable = true;

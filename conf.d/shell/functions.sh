@@ -1,7 +1,7 @@
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
   if [ -x "$(command -v nvr)" ]; then
     # alias nvim=nvr
-    export EDITOR='nvr'
+    export EDITOR='nvr --remote-wait'
   else
     export EDITOR='echo "No nesting!"'
   fi
