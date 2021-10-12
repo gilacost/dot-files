@@ -62,6 +62,8 @@
     hadolint
     nixfmt
     nodePackages.prettier
+    erlfmt
+    go-jsonnet
 
     # cloud
     awscli
@@ -79,6 +81,8 @@
     kubernetes-helm
     google-cloud-sdk
     terraformer
+    # fluxcd
+    # brew install fluxcd/tap/flux
 
     rebar3
 
