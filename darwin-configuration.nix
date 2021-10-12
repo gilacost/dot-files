@@ -242,24 +242,18 @@
       # }'
       enableKeyMapping = true;
       userKeyMapping = [
-        (
-          {
-            HIDKeyboardModifierMappingSrc = 30064771129;
-            HIDKeyboardModifierMappingDst = 30064771296;
-          }
-        )
-        (
-          {
-            HIDKeyboardModifierMappingDst = 30064771125;
-            HIDKeyboardModifierMappingSrc = 30064771172;
-          }
-        )
-        (
-          {
-            HIDKeyboardModifierMappingDst = 30064771172;
-            HIDKeyboardModifierMappingSrc = 30064771125;
-          }
-        )
+        ({
+          HIDKeyboardModifierMappingSrc = 30064771129;
+          HIDKeyboardModifierMappingDst = 30064771296;
+        })
+        ({
+          HIDKeyboardModifierMappingDst = 30064771125;
+          HIDKeyboardModifierMappingSrc = 30064771172;
+        })
+        ({
+          HIDKeyboardModifierMappingDst = 30064771172;
+          HIDKeyboardModifierMappingSrc = 30064771125;
+        })
       ];
     };
   };

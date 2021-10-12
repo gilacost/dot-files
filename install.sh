@@ -56,3 +56,6 @@ home-manager switch
 # nix-env -iA nixpkgs.nixUnstable
 # nix build ./\#darwinConfigurations.homebook.system
 # ./result/sw/bin/darwin-rebuild switch --flake ./
+
+# nix-channel --update && nix-env -iA nixpkgs.nix && launchctl remove org.nixos.nix-daemon && launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
+# nix upgrade-nix
