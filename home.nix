@@ -30,6 +30,7 @@
     telnet
     nodePackages.node2nix
 
+    tanka
     sops
     git-crypt
 
@@ -323,6 +324,7 @@
         nvim-treesitter
         nvim-treesitter-refactor
         nvim-treesitter-textobjects
+        vim-jsonnet
 
         # Appearence
         vim-one
@@ -339,6 +341,8 @@
         telescope-nvim
         telescope-symbols-nvim
         trouble-nvim
+        vim-rooter
+        vim-cool
 
         # Pope
         vim-commentary
