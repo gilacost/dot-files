@@ -20,6 +20,9 @@ function gsina {
   | awk '{ print "'`git rev-parse --show-toplevel`'/"$2 }'
 }
 
+    ### yaml for image  kubectl run kiada --image=luksa/kiada:0.1 --dry-run=client -o yaml > mypod.yaml
+# kubectl run --image=tutum/curl -it --restart=Never --rm client-pod curl 10.244.2.4:8080
+
 function ctdeps {
   mix xref graph --sink $1 --only-nodes
 }
