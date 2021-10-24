@@ -36,13 +36,10 @@
 
     ### TO REVIEW
     # pkgs.coreutils
-    # pkgs.kubectl
-    # pkgs.pre-commit
     # pkgs.pstree
     # pkgs.rename
     # pkgs.terminal-notifier
     # pkgs.html-tidy
-    # pkgs.watch
     # pkgs.wxmac
     ### TO REVIEW
 
@@ -74,6 +71,7 @@
     # OPs
     skaffold
     minikube
+    kompose
     dive
     kind
     terraform
@@ -206,8 +204,9 @@
     shellAliases = {
       # git
       gbr = ''git branch | grep -v "master" | xargs git branch -D'';
-      gcoi =
-        "git branch --all | peco | sed 's/remotes/origin///g' | xargs git checkout";
+      gcoi = ''
+        git branch --all | peco | sed 's/remotes/origin//g' | xargs git checkout
+      '';
       g = "git";
       gundo = "git reset --soft HEAD~1";
       gfpl = "git push --force-with-lease";
@@ -237,7 +236,7 @@
       gull = "git pull";
       grc = "git rev-list -n 1 HEAD --";
       gapa = "git add --patch";
-      # DOCKER
+      # OPS
       dockerbash =
         "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash";
       dockersh =
@@ -259,6 +258,8 @@
       cat = "bat";
     };
   };
+  ### yaml for image  kubectl run kiada --image=luksa/kiada:0.1 --dry-run=client -o yaml > mypod.yaml
+  # kubectl run --image=tutum/curl -it --restart=Never --rm client-pod curl 10.244.2.4:8080
 
   ###################
   # EDITOR   ########

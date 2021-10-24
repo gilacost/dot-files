@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-
-  # environment.shells = [ pkgs.zsh ];
+  environment.shells = [ pkgs.zsh ];
   environment.systemPackages = [ pkgs.zsh pkgs.gcc ];
   users = {
 
@@ -330,6 +329,7 @@
   homebrew.taps = [ "homebrew/core" "homebrew/cask" ];
 
   homebrew.casks = [
+    "lens"
     "surfshark"
     "transmission"
     "adobe-acrobat-reader"
