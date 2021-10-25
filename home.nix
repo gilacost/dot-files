@@ -17,6 +17,7 @@
     unixtools.watch
     fd
     jq
+    yq
     htop
     ripgrep
     bind # review
