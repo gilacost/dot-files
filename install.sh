@@ -49,6 +49,7 @@ nix-env -iA nixpkgs.nixUnstable
 # HOME MANAGER
 nix-shell '<home-manager>' -A install
 home-manager switch
+/run/current-system/sw/bin/darwin-rebuild switch
 
 # mkdir -p $HOME/.config/rebar3
 # ln -s  $DOT_DIR/conf.d/rebar.conf $HOME/.config/rebar3/rebar.conf

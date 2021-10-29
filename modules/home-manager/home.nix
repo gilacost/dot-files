@@ -205,8 +205,9 @@
     shellAliases = {
       # git
       gbr = ''git branch | grep -v "master" | xargs git branch -D'';
-      # gcoi =
-      #   "git branch --all | peco | sed '''s/remotes''\/origin''\///g' | xargs git checkout";
+      gcoi = ''
+        git branch --all | peco | sed 's/remotes/origin//g' | xargs git checkout
+      '';
       g = "git";
       gundo = "git reset --soft HEAD~1";
       gfpl = "git push --force-with-lease";
@@ -251,12 +252,8 @@
       # KUBE
       kubelogs =
         "kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
-      kuberm =
-        "kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl delete pod {}";
-      kubebash =
-        "kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl --tty --stdin exec {} -- /bin/sh";
-      # kubeinitcontext =
-      #   "aws eks --region $AWS_REGION update-kubeconfig --name $1";
+      kubeinitcontext =
+        "aws eks --region $AWS_REGION update-kubeconfig --name $1";
       # RAND
       rm = "rm -i";
       cat = "bat";
