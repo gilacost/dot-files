@@ -42,6 +42,18 @@ function depsgraph {
   mix xref graph --format stats
 }
 
+function poyamlfimg {
+  kubectl run kiada --image=$1 --dry-run=client -o yaml > $2.yaml
+}
+
+function insidecurl {
+  kubectl run --image=praqma/network-multitool:alpine-extra -it --restart=Never --rm client-pod curl $1
+}
+
+function insidecurloshift {
+  kubectl run --image=praqma/network-multitool:alpine-extra -it --restart=Never --rm client-pod curl $1
+}
+
 source <(kubectl completion zsh)
 alias k=kubectl
 complete -F __start_kubectl k
