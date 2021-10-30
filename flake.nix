@@ -29,11 +29,13 @@
       darwinConfigurations = {
         "lair" = darwin.lib.darwinSystem {
           system = "x86_64-darwin";
-          modules = common;
+          modules = common
+            ++ ({ pkgs, config, ... }: { networking.hostName = "lair"; });
         };
         "cienaga" = darwin.lib.darwinSystem {
           system = "x86_64-darwin";
-          modules = common;
+          modules = common
+            ++ ({ pkgs, config, ... }: { networking.hostName = "cienaga"; });
         };
       };
     };
