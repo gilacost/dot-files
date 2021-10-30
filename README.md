@@ -145,3 +145,7 @@ nix build ~/.config/darwin\#darwinConfigurations.Pepos-MacBooks.system
 
 leerme nix.dev for sure
 https://apple.stackexchange.com/questions/335400/how-switch-mac-uk-pc-keyboard-layout-backslash-and-backtick-to-match-normal
+todo, when flakes, bring node and split node packages
+
+  nix build ./\#darwinConfigurations.Joseps-MBP.system
+  ./result/sw/bin/darwin-rebuild switch --flake ./
