@@ -35,15 +35,6 @@
     sops
     git-crypt
 
-    ### TO REVIEW
-    # pkgs.coreutils
-    # pkgs.pstree
-    # pkgs.rename
-    # pkgs.terminal-notifier
-    # pkgs.html-tidy
-    # pkgs.wxmac
-    ### TO REVIEW
-
     # lsp
     terraform-ls
     rnix-lsp
@@ -53,9 +44,6 @@
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server
     nodePackages.yaml-language-server
-
-    # nodePackages_latest.yaml-language-server
-    # sumneko-lua-language-server
 
     hadolint
     nixfmt

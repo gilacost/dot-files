@@ -12,11 +12,9 @@
 
   };
 
-  outputs = { self, darwin, nixpkgs, home-manager, nur, ... }: {
-
-    darwinConfigurations."Joseps-MBP" = darwin.lib.darwinSystem {
-      system = "x86_64-darwin";
-      modules = [
+  outputs = { self, darwin, nixpkgs, home-manager, nur, ... }:
+    let
+      common = [
         ./darwin-configuration.nix
         home-manager.darwinModules.home-manager
         {
@@ -26,6 +24,17 @@
           home-manager.users.pepo = import ./home.nix;
         }
       ];
+    in {
+
+      darwinConfigurations = {
+        "lair" = darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          modules = common;
+        };
+        "cienaga" = darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          modules = common;
+        };
+      };
     };
-  };
 }
