@@ -32,8 +32,6 @@
     };
   };
 
-  networking = { hostName = "lair"; };
-
   nixpkgs.config.allowUnfree = true;
 
   ############
