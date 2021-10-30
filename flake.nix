@@ -30,12 +30,19 @@
         "lair" = darwin.lib.darwinSystem {
           system = "x86_64-darwin";
           modules = common
-            ++ ({ pkgs, config, ... }: { networking.hostName = "lair"; });
+            ++ [ ({ pkgs, config, ... }: { networking.hostName = "lair"; }) ];
         };
         "cienaga" = darwin.lib.darwinSystem {
           system = "x86_64-darwin";
-          modules = common
-            ++ ({ pkgs, config, ... }: { networking.hostName = "cienaga"; });
+          modules = common ++ [
+            ({ pkgs, config, ... }: { networking.hostName = "cienaga"; })
+          ];
+        };
+        "ci" = darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          modules = common ++ [
+            ({ pkgs, config, ... }: { networking.hostName = "cienaga"; })
+          ];
         };
       };
     };

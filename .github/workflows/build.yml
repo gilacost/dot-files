@@ -36,5 +36,5 @@ jobs:
 
       - name: Run build
         run: |
-          nix build ./\#darwinConfigurations.cienaga.system
+          nix build ./\#darwinConfigurations.ci.system
           ./result/sw/bin/darwin-rebuild switch --flake ./
