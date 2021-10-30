@@ -68,8 +68,6 @@
     kubernetes-helm
     google-cloud-sdk
     terraformer
-    # fluxcd
-    # brew install fluxcd/tap/flux
 
     rebar3
 
@@ -78,7 +76,7 @@
     erlang
     go
 
-    # client
+    # FE
     yarn
   ];
 
