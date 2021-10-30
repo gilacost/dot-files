@@ -19,7 +19,8 @@
 
   nix = {
     trustedUsers = [ "root" "pepo" ];
-    package = pkgs.nixFlakes;
+    # package = pkgs.nixFlakes;
+    package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
@@ -29,12 +30,9 @@
       automatic = true;
       options = "--delete-older-than 14d";
     };
-    # binaryCachePublicKeys =
-    #   [ "cache.daiderd.com-1:R8KOWZ8lDaLojqD+v9dzXAqGn29gEzPTTbr/GIpCTrI=" ];
-    # trustedBinaryCaches = [ "https://d3i7ezr9vxxsfy.cloudfront.net" ];
-    # # review sandboxPaths
-    # sandboxPaths = [ "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
   };
+
+  networking = { hostName = "lair"; };
 
   nixpkgs.config.allowUnfree = true;
 
