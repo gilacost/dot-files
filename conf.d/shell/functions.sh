@@ -54,6 +54,10 @@ function insidecurloshift {
   kubectl run --image=praqma/network-multitool:alpine-extra -it --restart=Never --rm client-pod curl $1
 }
 
+function erlv {
+  erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().'  -noshell
+}
+
 source <(kubectl completion zsh)
 alias k=kubectl
 complete -F __start_kubectl k
