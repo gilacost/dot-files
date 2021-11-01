@@ -1,6 +1,31 @@
 """""""""""""""""""""" PROJECTIONS """"""""""""""""""""""""""""""""
 
   let g:projectionist_heuristics = {
+      \  'rebar.config': {
+      \     'apps/**/src/*.erl': {
+      \       'type': 'module',
+      \       'alternate': 'test/{dirname}/{basename}_test.erl',
+      \       'template': [
+      \         '-module({basename|snakecase}).',
+      \         '',
+      \         '% Some func',
+      \         '-spec some_func() -> ok.',
+      \         'some_func() -> ok.',
+      \       ]
+      \     },
+      \     'test/**/*_test.erl': {
+      \       'type': 'test',
+      \       'alternate': 'apps/{dirname}/src/{basename}.erl',
+      \       'template': [
+      \         '-module({basename|snakecase}).',
+      \         '-include_lib("eunit/include/eunit.hrl").',
+      \         '',
+      \         '% This should fail',
+      \         'basic_test_() ->',
+      \         '   ?assert(1 =:= 2).',
+      \       ]
+      \     }
+      \  },
       \  'mix.exs': {
       \     'lib/**/views/*_view.ex': {
       \       'type': 'view',

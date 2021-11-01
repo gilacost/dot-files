@@ -34,11 +34,10 @@
             ++ [ ({ pkgs, config, ... }: { networking.hostName = "lair"; }) ];
         };
 
-        "cienaga" = darwin.lib.darwinSystem {
+        "pepesl" = darwin.lib.darwinSystem {
           system = "x86_64-darwin";
-          modules = common ++ [
-            ({ pkgs, config, ... }: { networking.hostName = "cienaga"; })
-          ];
+          modules = common
+            ++ [ ({ pkgs, config, ... }: { networking.hostName = "pepesl"; }) ];
         };
 
         ci = darwin.lib.darwinSystem {

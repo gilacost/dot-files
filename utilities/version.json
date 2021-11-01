@@ -4,5 +4,23 @@
     "repo": "vim-rebar",
     "rev": "2f6440eb09b7e6e3322720ac91ce7e2cdeb413f9",
     "sha256": "14waxw7ahs57nrrmgn5zsw2c9n7skmr0h6m90mj3q14ak4njzksb"
+  },
+  "erlang-otp": {
+    "owner": "erlang",
+    "repo": "otp",
+    "rev": "947eb1fb3a740620ebf26ba74e0f10ea34df3ea1",
+    "sha256": "14waxw7ahs57nrrmgn5zsw2c9n7skmr0h6m90mj3q14ak4njzksb"
+  },
+  "rebar3": {
+    "owner": "erlang",
+    "repo": "rebar3",
+    "rev": "e008a2ff40f708494a7c259a1fd8c2e77f7cd6a0",
+    "sha256": "14waxw7ahs57nrrmgn5zsw2c9n7skmr0h6m90mj3q14ak4njzksb"
+  },
+  "vim-rebar": {
+    "owner": "vim-erlang",
+    "repo": "vim-rebar",
+    "rev": "fbec9674f4f88136571d0b777fea4004aa0a1c9b",
+    "sha256": "14waxw7ahs57nrrmgn5zsw2c9n7skmr0h6m90mj3q14ak4njzksb"
   }
 }

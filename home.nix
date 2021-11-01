@@ -15,6 +15,7 @@
     silver-searcher
     (nerdfonts.override { fonts = [ "Iosevka" ]; })
     unixtools.watch
+    fortune
     fd
     jq
     yq
@@ -289,6 +290,7 @@
             sha256 = "0cl2h599i4xmvgm4k8cliiz43qz6xnirh1zb8sfibdnw0fbqfpa5";
           };
         };
+
       in [
         vim-test
 
