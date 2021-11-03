@@ -323,7 +323,7 @@
         nvim-treesitter-textobjects
         vim-jsonnet
 
-        # Appearence
+        # Appearance
         vim-one
         vim-airline
         vim-airline-themes
@@ -371,7 +371,7 @@
   ###########
   programs.firefox.enable = true;
   # Handled by the Homebrew module
-  # This populates a dummy package to satsify the requirement
+  # This populates a dummy package to satisfy the requirement
   programs.firefox.package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
 
   programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
