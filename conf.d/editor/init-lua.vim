@@ -60,7 +60,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 --  capabilities = capabilities,
 --}
 nvim_lsp['elixirls'].setup {
-  cmd = { '/Users/pepo/.nix-profile/bin/elixir-ls' },
+  cmd = { '/etc/profiles/per-user/pepo/bin/elixir-ls' },
   capabilities = capabilities,
   on_attach = on_attach,
 }
