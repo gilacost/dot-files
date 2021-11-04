@@ -2,7 +2,7 @@
 
   let g:projectionist_heuristics = {
       \  'rebar.config': {
-      \     'src/*.erl': {
+      \     'apps/**/src/*.erl': {
       \       'type': 'module',
       \       'alternate': 'test/{dirname}/{basename}_test.erl',
       \       'template': [
@@ -13,7 +13,7 @@
       \         'some_func() -> ok.',
       \       ]
       \     },
-      \     '*_test.erl': {
+      \     'test/**/*_test.erl': {
       \       'type': 'test',
       \       'alternate': 'apps/{dirname}/src/{basename}.erl',
       \       'template': [
