@@ -164,4 +164,6 @@ augroup fmt
   autocmd!
   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
 augroup END
-
+"""""""""""""""""""""NO AUTOREPEAT"""""""""""""""""""""""""""""
+autocmd FocusGained,VimEnter * silent !xset r off
+autocmd FocusLost,VimLeave * silent !xset r on
