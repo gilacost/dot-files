@@ -53,6 +53,12 @@
     # Disable the sound effects on boot
     sudo nvram SystemAudioVolume=" "
 
+    # Disable UI alert audio
+    defaults write com.apple.systemsound "com.apple.sound.uiaudio.enabled" -int 0
+    # todo FLASH
+    # plutil -convert xml1 -o - ~/Library/Preferences/com.apple.universalaccess.plist|grep -A1 flashScreen
+    # <key>flashScreen</key> <false/>
+
     # Set highlight color to ORANGE
     defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
 

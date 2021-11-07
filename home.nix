@@ -52,6 +52,8 @@
     erlfmt
     go-jsonnet
 
+    pre-commit
+
     # cloud
     awscli
     azure-cli

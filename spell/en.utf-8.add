@@ -463,3 +463,6 @@ FocusGained
 FocusLost
 VimLeave
 xset
+eunit
+atm6
+NextState
