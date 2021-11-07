@@ -55,11 +55,13 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 --  cmd = { '{{ELIXIR_LS_BIN}}' },
 --  capabilities = capabilities,
 --}
+
 nvim_lsp['elixirls'].setup {
   cmd = { '/etc/profiles/per-user/pepo/bin/elixir-ls' },
   capabilities = capabilities,
   on_attach = on_attach,
 }
+
 nvim_lsp['erlangls'].setup{
   capabilities = capabilities,
   on_attach = on_attach,

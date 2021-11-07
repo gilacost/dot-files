@@ -121,11 +121,11 @@
 
     lfs.enable = true;
 
-    userEmail = "pep.g.dlacoste@erlang-solutions.com";
+    userEmail = "josepgiraltdlacoste@gmail.com";
     userName = "Josep Lluis Giralt D'Lacoste";
 
     signing = {
-      key = "695027416644669A";
+      key = "1710D238E7756AB4";
       signByDefault = true;
     };
 
@@ -277,7 +277,6 @@
       ${builtins.readFile ./conf.d/editor/init-lua.vim}
       ${builtins.readFile ./conf.d/editor/telescope.vim}
       ${builtins.readFile ./conf.d/editor/lspkind.vim}
-      ${(import ./modules/lsp.nix) pkgs}
     '';
 
     plugins = with pkgs;
@@ -297,9 +296,6 @@
         vim-test
 
         ###REVIEW###
-        # vim-rooter
-        # vim-wakatime
-        # vim-cool
         # indentLine
         ##REVIEW###
 
