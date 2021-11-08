@@ -152,3 +152,5 @@ nix build ./\#darwinConfigurations.Joseps-MBP.system
 ./result/sw/bin/darwin-rebuild switch --flake ./
 
 hostname ha de ser a manija
+
+swish review window management
