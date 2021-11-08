@@ -485,3 +485,8 @@ bashls
 jsonls
 fzf
 builtins
+inets
+httpd
+localhost
+ErlangOTP
+gitconfig
