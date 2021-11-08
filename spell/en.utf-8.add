@@ -498,3 +498,9 @@ ripgrep
 nerdfonts
 unixtools
 Iosevka
+enableAliases
+lsd
+whitespace
+Monokai
+additionalTextEdits
+BetMessages
