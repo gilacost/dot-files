@@ -11,7 +11,6 @@
   home.packages = with pkgs; [
     neovim-remote
 
-    ripgrep
     silver-searcher
     (nerdfonts.override { fonts = [ "Iosevka" ]; })
     unixtools.watch
@@ -25,13 +24,12 @@
     cloc
     gh
     glow
-    peco
     wget
     tig
     tree
-    telnet
+    telnet # common net tool package instead
     nodePackages.node2nix
-
+    # here
     tanka
     sops
     git-crypt
@@ -195,7 +193,7 @@
       # git
       gbr = ''git branch | grep -v "master" | xargs git branch -D'';
       # gcoi =
-      #   "git branch --all | peco | sed '''s/remotes''\/origin''\///g' | xargs git checkout";
+      #   "git branch --all | fzf | sed '''s/remotes''\/origin''\///g' | xargs git checkout";
       g = "git";
       gundo = "git reset --soft HEAD~1";
       gfpl = "git push --force-with-lease";
@@ -204,7 +202,7 @@
       gai = "gsina | xargs git add";
       gaip = "gsina | xargs -o git add -p";
       gb = "git branch";
-      gbdi = "git branch | peco | xargs git branch -d";
+      gbdi = "git branch | fzf | xargs git branch -d";
       gc = "git commit";
       gco = "git checkout";
       gd = "git diff";
@@ -227,23 +225,23 @@
       gapa = "git add --patch";
       # OPS
       dockerbash =
-        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash";
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash";
       dockersh =
-        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/sh";
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/sh";
       dockerrm =
-        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}";
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}";
       dockerlogs =
-        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | peco | sed 's/: .*//g' | xargs -I{} -ot docker logs -f {}";
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf | sed 's/: .*//g' | xargs -I{} -ot docker logs -f {}";
       dockerrmiall = ''docker rmi "$(docker images -a -q)"'';
       dockerrmall = ''docker rm "$(docker ps -a -q)"'';
       dockerstopall = ''docker stop "$(docker ps -a -q)"'';
       # KUBE
       kubelogs =
-        "kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
+        "kubectl get pods | sed -n '1!p' | fzf | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
       kuberm =
-        "kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl delete pod {}";
+        "kubectl get pods | sed -n '1!p' | fzf | sed 's/ .*//g' | xargs -I{} -ot kubectl delete pod {}";
       kubebash =
-        "kubectl get pods | sed -n '1!p' | peco | sed 's/ .*//g' | xargs -I{} -ot kubectl --tty --stdin exec {} -- /bin/sh";
+        "kubectl get pods | sed -n '1!p' | fzf | sed 's/ .*//g' | xargs -I{} -ot kubectl --tty --stdin exec {} -- /bin/sh";
       # kubeinitcontext =
       #   "aws eks --region $AWS_REGION update-kubeconfig --name $1";
       # RAND
@@ -305,7 +303,6 @@
         vim-rhubarb # review
 
         # Programming
-        emmet-vim
         vim-nix
         vim-javascript
         vim-jsx-typescript
@@ -336,7 +333,7 @@
         telescope-nvim
         telescope-symbols-nvim
         trouble-nvim
-        vim-rooter
+        vim-rooter # review
         vim-cool
 
         # Pope

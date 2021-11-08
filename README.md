@@ -154,3 +154,5 @@ nix build ./\#darwinConfigurations.Joseps-MBP.system
 hostname ha de ser a manija
 
 swish review window management
+
+fzf tab
