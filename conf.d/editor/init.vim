@@ -4,12 +4,6 @@
 let mapleader      = "\<SPACE>"
 let maplocalleader = ','
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-if has('termguicolors')
-  set termguicolors
-endif
-
-
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
@@ -120,7 +114,7 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 """""""""""""""""""""" SATUSLINE """"""""""""""""""""""""""""""""
 let g:airline_theme='onedark'
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_section_b = '%{strftime("%c")}'
 let g:airline_section_y = 'BN: %{bufnr("%")}'

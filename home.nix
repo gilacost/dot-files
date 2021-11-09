@@ -1,4 +1,27 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }:
+let
+  # gitconfig2 = lib.mkMerge [
+  #   {
+  #     userEmail = "josepgiraltdlacoste@gmail.com";
+  #     gpgKey = "1710D238E7756AB4";
+  #   }
+
+  #   (lib.mkIf config.networking.hostName == "pepesl" {
+  #     userEmail = "pep.g.dlacoste@erlang-solutions.com";
+  #     gpgKey = "695027416644669A";
+  #   })
+  #   (lib.mkIf config.networking.hostName != "pepesl" {
+  #     userEmail = "josepgiraltdlacoste@gmail.com";
+  #     gpgKey = "1710D238E7756AB4";
+  #   })
+  # ];
+  # test = builtins.trace (gitconfig2);
+  gitconfig = {
+    userEmail = "pep.g.dlacoste@erlang-solutions.com";
+    gpgKey = "695027416644669A";
+  };
+
+in {
 
   programs.home-manager.enable = true;
 
@@ -27,6 +50,7 @@
     wget
     tig
     tree
+
     telnet # common net tool package instead
     nodePackages.node2nix
     # here
@@ -100,6 +124,8 @@
   # GIT        ######
   ###################
 
+  programs.lazygit.enable = true;
+
   programs.git = {
     enable = true;
 
@@ -119,11 +145,11 @@
 
     lfs.enable = true;
 
-    userEmail = "josepgiraltdlacoste@gmail.com";
+    userEmail = gitconfig.userEmail;
     userName = "Josep Lluis Giralt D'Lacoste";
 
     signing = {
-      key = "1710D238E7756AB4";
+      key = gitconfig.gpgKey;
       signByDefault = true;
     };
 
@@ -173,6 +199,16 @@
     enableAutosuggestions = true;
 
     history.extended = true;
+    plugins = [{
+      name = "zsh-fzf-tab";
+      file = "fzf-tab.plugin.zsh";
+      src = pkgs.fetchFromGitHub {
+        owner = "Aloxaf";
+        repo = "fzf-tab";
+        rev = "0c36bdcf6a80ec009280897f07f56969f94d377e";
+        sha256 = "0ymp9ky0jlkx9b63jajvpac5g3ll8snkf8q081g0yw42b9hwpiid";
+      };
+    }];
 
     # Review prezto and pure options
     prezto = {
@@ -263,8 +299,6 @@
     withRuby = true;
     withPython3 = true;
 
-    # TODO replace fzf for telescope
-
     extraConfig = ''
       ${builtins.readFile ./conf.d/editor/init.vim}
       ${builtins.readFile ./conf.d/editor/sets.vim}
@@ -275,11 +309,21 @@
       ${builtins.readFile ./conf.d/editor/init-lua.vim}
       ${builtins.readFile ./conf.d/editor/telescope.vim}
       ${builtins.readFile ./conf.d/editor/lspkind.vim}
+      ${builtins.readFile ./conf.d/editor/theme.vim}
     '';
 
     plugins = with pkgs;
       with pkgs.vimPlugins;
       let
+        catppuccino-nvim = vimUtils.buildVimPlugin {
+          name = "catppuccino-nvim";
+          src = fetchFromGitHub {
+            owner = "Pocco81";
+            repo = "Catppuccino.nvim";
+            rev = "5f35851efa249eafd459d7691f52732295ed669e";
+            sha256 = "1p1s8zqd1mn7s3v8d5lh9mb3yii0qqvz153hz4vzlw8qz2jzhhhx";
+          };
+        };
         nvim-treesitter = vimUtils.buildVimPlugin {
           name = "nvim-treesitter";
           src = fetchFromGitHub {
@@ -287,6 +331,56 @@
             repo = "nvim-treesitter";
             rev = "1e4c846d01561821a737d08a6a5e2ac16d19c332";
             sha256 = "0cl2h599i4xmvgm4k8cliiz43qz6xnirh1zb8sfibdnw0fbqfpa5";
+          };
+        };
+        cmp-buffer = vimUtils.buildVimPlugin {
+          name = "cmp-buffer";
+          src = fetchFromGitHub {
+            owner = "hrsh7th";
+            repo = "cmp-buffer";
+            rev = "5742a1b18ebb4ffc21cd07a312bf8bacba4c81ae";
+            sha256 = "0nh53gqzbm500rvwc59hbl1sg12qzpk8za3z6rvsg04s6rqv479f";
+          };
+        };
+
+        cmp-nvim-lsp = vimUtils.buildVimPlugin {
+          name = "cmp-nvim-lsp";
+          src = fetchFromGitHub {
+            owner = "hrsh7th";
+            repo = "cmp-nvim-lsp";
+            rev = "6d991d0f7beb2bfd26cb0200ef7bfa6293899f23";
+            sha256 = "0yq80sww53blvp0zq40a1744mricf4v3qafxrry4x812fv4bh8mk";
+          };
+        };
+
+        nvim-comp = vimUtils.buildVimPlugin {
+          name = "nvim-comp";
+          src = fetchFromGitHub {
+            owner = "hrsh7th";
+            repo = "nvim-cmp";
+            rev = "24406f995ea20abba816c0356ebff1a025c18a72";
+            sha256 = "142r41483xx7yw1gr4g1xi3rvzlprqwc72bq8rky0ys6mq50d7ic";
+          };
+          buildInputs = [ stylua ];
+        };
+
+        vsnip = vimUtils.buildVimPlugin {
+          name = "vim-vsnip";
+          src = fetchFromGitHub {
+            owner = "hrsh7th";
+            repo = "vim-vsnip";
+            rev = "87d144b7451deb3ab55f1a3e3c5124cfab2b02fa";
+            sha256 = "17gw992xvxsa6wyirah17xbsdi2gl4lif8ibvbs7dwagnkv01vyb";
+          };
+        };
+
+        vsnip-integ = vimUtils.buildVimPlugin {
+          name = "vim-vsnip-integ";
+          src = fetchFromGitHub {
+            owner = "hrsh7th";
+            repo = "vim-vsnip-integ";
+            rev = "8f94cdd9ca6c3e6c328edaf22029f1bf17f3d1c5";
+            sha256 = "1wh44m7jn1s7jyk0g9flf2qhkqgcl5amfi5w7dwjqkr8z495r29h";
           };
         };
 
@@ -303,23 +397,21 @@
         vim-rhubarb # review
 
         # Programming
-        vim-nix
-        vim-javascript
-        vim-jsx-typescript
-        vim-graphql
         emmet-vim
-        rust-vim
-        vim-terraform
-        vim-orgmode
-        vim-elixir
-        vim-lua
         nvim-treesitter
         nvim-treesitter-refactor
         nvim-treesitter-textobjects
-        vim-jsonnet
+        cmp-buffer
+        cmp-nvim-lsp
+        nvim-comp
+        vsnip
+        vsnip-integ
 
         # Appearance
+        barbar-nvim
         vim-one
+        catppuccino-nvim
+        lualine-nvim
         vim-airline
         vim-airline-themes
         vim-devicons

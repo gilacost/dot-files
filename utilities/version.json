@@ -17,10 +17,10 @@
     "rev": "e008a2ff40f708494a7c259a1fd8c2e77f7cd6a0",
     "sha256": "14waxw7ahs57nrrmgn5zsw2c9n7skmr0h6m90mj3q14ak4njzksb"
   },
-  "vim-rebar": {
-    "owner": "vim-erlang",
-    "repo": "vim-rebar",
-    "rev": "fbec9674f4f88136571d0b777fea4004aa0a1c9b",
+  "fzf-tab": {
+    "owner": "Aloxaf",
+    "repo": "fzf-tabr",
+    "rev": "e3fae7478fc365a04a06b9972b04766ffed78c1c",
     "sha256": "14waxw7ahs57nrrmgn5zsw2c9n7skmr0h6m90mj3q14ak4njzksb"
   }
 }
