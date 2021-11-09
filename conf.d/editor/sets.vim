@@ -8,7 +8,6 @@ set undoreload=10000
 set scrollback=100000
 set lazyredraw
 set synmaxcol=128
-syntax sync minlines=256
 set clipboard+=unnamed,unnamedplus
 set number
 set shiftwidth=2
@@ -34,8 +33,5 @@ set ttyfast
 set regexpengine=1
 set splitbelow
 set splitright
-syntax enable
-colorscheme one
-set background=dark
 set spell spelllang=en_gb
 set noswapfile
