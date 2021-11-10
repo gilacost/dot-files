@@ -401,6 +401,7 @@ in {
         nvim-treesitter
         nvim-treesitter-refactor
         nvim-treesitter-textobjects
+        vim-terraform
         cmp-buffer
         cmp-nvim-lsp
         nvim-comp
