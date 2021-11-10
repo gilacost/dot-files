@@ -17,8 +17,8 @@ let
   # ];
   # test = builtins.trace (gitconfig2);
   gitconfig = {
-    userEmail = "pep.g.dlacoste@erlang-solutions.com";
-    gpgKey = "695027416644669A";
+    userEmail = "josepgiraltdlacoste@gmail.com";
+    gpgKey = "1710D238E7756AB4";
   };
 
 in {
@@ -329,8 +329,8 @@ in {
           src = fetchFromGitHub {
             owner = "nvim-treesitter";
             repo = "nvim-treesitter";
-            rev = "1e4c846d01561821a737d08a6a5e2ac16d19c332";
-            sha256 = "0cl2h599i4xmvgm4k8cliiz43qz6xnirh1zb8sfibdnw0fbqfpa5";
+            rev = "aaf157a6a95b1e22783c658f1f9527751bd80968";
+            sha256 = "0sq3qgv2qzhv3fnbk750f4kq66fsbbmk15gk64wg2lyw5rc409fn";
           };
         };
         cmp-buffer = vimUtils.buildVimPlugin {
