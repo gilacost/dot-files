@@ -349,6 +349,8 @@
     "pop"
   ];
 
+  homebrew.masApps = { Amphetamine = 937984704; };
+
   programs.nix-index.enable = true;
 
   environment.variables.LANG = "en_GB.UTF-8";
