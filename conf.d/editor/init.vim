@@ -31,10 +31,6 @@ au InsertLeave * match ExtraWhiteSpace /\s\+$/
 " test
 
 """""""""""""""""""""""" LSPSAGA/LSP """""""""""""""""""""""""""""""""""
-" TODO MOVE THIS TO LUA and align with lspconfig commands
-  nnoremap <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
-  nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
   " -- jump diagnostic
   nnoremap <silent> [e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
   nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
@@ -137,7 +133,7 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
-let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_retab = 0
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_prettier = {
   \ 'exe': '/Users/pepo/.nix-profile/bin/prettier',
@@ -154,6 +150,7 @@ let g:neoformat_typescript_prettier = g:neoformat_prettier
 let g:neoformat_enabled_typescript = ['prettier']
 let g:neoformat_yaml_prettier = g:neoformat_prettier
 let g:neoformat_enabled_yaml = ['prettier']
+let g:neoformat_enabled_elixir = []
 augroup fmt
   autocmd!
   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry

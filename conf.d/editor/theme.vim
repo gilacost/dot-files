@@ -9,7 +9,7 @@ lua << EOF
   local catppuccino = require("catppuccino")
 
   catppuccino.setup {
-    colorscheme = "soft_manilo",
+    colorscheme = "dark_catppuccino",
     transparency = false,
     styles = {
       comments = "italic",

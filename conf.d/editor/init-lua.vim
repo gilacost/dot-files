@@ -13,7 +13,7 @@ local on_attach = function(client, bufnr)
       buf_set_keymap('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
       buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
       buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-      buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+      -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
       buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
       buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
       buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
@@ -138,8 +138,7 @@ require('nvim-treesitter.configs').setup {
   sync_install = false,
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = false,
-    disable = { "terraform" }
+    additional_vim_regex_highlighting = false
   },
   incremental_selection = {
     enable = true,
@@ -156,7 +155,6 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- COMPE
-
 vim.o.completeopt = "menuone,noselect"
 
 require'compe'.setup {

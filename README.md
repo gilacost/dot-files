@@ -152,3 +152,5 @@ todo, when flakes, bring node and split node packages
 - ./result/sw/bin/darwin-rebuild switch --flake ./
 - swish review window management
 - darwin-rebuild switch --flake ./\#lair
+
+NOTES ALL keystrokes for lsp and config

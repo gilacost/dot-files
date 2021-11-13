@@ -82,6 +82,8 @@ in {
     google-cloud-sdk
     linode-cli
 
+    postgresql
+
     # OPs
     skaffold
     minikube
@@ -238,7 +240,7 @@ in {
       gai = "gsina | xargs git add";
       gaip = "gsina | xargs -o git add -p";
       gb = "git branch";
-      gbdi = "git branch | fzf | xargs git branch -d";
+      gbdi = "git branch | fzf --layout=reverse -m | xargs git branch -d";
       gc = "git commit";
       gco = "git checkout";
       gd = "git diff";
@@ -261,23 +263,26 @@ in {
       gapa = "git add --patch";
       # OPS
       dockerbash =
-        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash";
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf --layout=reverse -m | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/bash";
       dockersh =
-        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/sh";
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf --layout=reverse -m | sed 's/: .*//g' | xargs -I{} -ot docker exec -ti {} /bin/sh";
       dockerrm =
-        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}";
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf --layout=reverse -m | sed 's/: .*//g' | xargs -I{} -ot docker rm -f {}";
       dockerlogs =
-        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf | sed 's/: .*//g' | xargs -I{} -ot docker logs -f {}";
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf --layout=reverse -m | sed 's/: .*//g' | xargs -I{} -ot docker logs -f {}";
+
+      dockerstop =
+        "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf --layout=reverse -m | sed 's/: .*//g' | xargs -I{} -ot docker stop {}";
       dockerrmiall = ''docker rmi "$(docker images -a -q)"'';
       dockerrmall = ''docker rm "$(docker ps -a -q)"'';
       dockerstopall = ''docker stop "$(docker ps -a -q)"'';
       # KUBE
       kubelogs =
-        "kubectl get pods | sed -n '1!p' | fzf | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
+        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
       kuberm =
-        "kubectl get pods | sed -n '1!p' | fzf | sed 's/ .*//g' | xargs -I{} -ot kubectl delete pod {}";
-      kubebash =
-        "kubectl get pods | sed -n '1!p' | fzf | sed 's/ .*//g' | xargs -I{} -ot kubectl --tty --stdin exec {} -- /bin/sh";
+        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl delete pod \${1} -n \${0}'";
+      kubesh =
+        "kubectl get pods --all-namespaces | sed -n '1!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl exec -it \${1} -n \${0} -- /bin/sh'";
       # kubeinitcontext =
       #   "aws eks --region $AWS_REGION update-kubeconfig --name $1";
       # RAND
@@ -401,7 +406,6 @@ in {
         nvim-treesitter
         nvim-treesitter-refactor
         nvim-treesitter-textobjects
-        vim-terraform
         cmp-buffer
         cmp-nvim-lsp
         nvim-comp
@@ -410,7 +414,6 @@ in {
 
         # Appearance
         barbar-nvim
-        vim-one
         catppuccino-nvim
         lualine-nvim
         vim-airline
@@ -426,7 +429,7 @@ in {
         telescope-nvim
         telescope-symbols-nvim
         trouble-nvim
-        vim-rooter # review
+        # vim-rooter # review
         vim-cool
 
         # Pope
@@ -444,7 +447,6 @@ in {
         nvim-compe
         nvim-lspconfig
         neoformat
-        # ale
 
         # Snippets
         vim-vsnip
