@@ -85,6 +85,8 @@ in {
     postgresql
 
     # OPs
+    argocd
+    skopeo
     skaffold
     minikube
     kompose
@@ -278,9 +280,9 @@ in {
       dockerstopall = ''docker stop "$(docker ps -a -q)"'';
       # KUBE
       kubelogs =
-        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
+        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl logs -f \${1} -n \${0}";
       kuberm =
-        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl delete pod \${1} -n \${0}'";
+        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl delete pod \${1} -n \${0}'";
       kubesh =
         "kubectl get pods --all-namespaces | sed -n '1!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl exec -it \${1} -n \${0} -- /bin/sh'";
       # kubeinitcontext =
