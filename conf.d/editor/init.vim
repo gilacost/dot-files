@@ -123,6 +123,8 @@ endif
 
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
 " autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
+au BufNewFile,BufRead rebar.config  setf erlang
+au BufNewFile,BufRead *.app.src  setf erlang
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
 
 """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
@@ -133,7 +135,7 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
-let g:neoformat_basic_format_retab = 0
+let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_prettier = {
   \ 'exe': '/Users/pepo/.nix-profile/bin/prettier',
@@ -150,7 +152,7 @@ let g:neoformat_typescript_prettier = g:neoformat_prettier
 let g:neoformat_enabled_typescript = ['prettier']
 let g:neoformat_yaml_prettier = g:neoformat_prettier
 let g:neoformat_enabled_yaml = ['prettier']
-let g:neoformat_enabled_elixir = []
+
 augroup fmt
   autocmd!
   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
