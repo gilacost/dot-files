@@ -81,10 +81,13 @@ in {
     azure-cli
     google-cloud-sdk
     linode-cli
+    # openshift
 
     postgresql
 
     # OPs
+    argocd
+    skopeo
     skaffold
     minikube
     kompose
@@ -109,7 +112,6 @@ in {
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  programs.direnv.nix-direnv.enableFlakes = true;
 
   programs.bat.enable = true;
 
@@ -278,9 +280,9 @@ in {
       dockerstopall = ''docker stop "$(docker ps -a -q)"'';
       # KUBE
       kubelogs =
-        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | sed 's/ .*//g' | xargs -I{} -ot kubectl logs -f {}";
+        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl logs -f \${1} -n \${0}'";
       kuberm =
-        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl delete pod \${1} -n \${0}'";
+        "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl delete pod \${1} -n \${0}'";
       kubesh =
         "kubectl get pods --all-namespaces | sed -n '1!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl exec -it \${1} -n \${0} -- /bin/sh'";
       # kubeinitcontext =
@@ -480,7 +482,10 @@ in {
       "browser.ctrlTab.recentlyUsedOrder" = false;
       "browser.newtabpage.enabled" = false;
       "browser.bookmarks.showMobileBookmarks" = true;
-      "browser.uidensity" = 1;
+      "browhser.uidensity" = 1;
+      "browser.cache.disk.enable" = false;
+      "devtools.cache.disabled" = true;
+      "devtools.theme dark" = "dark";
       "browser.urlbar.placeholderName" = "DuckDuckGo";
       "browser.urlbar.update1" = true;
       "distribution.searchplugins.defaultLocale" = "en-GB";

@@ -54,6 +54,10 @@ function erlv {
   erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().'  -noshell
 }
 
+function dockerlogin {
+  echo $CR_PAT | docker login ghcr.io -u gilacost --password-stdin
+}
+
 nixify() {
   if [ ! -e ./.envrc ]; then
     echo "use nix" > .envrc
