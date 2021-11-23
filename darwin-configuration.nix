@@ -329,6 +329,7 @@
   '';
 
   homebrew.taps = [ "homebrew/core" "homebrew/cask" ];
+  homebrew.brews = [ "envoy" "openshift-cli" ];
 
   homebrew.casks = [
     "lens"
