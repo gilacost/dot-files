@@ -81,7 +81,6 @@ in {
     azure-cli
     google-cloud-sdk
     linode-cli
-    # openshift
 
     postgresql
 
