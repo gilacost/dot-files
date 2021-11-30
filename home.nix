@@ -81,6 +81,9 @@ in {
     azure-cli
     google-cloud-sdk
     linode-cli
+    # openshift
+
+    postgresql
 
     postgresql
 
@@ -97,6 +100,7 @@ in {
     kubernetes-helm
     google-cloud-sdk
     terraformer
+    rpk
 
     rebar3
 
