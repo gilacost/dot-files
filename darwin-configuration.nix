@@ -329,7 +329,7 @@
   '';
 
   homebrew.taps = [ "homebrew/core" "homebrew/cask" ];
-  homebrew.brews = [ "envoy" "openshift-cli" ];
+  homebrew.brews = [ "envoy" "openshift-cli" "redpanda" ];
 
   homebrew.casks = [
     "lens"
