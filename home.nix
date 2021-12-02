@@ -51,6 +51,7 @@ in {
     tig
     tree
 
+    nmap
     telnet # common net tool package instead
     nodePackages.node2nix
     # here
@@ -100,7 +101,6 @@ in {
     kubernetes-helm
     google-cloud-sdk
     terraformer
-    rpk
 
     rebar3
 
