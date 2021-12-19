@@ -22,19 +22,19 @@ au InsertLeave * match ExtraWhiteSpace /\s\+$/
 """""""""""""""""""""" PLUGINS """"""""""""""""""""""""""""""""
 
 " test
-  let test#strategy = 'neovim'
-  nmap <silent> t<C-n> :TestNearest<CR>
-  nmap <silent> t<C-f> :TestFile<CR>
-  nmap <silent> t<C-s> :TestSuite<CR>
-  nmap <silent> t<C-l> :TestLast<CR>
-  nmap <silent> t<C-g> :TestVisit<CR>
+let test#strategy = 'neovim'
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
 " test
 
 """""""""""""""""""""""" LSPSAGA/LSP """""""""""""""""""""""""""""""""""
   " -- jump diagnostic
-  nnoremap <silent> [e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
-  nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
-  nnoremap <silent> ff <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> [e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
+nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
+nnoremap <silent> ff <cmd>lua vim.lsp.buf.formatting()<CR>
 """""""""""""""""""""""" LSPSAGA """""""""""""""""""""""""""""""""""
 
 " random functions
@@ -123,8 +123,8 @@ endif
 
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
 " autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
-au BufNewFile,BufRead rebar.config  setf erlang
-au BufNewFile,BufRead *.app.src  setf erlang
+" au BufNewFile,BufRead rebar.config  setf erlang
+" au BufNewFile,BufRead *.app.src  setf erlang
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
 
 """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
@@ -157,6 +157,3 @@ augroup fmt
   autocmd!
   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
 augroup END
-"""""""""""""""""""""NO AUTOREPEAT"""""""""""""""""""""""""""""
-autocmd FocusGained,VimEnter * silent !xset r off
-autocmd FocusLost,VimLeave * silent !xset r on
