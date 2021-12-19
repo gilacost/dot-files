@@ -68,6 +68,7 @@ in {
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server
     nodePackages.yaml-language-server
+    tree-sitter
 
     hadolint
     nixfmt
@@ -157,7 +158,7 @@ in {
 
     signing = {
       key = gitconfig.gpgKey;
-      signByDefault = true;
+      signByDefault = false;
     };
 
     extraConfig = {
