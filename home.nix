@@ -340,8 +340,8 @@ in {
           src = fetchFromGitHub {
             owner = "nvim-treesitter";
             repo = "nvim-treesitter";
-            rev = "aaf157a6a95b1e22783c658f1f9527751bd80968";
-            sha256 = "0sq3qgv2qzhv3fnbk750f4kq66fsbbmk15gk64wg2lyw5rc409fn";
+            rev = "ad69e2528ac382b7cbf28f1ac7ee450981734ab0";
+            sha256 = "04vjc2b6gx0bixvqd2a8hv492q6v98q9kzd7hpfqmz3lb0j5hv26";
           };
         };
         cmp-buffer = vimUtils.buildVimPlugin {

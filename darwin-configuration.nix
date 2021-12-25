@@ -12,7 +12,6 @@
         shell = pkgs.zsh;
       };
     };
-
   };
   programs.bash.enable = false;
   programs.zsh.enable = true;
@@ -328,8 +327,8 @@
     cask "firefox", args: { language: "en-GB" }
   '';
 
-  homebrew.taps = [ "homebrew/core" "homebrew/cask" ];
-  homebrew.brews = [ "envoy" "openshift-cli" "redpanda" ];
+  homebrew.taps = [ "homebrew/core" "homebrew/cask" "vectorizedio/tap" ];
+  homebrew.brews = [ "envoy" "openshift-cli" "vectorizedio/tap/redpanda" ];
 
   homebrew.casks = [
     "lens"

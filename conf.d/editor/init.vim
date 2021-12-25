@@ -32,8 +32,8 @@ nmap <silent> t<C-g> :TestVisit<CR>
 
 """""""""""""""""""""""" LSPSAGA/LSP """""""""""""""""""""""""""""""""""
   " -- jump diagnostic
-nnoremap <silent> [e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
-nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
+" nnoremap <silent> [e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
+" nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
 nnoremap <silent> ff <cmd>lua vim.lsp.buf.formatting()<CR>
 """""""""""""""""""""""" LSPSAGA """""""""""""""""""""""""""""""""""
 
