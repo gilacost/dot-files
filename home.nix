@@ -91,6 +91,7 @@ in {
 
     # OPs
     argocd
+    terragrunt
     skopeo
     skaffold
     minikube
@@ -412,6 +413,7 @@ in {
         nvim-treesitter
         nvim-treesitter-refactor
         nvim-treesitter-textobjects
+        vim-elixir
         cmp-buffer
         cmp-nvim-lsp
         nvim-comp
