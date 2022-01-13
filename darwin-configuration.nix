@@ -89,7 +89,7 @@
     ###############################################################################
 
     # Shows battery percentage
-    defaults write com.apple.menuextra.battery ShowPercent YES
+    defaults write com.apple.menuextra.battery ShowPercent YES; killall SystemUIServer
 
     # Increase sound quality for Bluetooth headphones/headsets
     defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
@@ -328,7 +328,8 @@
   '';
 
   homebrew.taps = [ "homebrew/core" "homebrew/cask" "vectorizedio/tap" ];
-  homebrew.brews = [ "envoy" "openshift-cli" "vectorizedio/tap/redpanda" ];
+  homebrew.brews =
+    [ "mas" "envoy" "openshift-cli" "vectorizedio/tap/redpanda" ];
 
   homebrew.casks = [
     "lens"
@@ -349,7 +350,10 @@
     "pop"
   ];
 
-  # homebrew.masApps = { Amphetamine = 937984704; };
+  homebrew.masApps = {
+    Amphetamine = 937984704;
+    # Xcode = 497799835;
+  };
 
   programs.nix-index.enable = true;
 
