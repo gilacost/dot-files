@@ -62,11 +62,6 @@ function dockerlogin {
   echo $CR_PAT | docker login ghcr.io -u gilacost --password-stdin
 }
 
-function add_asdf_plugins {
-   asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git
->  asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
-}
-
 nixify() {
   if [ ! -e ./.envrc ]; then
     echo "use nix" > .envrc
@@ -98,6 +93,7 @@ flakifiy() {
 source <(kubectl completion zsh)
 alias k=kubectl
 complete -F __start_kubectl k
+
 
 source $HOME/.zshrc_local
 

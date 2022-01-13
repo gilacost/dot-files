@@ -17,8 +17,8 @@ let
   # ];
   # test = builtins.trace (gitconfig2);
   gitconfig = {
-    userEmail = "josepgiraltdlacoste@gmail.com";
-    gpgKey = "1710D238E7756AB4";
+    userEmail = "pep.g.dlacoste@erlang-solutions.com";
+    gpgKey = "695027416644669A";
   };
 
 in {
@@ -50,13 +50,14 @@ in {
     wget
     tig
     tree
+    gnumake
 
     nmap
     telnet # common net tool package instead
     nodePackages.node2nix
     # here
     tanka
-    sops
+    # sops
     git-crypt
 
     # lsp
@@ -91,16 +92,16 @@ in {
 
     # OPs
     argocd
-    terragrunt
+    # terragrunt
     skopeo
     skaffold
-    minikube
+    # minikube
     kompose
     dive
-    kind
-    terraform
-    kubectl
-    kubernetes-helm
+    # kind
+    # terraform
+    # kubectl
+    # kubernetes-helm
     google-cloud-sdk
     terraformer
 
@@ -439,7 +440,7 @@ in {
         telescope-nvim
         telescope-symbols-nvim
         trouble-nvim
-        # vim-rooter # review
+        vim-rooter
         vim-cool
 
         # Pope
