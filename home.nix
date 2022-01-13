@@ -107,8 +107,9 @@ in {
     rebar3
 
     # programming languages
-    elixir
-    erlang
+    # elixir
+    # erlang
+    asdf-vm
     go
 
     # FE
@@ -159,7 +160,7 @@ in {
 
     signing = {
       key = gitconfig.gpgKey;
-      signByDefault = false;
+      signByDefault = true;
     };
 
     extraConfig = {
@@ -419,6 +420,7 @@ in {
         nvim-comp
         vsnip
         vsnip-integ
+        vim-jsonnet
 
         # Appearance
         barbar-nvim
@@ -472,23 +474,24 @@ in {
   # This populates a dummy package to satisfy the requirement
   programs.firefox.package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
 
-  programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    tridactyl
-    onepassword-password-manager
-  ];
+  programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons;
+    [
+      # tridactyl
+      onepassword-password-manager
+    ];
 
   programs.firefox.profiles = let
     userChrome = builtins.readFile ./conf.d/userChrome.css;
     settings = {
       "app.update.auto" = false;
-      "browser.startup.homepage" = "https://lobste.rs";
+      "browser.startup.homepage" = "http://elixirweekly.net/";
       "browser.search.region" = "GB";
       "browser.search.countryCode" = "GB";
       "browser.search.isUS" = false;
       "browser.ctrlTab.recentlyUsedOrder" = false;
       "browser.newtabpage.enabled" = false;
       "browser.bookmarks.showMobileBookmarks" = true;
-      "browhser.uidensity" = 1;
+      "browser.uidensity" = 1;
       "browser.cache.disk.enable" = false;
       "devtools.cache.disabled" = true;
       "devtools.theme dark" = "dark";
@@ -509,6 +512,7 @@ in {
       "services.sync.engineStatusChanged.prefs" = true;
       "signon.rememberSignons" = false;
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+      "extensions.activeThemeID" = "firefox-alpenglow@mozilla.org";
     };
   in {
     home = {
