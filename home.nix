@@ -1,25 +1,15 @@
 { config, pkgs, lib, ... }:
 let
-  # gitconfig2 = lib.mkMerge [
-  #   {
-  #     userEmail = "josepgiraltdlacoste@gmail.com";
-  #     gpgKey = "1710D238E7756AB4";
-  #   }
-
-  #   (lib.mkIf config.networking.hostName == "pepesl" {
-  #     userEmail = "pep.g.dlacoste@erlang-solutions.com";
-  #     gpgKey = "695027416644669A";
-  #   })
-  #   (lib.mkIf config.networking.hostName != "pepesl" {
-  #     userEmail = "josepgiraltdlacoste@gmail.com";
-  #     gpgKey = "1710D238E7756AB4";
-  #   })
-  # ];
-  # test = builtins.trace (gitconfig2);
+  # _ = builtins.trace config.networking.hostName;
+  # gitconfig = (lib.mkIf config.networking.hostName == "pepesl" {
   gitconfig = {
     userEmail = "pep.g.dlacoste@erlang-solutions.com";
     gpgKey = "695027416644669A";
   };
+  # }) (lib.mkIf config.networking.hostName != "pepesl" {
+  # userEmail = "josepgiraltdlacoste@gmail.com";
+  # gpgKey = "1710D238E7756AB4";
+  # });
 
 in {
 
@@ -99,17 +89,16 @@ in {
     kompose
     dive
     # kind
-    # terraform
+    terraform
     # kubectl
     # kubernetes-helm
     google-cloud-sdk
     terraformer
 
     rebar3
-
     # programming languages
-    # elixir
-    # erlang
+    elixir
+    erlang
     asdf-vm
     go
 
@@ -343,8 +332,8 @@ in {
           src = fetchFromGitHub {
             owner = "nvim-treesitter";
             repo = "nvim-treesitter";
-            rev = "ad69e2528ac382b7cbf28f1ac7ee450981734ab0";
-            sha256 = "04vjc2b6gx0bixvqd2a8hv492q6v98q9kzd7hpfqmz3lb0j5hv26";
+            rev = "a76e1eb89d57e25cedbc71d6bf8e2d2c23d5d85b";
+            sha256 = "0h6ykpx5mqra1184fnr5aaxy4zqiv2s1w92c25qipfki7bc28s9f";
           };
         };
         cmp-buffer = vimUtils.buildVimPlugin {
