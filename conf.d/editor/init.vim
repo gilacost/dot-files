@@ -30,11 +30,6 @@ nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 " test
 
-"""""""""""""""""""""""" LSPSAGA/LSP """""""""""""""""""""""""""""""""""
-  " -- jump diagnostic
-" nnoremap <silent> [e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
-" nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
-nnoremap <silent> ff <cmd>lua vim.lsp.buf.formatting()<CR>
 """""""""""""""""""""""" LSPSAGA """""""""""""""""""""""""""""""""""
 
 " random functions
@@ -69,7 +64,7 @@ nnoremap <leader>qc :cclose<CR>
 map <leader>n :call RenameFile()<cr>
 
 " Show undo list
-" nnoremap <leader>u :GundoToggle<CR>
+nnoremap <leader>u :GundoToggle<CR>
 
 " Tabs
 noremap <silent> nt :tabnew<CR>:terminal<CR>
@@ -105,8 +100,12 @@ omap / <Plug>(easymotion-tn)
 map <Tab> :bnext<CR>
 map <S-Tab> :bprevious<CR>
 
-" Current directory
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" Git
+nnoremap <leader>nh :GitGutterNextHunk<CR>
+nnoremap <leader>ph :GitGutterPrevHunk<CR>
+nnoremap <leader>sh :GitGutterStageHunk<CR>
+nnoremap <leader>gc :Git commit<CR>
+nnoremap <leader>gp :Git push<CR>
 
 """""""""""""""""""""" SATUSLINE """"""""""""""""""""""""""""""""
 let g:airline_theme='onedark'
