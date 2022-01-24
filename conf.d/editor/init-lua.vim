@@ -139,7 +139,7 @@ require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
-    disable = { "elixir"},
+    disable = { "elixir", "markdown"},
   },
   incremental_selection = {
     enable = true,
@@ -154,6 +154,7 @@ require('nvim-treesitter.configs').setup {
     enable = true
   }
 }
+
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.iex = {
   install_info = {
@@ -164,7 +165,6 @@ parser_config.iex = {
 --  filetype = "zu", -- if filetype does not agrees with parser name
 --  used_by = {"bar", "baz"} -- additional filetypes that use this parser
 }
-
 
 -- COMPE
 vim.o.completeopt = "menuone,noselect"

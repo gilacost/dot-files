@@ -89,6 +89,7 @@ nmap s <Plug>(easymotion-s2)
 
 let g:EasyMotion_use_smartsign_us = 1
 let g:EasyMotion_smartcase = 1
+let g:vim_markdown_folding_disabled = 1
 
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -138,7 +139,7 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_prettier = {
-  \ 'exe': '/Users/pepo/.nix-profile/bin/prettier',
+  \ 'exe': '/etc/profiles/per-user/pepo/bin/prettier',
   \ 'args': ['--stdin-filepath', '"%:p"'],
   \ 'stdin': 1,
   \ }

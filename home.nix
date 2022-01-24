@@ -332,8 +332,8 @@ in {
           src = fetchFromGitHub {
             owner = "nvim-treesitter";
             repo = "nvim-treesitter";
-            rev = "a76e1eb89d57e25cedbc71d6bf8e2d2c23d5d85b";
-            sha256 = "0h6ykpx5mqra1184fnr5aaxy4zqiv2s1w92c25qipfki7bc28s9f";
+            rev = "3ee34749bcd8a3bd1293b021f4e7d01c4b3b650c";
+            sha256 = "161rx0fsjdqqlwp20xinkbkdq864k59ybplcfsliv4w1ykmpy4r4";
           };
         };
         cmp-buffer = vimUtils.buildVimPlugin {
@@ -429,7 +429,7 @@ in {
         telescope-nvim
         telescope-symbols-nvim
         trouble-nvim
-        vim-rooter
+        # vim-rooter
         vim-cool
 
         # Pope
@@ -447,6 +447,7 @@ in {
         nvim-compe
         nvim-lspconfig
         neoformat
+        vim-markdown
 
         # Snippets
         vim-vsnip
