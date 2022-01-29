@@ -3,8 +3,8 @@ let
   # _ = builtins.trace config.networking.hostName;
   # gitconfig = (lib.mkIf config.networking.hostName == "pepesl" {
   gitconfig = {
-    userEmail = "pep.g.dlacoste@erlang-solutions.com";
-    gpgKey = "695027416644669A";
+    userEmail = "josepgiraltdlacoste@gmail.com";
+    gpgKey = "1710D238E7756AB4";
   };
   # }) (lib.mkIf config.networking.hostName != "pepesl" {
   # userEmail = "josepgiraltdlacoste@gmail.com";
