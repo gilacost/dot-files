@@ -351,8 +351,8 @@
   ];
 
   homebrew.masApps = {
-    # "Amphetamine" = 937984704;
-    # Xcode = 497799835;
+    # Amphetamine = 937984704;
+    Xcode = 497799835;
   };
 
   programs.nix-index.enable = true;
