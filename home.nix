@@ -78,8 +78,6 @@ in {
 
     postgresql
 
-    postgresql
-
     # OPs
     argocd
     # terragrunt

@@ -155,17 +155,6 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.iex = {
-  install_info = {
-    url = "~/projects/tree-sitter-iex", -- local path or git repo
-    -- url = "git@github.com:elixir-lang/tree-sitter-iex.git", -- local path or git repo
-    files = {"src/parser.c"}
-  },
---  filetype = "zu", -- if filetype does not agrees with parser name
---  used_by = {"bar", "baz"} -- additional filetypes that use this parser
-}
-
 -- COMPE
 vim.o.completeopt = "menuone,noselect"
 
