@@ -16,7 +16,6 @@ set smarttab
 set autoindent
 set copyindent
 set smartindent
-set colorcolumn=60,80,100,120
 set tabstop=2
 set softtabstop=2
 set expandtab
@@ -35,3 +34,6 @@ set splitbelow
 set splitright
 set spell spelllang=en_gb
 set noswapfile
+set completeopt=menu,menuone,noselect
+" set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()

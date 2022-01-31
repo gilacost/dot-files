@@ -28,4 +28,4 @@ echo $SHA256
 # EXSHA=$(nix-prefetch-url --unpack "https://github.com/elixir-lang/elixir/archive/refs/tags/v1.13.2.tar.gz")
 
 # echo $EXSHA
-
+nix flake lock --update-input nixpkgs

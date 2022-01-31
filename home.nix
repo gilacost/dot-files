@@ -3,8 +3,11 @@ let
   # _ = builtins.trace config.networking.hostName;
   # gitconfig = (lib.mkIf config.networking.hostName == "pepesl" {
   gitconfig = {
-    userEmail = "josepgiraltdlacoste@gmail.com";
-    gpgKey = "1710D238E7756AB4";
+
+    userEmail = "pep.g.dlacoste@erlang-solutions.com";
+    gpgKey = "695027416644669A";
+    # userEmail = "josepgiraltdlacoste@gmail.com";
+    # gpgKey = "1710D238E7756AB4";
   };
   # }) (lib.mkIf config.networking.hostName != "pepesl" {
   # userEmail = "josepgiraltdlacoste@gmail.com";
@@ -31,7 +34,7 @@ in {
     fd
     jq
     yq
-    htop
+    btop
     ripgrep
     bind # review
     cloc
@@ -308,6 +311,8 @@ in {
       ${builtins.readFile ./conf.d/editor/fzf.vim}
       ${builtins.readFile ./conf.d/editor/projections.vim}
       ${builtins.readFile ./conf.d/editor/init-lua.vim}
+      ${(import ./conf.d/editor/lsp.nix) pkgs}
+      ${builtins.readFile ./conf.d/editor/lualine.vim}
       ${builtins.readFile ./conf.d/editor/telescope.vim}
       ${builtins.readFile ./conf.d/editor/lspkind.vim}
       ${builtins.readFile ./conf.d/editor/theme.vim}
@@ -316,75 +321,15 @@ in {
     plugins = with pkgs;
       with pkgs.vimPlugins;
       let
-        catppuccino-nvim = vimUtils.buildVimPlugin {
-          name = "catppuccino-nvim";
+        virt-column = vimUtils.buildVimPlugin {
+          name = "virt-column";
           src = fetchFromGitHub {
-            owner = "Pocco81";
-            repo = "Catppuccino.nvim";
-            rev = "5f35851efa249eafd459d7691f52732295ed669e";
-            sha256 = "1p1s8zqd1mn7s3v8d5lh9mb3yii0qqvz153hz4vzlw8qz2jzhhhx";
+            owner = "lukas-reineke";
+            repo = "virt-column.nvim";
+            rev = "fe3cff94710d648c57ac826fb846014903c76b00";
+            sha256 = "0m5b180ijk63ci4g1c8j1hi5ga4z6jcwfq8hv5kfmwjgiycf3wsc";
           };
         };
-        nvim-treesitter = vimUtils.buildVimPlugin {
-          name = "nvim-treesitter";
-          src = fetchFromGitHub {
-            owner = "nvim-treesitter";
-            repo = "nvim-treesitter";
-            rev = "3ee34749bcd8a3bd1293b021f4e7d01c4b3b650c";
-            sha256 = "161rx0fsjdqqlwp20xinkbkdq864k59ybplcfsliv4w1ykmpy4r4";
-          };
-        };
-        cmp-buffer = vimUtils.buildVimPlugin {
-          name = "cmp-buffer";
-          src = fetchFromGitHub {
-            owner = "hrsh7th";
-            repo = "cmp-buffer";
-            rev = "5742a1b18ebb4ffc21cd07a312bf8bacba4c81ae";
-            sha256 = "0nh53gqzbm500rvwc59hbl1sg12qzpk8za3z6rvsg04s6rqv479f";
-          };
-        };
-
-        cmp-nvim-lsp = vimUtils.buildVimPlugin {
-          name = "cmp-nvim-lsp";
-          src = fetchFromGitHub {
-            owner = "hrsh7th";
-            repo = "cmp-nvim-lsp";
-            rev = "6d991d0f7beb2bfd26cb0200ef7bfa6293899f23";
-            sha256 = "0yq80sww53blvp0zq40a1744mricf4v3qafxrry4x812fv4bh8mk";
-          };
-        };
-
-        nvim-comp = vimUtils.buildVimPlugin {
-          name = "nvim-comp";
-          src = fetchFromGitHub {
-            owner = "hrsh7th";
-            repo = "nvim-cmp";
-            rev = "24406f995ea20abba816c0356ebff1a025c18a72";
-            sha256 = "142r41483xx7yw1gr4g1xi3rvzlprqwc72bq8rky0ys6mq50d7ic";
-          };
-          buildInputs = [ stylua ];
-        };
-
-        vsnip = vimUtils.buildVimPlugin {
-          name = "vim-vsnip";
-          src = fetchFromGitHub {
-            owner = "hrsh7th";
-            repo = "vim-vsnip";
-            rev = "87d144b7451deb3ab55f1a3e3c5124cfab2b02fa";
-            sha256 = "17gw992xvxsa6wyirah17xbsdi2gl4lif8ibvbs7dwagnkv01vyb";
-          };
-        };
-
-        vsnip-integ = vimUtils.buildVimPlugin {
-          name = "vim-vsnip-integ";
-          src = fetchFromGitHub {
-            owner = "hrsh7th";
-            repo = "vim-vsnip-integ";
-            rev = "8f94cdd9ca6c3e6c328edaf22029f1bf17f3d1c5";
-            sha256 = "1wh44m7jn1s7jyk0g9flf2qhkqgcl5amfi5w7dwjqkr8z495r29h";
-          };
-        };
-
       in [
         vim-test
 
@@ -402,23 +347,17 @@ in {
         nvim-treesitter
         nvim-treesitter-refactor
         nvim-treesitter-textobjects
-        vim-elixir
-        cmp-buffer
-        cmp-nvim-lsp
-        nvim-comp
-        vsnip
-        vsnip-integ
+        vim-vsnip
+        vim-vsnip-integ
         vim-jsonnet
 
         # Appearance
         barbar-nvim
-        catppuccino-nvim
-        lualine-nvim
-        vim-airline
-        vim-airline-themes
-        vim-devicons
+        catppuccin-nvim
         lspkind-nvim
+        lualine-nvim
         nvim-web-devicons
+        virt-column
 
         # Navigation
         nerdtree
@@ -427,8 +366,8 @@ in {
         telescope-nvim
         telescope-symbols-nvim
         trouble-nvim
-        # vim-rooter
         vim-cool
+        # vim-rooter
 
         # Pope
         vim-commentary
@@ -441,11 +380,13 @@ in {
         vim-abolish
 
         # Linting / Fixing / Lsp
-        lspsaga-nvim
-        nvim-compe
+        # lspsaga-nvim
+        cmp-nvim-lsp
+        cmp-buffer
+        cmp-nvim-lsp
+        nvim-cmp
         nvim-lspconfig
         neoformat
-        vim-markdown
 
         # Snippets
         vim-vsnip
