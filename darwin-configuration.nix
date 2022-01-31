@@ -18,8 +18,7 @@
 
   nix = {
     trustedUsers = [ "root" "pepo" ];
-    # package = pkgs.nixFlakes;
-    package = pkgs.nixUnstable;
+    package = pkgs.nix_2_4;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
@@ -352,7 +351,7 @@
 
   homebrew.masApps = {
     # Amphetamine = 937984704;
-    Xcode = 497799835;
+    # Xcode = 497799835;
   };
 
   programs.nix-index.enable = true;

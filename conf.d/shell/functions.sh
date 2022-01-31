@@ -35,6 +35,11 @@ function depstree {
   mix xref graph --sink $1
 }
 
+function rebuild_nix {
+  darwin-rebuild build --flake ./\#pepesl
+  darwin-rebuild switch --flake ./\#pepesl
+}
+
 function depstreefilter {
   # Filters deps tree. Defaults to compile
   # which will only list the transitive deps

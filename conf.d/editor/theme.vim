@@ -6,45 +6,38 @@ syntax enable
 syntax sync minlines=256
 
 lua << EOF
-  local catppuccino = require("catppuccino")
+local catppuccin = require("catppuccin")
 
-  catppuccino.setup {
-    colorscheme = "dark_catppuccino",
-    transparency = false,
-    styles = {
-      comments = "italic",
-      functions = "italic",
-      keywords = "italic",
-      strings = "NONE",
-      variables = "NONE",
-    },
-    integrations = {
-      treesitter = true,
-      native_lsp = {
-        enabled = true,
-        styles = {
-          errors = "italic",
-          hints = "italic",
-          warnings = "italic",
-          information = "italic"
-        }
-      },
-      lsp_trouble = true,
-      lsp_saga = true,
-      gitsigns = true,
-      telescope = true,
-    }
-  }
+catppuccin.setup {}
 
-  catppuccino.load()
+--  catppuccino.setup {
+--    colorscheme = "dark_catppuccino",
+--    transparency = false,
+--    styles = {
+--      comments = "italic",
+--      functions = "italic",
+--      keywords = "italic",
+--      strings = "NONE",
+--      variables = "NONE",
+--    },
+--    integrations = {
+--      treesitter = true,
+--      native_lsp = {
+--        enabled = true,
+--        styles = {
+--          errors = "italic",
+--          hints = "italic",
+--          warnings = "italic",
+--          information = "italic"
+--        }
+--      },
+--      lsp_trouble = true,
+--      lsp_saga = true,
+--      gitsigns = true,
+--      telescope = true,
+--    }
+--  }
 
-  require('lualine').setup {
-    options = {
-      theme = "catppuccino"
-    }
-  }
-
+vim.cmd[[colorscheme catppuccin]]
 
 EOF
-
-colorscheme catppuccino
