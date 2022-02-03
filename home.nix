@@ -91,6 +91,7 @@ in {
     dive
     # kind
     terraform
+    terragrunt
     # kubectl
     # kubernetes-helm
     google-cloud-sdk
