@@ -50,7 +50,7 @@ in {
     nodePackages.node2nix
     # here
     tanka
-    # sops
+    sops
     git-crypt
 
     # lsp
