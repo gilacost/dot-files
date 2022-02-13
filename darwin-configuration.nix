@@ -326,9 +326,8 @@
     cask "firefox", args: { language: "en-GB" }
   '';
 
-  homebrew.taps = [ "homebrew/core" "homebrew/cask" "vectorizedio/tap" ];
-  homebrew.brews =
-    [ "mas" "envoy" "openshift-cli" "vectorizedio/tap/redpanda" ];
+  homebrew.taps = [ "homebrew/core" "homebrew/cask" ];
+  homebrew.brews = [ "mas" "envoy" "openshift-cli" ];
 
   homebrew.casks = [
     "lens"
