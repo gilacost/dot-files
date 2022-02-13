@@ -45,6 +45,8 @@ in {
     tree
     gnumake
 
+    peco
+
     nmap
     telnet # common net tool package instead
     nodePackages.node2nix
@@ -234,7 +236,6 @@ in {
       #   "git branch --all | fzf | sed '''s/remotes''\/origin''\///g' | xargs git checkout";
       g = "git";
       gundo = "git reset --soft HEAD~1";
-      gfpl = "git push --force-with-lease";
       ga = "git add";
       gst = "git status";
       gai = "gsina | xargs git add";
@@ -359,6 +360,7 @@ in {
         lualine-nvim
         nvim-web-devicons
         virt-column
+        vim-markdown
 
         # Navigation
         nerdtree
