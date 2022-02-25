@@ -50,6 +50,7 @@ in {
     nmap
     telnet # common net tool package instead
     nodePackages.node2nix
+    nodePackages.cspell
     # here
     tanka
     sops
