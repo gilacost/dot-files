@@ -144,8 +144,7 @@ let g:neoformat_prettier = {
   \ 'stdin': 1,
   \ }
 
-" let g:neoformat_ja_prettier = g:neoformat_prettier
-let g:neoformat_enabled_elixir = ['mixformat']
+let g:neoformat_enabled_elixir = []
 let g:neoformat_javascript_prettier = g:neoformat_prettier
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_json_prettier = g:neoformat_prettier

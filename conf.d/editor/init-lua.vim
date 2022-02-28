@@ -4,7 +4,7 @@ vim.lsp.set_log_level 'trace'
 require('nvim-treesitter.configs').setup {
   ensure_installed = "maintained",
   sync_install = false,
-  disable = { "markdown" },
+  disable = { "markdown", "php" },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
