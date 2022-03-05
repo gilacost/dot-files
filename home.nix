@@ -85,18 +85,18 @@ in {
     postgresql
 
     # OPs
-    argocd
+    # argocd
     # terragrunt
     skopeo
     skaffold
     # minikube
     kompose
     dive
-    # kind
+    kind
     terraform
     terragrunt
-    # kubectl
-    # kubernetes-helm
+    kubectl
+    kubernetes-helm
     google-cloud-sdk
     terraformer
 
@@ -224,6 +224,7 @@ in {
     initExtra = builtins.readFile ./conf.d/shell/functions.sh;
 
     sessionVariables = {
+      DOCKER_BUILDKIT = 1;
       ERL_AFLAGS = "-kernel shell_history enabled";
       NIX_PATH =
         "darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
