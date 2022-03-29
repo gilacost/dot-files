@@ -45,8 +45,8 @@ function depstree {
 }
 
 function rebuild_nix {
-  darwin-rebuild build --flake ./\#pepesl
-  darwin-rebuild switch --flake ./\#pepesl
+  darwin-rebuild build --flake ./\#${1:"pepesl"}
+  darwin-rebuild switch --flake ./\#${1:"pepesl"}
 }
 
 function depstreefilter {
