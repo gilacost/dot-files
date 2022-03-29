@@ -159,7 +159,7 @@ in {
 
     signing = {
       key = gitconfig.gpgKey;
-      signByDefault = false;
+      signByDefault = true;
     };
 
     extraConfig = {
