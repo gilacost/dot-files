@@ -327,9 +327,10 @@
   '';
 
   homebrew.taps = [ "homebrew/core" "homebrew/cask" ];
-  homebrew.brews = [ "mas" "envoy" "openshift-cli" ];
+  homebrew.brews = [ "mas" ];
 
   homebrew.casks = [
+    "google-chrome"
     "lens"
     "surfshark"
     "transmission"
