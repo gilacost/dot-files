@@ -154,3 +154,4 @@ todo, when flakes, bring node and split node packages
 - darwin-rebuild switch --flake ./\#lair
 
 NOTES ALL keystrokes for lsp and config
+sudo scutil --set HostName lair

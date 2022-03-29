@@ -4,10 +4,10 @@ let
   # gitconfig = (lib.mkIf config.networking.hostName == "pepesl" {
   gitconfig = {
 
-    userEmail = "pep.g.dlacoste@erlang-solutions.com";
-    gpgKey = "695027416644669A";
-    # userEmail = "josepgiraltdlacoste@gmail.com";
-    # gpgKey = "1710D238E7756AB4";
+    # userEmail = "pep.g.dlacoste@erlang-solutions.com";
+    # gpgKey = "695027416644669A";
+    userEmail = "josepgiraltdlacoste@gmail.com";
+    gpgKey = "1710D238E7756AB4";
   };
   # }) (lib.mkIf config.networking.hostName != "pepesl" {
   # userEmail = "josepgiraltdlacoste@gmail.com";
@@ -159,7 +159,7 @@ in {
 
     signing = {
       key = gitconfig.gpgKey;
-      signByDefault = true;
+      signByDefault = false;
     };
 
     extraConfig = {
@@ -389,7 +389,7 @@ in {
         vim-abolish
 
         # Linting / Fixing / Lsp
-        # lspsaga-nvim
+        lspsaga-nvim
         cmp-nvim-lsp
         cmp-buffer
         cmp-nvim-lsp

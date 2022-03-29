@@ -82,6 +82,7 @@ require("virt-column").setup({
 -- TODO tailwind
 -- TODO yaml
 
--- local saga = require 'lspsaga'
--- saga.init_lsp_saga()
+local saga = require 'lspsaga'
+saga.init_lsp_saga()
+
 EOF
