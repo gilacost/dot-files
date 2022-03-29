@@ -2,13 +2,15 @@ lua << EOF
 vim.lsp.set_log_level 'trace'
 -- TREESITTER
 require('nvim-treesitter.configs').setup {
-  ensure_installed = "maintained",
-  sync_install = false,
-  disable = { "markdown", "php" },
+  sync_install = true,
   highlight = {
+    disable = { "markdown", "php" },
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+  -- List of parsers to ignore installing
+  ignore_install = { "php" },
+
   incremental_selection = {
     enable = true,
     keymaps = {

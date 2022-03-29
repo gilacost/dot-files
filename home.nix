@@ -27,6 +27,7 @@ in {
   home.packages = with pkgs; [
     neovim-remote
 
+    dasel
     silver-searcher
     (nerdfonts.override { fonts = [ "Iosevka" ]; })
     unixtools.watch
@@ -44,6 +45,8 @@ in {
     tig
     tree
     gnumake
+
+    chromedriver
 
     peco
 
@@ -65,7 +68,6 @@ in {
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server
     nodePackages.yaml-language-server
-    tree-sitter
 
     hadolint
     nixfmt
@@ -106,6 +108,8 @@ in {
     erlang
     asdf-vm
     go
+
+    python39Packages.setuptools
 
     # FE
     yarn
