@@ -317,41 +317,43 @@
   # Homebrew #
   ############
 
-  homebrew.enable = true;
-  homebrew.autoUpdate = true;
-  homebrew.cleanup = "zap";
-  homebrew.global.brewfile = true;
-  homebrew.global.noLock = true;
-  homebrew.extraConfig = ''
-    cask "firefox", args: { language: "en-GB" }
-  '';
+  homebrew = {
+    enable = true;
+    autoUpdate = true;
+    cleanup = "zap";
+    global.brewfile = true;
+    global.noLock = true;
+    extraConfig = ''
+      cask "firefox", args: { language: "en-GB" }
+    '';
 
-  homebrew.taps = [ "homebrew/core" "homebrew/cask" ];
-  homebrew.brews = [ "mas" ];
+    taps = [ "homebrew/core" "homebrew/cask" ];
+    brews = [ "mas" ];
 
-  homebrew.casks = [
-    "google-chrome"
-    "lens"
-    "surfshark"
-    "transmission"
-    "adobe-acrobat-reader"
-    "firefox"
-    "kitty"
-    "1password"
-    "docker"
-    "grammarly"
-    "inkscape"
-    "recordit"
-    "spotify"
-    "vlc"
-    "zoom"
-    "slack"
-    "pop"
-  ];
+    casks = [
+      "google-chrome"
+      "lens"
+      "surfshark"
+      "transmission"
+      "adobe-acrobat-reader"
+      "firefox"
+      "kitty"
+      "1password"
+      "docker"
+      "grammarly"
+      "inkscape"
+      "recordit"
+      "spotify"
+      "vlc"
+      "zoom"
+      "slack"
+      "pop"
+    ];
 
-  homebrew.masApps = {
-    # Amphetamine = 937984704;
-    # Xcode = 497799835;
+    masApps = {
+      # Amphetamine = 937984704;
+      # Xcode = 497799835;
+    };
   };
 
   programs.nix-index.enable = true;
