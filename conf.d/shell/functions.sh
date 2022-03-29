@@ -25,6 +25,10 @@ function rm_pattern {
   find . -type d -name "$1" -exec rm -rf {} +
 }
 
+function update_input {
+  nix flake lock --update-input ${1:"nixpkgs"}
+}
+
 function checkports_host {
   sudo nmap -sTU -O $1
 }

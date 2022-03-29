@@ -51,7 +51,7 @@ in {
     peco
 
     nmap
-    telnet # common net tool package instead
+    inetutils # common net tool package instead
     nodePackages.node2nix
     nodePackages.cspell
     # here
