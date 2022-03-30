@@ -6,130 +6,59 @@ OSX configurations, expressed in [Nix](https://nixos.org/nix)
 
 ## Installation requirements
 
-`homebrew` installed to enable `casks`.
+There are three requirements to be able to apply this setup:
+
+- homebrew
+- xcode developer tools
+- nix
+
+Generate a ssh key and add it to [github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+
+```bash
+ssh-keygen -t rsa -b 4096 -N '' -C "EMAIL"
+```
+
+## Installing homebrew
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew analytics off
 ```
 
-## Casks list
+[official docs](https://brew.sh)
 
-```nix
-  homebrew.casks = [
-   "firefox"
-   "1password"
-   "docker"
-   "grammarly"
-   "inkscape"
-   "recordit"
-   "spotify"
-   "vlc"
-   "zoom"
-   "kitty"
-  ];
-```
+## Installing xcode developer tools
+
+You need git to pull this repository if you open a terminal and type `git` then
+a prompt will appear asking you to install xcode developer tools.
 
 ## Install nix
 
-**NOTE**: If you decide to encrypt the main Drive by enabling file vault, you will need to create the `/nix` volume manually. Follow these [instructions](https://nixos.org/manual/nix/stable/#sect-macos-installation-recommended-notes).
-
-### Steps
-
-1. `sudo echo "nix" > /etc/synthetic.conf`
-
-2. `sudo vifs LABEL=Nix\040Store /nix apfs rw,nobrowse`
-
-3. `sudo reboot`
-
-4. `sudo diskutil apfs addVolume disk1 APFS 'Nix Store' -mountpoint /nix`
-
-5. `curl -L https://nixos.org/nix/install | sh -s -- --daemon`
-
-6. `./install.sh`
-
-## Language servers (NPM)
-
-- `node2nix` [LINK TO PACKAGE] has been used to generate a derivations that contains
-  this node packages:
-
-- `vscode-langservers-extracted`
-- `tailwindcss-language-server`
-
-By running:
+Install nix using the interactive script that they provide for multi-user
+installation.
 
 ```bash
-node2nix -i <(echo '["tailwindcss-language-server",  "vscode-langservers-extracted"]')
+sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
-And then installing the generated default.nix like this
+[official docs](https://nixos.org/download.html)
 
-`nix-env -i -f modules/node/default.nix --show-trace`
+## Install
 
-## Useful commands
-
-- `nix-shell -p nix-info --run "nix-info -m"`
-- `nix-env -q` list packages installed in env
-- `nix-env -e <package>`
-
-next steps:
-
-- kubctl zsh completions
-- compe and lsp trouble
-- lua language server
-- hadolint
-- kubernetes YAML schemas investigate
-- ale for prettier fix
-- setup for all stuff of new project
-- read kubernetes fd
-- deploy current service to kubernetes cluster
-- add nur packages and firefox extensions
-- firefox vimium and firefox profiles
-- vim spell?
-- review unverified
-- review all alias
-- youtube dl
-- vim-vsnip installation and bring nice snippets
-- review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
-- acabar el tour
-- hadolint somewhere (pre-commit docker?)
-- keyboard language? enable and uk? things about other defaults
-- review all vim plugins
-- review all confs with alvivi's and tidy owns
-- hacer list y tal mas fugitive and co
-- key rotation
-- use lua.nix and include elixir ls package
-- compare 1password with pass or last pass
-
-## SSH
-
-## git-crypt
-
-## GPG
-
-1. generate new gpg key
+Before running the install script set the hostname to one list in the `flake.nix`.
 
 ```bash
-gpg --full-generate-key
+sudo scutil --set HostName lair
+./install.sh
 ```
 
-2. show id for previous export, the id is after the '/'
-
-```bash
- gpg --list-secret-keys --keyid-format LONG
-```
-
-3. export public key
-
-```bash
- gpg --armor --export REPLACE_WITH_EXTRACTED_ID
-```
-
-4. display id short version for gitconfig
-
-```bash
-gpg --list-secret-keys --keyid-format SHORT
-```
+- reboot
+- set the keyboard to British PC
+- press `FN` + `ESC`
+- import GPG keys
+- log into password manager
+- log into spotify
+- nvim tree-sitter install all
 
 ## Varmilo keyboard
 
@@ -140,18 +69,31 @@ gpg --list-secret-keys --keyid-format SHORT
 - `FN` + `ESC` for about 3 seconds until `capslock` flashes and keyboard will be reset to defaults.
   rm /Library/Preferences/com.apple.keyboardtype.plist
 
-nix build ~/.config/darwin\#darwinConfigurations.Pepos-MacBooks.system
-./result/sw/bin/darwin-rebuild switch --flake ~/.config/darwin
+next steps:
 
-leerme nix.dev for sure
-https://apple.stackexchange.com/questions/335400/how-switch-mac-uk-pc-keyboard-layout-backslash-and-backtick-to-match-normal
-todo, when flakes, bring node and split node packages
+- emoji shortcut
+- British pc is not in keyboard lists by defaults
+- keyboards do not appear in top bar
+- Bluetooth do not appear in the top bar
+- system preferences in the docker
+- battery percentage are not in the top bar
+- waka apy key is not populated automatically
+- touch zsh_local
 
-- nix flake update ./
-- nix build ./\#darwinConfigurations.Joseps-MBP.system
-- ./result/sw/bin/darwin-rebuild switch --flake ./
-- swish review window management
-- darwin-rebuild switch --flake ./\#lair
-
-NOTES ALL keystrokes for lsp and config
-sudo scutil --set HostName lair
+- kubctl zsh completions
+- compe and lsp trouble
+- lua language server
+- hadolint
+- kubernetes YAML schemas investigate
+- firefox vimium and firefox profiles
+- review unverified
+- review all alias
+- youtube dl
+- vim-vsnip installation and bring nice snippets
+- review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
+- hadolint somewhere (pre-commit docker?)
+- keyboard language? enable and uk? things about other defaults
+- review all vim plugins
+- review all confs with alvivi's and tidy owns
+- hacer list y tal mas fugitive and co
+- key rotation
