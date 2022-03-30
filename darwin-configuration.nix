@@ -333,7 +333,7 @@
     casks = [
       "google-chrome"
       "lens"
-      "surfshark"
+      # "surfshark"
       "transmission"
       "adobe-acrobat-reader"
       "firefox"
@@ -350,10 +350,7 @@
       "pop"
     ];
 
-    masApps = {
-      # Amphetamine = 937984704;
-      # Xcode = 497799835;
-    };
+    masApps = { Amphetamine = 937984704; };
   };
 
   programs.nix-index.enable = true;

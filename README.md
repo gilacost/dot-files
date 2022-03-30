@@ -11,6 +11,7 @@ There are three requirements to be able to apply this setup:
 - homebrew
 - xcode developer tools
 - nix
+- being logged into the app store
 
 Generate a ssh key and add it to [github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
 
