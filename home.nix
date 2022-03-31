@@ -1,19 +1,9 @@
 { config, pkgs, lib, ... }:
 let
-  # _ = builtins.trace config.networking.hostName;
-  # gitconfig = (lib.mkIf config.networking.hostName == "pepesl" {
   gitconfig = {
-
-    # userEmail = "pep.g.dlacoste@erlang-solutions.com";
-    # gpgKey = "695027416644669A";
     userEmail = "josepgiraltdlacoste@gmail.com";
     gpgKey = "1710D238E7756AB4";
   };
-  # }) (lib.mkIf config.networking.hostName != "pepesl" {
-  # userEmail = "josepgiraltdlacoste@gmail.com";
-  # gpgKey = "1710D238E7756AB4";
-  # });
-
 in {
 
   programs.home-manager.enable = true;
@@ -85,6 +75,7 @@ in {
     # openshift
 
     postgresql
+    flyctl
 
     # OPs
     # argocd
@@ -290,15 +281,14 @@ in {
         "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl delete pod \${1} -n \${0}'";
       kubesh =
         "kubectl get pods --all-namespaces | sed -n '1!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl exec -it \${1} -n \${0} -- /bin/sh'";
-      # kubeinitcontext =
-      #   "aws eks --region $AWS_REGION update-kubeconfig --name $1";
-      # RAND
       rm = "rm -i";
       cat = "bat";
+      gcoi =
+        "git branch --all | peco | sed 's/remotes\\/origin\\///g' | xargs git checkout";
+      ghcoi =
+        "gh pr list | peco | awk '{ NF-=1; print $NF}' | xargs git checkout";
     };
   };
-  ### yaml for image  kubectl run kiada --image=luksa/kiada:0.1 --dry-run=client -o yaml > mypod.yaml
-  # kubectl run --image=tutum/curl -it --restart=Never --rm client-pod curl 10.244.2.4:8080
 
   ###################
   # EDITOR   ########
