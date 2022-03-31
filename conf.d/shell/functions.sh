@@ -45,8 +45,8 @@ function depstree {
 }
 
 function rebuild_nix {
-  darwin-rebuild build --flake ./\#${1:"pepesl"}
-  darwin-rebuild switch --flake ./\#${1:"pepesl"}
+  darwin-rebuild build --flake ./\#$1
+  darwin-rebuild switch --flake ./\#$1
 }
 
 function depstreefilter {
@@ -110,4 +110,3 @@ complete -F __start_kubectl k
 
 
 source $HOME/.zshrc_local
-

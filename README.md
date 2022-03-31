@@ -72,29 +72,29 @@ sudo scutil --set HostName lair
 
 next steps:
 
-- emoji shortcut
-- British pc is not in keyboard lists by defaults
-- keyboards do not appear in top bar
-- Bluetooth do not appear in the top bar
-- system preferences in the docker
-- battery percentage are not in the top bar
-- waka apy key is not populated automatically
-- touch zsh_local
+- [ ] emoji shortcut
+- [ ] British pc is not in keyboard lists by defaults
+- [ ] keyboards do not appear in top bar
+- [ ] Bluetooth do not appear in the top bar
+- [ ] system preferences in the docker
+- [ ] battery percentage are not in the top bar
+- [ ] waka apy key is not populated automatically
+- [ ] touch zsh_local
 
-- kubctl zsh completions
-- compe and lsp trouble
-- lua language server
-- hadolint
-- kubernetes YAML schemas investigate
-- firefox vimium and firefox profiles
-- review unverified
-- review all alias
-- youtube dl
-- vim-vsnip installation and bring nice snippets
-- review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
-- hadolint somewhere (pre-commit docker?)
-- keyboard language? enable and uk? things about other defaults
-- review all vim plugins
-- review all confs with alvivi's and tidy owns
-- hacer list y tal mas fugitive and co
-- key rotation
+- [ ] kubctl zsh completions
+- [ ] compe and lsp trouble
+- [ ] lua language server
+- [ ] hadolint
+- [ ] kubernetes YAML schemas investigate
+- [ ] firefox vimium and firefox profiles
+- [ ] review unverified
+- [ ] review all alias
+- [ ] youtube dl
+- [ ] vim-vsnip installation and bring nice snippets
+- [ ] review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
+- [ ] hadolint somewhere (pre-commit docker?)
+- [ ] keyboard language? enable and uk? things about other defaults
+- [ ] review all vim plugins
+- [ ] review all confs with alvivi's and tidy owns
+- [ ] hacer list y tal mas fugitive and co
+- [ ] key rotation
