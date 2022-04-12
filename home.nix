@@ -54,6 +54,7 @@ in {
     # lsp
     terraform-ls
     rnix-lsp
+    rls
     elixir_ls
     erlang-ls
     nodePackages.bash-language-server
@@ -97,8 +98,14 @@ in {
     terraformer
     terraform-docs
 
-    rebar3
     # programming languages
+    # RUST
+    cargo
+    rustc
+    rustfmt
+
+    # BEAM
+    rebar3
     elixir
     erlang
     asdf-vm
