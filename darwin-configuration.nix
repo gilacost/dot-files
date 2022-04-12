@@ -328,16 +328,16 @@
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
-    brews = [ "mas" ];
+    brews = [ "mas" "asciinema" "checkov" ];
 
     casks = [
       "google-chrome"
       "lens"
-      # "surfshark"
       "transmission"
       "adobe-acrobat-reader"
       "firefox"
       "kitty"
+      "remarkable"
       "1password"
       "docker"
       "grammarly"
@@ -350,7 +350,10 @@
       "pop"
     ];
 
-    masApps = { Amphetamine = 937984704; };
+    masApps = {
+      Amphetamine = 937984704;
+      # MettingBar = 1532419400;
+    };
   };
 
   programs.nix-index.enable = true;
