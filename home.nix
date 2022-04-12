@@ -36,6 +36,8 @@ in {
     tree
     gnumake
 
+    coreutils
+
     chromedriver
 
     peco
@@ -68,7 +70,7 @@ in {
     pre-commit
 
     # cloud
-    awscli
+    awscli2
     azure-cli
     google-cloud-sdk
     linode-cli
@@ -79,11 +81,12 @@ in {
 
     # OPs
     # argocd
-    # terragrunt
+    terragrunt
     skopeo
     skaffold
     # minikube
     kompose
+    infracost
     dive
     kind
     terraform
@@ -92,6 +95,7 @@ in {
     kubernetes-helm
     google-cloud-sdk
     terraformer
+    terraform-docs
 
     rebar3
     # programming languages
@@ -104,6 +108,7 @@ in {
 
     # FE
     yarn
+    htop
   ];
 
   programs.direnv.enable = true;

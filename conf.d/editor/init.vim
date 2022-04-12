@@ -136,8 +136,15 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
+
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
+
+function! ToggleGenericFormat()
+  let g:neoformat_basic_format_retab = !g:neoformat_basic_format_retab
+  let g:neoformat_basic_format_trim = !g:neoformat_basic_format_retab
+endfunction
+
 let g:neoformat_prettier = {
   \ 'exe': '/etc/profiles/per-user/pepo/bin/prettier',
   \ 'args': ['--stdin-filepath', '"%:p"'],
