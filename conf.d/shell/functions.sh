@@ -9,6 +9,13 @@ fi
 export VISUAL=$EDITOR
 alias e=$EDITOR
 
+# rust avoid
+# linking with cc failed
+# note: ld: library not found for -lSystem
+# https://github.com/TimNN/cargo-lipo/issues/41
+SDKROOT=`xcrun --sdk macosx --show-sdk-path`;
+export LIBRARY_PATH="$SDKROOT/usr/lib";
+
 unsetopt BEEP
 
 unsetopt correct
