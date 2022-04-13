@@ -54,7 +54,7 @@ in {
     # lsp
     terraform-ls
     rnix-lsp
-    rls
+    rust-analyzer
     elixir_ls
     erlang-ls
     nodePackages.bash-language-server
@@ -101,6 +101,7 @@ in {
     # programming languages
     # RUST
     cargo
+    cargo-edit
     rustc
     rustfmt
 

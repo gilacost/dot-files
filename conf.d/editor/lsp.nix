@@ -89,15 +89,7 @@ pkgs: ''
         }
       }
     }
-    lsp.rls.setup {
-      settings = {
-        rust = {
-          unstable_features = true,
-          build_on_save = false,
-          all_features = true,
-        },
-      },
-    }
+    lsp.rust_analyzer.setup{}
   EOF
   autocmd BufWritePre *.ex,*.exs,*.eex,*.leex,*.heex lua vim.lsp.buf.formatting_seq_sync()
 ''
