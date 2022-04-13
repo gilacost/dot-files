@@ -328,7 +328,7 @@
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
-    brews = [ "mas" "asciinema" "checkov" ];
+    brews = [ "mas" "asciinema" "checkov" "fwup" ];
 
     casks = [
       "google-chrome"
