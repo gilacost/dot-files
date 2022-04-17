@@ -328,9 +328,10 @@
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
-    brews = [ "mas" "asciinema" "checkov" "fwup" ];
+    brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" ];
 
     casks = [
+      "omnigraffle"
       "google-chrome"
       "lens"
       "transmission"
