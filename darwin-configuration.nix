@@ -353,6 +353,7 @@
 
     masApps = {
       Amphetamine = 937984704;
+      Pages = 409201541;
       # MettingBar = 1532419400;
     };
   };
