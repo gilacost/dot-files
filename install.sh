@@ -1,31 +1,23 @@
 #!/bin/bash
 
-mkdir -p ~/.nixpkgs
+# sh <(curl -L https://nixos.org/nix/install) --daemon
+# TODO clone wallepapers https://github.com/catppuccin/wallpapers.git
+
+DOT_FILES_REPO=$HOME/Repos/dot-files
+
 mkdir -p ~/.config/kitty
 
-ln -s  $DOT_DIR/conf.d/terminal/nvim.session $HOME/.config/nvim.session
-ln -s  $DOT_DIR/conf.d/terminal/kitty.conf $HOME/.config/kitty/kitty.conf
-ln -s  $HOME/Repos/dot-files/spell $HOME/.config/nvim/spell
+sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.ol
+sudo ln -s  $DOT_FILES_REPO/nix.conf /etc/nix/nix.conf
 
-# Configure the channels
+ln -s  $DOT_FILES_REPO/conf.d/terminal/nvim.session $HOME/.config/nvim.session
+ln -s  $DOT_FILES_REPO/conf.d/terminal/kitty.conf $HOME/.config/kitty/kitty.conf
+ln -s  $DOT_FILES_REPO/spell $HOME/.config/nvim/spell
 
-if ! grep -q nix-darwin ~/.nix-channels; then
-  echo "https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin" >> ~/.nix-channels
-fi
+nix build .#darwinConfigurations.lair.system
+./result/sw/bin/darwin-rebuild switch --flake .#lair
+darwin-rebuild switch --flake .#lair
 
-export NIX_PATH=darwin=$HOME/.nix-defexpr/channels/darwin:$NIX_PATH
-export NIX_PATH=darwin-config=$HOME/Repos/dot-files/darwin-configuration.nix:$HOME/.nix-defexpr/channels:$NIX_PATH
-
-if ! grep -q home-manager ~/.nix-channels; then
-  echo "https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager" >> ~/.nix-channels
-fi
-
-export NIX_PATH=home-manager=$HOME/.nix-defexpr/channels/home-manager:$NIX_PATH
-
-nix-channel --update
-
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-./result/bin/darwin-installer
-
-darwin-rebuild build --flake ./\#lair
-darwin-rebuild switch --flake ./\#lair
+# maybe error
+# https://github.com/LnL7/nix-darwin/issues/451
+# fucking monterrey requires you to switch the shell 'chsh -s /etc/profiles/per-user/pepo/bin/zsh'
