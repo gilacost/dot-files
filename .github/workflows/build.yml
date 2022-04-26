@@ -30,8 +30,9 @@ jobs:
 
       - name: Adding run symlink to synthetic
         run: |
-          printf 'run\tprivate/var/run' | sudo tee -a /etc/synthetic.conf
-          /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t; echo $?
+          ln -sfn /System/Volumes/Data/private/var/run /run
+          # printf 'run\tprivate/var/run' | sudo tee -a /etc/synthetic.conf
+          # /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t; echo $?
 
       - name: Run Flake Checks
         run: |
