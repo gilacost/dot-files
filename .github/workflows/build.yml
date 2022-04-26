@@ -28,12 +28,6 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Adding run symlink to synthetic
-        run: |
-          ln -sfn /System/Volumes/Data/private/var/run /run
-          # printf 'run\tprivate/var/run' | sudo tee -a /etc/synthetic.conf
-          # /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t; echo $?
-
       - name: Run Flake Checks
         run: |
           nix flake check -v --show-trace
@@ -41,5 +35,12 @@ jobs:
 
       - name: Run build
         run: |
-          nix build ./\#darwinConfigurations.ci.system
-          ./result/sw/bin/darwin-rebuild switch --flake .#ci
+          nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+          nix-channel --update
+          export NIX_PATH=$HOME/.nix-defexpr/channels
+          nix-shell -A installer
+          nix build .#darwinConfigurations.ci.system --override-input darwin .
+          ./result/sw/bin/darwin-rebuild switch --flake .#darwinConfigurations.ci.system --override-input darwin .
+          . /etc/static/bashrc
+          darwin-rebuild build --flake .#darwinConfigurations.ci.system --override-input darwin .
+          # ./result/sw/bin/darwin-rebuild switch --flake .#ci
