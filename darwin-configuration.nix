@@ -354,7 +354,7 @@
     masApps = {
       Amphetamine = 937984704;
       Pages = 409201541;
-      # MettingBar = 1532419400;
+      Keynote = 409183694;
     };
   };
 
@@ -363,6 +363,5 @@
   environment.variables.LANG = "en_GB.UTF-8";
   environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
 
-  # Recreate /run/current-system symlink after boot
   services.activate-system.enable = true;
 }
