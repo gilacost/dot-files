@@ -1,4 +1,4 @@
-name: 'system build'
+name: "system build"
 on:
   push:
     branches:
@@ -15,10 +15,15 @@ jobs:
           - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
-
       - uses: actions/checkout@v2.3.5
         with:
           fetch-depth: 0
+
+      - name: Cache install Nix packages
+        uses: rikhuijzer/cache-install@v1
+        with:
+          key: nix-${{ hashFiles('flake.lock') }}
+          nix_file: "flake.nix"
 
       - uses: cachix/install-nix-action@v17
         env:
@@ -37,4 +42,4 @@ jobs:
       - name: Run build
         run: |
           nix build ./\#darwinConfigurations.ci.system
-          # ./result/sw/bin/darwin-rebuild switch --flake ./
+          ./result/sw/bin/darwin-rebuild switch --flake .#ci

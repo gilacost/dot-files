@@ -2,7 +2,7 @@
 
 {
   environment.shells = [ pkgs.zsh ];
-  environment.systemPackages = [ pkgs.zsh pkgs.gcc ];
+
   users = {
 
     nix.configureBuildUsers = true;
