@@ -37,10 +37,16 @@ jobs:
         run: |
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update
+      - name: Run build 2
+        run: |
           export NIX_PATH=$HOME/.nix-defexpr/channels
           nix-shell -A installer
+      - name: Run build 3
+        run: |
           nix build .#darwinConfigurations.ci.system --override-input darwin .
           ./result/sw/bin/darwin-rebuild switch --flake .#darwinConfigurations.ci.system --override-input darwin .
+      - name: Run build 4
+        run: |
           . /etc/static/bashrc
           darwin-rebuild build --flake .#darwinConfigurations.ci.system --override-input darwin .
           # ./result/sw/bin/darwin-rebuild switch --flake .#ci
