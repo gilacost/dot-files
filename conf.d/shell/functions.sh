@@ -76,7 +76,7 @@ function insidecurl {
 }
 
 function erlv {
-  erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().'  -noshell
+  cat $(dirname $(dirname $(which erl)))/lib/erlang/releases/**/OTP_VERSION
 }
 
 function dockerlogin {

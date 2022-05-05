@@ -85,6 +85,8 @@ in {
     terragrunt
     skopeo
     skaffold
+    nomad
+    vagrant
     # minikube
     kompose
     infracost
@@ -107,8 +109,8 @@ in {
 
     # BEAM
     rebar3
-    elixir
-    erlang
+    # elixir
+    # erlang
     asdf-vm
     go
 
