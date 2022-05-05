@@ -18,7 +18,7 @@
 
   nix = {
     trustedUsers = [ "root" "pepo" ];
-    package = pkgs.nix_2_4;
+    package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
@@ -328,10 +328,18 @@
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
-    brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" ];
+    brews = [
+      "mas"
+      "asciinema"
+      "checkov"
+      "fwup"
+      "coreutils"
+      "reviewdog/tap/reviewdog"
+    ];
 
     casks = [
       "omnigraffle"
+      "virtualbox"
       "google-chrome"
       "lens"
       "transmission"
