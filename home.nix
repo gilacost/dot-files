@@ -187,6 +187,7 @@ in {
       rerere = { enabled = true; }; # review
       core = { editor = "nvr -cc split --remote-wait"; };
       alias = {
+        ccount = "git rev-list --all --count";
         co = "checkout";
         l =
           "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative";
