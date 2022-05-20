@@ -60,34 +60,9 @@ pkgs: ''
       capabilities = capabilities,
       on_attach = on_attach,
     }
-    lsp.tailwindcss.setup{
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
     lsp.bashls.setup{
       capabilities = capabilities,
       on_attach = on_attach,
-    }
-    lsp.jsonls.setup{
-      commands = {
-        Format = {
-          function()
-            vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
-          end
-        }
-      }
-    }
-    lsp.yamlls.setup{
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = {
-        yaml = {
-          schemas = {
-            kubernetes = "*.yaml",
-    --        skaffold = "skaffold.yaml",
-          }
-        }
-      }
     }
     lsp.rust_analyzer.setup{}
   EOF

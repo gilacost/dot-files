@@ -3,16 +3,15 @@
 # sh <(curl -L https://nixos.org/nix/install) --daemon
 # TODO clone wallepapers https://github.com/catppuccin/wallpapers.git
 
-DOT_FILES_REPO=$HOME/Repos/dot-files
 
 mkdir -p ~/.config/kitty
 
 sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.ol
-sudo ln -s  $DOT_FILES_REPO/nix.conf /etc/nix/nix.conf
+sudo ln -s  $HOME/Repos/dot-files/nix.conf /etc/nix/nix.conf
 
-ln -s  $DOT_FILES_REPO/conf.d/terminal/nvim.session $HOME/.config/nvim.session
-ln -s  $DOT_FILES_REPO/conf.d/terminal/kitty.conf $HOME/.config/kitty/kitty.conf
-ln -s  $DOT_FILES_REPO/spell $HOME/.config/nvim/spell
+ln -s  $HOME/Repos/dot-files/conf.d/terminal/nvim.session $HOME/.config/nvim.session
+ln -s  $HOME/Repos/dot-files/conf.d/terminal/kitty.conf $HOME/.config/kitty/kitty.conf
+ln -s  $HOME/Repos/dot-files/spell $HOME/.config/nvim
 
 nix build .#darwinConfigurations.lair.system
 ./result/sw/bin/darwin-rebuild switch --flake .#lair
