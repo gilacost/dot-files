@@ -52,15 +52,16 @@ in {
     git-crypt
 
     # lsp
-    terraform-ls
-    rnix-lsp
-    rust-analyzer
     elixir_ls
     erlang-ls
-    nodePackages.bash-language-server
+    terraform-ls
+    rnix-lsp
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server
-    nodePackages.yaml-language-server
+    nodePackages.bash-language-server
+    # nodePackages.yaml-language-server
+    #  todo Json ls and tailwindcss
+    rust-analyzer
 
     hadolint
     nixfmt

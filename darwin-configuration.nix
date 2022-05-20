@@ -328,17 +328,11 @@
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
-    brews = [
-      "mas"
-      "asciinema"
-      "checkov"
-      "fwup"
-      "coreutils"
-      "reviewdog/tap/reviewdog"
-    ];
+    brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" ];
 
     casks = [
       "omnigraffle"
+      "db-browser-for-sqlite"
       "virtualbox"
       "google-chrome"
       "lens"
