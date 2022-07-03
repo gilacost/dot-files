@@ -328,7 +328,7 @@
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
-    brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" ];
+    brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
       "omnigraffle"
@@ -341,6 +341,7 @@
       "firefox"
       "kitty"
       "remarkable"
+      # "surfshark"
       "1password"
       "docker"
       "grammarly"
@@ -357,6 +358,7 @@
       Amphetamine = 937984704;
       Pages = 409201541;
       Keynote = 409183694;
+      "Surfshark: Unlimited VPN Proxy" = 1437809329;
     };
   };
 

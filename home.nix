@@ -36,6 +36,8 @@ in {
     tree
     gnumake
 
+    zsh-syntax-highlighting
+
     coreutils
 
     chromedriver
@@ -83,7 +85,9 @@ in {
 
     # OPs
     # argocd
+    # ansible
     terragrunt
+    packer
     skopeo
     skaffold
     nomad
@@ -118,6 +122,8 @@ in {
     python39Packages.setuptools
 
     # FE
+    nodejs
+    nodePackages.npm
     yarn
     htop
   ];
@@ -216,16 +222,30 @@ in {
     enableAutosuggestions = true;
 
     history.extended = true;
-    plugins = [{
-      name = "zsh-fzf-tab";
-      file = "fzf-tab.plugin.zsh";
-      src = pkgs.fetchFromGitHub {
-        owner = "Aloxaf";
-        repo = "fzf-tab";
-        rev = "0c36bdcf6a80ec009280897f07f56969f94d377e";
-        sha256 = "0ymp9ky0jlkx9b63jajvpac5g3ll8snkf8q081g0yw42b9hwpiid";
-      };
-    }];
+    plugins = [
+      {
+        name = "zsh-fzf-tab";
+        file = "fzf-tab.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "Aloxaf";
+          repo = "fzf-tab";
+          rev = "0c36bdcf6a80ec009280897f07f56969f94d377e";
+          sha256 = "0ymp9ky0jlkx9b63jajvpac5g3ll8snkf8q081g0yw42b9hwpiid";
+        };
+      }
+      {
+        name = "catppuccin-zsh-syntax-highlighting";
+        file = "catppuccin-zsh-syntax-highlighting.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "zsh-syntax-highlighting";
+          rev = "938da69f1be3e7b34b8ff0bec662505c226c58a8";
+          sha256 = "18yafns9d3hnw9j0qgaqyx2mn8xlj3kv9qnx7lhbs5nlgxcwdcm7";
+          # 050klwq8pgvmp269pdlg673zyqh269ljkj69vyx6z2iw6qs51a42
+        };
+      }
+
+    ];
 
     # Review prezto and pure options
     prezto = {

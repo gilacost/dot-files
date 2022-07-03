@@ -65,6 +65,7 @@ pkgs: ''
       on_attach = on_attach,
     }
     lsp.rust_analyzer.setup{}
+    lsp.ansiblels.setup{}
   EOF
   autocmd BufWritePre *.ex,*.exs,*.eex,*.leex,*.heex lua vim.lsp.buf.formatting_seq_sync()
 ''

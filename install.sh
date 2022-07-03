@@ -14,9 +14,14 @@ ln -s  $HOME/Repos/dot-files/conf.d/terminal/kitty.conf $HOME/.config/kitty/kitt
 ln -s  $HOME/Repos/dot-files/spell $HOME/.config/nvim
 
 nix build .#darwinConfigurations.lair.system
-./result/sw/bin/darwin-rebuild switch --flake .#lair
-darwin-rebuild switch --flake .#lair
+./result/sw/bin/darwin-rebuild switch --flake ./\#lair
+darwin-rebuild switch --flake ./\#lair
 
 # maybe error
 # https://github.com/LnL7/nix-darwin/issues/451
 # fucking monterrey requires you to switch the shell 'chsh -s /etc/profiles/per-user/pepo/bin/zsh'
+rm -fr $(brew --repo homebrew/core)  # because you can't `brew untap homebrew/core`
+brew tap homebrew/core
+mkdir -p ~/.config/kitty
+sudo rm  /etc/nix/nix.conf
+sudo rm /etc/shells
