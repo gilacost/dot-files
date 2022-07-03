@@ -115,5 +115,8 @@ source <(kubectl completion zsh)
 alias k=kubectl
 complete -F __start_kubectl k
 
+export PATH=$PATH:$HOME/Repos/dot-files/modules/node_modules/@ansible/ansible-language-server/bin
+
+
 
 source $HOME/.zshrc_local
