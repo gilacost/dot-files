@@ -94,6 +94,7 @@ in {
     vagrant
     # minikube
     kompose
+    vault
     infracost
     dive
     kind
@@ -107,6 +108,7 @@ in {
 
     # programming languages
     # RUST
+    httpie
     cargo
     cargo-edit
     rustc
@@ -114,8 +116,8 @@ in {
 
     # BEAM
     rebar3
-    # elixir
-    # erlang
+    elixir
+    erlang
     asdf-vm
     go
 
