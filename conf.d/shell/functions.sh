@@ -1,20 +1,18 @@
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-  if [ -x "$(command -v nvr)" ]; then
-    # alias nvim=nvr
-    export EDITOR='nvr --remote-wait'
-  else
-    export EDITOR='echo "No nesting!"'
-  fi
+if [ -x "$(command -v nvr)" ]; then
+  # alias nvim=nvr
+  export EDITOR='nvr --remote-wait'
+else
+  export EDITOR='echo "No nesting!"'
 fi
 export VISUAL=$EDITOR
 alias e=$EDITOR
 
-# rust avoid
-# linking with cc failed
-# note: ld: library not found for -lSystem
-# https://github.com/TimNN/cargo-lipo/issues/41
-SDKROOT=`xcrun --sdk macosx --show-sdk-path`;
-export LIBRARY_PATH="$SDKROOT/usr/lib";
+# # rust avoid
+# # linking with cc failed
+# # note: ld: library not found for -lSystem
+# # https://github.com/TimNN/cargo-lipo/issues/41
+# SDKROOT=`xcrun --sdk macosx --show-sdk-path`;
+# export LIBRARY_PATH="$SDKROOT/usr/lib";
 
 unsetopt BEEP
 

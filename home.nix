@@ -69,7 +69,6 @@ in {
     nixfmt
     nodePackages.prettier
     erlfmt
-    go-jsonnet
 
     pre-commit
 
@@ -93,7 +92,7 @@ in {
     nomad
     vagrant
     # minikube
-    kompose
+    # kompose
     vault
     infracost
     dive
