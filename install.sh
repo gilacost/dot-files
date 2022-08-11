@@ -3,6 +3,18 @@
 # sh <(curl -L https://nixos.org/nix/install) --daemon
 # TODO clone wallepapers https://github.com/catppuccin/wallpapers.git
 
+export PATH=/usr/bin:/bin:/usr/sbin
+
+touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
+PROD=$(softwareupdate -l |
+       grep "\*.*Command Line" |
+       head -n 1 | awk -F"*" '{print$2}' |
+       sed -e 's/^ *//' |
+       sed 's/Label: //g' |
+       tr -d '\n')
+softwareupdate -i "$PROD" --verbose
+/usr/bin/make install
+
 
 mkdir -p ~/.config/kitty
 
