@@ -7,6 +7,7 @@
 
     nix.configureBuildUsers = true;
     users = {
+
       pepo = {
         home = "/Users/pepo";
         shell = pkgs.zsh;
@@ -118,17 +119,17 @@
 
   # YABAI ####
   services.yabai = {
-    enable = true;
+    enable = false;
     enableScriptingAddition = true;
     package = pkgs.yabai;
     config = {
-      window_origin_display = "default";
       # layout
       layout = "bsp";
       auto_balance = "off";
       window_topmost = "off";
       split_ratio = "0.50";
       window_placement = "second_child";
+      debug_output = "on";
       # Gaps
       window_gap = 12;
       top_padding = 35;
@@ -203,7 +204,8 @@
     };
   };
 
-  launchd.user.agents.yabai.serviceConfig.StandardErrorPath = "/tmp/yabai.log";
+  launchd.user.agents.yabai.serviceConfig.StandardErrorPath =
+    "/tmp/yabai.error";
   launchd.user.agents.yabai.serviceConfig.StandardOutPath = "/tmp/yabai.log";
 
   ############
@@ -244,13 +246,16 @@
       "zoom"
       "slack"
       "pop"
+      "skype"
     ];
 
     masApps = {
+      # "Numbers" = 409203825;
       # Amphetamine = 937984704;
       # Pages = 409201541;
       # Keynote = 409183694;
       # "Surfshark: Unlimited VPN Proxy" = 1437809329;
+      # Magnet = 441258766;
     };
   };
 

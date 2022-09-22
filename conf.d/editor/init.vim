@@ -122,7 +122,7 @@ if exists('g:loaded_webdevicons')
 endif
 
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
-" autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
+autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
 au BufNewFile,BufRead rebar.config  setf erlang
 au BufNewFile,BufRead *app.src  setf erlang
 " au BufNewFile,BufRead *heex  setf elixir

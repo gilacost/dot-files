@@ -25,6 +25,10 @@ function gsina {
   | awk '{ print "'`git rev-parse --show-toplevel`'/"$2 }'
 }
 
+function service_port {
+  sudo netstat -tulnp
+}
+
 function rm_pattern {
   # removes nested folders of $1=pattern, e.g "_build"
   find . -type d -name "$1" -exec rm -rf {} +
