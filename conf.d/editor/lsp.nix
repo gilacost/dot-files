@@ -64,6 +64,7 @@ pkgs: ''
       capabilities = capabilities,
       on_attach = on_attach,
     }
+    lsp.pyright.setup{}
     lsp.rust_analyzer.setup{}
     lsp.ansiblels.setup{}
   EOF

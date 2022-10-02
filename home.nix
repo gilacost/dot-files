@@ -120,6 +120,8 @@ in {
     asdf-vm
     go
 
+    nodePackages.pyright
+    python39Packages.autopep8
     python39Packages.setuptools
 
     # FE
