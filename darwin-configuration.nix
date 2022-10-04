@@ -331,6 +331,10 @@
     global.noLock = true;
     extraConfig = ''
       cask "firefox", args: { language: "en-GB" }
+      repo = "popcorn-official/popcorn-desktop"
+      tap repo, "https://github.com/#{repo}.git"
+      #ENV["HOMEBREW_POPCORN_TIME_BUILD"] = "false"
+      cask "popcorn-time" #, args: { "no-quarantine": true }
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];

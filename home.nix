@@ -2,7 +2,7 @@
 let
   gitconfig = {
     userEmail = "josepgiraltdlacoste@gmail.com";
-    gpgKey = "1710D238E7756AB4";
+    gpgKey = "CA5FC2044BDAA993";
   };
 in {
 
