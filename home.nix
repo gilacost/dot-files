@@ -35,6 +35,7 @@ in {
     tig
     tree
     gnumake
+    imagemagick
 
     zsh-syntax-highlighting
 
@@ -121,8 +122,11 @@ in {
     go
 
     nodePackages.pyright
-    python39Packages.autopep8
-    python39Packages.setuptools
+
+    python310Full
+    python310Packages.autopep8
+    python310Packages.numpy
+    python310Packages.setuptools
 
     # FE
     nodejs
