@@ -342,10 +342,11 @@
 
     casks = [
       "omnigraffle"
-      "db-browser-for-sqlite"
+      "microsoft-teams"
+      # "db-browser-for-sqlite"
       "virtualbox"
       "google-chrome"
-      "lens"
+      # "lens"
       "transmission"
       "adobe-acrobat-reader"
       "firefox"
@@ -354,23 +355,24 @@
       "1password"
       "docker"
       "grammarly"
-      "inkscape"
+      # "inkscape"
       "recordit"
       "spotify"
       "vlc"
       "zoom"
       "slack"
-      "pop"
+      # "pop"
       "skype"
+      "vmware-fusion"
     ];
 
     masApps = {
-      # "Numbers" = 409203825;
-      # Amphetamine = 937984704;
-      # Pages = 409201541;
-      # Keynote = 409183694;
-      # "Surfshark: Unlimited VPN Proxy" = 1437809329;
-      # Magnet = 441258766;
+      "Numbers" = 409203825;
+      Amphetamine = 937984704;
+      Pages = 409201541;
+      Keynote = 409183694;
+      "Surfshark: Unlimited VPN Proxy" = 1437809329;
+      Magnet = 441258766;
     };
   };
 
