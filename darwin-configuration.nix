@@ -341,7 +341,7 @@
     brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
-      "omnigraffle"
+      # "omnigraffle"
       "microsoft-teams"
       # "db-browser-for-sqlite"
       "virtualbox"
@@ -377,9 +377,7 @@
   };
 
   programs.nix-index.enable = true;
-
   environment.variables.LANG = "en_GB.UTF-8";
   environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
-
   services.activate-system.enable = true;
 }
