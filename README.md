@@ -68,7 +68,8 @@ sudo scutil --set HostName lair
 - If `capslock` does not flash after pressing any of the previous combinations mentioned above. Keyboard
   should be already in mentioned mode.
 - `FN` + `ESC` for about 3 seconds until `capslock` flashes and keyboard will be reset to defaults.
-  rm /Library/Preferences/com.apple.keyboardtype.plist
+- https://en.varmilo.com/keyboardproscenium/question
+- Hold Fn down and press ESC about 4 seconds, if Capslocked backlight can flash 3 times, it means reset succeed. If FN and left WIN swapped,hold left WIN down, and press ESC about 4 seconds, capslocked backlight will flash 3 times.
 
 next steps:
 
