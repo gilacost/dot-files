@@ -25,7 +25,7 @@ pkgs: ''
       buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
       buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
       buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-      buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+      buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
     end
     local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
     for type, icon in pairs(signs) do
@@ -33,7 +33,7 @@ pkgs: ''
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
     require("trouble").setup()
-    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
     lsp.elixirls.setup {
       capabilities = capabilities,
       cmd = { "${pkgs.elixir_ls}/bin/elixir-ls" },
@@ -68,5 +68,5 @@ pkgs: ''
     lsp.rust_analyzer.setup{}
     lsp.ansiblels.setup{}
   EOF
-  autocmd BufWritePre *.ex,*.exs,*.eex,*.leex,*.heex lua vim.lsp.buf.formatting_seq_sync()
+  autocmd BufWritePre *.ex,*.exs,*.eex,*.leex,*.heex lua vim.lsp.buf.format()
 ''

@@ -50,6 +50,9 @@ Before running the install script set the hostname to one list in the `flake.nix
 
 ```bash
 sudo scutil --set HostName lair
+sudo scutil --set LocalHostName lair
+sudo scutil --set ComputerName lair
+dscacheutil -flushcache
 ./install.sh
 ```
 

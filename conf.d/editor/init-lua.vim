@@ -1,5 +1,7 @@
 lua << EOF
 vim.lsp.set_log_level 'trace'
+local parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"
+vim.fn.mkdir(parser_install_dir, "p")
 -- TREESITTER
 require('nvim-treesitter.configs').setup {
   sync_install = true,
@@ -9,7 +11,7 @@ require('nvim-treesitter.configs').setup {
     additional_vim_regex_highlighting = false,
   },
   -- List of parsers to ignore installing
-  ignore_install = { "php" },
+  ignore_install = {"markdown", "php" },
 
   incremental_selection = {
     enable = true,
@@ -22,7 +24,8 @@ require('nvim-treesitter.configs').setup {
   },
   indent = {
     enable = true
-  }
+  },
+  parser_install_dir = parser_install_dir
 }
 
 -- COMPE

@@ -13,8 +13,8 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " autocmd BufWritePre * lua vim.lsp.buf.formatting()
 
 " highlight white spaces in RED
-highlight ExtraWhitespace ctermbg=red guibg=red
-au ColorScheme * highlight ExtraWhitespace guibg=red
+highlight ExtraWhitespace guibg=grey
+au ColorScheme * highlight ExtraWhitespace guibg=grey
 au BufEnter * match ExtraWhitespace /\s\+$/
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhiteSpace /\s\+$/
@@ -122,10 +122,10 @@ if exists('g:loaded_webdevicons')
 endif
 
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
-autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
+autocmd BufWritePre * lua vim.lsp.buf.format()
 au BufNewFile,BufRead rebar.config  setf erlang
 au BufNewFile,BufRead *app.src  setf erlang
-" au BufNewFile,BufRead *heex  setf elixir
+au BufNewFile,BufRead *heex  setf elixir
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
 
 """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
