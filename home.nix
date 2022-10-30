@@ -7,6 +7,7 @@ let
 in {
 
   programs.home-manager.enable = true;
+  home.stateVersion = "22.05";
 
   ############
   # Packages #
@@ -69,6 +70,7 @@ in {
     hadolint
     nixfmt
     nodePackages.prettier
+    nodePackages.markdownlint-cli
     erlfmt
 
     pre-commit
@@ -92,6 +94,7 @@ in {
     skaffold
     nomad
     vagrant
+    eksctl
     # minikube
     # kompose
     vault
@@ -442,7 +445,7 @@ in {
         vim-vsnip
 
         # Other
-        vim-wakatime
+        # vim-wakatime
       ];
   };
 
