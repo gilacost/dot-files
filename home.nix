@@ -69,6 +69,7 @@ in {
 
     hadolint
     nixfmt
+    tflint
     nodePackages.prettier
     nodePackages.markdownlint-cli
     erlfmt

@@ -231,52 +231,6 @@
 
   services.nix-daemon.enable = true;
 
-  # # YABAI ####
-  # services.yabai = {
-  # enable = false;
-  # enableScriptingAddition = true;
-  # package = pkgs.yabai;
-  # config = {
-  # # layout
-  # layout = "bsp";
-  # auto_balance = "off";
-  # window_topmost = "off";
-  # split_ratio = "0.50";
-  # window_placement = "second_child";
-  # debug_output = "on";
-  # # Gaps
-  # window_gap = 12;
-  # top_padding = 35;
-  # bottom_padding = 12;
-  # left_padding = 12;
-  # right_padding = 12;
-  # # shadows and borders
-  # focus_follows_mouse = "off";
-  # mouse_follows_focus = "off";
-  # window_shadow = "float";
-  # window_border = "on";
-  # window_border_width = 3;
-  # window_opacity = "off";
-  # # mouse
-  # mouse_modifier = "fn";
-  # mouse_action1 = "move";
-  # mouse_action2 = "resize";
-  # mouse_drop_action = "swap";
-  # };
-  # extraConfig = ''
-  # # rules
-  # yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
-  # yabai -m rule --add label="Firefox" app="^Firefox$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-  # yabai -m rule --add label="System Preferences" app="^System Preferences$" title=".*" manage=off
-  # yabai -m rule --add label="App Store" app="^App Store$" manage=off
-  # yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
-  # yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
-  # yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
-  # yabai -m rule --add label="Software Update" title="Software Update" manage=off
-  # yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
-  # '';
-  # };
-
   services.spacebar = {
     enable = true;
     package = pkgs.spacebar;
@@ -318,41 +272,41 @@
     };
   };
 
-  launchd.user.agents.yabai.serviceConfig.StandardErrorPath =
-    "/tmp/yabai.error";
-  launchd.user.agents.yabai.serviceConfig.StandardOutPath = "/tmp/yabai.log";
-
   ############
   # Homebrew #
   ############
 
   homebrew = {
+    enable = true;
     onActivation = {
-      # upgrade = true;
-      # autoUpdate = true;
+      upgrade = true;
+      autoUpdate = true;
       cleanup = "zap";
     };
-    global.brewfile = true;
-    global.lockfiles = true;
-    # extraConfig = ''
-    # cask "firefox", args: { language: "en-GB" }
-    # repo = "popcorn-official/popcorn-desktop"
-    # tap repo, "https://github.com/#{repo}.git"
-    # #ENV["HOMEBREW_POPCORN_TIME_BUILD"] = "false"
-    # cask "popcorn-time" #, args: { "no-quarantine": true }
-    # '';
+
+    global = {
+      autoUpdate = true;
+      brewfile = true;
+      lockfiles = true;
+    };
+
+    extraConfig = ''
+      cask "firefox", args: { language: "en-GB" }
+      repo = "popcorn-official/popcorn-desktop"
+      tap repo, "https://github.com/#{repo}.git"
+      ENV["HOMEBREW_POPCORN_TIME_BUILD"] = "false"
+      cask "popcorn-time" #, args: { "no-quarantine": true }
+    '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
     brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "popcorn-time"
       "sketch"
-      # "omnigraffle"
       "microsoft-teams"
-      # "db-browser-for-sqlite"
       "virtualbox"
       "google-chrome"
-      # "lens"
       "transmission"
       "adobe-acrobat-reader"
       "firefox"
@@ -361,13 +315,12 @@
       "1password"
       "docker"
       "grammarly"
-      # "inkscape"
+      "inkscape"
       "recordit"
       "spotify"
       "vlc"
       "zoom"
       "slack"
-      # "pop"
       "skype"
       "vmware-fusion"
     ];
