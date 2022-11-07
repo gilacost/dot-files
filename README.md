@@ -102,3 +102,5 @@ next steps:
 - [ ] review all confs with alvivi's and tidy owns
 - [ ] hacer list y tal mas fugitive and co
 - [ ] key rotation
+
+Si hay problema con lost sitter parsers rm -rf cd ~/.local/share/site
