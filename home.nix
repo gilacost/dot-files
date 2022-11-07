@@ -70,9 +70,24 @@ in {
     hadolint
     nixfmt
     tflint
+    # nodePackages.textlint
     nodePackages.prettier
     nodePackages.markdownlint-cli
     erlfmt
+
+    # textlint rulez
+
+    # nodePackages.textlint-rule-write-good
+    # nodePackages.no-start-duplicated-conjunction
+    # nodePackages.max-comma
+    # nodePackages.terminology
+    # nodePackages.period-in-list-item
+    # nodePackages.abbr-within-parentheses
+    # nodePackages.alex
+    # nodePackages.common-misspellings
+    # nodePackages.en-max-word-count
+    # nodePackages.diacritics
+    # nodePackages.stop-words
 
     pre-commit
 
