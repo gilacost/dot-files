@@ -28,6 +28,8 @@ require('nvim-treesitter.configs').setup {
   parser_install_dir = parser_install_dir
 }
 
+vim.opt.runtimepath:append(parser_install_dir)
+
 -- COMPE
 local cmp = require'cmp'
 

@@ -17,6 +17,7 @@ in {
 
   home.packages = with pkgs; [
     neovim-remote
+    tree-sitter
 
     dasel
     silver-searcher
