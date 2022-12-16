@@ -75,6 +75,7 @@ in {
     nodePackages.prettier
     nodePackages.markdownlint-cli
     erlfmt
+    shellcheck
 
     # textlint rulez
 

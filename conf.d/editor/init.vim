@@ -122,10 +122,10 @@ if exists('g:loaded_webdevicons')
 endif
 
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
-autocmd BufWritePre * lua vim.lsp.buf.format()
-au BufNewFile,BufRead rebar.config  setf erlang
-au BufNewFile,BufRead *app.src  setf erlang
-au BufNewFile,BufRead *heex  setf elixir
+" autocmd BufWritePre * lua vim.lsp.buf.format()
+au BufNewFile,BufRead rebar.config setf erlang
+au BufNewFile,BufRead *app.src setf erlang
+" au BufNewFile,BufRead *heex setf elixir
 """""""""""""""""""""format on save""""""""""""""""""""""""""""""
 
 """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
@@ -151,7 +151,7 @@ let g:neoformat_prettier = {
   \ 'stdin': 1,
   \ }
 
-let g:neoformat_enabled_elixir = []
+let g:neoformat_enabled_erlang = []
 let g:neoformat_javascript_prettier = g:neoformat_prettier
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_json_prettier = g:neoformat_prettier
