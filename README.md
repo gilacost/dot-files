@@ -74,7 +74,15 @@ dscacheutil -flushcache
 - https://en.varmilo.com/keyboardproscenium/question
 - Hold Fn down and press ESC about 4 seconds, if Capslocked backlight can flash 3 times, it means reset succeed. If FN and left WIN swapped,hold left WIN down, and press ESC about 4 seconds, capslocked backlight will flash 3 times.
 
-next steps:
+Next steps:
+
+- [x] remove yabai and restore magnet
+- [ ] all lua
+- [ ] secrets into age
+- [ ] refactor/modularise
+- [ ] disable sip and switch yabai//magnet
+
+TODO:
 
 - [ ] emoji shortcut
 - [ ] British pc is not in keyboard lists by defaults
@@ -84,7 +92,6 @@ next steps:
 - [ ] battery percentage are not in the top bar
 - [ ] waka apy key is not populated automatically
 - [ ] touch zsh_local
-
 - [ ] kubctl zsh completions
 - [ ] compe and lsp trouble
 - [ ] lua language server
@@ -103,4 +110,4 @@ next steps:
 - [ ] hacer list y tal mas fugitive and co
 - [ ] key rotation
 
-Si hay problema con lost sitter parsers rm -rf cd ~/.local/share/site
+<!-- Si hay problema con lost sitter parsers rm -rf cd ~/.local/share/site -->
