@@ -1,4 +1,3 @@
-
   " FZF
   function! s:list_buffers()
     redir => list
@@ -6,7 +5,6 @@
     redir END
     return split(list, "\n")
   endfunction
-
 
   command! BD call fzf#run(fzf#wrap({
     \ 'source': s:list_buffers(),
@@ -24,5 +22,4 @@
   noremap <Leader>i :BD<CR>
   noremap <C-c> :bd!<CR>
   noremap <Leader>sg :GitFiles<CR>
-
   " FZF

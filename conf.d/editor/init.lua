@@ -3,46 +3,46 @@
 --
 
 vim.fn.setenv("VISUAL", "nvr -cc split --remote-wait")
--- Set leader keys before anything else
--- SHOULD I MOVE THIS TO BASE (SETS)
 
 --
 -- leader
 --
+-- Set leader keys before anything else
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+-- TODO ---
 -- " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 -- " autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+-- TODO ---
 
 -- startyify
-vim.g['startify_change_to_vcs_root'] = 1
+vim.g.startify_change_to_vcs_root = 1
 -- " SHOULD I MOVE THIS TO BASE (SETS)
--- " autocmd BufWritePre * lua vim.lsp.buf.formatting()
 
-TODO
+-- TODO ---
+-- " autocmd BufWritePre * lua vim.lsp.buf.formatting()
 -- " highlight white spaces in RED
 -- highlight ExtraWhitespace guibg=grey
 -- au ColorScheme * highlight ExtraWhitespace guibg=grey
 -- au BufEnter * match ExtraWhitespace /\s\+$/
 -- au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 -- au InsertLeave * match ExtraWhiteSpace /\s\+$/
+-- TODO ---
 
- -- PLUGINS 
-
---- test
+---
+--- TEST
+---
 vim.g['test#strategy'] = 'neovim'
-vim.keymap.set("n", "t<C-n>", ":TestNearest", { silent = true} )
--- nmap <silent> t<C-n> :TestNearest<CR>
--- nmap <silent> t<C-f> :TestFile<CR>
--- nmap <silent> t<C-s> :TestSuite<CR>
--- nmap <silent> t<C-l> :TestLast<CR>
--- nmap <silent> t<C-g> :TestVisit<CR>
---- test
+vim.keymap.set("n", "t<C-n>", "<Cmd>TestNearest<CR>", { silent = true })
+vim.keymap.set("n", "t<C-n>", "<Cmd>TestNearest<CR>", { silent = true })
+vim.keymap.set("n", "t<C-f>", "<Cmd>TestFile<CR>", { silent = true })
+vim.keymap.set("n", "t<C-s>", "<Cmd>TestSuite<CR>", { silent = true })
+vim.keymap.set("n", "t<C-l>", "<Cmd>TestLast<CR>", { silent = true })
+vim.keymap.set("n", "t<C-g>", "<Cmd>TestVisit<CR>", { silent = true })
 
--- """""""""""""""""""""""" LSPSAGA """""""""""""""""""""""""""""""""""
 
--- " random functions
+--- random functions
 -- function! Repeat()
 --   let times = input("Count: ")
 --   let char  = input("Char: ")
@@ -62,10 +62,6 @@ vim.keymap.set("n", "t<C-n>", ":TestNearest", { silent = true} )
 
 -- """""""""""""""""""""" MAPPINGS """"""""""""""""""""""""""""""""
 
--- " Support nested vim
--- tnoremap <Esc> <C-\><C-n>
--- tnoremap <C-v><Esc> <Esc>
-
 -- " quick list and location list
 -- nnoremap <leader>qo :copen<CR>
 -- nnoremap <leader>qc :cclose<CR>
@@ -76,20 +72,20 @@ vim.keymap.set("n", "t<C-n>", ":TestNearest", { silent = true} )
 -- " Show undo list
 -- nnoremap <leader>u :GundoToggle<CR>
 
--- " Tabs
--- noremap <silent> nt :tabnew<CR>:terminal<CR>
--- noremap <M-Left> gT
--- noremap <M-Right> gt
+--- Tabs
+vim.keymap.set("n", "nt", "<Cmd>tabnew<CR>terminal<CR>", { silent = true })
+vim.keymap.set("n", "<M-Left>", "gT", {})
+vim.keymap.set("n", "<M-Right>", "gt", {})
 
--- " splits
--- nnoremap <C-J> <C-W><C-J>
--- nnoremap <C-K> <C-W><C-K>
--- nnoremap <C-L> <C-W><C-L>
--- nnoremap <C-H> <C-W><C-H>
+--- splits
+vim.keymap.set("", "<C-j>", "<C-W>j", { noremap = true })
+vim.keymap.set("", "<C-k>", "<C-W>k", { noremap = true })
+vim.keymap.set("", "<C-l>", "<C-W>l", { noremap = true })
+vim.keymap.set("", "<C-h>", "<C-W>h", { noremap = true })
 
 -- " resizing
--- nnoremap <C-n> <C-w>\|<C-w>_
--- nnoremap <C-b> <C-w>=
+vim.keymap.set("n", "<C-n>", "<C-W>|<C-W>_", {})
+vim.keymap.set("n", "<C-b>", "<C-W>=", {})
 
 -- " Easy Motion
 -- map <Leader>f <Plug>(easymotion-bd-f)
@@ -100,9 +96,6 @@ vim.keymap.set("n", "t<C-n>", ":TestNearest", { silent = true} )
 -- let g:EasyMotion_use_smartsign_us = 1
 -- let g:EasyMotion_smartcase = 1
 -- let g:vim_markdown_folding_disabled = 1
-
--- map  / <Plug>(easymotion-sn)
--- omap / <Plug>(easymotion-tn)
 
 -- " replace all
 -- :nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
@@ -120,7 +113,7 @@ vim.keymap.set("n", "t<C-n>", ":TestNearest", { silent = true} )
 
 -- """""""""""""""""""""" SATUSLINE """"""""""""""""""""""""""""""""
 -- let g:airline_theme='onedark'
--- " let g:airline#extensions#tabline#enabled = 1
+-- let g:airline#extensions#tabline#enabled = 1
 -- let g:airline_powerline_fonts = 1
 -- let g:airline_section_b = '%{strftime("%c")}'
 -- let g:airline_section_y = 'BN: %{bufnr("%")}'
@@ -147,14 +140,6 @@ vim.keymap.set("n", "t<C-n>", ":TestNearest", { silent = true} )
 -- nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 -- """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
 
--- let g:neoformat_basic_format_retab = 1
--- let g:neoformat_basic_format_trim = 1
-
--- function! ToggleGenericFormat()
---   let g:neoformat_basic_format_retab = !g:neoformat_basic_format_retab
---   let g:neoformat_basic_format_trim = !g:neoformat_basic_format_retab
--- endfunction
-
 -- let g:neoformat_prettier = {
 --   \ 'exe': '/etc/profiles/per-user/pepo/bin/prettier',
 --   \ 'args': ['--stdin-filepath', '"%:p"'],
@@ -173,7 +158,19 @@ vim.keymap.set("n", "t<C-n>", ":TestNearest", { silent = true} )
 -- let g:neoformat_yaml_prettier = g:neoformat_prettier
 -- let g:neoformat_enabled_yaml = ['prettier']
 
--- augroup fmt
---   autocmd!
---   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
--- augroup END
+-- function! ToggleGenericFormat()
+--   let g:neoformat_basic_format_retab = !g:neoformat_basic_format_retab
+--   let g:neoformat_basic_format_trim = !g:neoformat_basic_format_retab
+-- endfunction
+
+vim.g.neoformat_basic_format_retab = 1
+vim.g.neoformat_basic_format_trim = 1
+
+local augroup = vim.api.nvim_create_augroup('fmt', {clear = true})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*',
+  group = augroup,
+  -- command = 'try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry'
+  command = 'undojoin | Neoformat'
+})
