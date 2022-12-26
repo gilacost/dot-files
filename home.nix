@@ -373,8 +373,11 @@ in {
     withRuby = true;
     withPython3 = true;
 
+    # ${builtins.readFile ./conf.d/editor/init.vim}
     extraConfig = ''
-      ${builtins.readFile ./conf.d/editor/init.vim}
+      lua << EOF
+        ${builtins.readFile ./conf.d/editor/init.lua}
+      EOF
       ${builtins.readFile ./conf.d/editor/sets.vim}
       ${builtins.readFile ./conf.d/editor/terminal.vim}
       ${builtins.readFile ./conf.d/editor/git.vim}
