@@ -43,7 +43,8 @@ in {
 
     coreutils
 
-    chromedriver
+    httpie
+    asdf-vm
 
     peco
 
@@ -51,8 +52,7 @@ in {
     inetutils # common net tool package instead
     nodePackages.node2nix
     nodePackages.cspell
-    # here
-    tanka
+    # tanka
     sops
     git-crypt
 
@@ -64,9 +64,11 @@ in {
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server
     nodePackages.bash-language-server
-    # nodePackages.yaml-language-server
+    nodePackages.yaml-language-server
     #  todo Json ls and tailwindcss
+
     rust-analyzer
+    rustfmt
 
     hadolint
     nixfmt
@@ -77,31 +79,16 @@ in {
     erlfmt
     shellcheck
 
-    # textlint rulez
-
-    # nodePackages.textlint-rule-write-good
-    # nodePackages.no-start-duplicated-conjunction
-    # nodePackages.max-comma
-    # nodePackages.terminology
-    # nodePackages.period-in-list-item
-    # nodePackages.abbr-within-parentheses
-    # nodePackages.alex
-    # nodePackages.common-misspellings
-    # nodePackages.en-max-word-count
-    # nodePackages.diacritics
-    # nodePackages.stop-words
-
     pre-commit
 
+    postgresql
     # cloud
     awscli2
     azure-cli
     google-cloud-sdk
     linode-cli
-    # openshift
-
-    postgresql
     flyctl
+    # openshift
 
     # OPs
     # argocd
@@ -112,7 +99,7 @@ in {
     skaffold
     nomad
     vagrant
-    eksctl
+    # eksctl
     # minikube
     # kompose
     vault
@@ -126,24 +113,22 @@ in {
     google-cloud-sdk
     terraformer
     terraform-docs
+    htop
 
     # programming languages
     # RUST
-    httpie
     cargo
     cargo-edit
     rustc
-    rustfmt
+    go
 
     # BEAM
     rebar3
     elixir
     erlang
-    asdf-vm
-    go
 
+    # Python
     nodePackages.pyright
-
     python310Full
     python310Packages.autopep8
     python310Packages.numpy
@@ -153,7 +138,6 @@ in {
     nodejs
     nodePackages.npm
     yarn
-    htop
   ];
 
   programs.direnv.enable = true;
