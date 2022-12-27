@@ -381,7 +381,6 @@ in {
       ${builtins.readFile ./conf.d/editor/sets.vim}
       ${builtins.readFile ./conf.d/editor/terminal.vim}
       ${builtins.readFile ./conf.d/editor/git.vim}
-      ${builtins.readFile ./conf.d/editor/fzf.vim}
       ${builtins.readFile ./conf.d/editor/projections.vim}
       ${builtins.readFile ./conf.d/editor/init-lua.vim}
       ${(import ./conf.d/editor/lsp.nix) pkgs}

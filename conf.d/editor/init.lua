@@ -73,7 +73,8 @@ vim.keymap.set("n", "t<C-g>", "<Cmd>TestVisit<CR>", { silent = true })
 -- nnoremap <leader>u :GundoToggle<CR>
 
 --- Tabs
-vim.keymap.set("n", "nt", "<Cmd>tabnew<CR>terminal<CR>", { silent = true })
+vim.keymap.set("n", "nt", "<Cmd>tabnew<Bar>terminal<CR>", { silent = true })
+-- vim.keymap.set("n", "nt", "<Cmd>tabnew<Bar>terminal<CR>", {})
 vim.keymap.set("n", "<M-Left>", "gT", {})
 vim.keymap.set("n", "<M-Right>", "gt", {})
 
@@ -95,7 +96,9 @@ vim.keymap.set("n", "<C-b>", "<C-W>=", {})
 
 -- let g:EasyMotion_use_smartsign_us = 1
 -- let g:EasyMotion_smartcase = 1
--- let g:vim_markdown_folding_disabled = 1
+
+-- TODO, do I need vim markdown at all?
+vim.g.vim_markdown_folding_disabled = 1
 
 -- " replace all
 -- :nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
@@ -162,6 +165,19 @@ vim.keymap.set("n", "<C-b>", "<C-W>=", {})
 --   let g:neoformat_basic_format_retab = !g:neoformat_basic_format_retab
 --   let g:neoformat_basic_format_trim = !g:neoformat_basic_format_retab
 -- endfunction
+
+--
+-- FZF
+--
+
+vim.keymap.set("n", "<leader>sc", ":Rg", {})
+vim.keymap.set("n", "<C-p>", ":Files", {})
+vim.keymap.set("n", "<Leader>o", ":Buffers", {})
+vim.keymap.set("n", "<C-c>", ":bd!", {})
+
+--
+-- NEOFORMAT
+--
 
 vim.g.neoformat_basic_format_retab = 1
 vim.g.neoformat_basic_format_trim = 1
