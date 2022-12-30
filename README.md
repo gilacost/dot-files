@@ -74,40 +74,57 @@ dscacheutil -flushcache
 - https://en.varmilo.com/keyboardproscenium/question
 - Hold Fn down and press ESC about 4 seconds, if Capslocked backlight can flash 3 times, it means reset succeed. If FN and left WIN swapped,hold left WIN down, and press ESC about 4 seconds, capslocked backlight will flash 3 times.
 
-Next steps:
+<!-- Next steps: -->
 
-- [x] remove yabai and restore magnet
-- [ ] all lua
-- [ ] secrets into age
-- [ ] refactor/modularise
-- [ ] disable sip and switch yabai//magnet
+<!-- - [x] remove yabai and restore magnet -->
+<!-- - [ ] all lua -->
+<!-- - [ ] secrets into age -->
+<!-- - [ ] refactor/modularise -->
+<!-- - [ ] disable sip and switch yabai//magnet -->
 
-TODO:
+<!-- TODO: -->
 
-- [ ] emoji shortcut
-- [ ] British pc is not in keyboard lists by defaults
-- [ ] keyboards do not appear in top bar
-- [ ] Bluetooth do not appear in the top bar
-- [ ] system preferences in the docker
-- [ ] battery percentage are not in the top bar
-- [ ] waka apy key is not populated automatically
-- [ ] touch zsh_local
-- [ ] kubctl zsh completions
-- [ ] compe and lsp trouble
-- [ ] lua language server
-- [ ] hadolint
-- [ ] kubernetes YAML schemas investigate
-- [ ] firefox vimium and firefox profiles
-- [ ] review unverified
-- [ ] review all alias
-- [ ] youtube dl
-- [ ] vim-vsnip installation and bring nice snippets
-- [ ] review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE
-- [ ] hadolint somewhere (pre-commit docker?)
-- [ ] keyboard language? enable and uk? things about other defaults
-- [ ] review all vim plugins
-- [ ] review all confs with alvivi's and tidy owns
-- [ ] hacer list y tal mas fugitive and co
-- [ ] key rotation
+<!-- - [ ] emoji shortcut -->
+<!-- - [ ] British pc is not in keyboard lists by defaults -->
+<!-- - [ ] keyboards do not appear in top bar -->
+<!-- - [ ] Bluetooth do not appear in the top bar -->
+<!-- - [ ] system preferences in the docker -->
+<!-- - [ ] battery percentage are not in the top bar -->
+<!-- - [ ] waka apy key is not populated automatically -->
+<!-- - [ ] touch zsh_local -->
+<!-- - [ ] kubctl zsh completions -->
+<!-- - [ ] compe and lsp trouble -->
+<!-- - [ ] lua language server -->
+<!-- - [ ] hadolint -->
+<!-- - [ ] kubernetes YAML schemas investigate -->
+<!-- - [ ] firefox vimium and firefox profiles -->
+<!-- - [ ] review unverified -->
+<!-- - [ ] review all alias -->
+<!-- - [ ] youtube dl -->
+<!-- - [ ] vim-vsnip installation and bring nice snippets -->
+<!-- - [ ] review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE -->
+<!-- - [ ] hadolint somewhere (pre-commit docker?) -->
+<!-- - [ ] keyboard language? enable and uk? things about other defaults -->
+<!-- - [ ] review all vim plugins -->
+<!-- - [ ] review all confs with alvivi's and tidy owns -->
+<!-- - [ ] hacer list y tal mas fugitive and co -->
+<!-- - [ ] key rotation -->
 
 <!-- Si hay problema con lost sitter parsers rm -rf cd ~/.local/share/site -->
+
+<!-- TODO lua -->
+<!-- https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/ -->
+<!-- - [ ] git.vim -->
+<!-- - [ ] init-lua.vim -->
+<!-- - [ ] init.lua (review) -->
+<!-- - [x] lsp.nix -->
+<!-- - [x] sets.vim -->
+<!-- - [x] terminal.vim -->
+<!-- - [ ] lspkind.vim -->
+<!-- - [ ] lualine.vim -->
+<!-- - [ ] mappings.lua -->
+<!-- - [ ] projections.vim -->
+<!-- - [ ] telescope.vim -->
+<!-- - [ ] theme.vim -->
+<!-- - [ ] review buff delete -->
+<!-- - [ ] rename file -->
