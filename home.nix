@@ -360,14 +360,15 @@ in {
     # ${builtins.readFile ./conf.d/editor/init.vim}
     extraConfig = ''
       lua << EOF
+        vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
         ${builtins.readFile ./conf.d/editor/init.lua}
+        ${builtins.readFile ./conf.d/editor/lsp.lua}
+        ${builtins.readFile ./conf.d/editor/sets.lua}
+        ${builtins.readFile ./conf.d/editor/terminal.lua}
       EOF
-      ${builtins.readFile ./conf.d/editor/sets.vim}
-      ${builtins.readFile ./conf.d/editor/terminal.vim}
       ${builtins.readFile ./conf.d/editor/git.vim}
       ${builtins.readFile ./conf.d/editor/projections.vim}
       ${builtins.readFile ./conf.d/editor/init-lua.vim}
-      ${(import ./conf.d/editor/lsp.nix) pkgs}
       ${builtins.readFile ./conf.d/editor/lualine.vim}
       ${builtins.readFile ./conf.d/editor/telescope.vim}
       ${builtins.readFile ./conf.d/editor/lspkind.vim}

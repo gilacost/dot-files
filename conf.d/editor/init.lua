@@ -143,6 +143,53 @@ vim.g.vim_markdown_folding_disabled = 1
 -- nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 -- """""""""""""""""""""LSP TROUBLE"""""""""""""""""""""""""""""""""
 
+--
+-- FZF
+--
+
+vim.keymap.set("n", "<leader>sc", ":Rg", {})
+vim.keymap.set("n", "<C-p>", ":Files", {})
+vim.keymap.set("n", "<Leader>o", ":Buffers", {})
+vim.keymap.set("n", "<C-c>", ":bd!", {})
+
+-- function! s:list_buffers()
+--   redir => list
+--   silent ls
+--   redir END
+--   return split(list, "\n")
+-- endfunction
+
+-- command! BD call fzf#run(fzf#wrap({
+--   \ 'source': s:list_buffers(),
+--   \ 'sink*': { lines -> s:delete_buffers(lines) },
+--   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+--   \ }))
+
+-- function! s:delete_buffers(lines)
+--   execute 'bwipeout!' join(map(a:lines, {_, line -> split(line)[0]}))
+-- endfunction
+
+--
+-- NEOFORMAT
+--
+
+vim.g.neoformat_basic_format_retab = 1
+vim.g.neoformat_basic_format_trim = 1
+
+local augroup = vim.api.nvim_create_augroup('fmt', {clear = true})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*',
+  group = augroup,
+  -- command = 'try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry'
+  command = 'undojoin | Neoformat'
+})
+
+-- function! ToggleGenericFormat()
+--   let g:neoformat_basic_format_retab = !g:neoformat_basic_format_retab
+--   let g:neoformat_basic_format_trim = !g:neoformat_basic_format_retab
+-- endfunction
+
 -- let g:neoformat_prettier = {
 --   \ 'exe': '/etc/profiles/per-user/pepo/bin/prettier',
 --   \ 'args': ['--stdin-filepath', '"%:p"'],
@@ -160,33 +207,3 @@ vim.g.vim_markdown_folding_disabled = 1
 -- let g:neoformat_enabled_typescript = ['prettier']
 -- let g:neoformat_yaml_prettier = g:neoformat_prettier
 -- let g:neoformat_enabled_yaml = ['prettier']
-
--- function! ToggleGenericFormat()
---   let g:neoformat_basic_format_retab = !g:neoformat_basic_format_retab
---   let g:neoformat_basic_format_trim = !g:neoformat_basic_format_retab
--- endfunction
-
---
--- FZF
---
-
-vim.keymap.set("n", "<leader>sc", ":Rg", {})
-vim.keymap.set("n", "<C-p>", ":Files", {})
-vim.keymap.set("n", "<Leader>o", ":Buffers", {})
-vim.keymap.set("n", "<C-c>", ":bd!", {})
-
---
--- NEOFORMAT
---
-
-vim.g.neoformat_basic_format_retab = 1
-vim.g.neoformat_basic_format_trim = 1
-
-local augroup = vim.api.nvim_create_augroup('fmt', {clear = true})
-
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = '*',
-  group = augroup,
-  -- command = 'try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry'
-  command = 'undojoin | Neoformat'
-})
