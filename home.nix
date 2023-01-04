@@ -365,10 +365,10 @@ in {
         ${builtins.readFile ./conf.d/editor/lsp.lua}
         ${builtins.readFile ./conf.d/editor/sets.lua}
         ${builtins.readFile ./conf.d/editor/terminal.lua}
+        ${builtins.readFile ./conf.d/editor/treesitter.lua}
       EOF
       ${builtins.readFile ./conf.d/editor/git.vim}
       ${builtins.readFile ./conf.d/editor/projections.vim}
-      ${builtins.readFile ./conf.d/editor/init-lua.vim}
       ${builtins.readFile ./conf.d/editor/lualine.vim}
       ${builtins.readFile ./conf.d/editor/telescope.vim}
       ${builtins.readFile ./conf.d/editor/lspkind.vim}

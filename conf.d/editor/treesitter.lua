@@ -1,4 +1,3 @@
-lua << EOF
 vim.lsp.set_log_level 'trace'
 local parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"
 vim.fn.mkdir(parser_install_dir, "p")
@@ -100,5 +99,3 @@ require("virt-column").setup({
 
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
-
-EOF
