@@ -77,7 +77,7 @@ vim.g.vim_markdown_folding_disabled = 1
 -- Replace All
 --
 
--- vim.keymap.set("n", "<Leader>r", ":%s/\\<<C-r><C-w>\\>/")
+vim.keymap.set("n", "<Leader>r", ":%s/\\<<C-r><C-w>\\>/")
 
 --
 -- NEOFORMAT
