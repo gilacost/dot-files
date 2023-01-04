@@ -77,7 +77,7 @@ dscacheutil -flushcache
 <!-- Next steps: -->
 
 <!-- - [x] remove yabai and restore magnet -->
-<!-- - [ ] all lua -->
+<!-- - [x] all lua -->
 <!-- - [ ] secrets into age -->
 <!-- - [ ] refactor/modularise -->
 <!-- - [ ] disable sip and switch yabai//magnet -->
@@ -114,17 +114,18 @@ dscacheutil -flushcache
 
 <!-- TODO lua -->
 <!-- https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/ -->
-<!-- - [ ] git.vim -->
-<!-- - [ ] init-lua.vim -->
-<!-- - [ ] init.lua (review) -->
+<!-- - [x] git.vim -->
+<!-- - [x] init-lua.vim -->
+<!-- - [x] init.lua (review) -->
 <!-- - [x] lsp.nix -->
 <!-- - [x] sets.vim -->
 <!-- - [x] terminal.vim -->
-<!-- - [ ] lspkind.vim -->
-<!-- - [ ] lualine.vim -->
+<!-- - [x] lspkind.vim -->
+<!-- - [x] telescope.vim -->
+<!-- - [x] theme.vim -->
+<!-- - [x] review buff delete -->
+<!-- - [ ] lualine.vim REVIEW -->
 <!-- - [ ] mappings.lua -->
-<!-- - [ ] projections.vim -->
-<!-- - [ ] telescope.vim -->
-<!-- - [ ] theme.vim -->
-<!-- - [ ] review buff delete -->
+<!-- - [ ] projections.vim REVIEW move to -->
 <!-- - [ ] rename file -->
+<!-- - [ ] cmp, lsp config and lsptrouble review -->

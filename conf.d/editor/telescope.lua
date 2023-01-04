@@ -1,4 +1,3 @@
-lua << EOF
 local actions = require('telescope.actions')
 local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
@@ -18,10 +17,10 @@ telescope.setup {
     },
   },
 }
-EOF
 
-noremap <Leader>o <cmd>Telescope buffers<cr>
-noremap <C-p> <cmd>Telescope find_files<cr>
-noremap <Leader>sc <cmd>Telescope live_grep<cr>
-noremap <Leader>fh <cmd>Telescope help_tags<cr>
-noremap <Leader>fs <cmd>Telescope symbols<cr>
+vim.keymap.set("n", "<Leader>o", "<cmd>Telescope buffers<cr>")
+vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>")
+vim.keymap.set("n", "<Leader>sc", "<cmd>Telescope live_grep<cr>")
+vim.keymap.set("n", "<Leader>fh", "<cmd>Telescope help_tags<cr>")
+vim.keymap.set("n", "<Leader>fs", "<cmd>Telescope symbols<cr>")
+vim.keymap.set("n", "<C-c>", "<cmd>BufferClose<cr>", {})

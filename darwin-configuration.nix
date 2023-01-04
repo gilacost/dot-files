@@ -332,6 +332,7 @@
       Keynote = 409183694;
       "Surfshark: Unlimited VPN Proxy" = 1437809329;
       Magnet = 441258766;
+      "TickTick:To-Do List, Calendar" = 966085870;
     };
   };
 
