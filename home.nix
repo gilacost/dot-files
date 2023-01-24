@@ -29,14 +29,13 @@ in {
     yq
     btop
     ripgrep
-    bind # review
+    #   bind # review
     cloc
     gh
     glow
     wget
     tig
     tree
-    gnumake
     imagemagick
 
     zsh-syntax-highlighting
@@ -82,17 +81,17 @@ in {
     pre-commit
 
     postgresql
-    # cloud
-    awscli2
-    azure-cli
+    #   # cloud
+    #   awcli2
+    #   azure-cli
     google-cloud-sdk
     linode-cli
     flyctl
     # openshift
-
-    # OPs
-    # argocd
-    # ansible
+    #
+    #  # OPs
+    #  # argocd
+    #  # ansible
     terragrunt
     packer
     skopeo
@@ -138,6 +137,10 @@ in {
     nodejs
     nodePackages.npm
     yarn
+
+    # Security
+    _1password
+    git-credential-1password
   ];
 
   programs.direnv.enable = true;
@@ -358,6 +361,10 @@ in {
     withPython3 = true;
 
     extraConfig = ''
+      autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
+      if has('nvim')
+        let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+      endif
       lua << EOF
         vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
         ${builtins.readFile ./conf.d/editor/base.lua}
@@ -411,7 +418,7 @@ in {
         lualine-nvim
         nvim-web-devicons
         virt-column
-        vim-markdown
+        # vim-markdown
 
         # Navigation
         nerdtree
@@ -421,7 +428,7 @@ in {
         telescope-symbols-nvim
         trouble-nvim
         vim-cool
-        # vim-rooter
+        vim-rooter
 
         # Pope
         vim-commentary
