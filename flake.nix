@@ -34,6 +34,12 @@
             ++ [ ({ pkgs, config, ... }: { networking.hostName = "lair"; }) ];
         };
 
+        "cave" = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = common
+            ++ [ ({ pkgs, config, ... }: { networking.hostName = "cave"; }) ];
+        };
+
         "pepesl" = darwin.lib.darwinSystem {
           system = "x86_64-darwin";
           modules = common
