@@ -129,6 +129,7 @@ in {
     # Python
     nodePackages.pyright
     python310Full
+    python310Packages.grip
     python310Packages.autopep8
     python310Packages.numpy
     python310Packages.setuptools
@@ -362,9 +363,42 @@ in {
 
     extraConfig = ''
       autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
+
       if has('nvim')
         let $GIT_EDITOR = 'nvr -cc split --remote-wait'
       endif
+
+      function! RenameFile()
+        let old_name = expand('%')
+        let new_name = input('New file name: ', expand('%'), 'file')
+        if new_name != \'\' && new_name != old_name
+          exec ':saveas ' . new_name
+          exec ':silent !rm ' . old_name
+          redraw!
+        endif
+      endfunction
+
+      map <leader>n :call RenameFile()<cr>
+
+      function! s:list_buffers()
+          redir => list
+          silent ls
+          redir END
+          return split(list, "\n")
+      endfunction
+
+
+      command! BD call fzf#run(fzf#wrap({
+        \ 'source': s:list_buffers(),
+        \ 'sink*': { lines -> s:delete_buffers(lines) },
+        \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+        \ }))
+
+      function! s:delete_buffers(lines)
+        execute 'bwipeout!' join(map(a:lines, {_, line -> split(line)[0]}))
+      endfunction
+
+      noremap <C-c> :bd!<CR>
       lua << EOF
         vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
         ${builtins.readFile ./conf.d/editor/base.lua}

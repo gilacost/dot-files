@@ -15,6 +15,7 @@ PROD=$(softwareupdate -l |
 softwareupdate -i "$PROD" --verbose
 /usr/bin/make install
 
+# (if M1) sudo softwareupdate --install-rosetta
 
 mkdir -p ~/.config/kitty
 
