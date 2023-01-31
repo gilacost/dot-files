@@ -371,14 +371,12 @@ in {
       function! RenameFile()
         let old_name = expand('%')
         let new_name = input('New file name: ', expand('%'), 'file')
-        if new_name != \'\' && new_name != old_name
+        if new_name != '\' && new_name != old_name
           exec ':saveas ' . new_name
           exec ':silent !rm ' . old_name
           redraw!
         endif
       endfunction
-
-      map <leader>n :call RenameFile()<cr>
 
       function! s:list_buffers()
           redir => list
@@ -387,6 +385,7 @@ in {
           return split(list, "\n")
       endfunction
 
+      set noswapfile
 
       command! BD call fzf#run(fzf#wrap({
         \ 'source': s:list_buffers(),
@@ -398,7 +397,6 @@ in {
         execute 'bwipeout!' join(map(a:lines, {_, line -> split(line)[0]}))
       endfunction
 
-      noremap <C-c> :bd!<CR>
       lua << EOF
         vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
         ${builtins.readFile ./conf.d/editor/base.lua}

@@ -36,7 +36,6 @@ set.splitbelow = true
 set.splitright = true
 set.spell = true
 set.spelllang='en_gb'
--- set.noswapfile = true -- TODO what is this?
 set.completeopt='menu,menuone,noselect'
 -- s.t foldmethod=expr
 set.foldexpr='nvim_treesitter#foldexpr()'
