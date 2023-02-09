@@ -26,12 +26,14 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Run Flake Checks
-      #   run: |
-      #     nix flake check -v --show-trace
-      #   timeout-minutes: 240
+      - name: Run Flake Checks
+        run: |
+          rm flake.nix
+          sed "s/{{hostname}}/$(hostname)/g" flake.mustache > flake.nix
+          nix flake check -v --show-trace
+        timeout-minutes: 240
 
       - name: Run build
         run: |
           nix build ./\#darwinConfigurations.ci.system
-          ./result/sw/bin/darwin-rebuild switch --flake ./
+          ./result/sw/bin/darwin-rebuild switch --flake ./\#darwinConfigurations.ci.system
