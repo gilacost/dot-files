@@ -20,10 +20,8 @@ jobs:
           fetch-depth: 0
 
       - uses: cachix/install-nix-action@v19
-        env:
-          NIX_VERSION: nix-2.4pre20210823_af94b54
         with:
-          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/${{ env.NIX_VERSION }}/install
+          nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
