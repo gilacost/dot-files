@@ -325,6 +325,7 @@
       "skype"
       "vmware-fusion"
       "discord"
+      "insomnia"
     ];
 
     masApps = {
