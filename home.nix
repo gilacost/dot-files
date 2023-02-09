@@ -624,11 +624,11 @@ in {
   # This populates a dummy package to satisfy the requirement
   programs.firefox.package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
 
-  programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons;
-    [
-      # tridactyl
-      onepassword-password-manager
-    ];
+  # programs.firefox.profiles.myprofile.extensions = with pkgs.nur.repos.rycee.firefox-addons;
+  # [
+  # # tridactyl
+  # onepassword-password-manager
+  # ];
 
   programs.firefox.profiles = let
     userChrome = builtins.readFile ./conf.d/userChrome.css;
