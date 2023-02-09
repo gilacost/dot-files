@@ -25,7 +25,7 @@
         }
       ];
     in {
-
+      devShells = import ./dev_shells inputs;
       darwinConfigurations = {
 
         "lair" = darwin.lib.darwinSystem {
