@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
 
     home-manager.url = "github:nix-community/home-manager";
 
@@ -12,7 +13,7 @@
 
   };
 
-  outputs = { self, darwin, nixpkgs, home-manager, nur, ... }:
+  outputs = { self, darwin, nixpkgs, home-manager, nur, ... }@inputs:
     let
       common = [
         ./darwin-configuration.nix
