@@ -17,19 +17,33 @@ let
   ];
   system = inputs.system;
   pkgs = import inputs.nixpkgs { inherit system overlays; };
-in {
-  devShells.default = pkgs.mkShell {
-    buildInputs = (with pkgs; [ elixir ])
-      ++ pkgs.lib.optionals (pkgs.stdenv.isLinux)
-      (with pkgs; [ gigalixir inotify-tools libnotify ]) ++ # Linux only
-      pkgs.lib.optionals (pkgs.stdenv.isDarwin)
-      (with pkgs; [ terminal-notifier ]) ++ # macOS only
-      (with pkgs.darwin.apple_sdk.frameworks; [ CoreFoundation CoreServices ]);
+in pkgs.mkShell {
+  buildInputs = with pkgs;
+    let
+      linuxPackages =
+        lib.optionals (stdenv.isLinux) [ inotify-tools libnotify ];
+      darwinPackages = lib.optionals (stdenv.isDarwin)
+        (with darwin.apple_sdk.frameworks; [
+          terminal-notifier
+          CoreFoundation
+          CoreServices
+        ]);
+    in builtins.concatLists [ [ erlang elixir ] linuxPackages darwinPackages ];
 
-    shellHook = ''
-      ${pkgs.elixir}/bin/mix --version
-      ${pkgs.elixir}/bin/iex --version
+  shellHook = let
+    escript = ''
+      Filepath = filename:join([
+        code:root_dir(),
+        "releases",
+        erlang:system_info(otp_release),
+        "OTP_VERSION"
+      ]),
+      {ok, Version} = file:read_file(Filepath),
+      io:fwrite(Version),
+      halt().
     '';
-  };
-
+  in ''
+    echo "🍎 Erlang OTP-$(erl -eval '${escript}' -noshell)"
+    echo "💧 $(${pkgs.elixir}/bin/elixir --version | tail -n 1)"
+  '';
 }
