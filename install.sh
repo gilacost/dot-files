@@ -20,13 +20,13 @@ softwareupdate -i "$PROD" --verbose
 mkdir -p ~/.config/kitty
 
 sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.old
-sudo ln -s  $HOME/Repos/dot-files/nix.conf /etc/nix/nix.conf
+sudo ln -s  "$HOME/Repos/dot-files/nix.conf" "/etc/nix/nix.conf"
 
-ln -s  $HOME/Repos/dot-files/conf.d/terminal/nvim.session $HOME/.config/nvim.session
-ln -s  $HOME/Repos/dot-files/conf.d/terminal/kitty.conf $HOME/.config/kitty/kitty.conf
-ln -s  $HOME/Repos/dot-files/spell $HOME/.config/nvim
+ln -s  "$HOME/Repos/dot-files/conf.d/terminal/nvim.session" "$HOME/.config/nvim.session"
+ln -s  "$HOME/Repos/dot-files/conf.d/terminal/kitty.conf" "$HOME/.config/kitty/kitty.conf"
+ln -s  "$HOME/Repos/dot-files/spell" "$HOME/.config/nvim"
 
-nix build .#darwinConfigurations.lair.system
+nix build ./\#darwinConfigurations.lair.system
 ./result/sw/bin/darwin-rebuild switch --flake ./\#lair
 darwin-rebuild switch --flake ./\#lair
 
