@@ -11,12 +11,6 @@
     };
   };
 
-  # trace: warning: The option `homebrew.cleanup'  to `homebrew.onActivation.cleanup'.
-  # trace: warning: The option `homebrew.autoUpdate' to `homebrew.onActivation.autoUpdate'.
-  # trace: warning: The option `nix.trustedUsers' to `nix.settings.trusted-users'.
-  # trace: warning: The option `users.nix.configureBuildUsers' to `nix.configureBuildUsers'.
-  # trace: warning: The `homebrew' module no longer upgrades outdated formulae and apps by default during `nix-darwin' system activation. To enable upgrading, set `homebrew.onActivation.upgrade = true'.
-
   programs.bash.enable = false;
   programs.zsh.enable = true;
   nix = {
