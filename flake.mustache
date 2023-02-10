@@ -41,10 +41,8 @@
             ++ [ ({ pkgs, config, ... }: { networking.hostName = "cave"; }) ];
         };
 
-        "ci" = darwin.lib.darwinSystem {
-          system = "x86_64-darwin";
-          modules = common ++ [ ];
-        };
+        # Building the flakes require root privileges to update the HOSTNAME
+        # and then be able to nix build ".#HOSTNAME"
       };
     };
 }

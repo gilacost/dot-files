@@ -40,11 +40,6 @@
           modules = common
             ++ [ ({ pkgs, config, ... }: { networking.hostName = "cave"; }) ];
         };
-
-        "ci" = darwin.lib.darwinSystem {
-          system = "x86_64-darwin";
-          modules = common ++ [ ];
-        };
       };
     };
 }

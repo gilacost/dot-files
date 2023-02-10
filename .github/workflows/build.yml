@@ -33,7 +33,7 @@ jobs:
           nix flake check -v --show-trace
         timeout-minutes: 240
 
-      - name: Run build
-        run: |
-          nix build ./\#darwinConfigurations.ci.system
-          ./result/sw/bin/darwin-rebuild switch --flake ./\#darwinConfigurations.ci.system
+      # - name: Run build (requires setting the hostname to CI)
+      #   run: |
+      #     nix build ./\#darwinConfigurations.ci.system
+      #     ./result/sw/bin/darwin-rebuild switch --flake ./\#darwinConfigurations.ci.system
