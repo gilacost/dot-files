@@ -28,4 +28,5 @@ in flake-utils.lib.eachDefaultSystemMap (system: {
   elixir_wallaby = import ./elixir_wallaby.nix { inherit system nixpkgs; };
 
   node = import ./node.nix { inherit system nixpkgs; };
+  dotnet = import ./dotnet.nix { inherit system nixpkgs; };
 })

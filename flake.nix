@@ -16,7 +16,6 @@
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... }@inputs:
     let
       common = [
-        ./darwin-configuration.nix
         home-manager.darwinModules.home-manager
         {
           nixpkgs.overlays = [ nur.overlay ];
@@ -31,15 +30,19 @@
 
         "lair" = darwin.lib.darwinSystem {
           system = "x86_64-darwin";
-          modules = common
+          modules = common ++ [ ./darwin-configuration.nix ]
             ++ [ ({ pkgs, config, ... }: { networking.hostName = "lair"; }) ];
         };
 
         "cave" = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          modules = common
+          modules = common ++ [ ./darwin-configuration.nix ]
             ++ [ ({ pkgs, config, ... }: { networking.hostName = "cave"; }) ];
         };
+
+        # Building the flakes require root privileges to update the HOSTNAME
+        # and then be able to nix build ".#HOSTNAME"
+        # TODO build the flake also for nixos
       };
     };
 }
