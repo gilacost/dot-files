@@ -19,6 +19,8 @@ in {
     neovim-remote
     tree-sitter
     nix-prefetch-git
+    cmake
+    act
 
     dasel
     silver-searcher
@@ -331,9 +333,9 @@ in {
 
       dockerstop =
         "docker ps --format '{{.ID}}: {{.Image}} {{.Names}}' | fzf --layout=reverse -m | sed 's/: .*//g' | xargs -I{} -ot docker stop {}";
-      dockerrmiall = ''docker rmi "$(docker images -a -q)"'';
-      dockerrmall = ''docker rm "$(docker ps -a -q)"'';
-      dockerstopall = ''docker stop "$(docker ps -a -q)"'';
+      dockerrmiall = "docker rmi $(docker images -a -q)";
+      dockerrmall = "docker rm $(docker ps -a -q)";
+      dockerstopall = "docker stop $(docker ps -a -q)";
       # KUBE
       kubelogs =
         "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl logs -f \${1} -n \${0}'";
