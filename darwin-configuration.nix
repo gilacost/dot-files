@@ -293,10 +293,19 @@
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
-    brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
+    brews = [
+      "mas"
+      "asciinema"
+      "checkov"
+      "fwup"
+      "coreutils"
+      "ansible"
+      "ghostscript"
+    ];
 
     casks = [
       # "popcorn-time"
+      "teamviewer"
       "sketch"
       "google-chrome"
       "microsoft-teams"

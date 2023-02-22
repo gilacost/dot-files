@@ -19,7 +19,10 @@ in {
     neovim-remote
     tree-sitter
     nix-prefetch-git
+    subversionClient
     cmake
+    # jdk
+    jre8
     act
 
     dasel
