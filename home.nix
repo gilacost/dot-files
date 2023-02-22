@@ -24,6 +24,7 @@ in {
     # jdk
     jre8
     act
+    nodejs-slim-19_x
 
     dasel
     silver-searcher
