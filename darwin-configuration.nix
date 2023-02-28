@@ -297,6 +297,7 @@
 
     casks = [
       # "popcorn-time"
+      "now-tv-player"
       "OmniGraffle"
       "sketch"
       "google-chrome"
