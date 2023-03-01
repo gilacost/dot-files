@@ -356,6 +356,21 @@ in {
     };
   };
 
+  home.file.".config/peco/config.json" = {
+    text = ''
+      {
+         "Style": {
+             "Basic": ["on_default", "default"],
+             "SavedSelection": ["bold", "on_yellow", "black"],
+             "Selected": ["underline", "on_cyan", "black"],
+             "Query": ["yellow", "bold"],
+             "Matched": ["red", "on_blue"]
+         },
+         "Use256Color": true
+      }
+    '';
+  };
+
   ###################
   # EDITOR   ########
   ###################
