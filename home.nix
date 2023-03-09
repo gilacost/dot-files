@@ -568,6 +568,16 @@ in {
             sha256 = "1j2q62sac9gwcdzgc2cdxvvpxjgxi12sy33p49lk3gh5mlld53ij";
           };
         };
+        # nix-prefetch-git https://github.com/nelstrom/vim-pml --rev 166b1b741b46d39ac0141239a1377ab2163f2dc6 
+        vim-wakatime = vimUtils.buildVimPlugin {
+          name = "vim-wakatime";
+          src = fetchFromGitHub {
+            owner = "gilacost";
+            repo = "vim-wakatime";
+            rev = "e5681220d727fd21aca5034dbc9ca864feee0f0e";
+            sha256 = "1rx5fadwa1xqj3q5xmvlm5d7p6bcq57h55h86hk1w84v0ix1b5k3";
+          };
+        };
 
       in [
         vim-test
@@ -633,7 +643,7 @@ in {
         vim-vsnip
 
         # Other
-        # vim-wakatime
+        vim-wakatime
       ];
   };
 
