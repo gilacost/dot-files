@@ -7,15 +7,17 @@ cat << HELP
 dockertags  --  list all tags for a Docker image on a remote registry.
 
 EXAMPLE: 
-    - list all tags for ubuntu:
-       dockertags ubuntu
+    - list all tags for hexpm/elixir:
+       dockertags hexpm/elixir
 
-    - list all php tags containing apache:
-       dockertags php apache
+    - list all hexpm/elixir tags at page 2:
+       dockertags hexpm/elixir 2
 
 HELP
 fi
 
-image="$1"
+IMAGE="$1"
+PAGE="${2-1}"
+# hexpm/elixir
 
-curl 'https://hub.docker.com/v2/repositories/hexpm/elixir/tags/?page_size=1024&page&name&ordering' |jq '."results"[]["name"]'
+curl -L -s "https://hub.docker.com/v2/repositories/${IMAGE}/tags/?page_size=1024&page=${PAGE}&name&ordering" |jq '."results"[]["name"]'
