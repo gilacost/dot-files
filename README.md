@@ -129,3 +129,6 @@ dscacheutil -flushcache
 <!-- - [ ] projections.vim REVIEW move to -->
 <!-- - [ ] rename file -->
 <!-- - [ ] cmp, lsp config and lsptrouble review -->
+
+TODO include the config file in .ssh/ copied from 1password developer settings
+killall ssh-agent; eval `ssh-agent`
