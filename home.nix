@@ -16,6 +16,7 @@ in {
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    bfg-repo-cleaner
     neovim-remote
     tree-sitter
     nix-prefetch-git
