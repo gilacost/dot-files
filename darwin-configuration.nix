@@ -297,7 +297,9 @@
       [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" "xmlstarlet" ];
 
     casks = [
+      "tortoisehg"
       # "popcorn-time"
+      "chromium"
       "now-tv-player"
       "OmniGraffle"
       "sketch"
