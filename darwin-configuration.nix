@@ -325,7 +325,6 @@
       "vmware-fusion"
       "discord"
       "insomnia"
-      "visual-studio-code"
     ];
 
     masApps = {
