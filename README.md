@@ -49,9 +49,9 @@ sh <(curl -L https://nixos.org/nix/install) --daemon
 Before running the install script set the hostname to one list in the `flake.nix`.
 
 ```bash
-sudo scutil --set HostName lair
-sudo scutil --set LocalHostName lair
-sudo scutil --set ComputerName lair
+sudo scutil --set HostName lair|swamp
+sudo scutil --set LocalHostName lair|swamp
+sudo scutil --set ComputerName lair|swamp
 dscacheutil -flushcache
 ./install.sh
 ```

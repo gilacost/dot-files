@@ -285,27 +285,20 @@
     };
 
     extraConfig = ''
-       cask "firefox", args: { language: "en-GB" }
-      #repo = "popcorn-official/popcorn-desktop"
-      #tap repo, "https://github.com/#{repo}.git"
-      #ENV["HOMEBREW_POPCORN_TIME_BUILD"] = "false"
-      #cask "popcorn-time" #, args: { "no-quarantine": true }
+      cask "firefox", args: { language: "en-GB" }
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
-    brews =
-      [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" "xmlstarlet" ];
+    brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
-      "tortoisehg"
-      # "popcorn-time"
       "chromium"
       "now-tv-player"
       "OmniGraffle"
       "sketch"
       "google-chrome"
       "microsoft-teams"
-      #     "virtualbox"
+      # "virtualbox"
       "google-chrome"
       "transmission"
       "adobe-acrobat-reader"
@@ -315,7 +308,6 @@
       "1password"
       "docker"
       "grammarly"
-      "inkscape"
       "recordit"
       "spotify"
       "vlc"
