@@ -8,7 +8,7 @@
 local catppuccin = require("catppuccin")
 
 catppuccin.setup {
-  flavour = "latte" -- latte, frappe, macchiato, mocha
+  flavour = "frappe" -- latte, frappe, macchiato, mocha
 }
 
 vim.cmd("colorscheme catppuccin")

@@ -34,7 +34,7 @@
             ++ [ ({ pkgs, config, ... }: { networking.hostName = "lair"; }) ];
         };
 
-        "cave" = darwin.lib.darwinSystem {
+        "swamp" = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = common ++ [ ./darwin-configuration.nix ]
             ++ [ ({ pkgs, config, ... }: { networking.hostName = "cave"; }) ];
