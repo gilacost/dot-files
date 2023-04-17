@@ -3,7 +3,7 @@
 if ! which -s git; then
     # Install developer tools
     echo "Developer tools not installed, installing now..."
-    export PATH=/usr/bin:/bin:/usr/sbin
+    # export PATH=/usr/bin:/bin:/usr/sbin
 
     touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
     PROD=$(softwareupdate -l |
@@ -28,7 +28,7 @@ if ! which -s nix; then
     sh <(curl -L https://nixos.org/nix/install) --daemon
 fi
 
-# (if M1) sudo softwareupdate --install-rosetta
+# (if M1) softwareupdate --install-rosetta --agree-to-license
 
 mkdir -p ~/.config/kitty
 
@@ -61,7 +61,3 @@ touch ~/.zshrc_local
 # cat GITCRYPTKEY | base64 --decode > GITCRYPTK
 # git-crypt unlock GITCRYPTK
 # cp secrets/wt.cfg.key ~/.wakatime.cfg
-
-# clone the book and so on
-
-# a bit of refactor de cosas?
