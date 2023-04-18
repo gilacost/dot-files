@@ -135,6 +135,11 @@ killall ssh-agent; eval `ssh-agent`
 
 ## 1password
 
+https://developer.1password.com/docs/cli/shell-plugins/github/
+
 - eval $(op signin)
 - eval $(op signin --account my)
 - eval $(op signin --account my.1password.com)
+- https://1password.community/discussion/127950/v2-client-unable-to-connect-to-desktop-app
+- https://developer.1password.com/docs/cli/get-started/?utm_source=google&utm_medium=cpc&utm_campaign=18646033576&utm_content=&utm_term=&gclid=CjwKCAjw__ihBhADEiwAXEazJkRCGq2GSVzS61dBrVpuQnbHFfWB0YKFWa8epb8LqdCRbmhRuCdkGxoCG_IQAvD_BwE&gclsrc=aw.ds
+- https://github.com/NixOS/nixpkgs/issues/222991

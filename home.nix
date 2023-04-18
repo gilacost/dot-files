@@ -7,7 +7,7 @@ let
 in {
 
   programs.home-manager.enable = true;
-  home.stateVersion = "22.05";
+  home.stateVersion = "22.11";
 
   ############
   # Packages #
@@ -21,8 +21,7 @@ in {
     nix-prefetch-git
     subversionClient
     cmake
-    # jdk
-    jre8
+
     act
     nodejs-slim-19_x
 
@@ -146,8 +145,9 @@ in {
     yarn
 
     # Security
-    _1password
-    git-credential-1password
+    # _1password
+    # _1password-gui
+    # git-credential-1password
   ];
 
   programs.direnv.enable = true;
@@ -165,7 +165,19 @@ in {
   };
 
   ###################
-  # GIT        ######
+  # 1Password #######
+  ###################
+
+  # programs = {
+  # _1password.enable = true;
+  # _1password-gui = {
+  # enable = true;
+  # polkitPolicyOwners = [ "pepo" ];
+  # };
+  # };
+
+  ###################
+  # GIT #############
   ###################
 
   programs.lazygit.enable = true;
