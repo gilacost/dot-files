@@ -132,3 +132,9 @@ dscacheutil -flushcache
 
 TODO include the config file in .ssh/ copied from 1password developer settings
 killall ssh-agent; eval `ssh-agent`
+
+## 1password
+
+- eval $(op signin)
+- eval $(op signin --account my)
+- eval $(op signin --account my.1password.com)
