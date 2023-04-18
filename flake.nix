@@ -16,6 +16,7 @@
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... }@inputs:
     let
       common = [
+
         home-manager.darwinModules.home-manager
         {
           nixpkgs.overlays = [ nur.overlay ];
@@ -37,7 +38,7 @@
         "swamp" = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = common ++ [ ./darwin-configuration.nix ]
-            ++ [ ({ pkgs, config, ... }: { networking.hostName = "cave"; }) ];
+            ++ [ ({ pkgs, config, ... }: { networking.hostName = "swamp"; }) ];
         };
 
         # Building the flakes require root privileges to update the HOSTNAME
