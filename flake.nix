@@ -16,7 +16,6 @@
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... }@inputs:
     let
       common = [
-
         home-manager.darwinModules.home-manager
         {
           nixpkgs.overlays = [ nur.overlay ];
@@ -37,8 +36,17 @@
 
         "swamp" = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          modules = common ++ [ ./darwin-configuration.nix ]
-            ++ [ ({ pkgs, config, ... }: { networking.hostName = "swamp"; }) ];
+          modules = common ++ [ ./darwin-configuration.nix ] ++ [
+            ({ pkgs, config, ... }: {
+              networking.hostName = "swamp";
+
+              programs._1password = { enable = true; };
+              programs._1password-gui = {
+                enable = true;
+                polkitPolicyOwners = [ "pepo" ];
+              };
+            })
+          ];
         };
 
         # Building the flakes require root privileges to update the HOSTNAME
