@@ -293,6 +293,7 @@
 
     casks = [
       "chromium"
+      "google-drive"
       "now-tv-player"
       "OmniGraffle"
       "sketch"
