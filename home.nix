@@ -558,6 +558,8 @@ in {
       \   }
       \ }
 
+      autocmd BufWritePre *.ex,*.exs,*.eex,*.leex,*.heex lua vim.lsp.buf.format()
+
       lua << EOF
         vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
         ${builtins.readFile ./conf.d/editor/base.lua}
