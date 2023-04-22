@@ -120,7 +120,7 @@ lsp.rust_analyzer.setup{}
 lsp.ansiblels.setup{}
 
 -- autocmd BufWritePre *.ex,*.exs,*.eex,*.leex,*.heex lua vim.lsp.buf.format()-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = {"*.ex","*.exs","*.eex","*.leex","*.heex"},
-  callback = vim.lsp.buf.formatting_seq_sync
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = {"*.ex","*.exs","*.eex","*.leex","*.heex"},
+--   callback = vim.lsp.buf.formatting_seq_sync
+-- })
