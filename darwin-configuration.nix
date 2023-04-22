@@ -2,6 +2,15 @@
 
 {
   environment.shells = [ pkgs.zsh ];
+  environment.etc = {
+    "sudoers.d/10-nix-commands".text = ''
+      %admin ALL=(ALL:ALL) NOPASSWD: /run/current-system/sw/bin/darwin-rebuild, \
+                                     /run/current-system/sw/bin/nix*, \
+                                     /run/current-system/sw/bin/ln, \
+                                     /nix/store/*/activate, \
+                                     /bin/launchctl
+    '';
+  };
   users = {
     users = {
       pepo = {

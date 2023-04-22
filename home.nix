@@ -165,18 +165,6 @@ in {
   };
 
   ###################
-  # 1Password #######
-  ###################
-
-  # programs = {
-  # _1password.enable = true;
-  # _1password-gui = {
-  # enable = true;
-  # polkitPolicyOwners = [ "pepo" ];
-  # };
-  # };
-
-  ###################
   # GIT #############
   ###################
 
@@ -570,6 +558,7 @@ in {
         ${builtins.readFile ./conf.d/editor/theme.lua}
         ${builtins.readFile ./conf.d/editor/telescope.lua}
         ${builtins.readFile ./conf.d/editor/lspkind.lua}
+        ${builtins.readFile ./conf.d/editor/neoai.lua}
       EOF
     '';
 
@@ -605,9 +594,22 @@ in {
           };
         };
 
+        # nix-prefetch-git https://github.com/Bryley/neoai.nvim --rev cdbc4c723577d642b5af796875dec660a4cb528b
+        neoai = vimUtils.buildVimPlugin {
+          name = "neoai";
+          src = fetchFromGitHub {
+            owner = "Bryley";
+            repo = "neoai.nvim";
+            rev = "14ffe5f1361bdfbd7667ca57cb07f52abcdcc00b";
+            sha256 = "0mqrp9hpwrfdyjfpw85wmzd0qflx9pk4h50ax3r2snav61n9y6rg";
+          };
+        };
+
       in [
         vim-test
         co-pilot
+        nui-nvim
+        neoai
 
         ###REVIEW###
         # indentLine
@@ -647,7 +649,6 @@ in {
         vim-rooter
 
         # Pope
-        vim-commentary
         vim-surround
         vim-commentary
         vim-unimpaired

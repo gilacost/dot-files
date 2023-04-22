@@ -3104,3 +3104,8 @@ TBD
 TBListed
 sequenceDiagram
 deamon
+GitGutterNextHunk
+GitGutterPrevHunk
+GitGutterStageHunk
+GitGutterUndoHunk
+NeoAI
