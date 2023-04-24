@@ -145,9 +145,9 @@ in {
     yarn
 
     # Security
-    # _1password
+    _1password
     # _1password-gui
-    # git-credential-1password
+    git-credential-1password
   ];
 
   programs.direnv.enable = true;
