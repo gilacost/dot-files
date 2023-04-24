@@ -2,6 +2,7 @@
 
 {
   environment.shells = [ pkgs.zsh ];
+  # https://github.com/LnL7/nix-darwin/issues/165
   environment.etc = {
     "sudoers.d/10-nix-commands".text = ''
       %admin ALL=(ALL:ALL) NOPASSWD: /run/current-system/sw/bin/darwin-rebuild, \
