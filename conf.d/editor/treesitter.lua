@@ -5,12 +5,13 @@ vim.fn.mkdir(parser_install_dir, "p")
 require('nvim-treesitter.configs').setup {
   sync_install = true,
   highlight = {
-    disable = { "markdown", "php" },
+    disable = { "markdown", "inline_markdown", "php" },
     enable = true,
     additional_vim_regex_highlighting = false,
   },
   -- List of parsers to ignore installing
-  ignore_install = {"markdown", "php" },
+  -- review this https://github.com/nvim-treesitter/nvim-treesitter/issues/4349
+  ignore_install = {"markdown", "inline_markdown", "php" },
 
   incremental_selection = {
     enable = true,
