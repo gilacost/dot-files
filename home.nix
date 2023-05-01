@@ -659,10 +659,10 @@ in {
 
         # Linting / Fixing / Lsp
         lspsaga-nvim
-        cmp-nvim-lsp
-        cmp-buffer
-        cmp-nvim-lsp
-        nvim-cmp
+        # QUIZAS ESTE SI
+        # cmp-nvim-lsp
+        # cmp-buffer
+        # nvim-cmp
         nvim-lspconfig
         neoformat
 
