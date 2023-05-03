@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, devenv, ... }:
 let
   gitconfig = {
     userEmail = "josepgiraltdlacoste@gmail.com";
@@ -15,7 +15,7 @@ in {
 
   fonts.fontconfig.enable = true;
 
-  home.packages = with pkgs; [
+  home.packages = [ devenv ] ++ (with pkgs; [
     neovim-remote
     tree-sitter
     nix-prefetch-git
@@ -126,10 +126,12 @@ in {
     rustc
     go
 
-    # BEAM
+    # # BEAM
     rebar3
     elixir
     erlang
+
+    cachix
 
     # Python
     nodePackages.pyright
@@ -148,7 +150,7 @@ in {
     _1password
     # _1password-gui
     git-credential-1password
-  ];
+  ]);
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
@@ -559,6 +561,7 @@ in {
         ${builtins.readFile ./conf.d/editor/telescope.lua}
         ${builtins.readFile ./conf.d/editor/lspkind.lua}
         ${builtins.readFile ./conf.d/editor/neoai.lua}
+        ${builtins.readFile ./conf.d/editor/cmp.lua}
       EOF
     '';
 
@@ -659,10 +662,9 @@ in {
 
         # Linting / Fixing / Lsp
         lspsaga-nvim
-        # QUIZAS ESTE SI
-        # cmp-nvim-lsp
-        # cmp-buffer
-        # nvim-cmp
+        cmp-nvim-lsp
+        cmp-buffer
+        nvim-cmp
         nvim-lspconfig
         neoformat
 
