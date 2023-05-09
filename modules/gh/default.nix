@@ -1,5 +1,9 @@
 { pkgs, ... }:
 let
+
+  # gabe565/gh-profile
+  # matt-bartel/gh-clone-org
+  # rnorth/gh-combine-prs
   #  TODO gh search repos --topic "gh-extension"
   gh-poi = pkgs.buildGoModule rec {
     pname = "gh-poi";

@@ -1,25 +1,9 @@
 #!/bin/bash
-#
-if ! which -s git; then
-    # Install developer tools
-    echo "Developer tools not installed, installing now..."
-    # export PATH=/usr/bin:/bin:/usr/sbin
-
-    touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
-    PROD=$(softwareupdate -l |
-          grep "\*.*Command Line" |
-          head -n 1 | awk -F"*" '{print$2}' |
-          sed -e 's/^ *//' |
-          sed 's/Label: //g' |
-          tr -d '\n')
-    softwareupdate -i "$PROD" --verbose
-    /usr/bin/make install
-fi
 
 if ! which -s brew; then
     # Install Homebrew
     echo "Brew not installed, installing now..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 if ! which -s nix; then
@@ -30,25 +14,29 @@ fi
 
 # (if M1) softwareupdate --install-rosetta --agree-to-license
 
-mkdir -p ~/.config/kitty
+mkdir -p "$HOME/.config/kitty"
+
+SCRIPT_DIR=$(dirname "$0")
 
 sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.old
-sudo ln -s  "$HOME/Repos/dot-files/nix.conf" "/etc/nix/nix.conf"
+sudo ln -s  "$HOME/Repos/$SCRIPT_DIR/nix.conf" "/etc/nix/nix.conf"
 
 # TODO move this to nix
-ln -s  "$HOME/Repos/dot-files/conf.d/terminal/nvim.session" "$HOME/.config/nvim.session"
-ln -s  "$HOME/Repos/dot-files/conf.d/terminal/kitty.conf" "$HOME/.config/kitty/kitty.conf"
-ln -s  "$HOME/Repos/dot-files/spell" "$HOME/.config/nvim"
+ln -s  "$HOME/Repos/$SCRIPT_DIR/conf.d/terminal/nvim.session" "$HOME/.config/nvim.session"
+ln -s  "$HOME/Repos/$SCRIPT_DIR/conf.d/terminal/kitty.conf" "$HOME/.config/kitty/kitty.conf"
+ln -s  "$HOME/Repos/$SCRIPT_DIR/spell" "$HOME/.config/nvim"
+
+# TODO check hostname?
 
 nix build "./#darwinConfigurations.$(hostname).system"
 ./result/sw/bin/darwin-rebuild switch --flake "./#$(hostname)"
 darwin-rebuild switch --flake "./#$(hostname)"
 
-mkdir -p ~/.config/kitty
-mkdir -p ~/.ssh
+mkdir -p "$HOME/.config/kitty"
+mkdir -p "$HOME/.ssh"
 sudo rm  /etc/nix/nix.conf
 sudo rm /etc/shells
-touch ~/.zshrc_local
+touch "$HOME/.zshrc_local"
 
 # TODO 
 
