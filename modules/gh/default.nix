@@ -1,5 +1,6 @@
 { pkgs, ... }:
 let
+  #  TODO gh search repos --topic "gh-extension"
   gh-poi = pkgs.buildGoModule rec {
     pname = "gh-poi";
     version = "0.9.1";
