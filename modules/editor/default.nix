@@ -266,7 +266,7 @@
         telescope-symbols-nvim
         trouble-nvim
         vim-cool
-        vim-rooter
+        # vim-rooter
 
         # Pope
         vim-surround
