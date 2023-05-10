@@ -13,9 +13,8 @@
   };
 
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... }@inputs: {
-    devShells = import ./dev_shells inputs;
+    # devShells = import ./dev_shells inputs;
     darwinConfigurations = {
-
       "{{ hostname }}" = let
         system = "x86_64-darwin";
         devenv = inputs.devenv.packages.${system}.devenv;
