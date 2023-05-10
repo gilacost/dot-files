@@ -29,7 +29,7 @@ jobs:
       - name: Run Flake Checks
         run: |
           rm flake.nix
-          sed "s/{{hostname}}/$(hostname)/g" flake.mustache > flake.nix
+          sed "s/{{hostname}}/$(hostname | sed -E 's/\.local//g')/g" flake.mustache > flake.nix
           nix flake check -v --show-trace
         timeout-minutes: 240
 
