@@ -54,6 +54,11 @@ sudo scutil --set LocalHostName lair|swamp
 sudo scutil --set ComputerName lair|swamp
 dscacheutil -flushcache
 ./install.sh
+
+sudo scutil --set HostName swamp.local
+sudo scutil --set LocalHostName swamp.local
+sudo scutil --set ComputerName swamp.local
+dscacheutil -flushcache
 ```
 
 - reboot

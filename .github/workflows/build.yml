@@ -26,14 +26,15 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Flake Checks
+      - name: Run Flake Checks and replace darwinConfiguration with hostname
         run: |
           rm flake.nix
-          sed "s/{{hostname}}/$(hostname | sed -E 's/\.local//g')/g" flake.mustache > flake.nix
+          sed "s/{{ hostname }}/$(hostname | sed -E 's/\.local//g')/g" flake.mustache > flake.nix
           nix flake check -v --show-trace
+          cat flake.nix
         timeout-minutes: 240
 
-      - name: Run build (requires setting the hostname to CI)
+      - name: Run build
         run: |
-          nix build "./#darwinConfigurations.$(hostname).system"
-          ./result/sw/bin/darwin-rebuild switch --flake "./#darwinConfigurations.$(hostname).system"
+          nix build "./#darwinConfigurations.$(hostname | sed -E 's/\.local//g').system"
+          ./result/sw/bin/darwin-rebuild switch --flake "./#$(hostname)"
