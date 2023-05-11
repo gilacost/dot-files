@@ -16,25 +16,6 @@
     devShells = import ./dev_shells inputs;
     darwinConfigurations = {
 
-      # "lair" = let
-      #   system = "x86_64-darwin";
-      #   devenv = inputs.devenv.packages.${system}.devenv;
-      #   hostname = "lair";
-      #   common = [
-      #     home-manager.darwinModules.home-manager
-      #     {
-      #       nixpkgs.overlays = [ nur.overlay ];
-      #       home-manager.useGlobalPkgs = true;
-      #       home-manager.useUserPackages = true;
-      #       home-manager.users.pepo = import ./home.nix;
-      #       home-manager.extraSpecialArgs = { inherit devenv; };
-      #     }
-      #   ];
-      # in darwin.lib.darwinSystem rec {
-      #   modules = common ++ [ ./darwin-configuration.nix ]
-      #     ++ [ ({ pkgs, config, ... }: { networking.hostName = "lair"; }) ];
-      # };
-
       "swamp" = let
         system = "aarch64-darwin";
         devenv = inputs.devenv.packages.${system}.devenv;
