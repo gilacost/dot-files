@@ -49,4 +49,5 @@ jobs:
            #    nix
 
           # Error: Process completed with exit code 2.
+          #
           # ./result/sw/bin/darwin-rebuild switch --flake "./#$(hostname | sed -E 's/\.local//g')"
