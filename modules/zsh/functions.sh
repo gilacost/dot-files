@@ -1,10 +1,10 @@
 if [ -x "$(command -v nvr)" ]; then
   # alias nvim=nvr
-  export EDITOR='nvr --remote-wait'
+  export EDITOR="nvr --remote-wait"
 else
-  export EDITOR='echo "No nesting!"'
+  export EDITOR="echo 'No nesting!'"
 fi
-export VISUAL=$EDITOR
+export VISUAL="$EDITOR"
 alias e=$EDITOR
 
 # # rust avoid
@@ -18,11 +18,18 @@ unsetopt BEEP
 
 unsetopt correct
 
+# https://docs.cachix.org/pushing
+# Pushing whole /nix/store
+
+function push_cachix {
+  nix path-info --all | cachix push "${1:"pepo"}"
+}
+
 function gsina {
   git status --porcelain \
   | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
   | peco \
-  | awk '{ print "'`git rev-parse --show-toplevel`'/"$2 }'
+  | awk '{ print "$(git rev-parse --show-toplevel)/"$2 }'
 }
 
 function service_port {
@@ -35,34 +42,34 @@ function rm_pattern {
 }
 
 function update_input {
-  nix flake lock --update-input ${1:"nixpkgs"}
+  nix flake lock --update-input "${1:"nixpkgs"}"
 }
 
 function checkports_host {
-  sudo nmap -sTU -O $1
+  sudo nmap -sTU -O "$1"
 }
 
-    ### yaml for image  kubectl run kiada --image=luksa/kiada:0.1 --dry-run=client -o yaml > mypod.yaml
+### yaml for image  kubectl run kiada --image=luksa/kiada:0.1 --dry-run=client -o yaml > mypod.yaml
 # kubectl run --image=tutum/curl -it --restart=Never --rm client-pod curl 10.244.2.4:8080
 
 function ctdeps {
-  mix xref graph --sink $1 --only-nodes
+  mix xref graph --sink "$1" --only-nodes
 }
 
 function depstree {
-  mix xref graph --sink $1
+  mix xref graph --sink "$1"
 }
 
 function rebuild_nix {
-  darwin-rebuild build --flake ./\#$1
-  darwin-rebuild switch --flake ./\#$1
+  darwin-rebuild build --flake "#$1"
+  darwin-rebuild switch --flake "#$1"
 }
 
 function depstreefilter {
   # Filters deps tree. Defaults to compile
   # which will only list the transitive deps
   # compile should be default
-  mix xref graph --sink $1 --label $2
+  mix xref graph --sink "$1" --label "$2"
 }
 
 function depsgraph {
@@ -70,7 +77,7 @@ function depsgraph {
 }
 
 function poyamlfimg {
-  kubectl run kiada --image=$1 --dry-run=client -o yaml > $2.yaml
+  kubectl run kiada --image="$1" --dry-run=client -o yaml > "$2.yaml"
 }
 
 function insidecurl {
@@ -78,7 +85,7 @@ function insidecurl {
 }
 
 function erlv {
-  cat $(dirname $(dirname $(which erl)))/lib/erlang/releases/**/OTP_VERSION
+  cat "$(dirname $(dirname $(which erl)))/lib/erlang/releases/**/OTP_VERSION"
 }
 
 function dockerlogin {
