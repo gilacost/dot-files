@@ -4,49 +4,54 @@
   home.packages = [ devenv ] ++ (with pkgs; [
     neovim-remote
     tree-sitter
-    nix-prefetch-git
-    subversionClient
-    cmake
 
-    act
-    nodejs-slim-19_x
+    # TO REVIEW
+    # cmake
+    # act
+    # bind 
+    # coreutils
+
+    # STILL NEEDS TO BE ORGANISED
+    imagemagick
+    zsh-syntax-highlighting
+    cloc
+    nodePackages.node2nix
+
+    postgresql
+    htop
 
     dasel
     silver-searcher
     (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    # STILL NEEDS TO BE ORGANISED
+
+    # RANDOM
     unixtools.watch
     fortune
+    hugo
+
+    # OUTPUT DATA MANIPULATION, SEARCH AND NAVIGATION
     fd
     jq
     yq
-    btop
     ripgrep
-    #   bind # review
-    cloc
-
     glow
-    wget
     tig
     tree
-    imagemagick
-
-    zsh-syntax-highlighting
-
-    coreutils
-
-    httpie
-
     peco
 
+    # HTTP, NETWORK AND CO
+    httpie
+    nix-prefetch-git
+    wget
     nmap
-    inetutils # common net tool package instead
-    nodePackages.node2nix
-    nodePackages.cspell
-    # tanka
+    inetutils
+
+    # SECRET MANAGEMENT
     sops
     git-crypt
 
-    # lsp
+    # LSP, LINTING AND FORMATTING
     elixir_ls
     erlang-ls
     terraform-ls
@@ -55,43 +60,31 @@
     nodePackages.vim-language-server
     nodePackages.bash-language-server
     nodePackages.yaml-language-server
-    #  todo Json ls and tailwindcss
-
     rust-analyzer
     rustfmt
-
     hadolint
     nixfmt
     tflint
-    # nodePackages.textlint
     nodePackages.prettier
-    nodePackages.markdownlint-cli
     erlfmt
     shellcheck
+    nodePackages.markdownlint-cli
+    nodePackages.cspell
+    nodePackages.pyright
+    # nodePackages.textlint
+    # todo Json ls and tailwindcss
 
+    # CLOUD SDKS, OPS TOOLS AND WORKFLOW
     pre-commit
-
-    postgresql
-    #   # cloud
-    #   awcli2
-    #   azure-cli
-    google-cloud-sdk
-    linode-cli
-    flyctl
-    # openshift
-    #
-    #  # OPs
-    #  # argocd
-    #  # ansible
     terragrunt
     packer
     skopeo
     skaffold
     nomad
     vagrant
-    # eksctl
-    # minikube
-    # kompose
+    google-cloud-sdk
+    linode-cli
+    flyctl
     vault
     infracost
     dive
@@ -100,12 +93,19 @@
     terragrunt
     kubectl
     kubernetes-helm
-    google-cloud-sdk
     terraformer
     terraform-docs
-    htop
+    # openshift
+    # awcli2
+    # azure-cli
+    # argocd
+    # ansible
+    # tanka
+    # cloud
+    # eksctl
+    # minikube
+    # kompose
 
-    # programming languages
     # RUST
     cargo
     cargo-edit
@@ -117,22 +117,22 @@
     elixir
     erlang
 
-    cachix
-
-    # Python
-    nodePackages.pyright
+    # PYTHON
     python310Full
     python310Packages.grip
     python310Packages.autopep8
     python310Packages.numpy
     python310Packages.setuptools
 
+    # NIX
+    cachix
+
     # FE
     nodejs
     nodePackages.npm
     yarn
 
-    # Security
+    # SECURITY
     _1password
     # _1password-gui
     git-credential-1password
