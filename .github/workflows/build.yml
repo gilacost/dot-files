@@ -28,7 +28,6 @@ jobs:
 
       - name: Run Flake Checks and replace darwinConfiguration with hostname
         run: |
-          rm flake.nix
           sed -i "s/swamp/$(hostname | sed -E 's/\.local//g')/g" flake.nix
           nix flake check -v --show-trace
           cat flake.nix
