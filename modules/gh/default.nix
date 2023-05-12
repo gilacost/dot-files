@@ -2,7 +2,7 @@
 let
 
   # gabe565/gh-profile
-  # rnorth/gh-combine-prs
+  # maybe 1PASSWORD stuff 
   #  TODO gh search repos --topic "gh-extension"
   gh-poi = pkgs.buildGoModule rec {
     pname = "gh-poi";
@@ -41,10 +41,38 @@ let
     };
   };
 
+  gh-combine-prs = pkgs.stdenv.mkDerivation {
+    pname = "gh-combine-prs";
+    version = "0.1.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "rnorth";
+      repo = "gh-combine-prs";
+      rev = "ab066c1d810844c071a661301259cbb470891004";
+      sha256 = "00ngb8ay8sl460cp962zbrcap6x1alpqdj4c3gpdga7ah37ks612";
+    };
+
+    buildInputs = [ pkgs.bash ];
+    buildCommand = ''
+      mkdir -p $out/bin $out/dist
+      cp -r $src/* $out/bin
+      chmod +x $out/bin/gh-combine-prs
+    '';
+
+    meta = with pkgs.lib; {
+      description =
+        "A `gh` extension for combining multiple PRs (e.g. Dependabot PRs) into one. ";
+    };
+  };
+
 in {
   programs.gh = {
     enable = true;
-    extensions = with pkgs; [ gh-markdown-preview gh-poi gh-clone-org ];
+    extensions = with pkgs; [
+      gh-markdown-preview
+      gh-poi
+      gh-clone-org
+      gh-combine-prs
+    ];
     settings = { git_protocol = "ssh"; };
   };
 }
