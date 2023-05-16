@@ -75,7 +75,7 @@
     # todo Json ls and tailwindcss
 
     # CLOUD SDKS, OPS TOOLS AND WORKFLOW
-    pre-commit
+    # pre-commit
     terragrunt
     packer
     skopeo
