@@ -13,7 +13,7 @@
   };
 
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... }@inputs: {
-    devShells = import ./dev_shells inputs;
+    # devShells = import ./dev_shells inputs;
     darwinConfigurations = {
 
       "swamp" = let
