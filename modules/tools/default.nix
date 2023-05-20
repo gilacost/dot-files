@@ -134,6 +134,15 @@
 
     # SECURITY
     _1password
+    # https://github.com/NixOS/nixpkgs/issues/222991
+    # I've been trying to connect 1password-cli with 1password-gui for a long time
+    # now and it has not been possible. Ideally, I would like to use 1password-cli
+    # to handle ssh-keys and gihub tokens, I think this is possible with nixos but 
+    # not with darwin. When you install 1password-gui it installs it the wrong 
+    # path and I have not been able to find a way to change it, in this scenario
+    # I am lost.  
+    # /nix/store/kyxf3qrz6v4bmcdab56zgyr5myfhl23w-1password-8.10.4/Applications/
+
     # _1password-gui
     git-credential-1password
   ]);
