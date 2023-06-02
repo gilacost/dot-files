@@ -4,14 +4,14 @@
   # This populates a dummy package to satisfy the requirement
   programs.firefox.package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
 
-  # programs.firefox.profiles.myprofile.extensions = with pkgs.nur.repos.rycee.firefox-addons;
-  # [
-  # # tridactyl
-  # onepassword-password-manager
-  # ];
-
   programs.firefox.profiles = let
     userChrome = builtins.readFile ./userChrome.css;
+
+    extensions = with pkgs.nur.repos.rycee.firefox-addons;
+      [
+        # tridactyl
+        onepassword-password-manager
+      ];
     settings = {
       "app.update.auto" = false;
       "browser.startup.homepage" = "http://elixirweekly.net/";
@@ -48,12 +48,16 @@
     home = {
       inherit settings;
       inherit userChrome;
+
       id = 0;
+      extensions = extensions;
     };
 
     work = {
       inherit userChrome;
       id = 1;
+
+      extensions = extensions;
       settings = settings // {
         "browser.startup.homepage" = "about:blank";
         "browser.urlbar.placeholderName" = "Google";
