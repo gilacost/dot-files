@@ -9,5 +9,4 @@ require('neoai').setup{
 }
 
 vim.keymap.set("n","<Leader>ai",":NeoAI<CR>")
--- NeoAIContext
--- vim.keymap.set("n","<Leader>hp",":GitGutterPrevHunk<CR>")
+vim.keymap.set("n","<Leader>ac",":NeoAIContext<CR>")

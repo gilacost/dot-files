@@ -11,22 +11,17 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Mappings
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-  vim.keymap.set('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
-  vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+  vim.keymap.set('n', '<Leader>h', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>")
+  vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>")
   vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
   vim.keymap.set('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  vim.keymap.set('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
-  vim.keymap.set('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
-  vim.keymap.set('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>')
-  vim.keymap.set('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  vim.keymap.set('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  vim.keymap.set('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-  vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  vim.keymap.set('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+  vim.keymap.set('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
 end
 
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+local signs = { Error = "", Warning = "", Hint = "", Information = "" }
 
 for type, icon in pairs(signs) do
   local hl = "LspDiagnosticsSign" .. type
@@ -115,11 +110,40 @@ lsp.bashls.setup{
   on_attach = on_attach,
 }
 
-lsp.pyright.setup{}
-lsp.rust_analyzer.setup{}
-lsp.ansiblels.setup{}
+lsp.pyright.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
 
--- autocmd BufWritePre *.ex,*.exs,*.eex,*.leex,*.heex lua vim.lsp.buf.format()-
+lsp.rust_analyzer.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+lsp.ansiblels.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+lsp.tsserver.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+lsp.yamlls.setup {
+  settings = {
+    yaml = {
+      schemas = {
+        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+        ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.yaml",
+      },
+    },
+  },
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   pattern = {"*.ex","*.exs","*.eex","*.leex","*.heex"},
 --   callback = vim.lsp.buf.formatting_seq_sync

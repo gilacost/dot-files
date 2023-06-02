@@ -170,7 +170,7 @@
         \ 'args': ['--stdin-filepath', '"%:p"'],
         \ 'stdin': 1,
         \ }
- 
+
       let g:neoformat_javascript_prettier = g:neoformat_prettier
       let g:neoformat_enabled_javascript = ['prettier']
       let g:neoformat_json_prettier = g:neoformat_prettier
@@ -241,12 +241,24 @@
             sha256 = "0mqrp9hpwrfdyjfpw85wmzd0qflx9pk4h50ax3r2snav61n9y6rg";
           };
         };
+        # nix-prefetch-git https://github.com/jackMort/ChatGPT.nvim  --rev af509fceb70cab1867a611f3d8fad6d3e7760fb0
+        # ChatGPT-vim = vimUtils.buildVimPlugin {
+        #   name = "ChatGPT.nvim";
+        #   src = fetchFromGitHub {
+        #     owner = "jackMort";
+        #     repo = "vim-wakatime";
+        #     rev = "af509fceb70cab1867a611f3d8fad6d3e7760fb0";
+        #     sha256 = "0h34m91fm1bpy7zi643y6i0l0zlkbq6r1w6b3xqvnbjjny2zh6md";
+        #   };
+        # };
 
       in [
         vim-test
         co-pilot
         nui-nvim
         neoai
+        # ChatGPT-vim
+        # plenary-nvim
 
         ###REVIEW###
         # indentLine

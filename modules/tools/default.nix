@@ -60,6 +60,7 @@
     nodePackages.vim-language-server
     nodePackages.bash-language-server
     nodePackages.yaml-language-server
+    nodePackages_latest.typescript-language-server
     rust-analyzer
     rustfmt
     hadolint
