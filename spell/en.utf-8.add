@@ -3177,3 +3177,13 @@ pinUseCredentialTableName
 Tigger
 openssh
 redis
+ai
+createBasicCRUDEndpoints
+createEntity
+createOneOffEndpoint
+endpointsObj
+endpointName
+kebabCase
+axios
+textDocument
+publishDiagnostics
