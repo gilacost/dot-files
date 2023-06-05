@@ -3187,3 +3187,4 @@ kebabCase
 axios
 textDocument
 publishDiagnostics
+extends
