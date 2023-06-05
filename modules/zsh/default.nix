@@ -108,6 +108,7 @@
         "git branch --all | peco | sed 's/remotes\\/origin\\///g' | xargs git checkout";
       ghcoi =
         "gh pr list | peco | awk '{ NF-=1; print $NF}' | xargs git checkout";
+      ip = "ipconfig getifaddr en0";
     };
   };
 }
