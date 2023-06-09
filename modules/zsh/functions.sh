@@ -33,7 +33,7 @@ function gsina {
 }
 
 function service_port {
-  sudo netstat -tulnp
+  sudo netstat -tulnp ${1:-tcp}
 }
 
 function rm_pattern {
