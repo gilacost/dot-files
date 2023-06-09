@@ -293,7 +293,7 @@
       "vlc"
       "vmware-fusion"
       "zoom"
-      # "virtualbox"
+      "vmware-fusion"
     ];
 
     masApps = {
