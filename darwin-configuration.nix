@@ -291,8 +291,8 @@
       "spotify"
       "transmission"
       "vlc"
-      "vmware-fusion"
       "zoom"
+      "parallels"
       "vmware-fusion"
     ];
 
