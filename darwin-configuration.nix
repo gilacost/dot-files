@@ -236,7 +236,7 @@
 
   services.skhd = {
     enable = true;
-    skhdConfig = builtins.readFile ./conf.d/skhd.conf;
+    skhdConfig = builtins.readFile ./conf.d/skhdrc;
   };
 
   services.nix-daemon.enable = true;
