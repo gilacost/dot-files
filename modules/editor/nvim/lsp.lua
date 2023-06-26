@@ -12,7 +12,7 @@ local on_attach = function(client, bufnr)
   -- Mappings
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   vim.keymap.set('n', '<Leader>h', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
+  -- vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>")
   vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>")
