@@ -52,6 +52,7 @@
     git-crypt
 
     # LSP, LINTING AND FORMATTING
+    hclfmt
     elixir_ls
     erlang-ls
     terraform-ls
