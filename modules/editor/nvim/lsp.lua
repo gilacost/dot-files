@@ -130,6 +130,11 @@ lsp.tsserver.setup{
   on_attach = on_attach,
 }
 
+lsp.tflint.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
 lsp.yamlls.setup {
   settings = {
     yaml = {
