@@ -171,6 +171,14 @@
         \ 'stdin': 1,
         \ }
 
+      let g:neoformat_hcl = {
+        \ 'exe': '/etc/profiles/per-user/pepo/bin/packer',
+        \ 'args': ['fmt', '-'],
+        \ 'stdin': 1,
+        \ }
+
+      let g:neoformat_hcl_hclfmt = g:neoformat_hcl
+      let g:neoformat_enabled_hcl = ['hclfmt']
       let g:neoformat_javascript_prettier = g:neoformat_prettier
       let g:neoformat_enabled_javascript = ['prettier']
       let g:neoformat_json_prettier = g:neoformat_prettier
