@@ -173,7 +173,7 @@
 
       let g:neoformat_hcl = {
         \ 'exe': '/etc/profiles/per-user/pepo/bin/packer',
-        \ 'args': ['fmt', '-'],
+        \ 'args': ['fmt', '"%:p"'],
         \ 'stdin': 1,
         \ }
 
