@@ -26,11 +26,11 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "gabe565";
       repo = "gh-profile";
-      rev = "v${version}";
+      rev = "71a0a267052659f7ae189282a5bc56d69a4d5913";
       sha256 = "1zxww52p74pmlcahmi834nc3qzl2f4rykb4nlwjn3mcyd144il57";
     };
 
-    vendorHash256 = "1zxww52p74pmlcahmi834nc3qzl2f4rykb4nlwjn3mcyd144il57";
+    vendorHash = "sha256-52VHV3PPA3U71TpaVdjYcmAJpBsRSowJGJFs3xbgq1Y=";
     doCheck = false;
   };
 

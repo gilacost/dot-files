@@ -100,13 +100,13 @@
     # openshift
     # awcli2
     # azure-cli
-    # argocd
-    # ansible
+    argocd
+    ansible
     # tanka
     # cloud
     # eksctl
     # minikube
-    # kompose
+    kompose
 
     # RUST
     cargo
