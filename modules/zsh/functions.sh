@@ -81,11 +81,15 @@ function poyamlfimg {
 }
 
 function insidecurl {
-  kubectl run --image=praqma/network-multitool:alpine-extra -it --restart=Never --rm client-pod curl $1
+  kubectl run --image=praqma/network-multitool:alpine-extra -it --restart=Never --rm client-pod curl "$1"
 }
 
 function erlv {
   cat "$(dirname $(dirname $(which erl)))/lib/erlang/releases/**/OTP_VERSION"
+}
+
+function image_tags {
+  curl -s "https://registry.hub.docker.com/v2/repositories/$1/tags/?page_size=${2:-200}" | jq -r '.results[].name'
 }
 
 function dockerlogin {
