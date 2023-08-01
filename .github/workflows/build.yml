@@ -49,18 +49,15 @@ jobs:
 
       - name: Run build
         run: |
+          cachix use pepo
           nix build "./#darwinConfigurations.$(hostname | sed -E 's/\.local//g').system"
           # error: Directory /run does not exist, aborting activation
           # Create a symlink to /var/run with:
-
           # $ printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf
           # $ /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -B # For Catalina
           # $ /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t # For Big Sur and later
-
           # The current contents of /etc/synthetic.conf is:
-
-           #    nix
-
+          #    nix
           # Error: Process completed with exit code 2.
           #
           # ./result/sw/bin/darwin-rebuild switch --flake "./#$(hostname | sed -E 's/\.local//g')"
