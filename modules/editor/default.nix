@@ -172,10 +172,10 @@
         \ }
 
       let g:neoformat_hcl = {
-        \ 'exe': '/etc/profiles/per-user/pepo/bin/packer',
-        \ 'args': ['fmt', '"%:p"'],
-        \ 'stdin': 1,
-        \ }
+       \ 'exe': '/etc/profiles/per-user/pepo/bin/packer',
+       \ 'args': ['fmt', '-write', '-'],
+       \ 'stdin': 1,
+       \ }
 
       let g:neoformat_hcl_hclfmt = g:neoformat_hcl
       let g:neoformat_enabled_hcl = ['hclfmt']
