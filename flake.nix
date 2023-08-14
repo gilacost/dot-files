@@ -7,6 +7,7 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     devenv.url = "github:cachix/devenv/latest";
     devenv.inputs.nixpkgs.follows = "nixpkgs";
