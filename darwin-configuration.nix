@@ -267,6 +267,7 @@
     brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "raycast"
       "anydesk"
       "1password"
       "OmniGraffle"
