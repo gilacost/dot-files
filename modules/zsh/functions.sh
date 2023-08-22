@@ -110,7 +110,7 @@ mkShell {
   ];
 }
 EOF
-    ${EDITOR:-vim} default.nix
+    "${EDITOR:-vim}" default.nix
   fi
 }
 
@@ -121,7 +121,7 @@ flakifiy() {
     echo "use flake" > .envrc
     direnv allow
   fi
-  ${EDITOR:-vim} flake.nix
+  "${EDITOR:-vim}" flake.nix
 }
 
 source <(kubectl completion zsh)
@@ -129,7 +129,6 @@ alias k=kubectl
 complete -F __start_kubectl k
 
 export PATH=$PATH:$HOME/Repos/dot-files/modules/node_modules/@ansible/ansible-language-server/bin
-
-
+eval "$(jump shell)"
 
 source $HOME/.zshrc_local
