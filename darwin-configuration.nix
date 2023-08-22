@@ -192,6 +192,7 @@
       };
 
       finder = {
+        AppleShowAllFiles = true;
         AppleShowAllExtensions = true;
         QuitMenuItem = true;
         FXEnableExtensionChangeWarning = false;
