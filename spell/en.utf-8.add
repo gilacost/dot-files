@@ -3246,3 +3246,5 @@ phonebook
 sudo
 newgroup
 PublicIpAddress
+unconfigurable
+vpc_security_group_ids

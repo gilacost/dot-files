@@ -29,6 +29,7 @@
     unixtools.watch
     fortune
     hugo
+    jump
 
     # OUTPUT DATA MANIPULATION, SEARCH AND NAVIGATION
     fd
