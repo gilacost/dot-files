@@ -8,8 +8,10 @@ fi
 
 if ! which -s nix; then
     # Install Nix
-    echo "Nix not installed, installing now..."
-    sh <(curl -L https://nixos.org/nix/install) --daemon
+    VERSION='2.11.0'
+    echo "Nix not installed, installing now version ${VERSION}..."
+    URL="https://releases.nixos.org/nix/nix-${VERSION}/install"
+    sh <(curl --location "${URL}") --daemon
 fi
 
 # (if M1) softwareupdate --install-rosetta --agree-to-license
