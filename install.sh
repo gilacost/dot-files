@@ -11,7 +11,13 @@ if ! which -s nix; then
     VERSION='2.11.0'
     echo "Nix not installed, installing now version ${VERSION}..."
     URL="https://releases.nixos.org/nix/nix-${VERSION}/install"
-    sh <(curl --location "${URL}") --daemon
+    CONFIGURATION="
+    extra-experimental-features = nix-command flakes repl-flake 
+    extra-trusted-users = ${USER}
+    "
+    sh <(curl --location "${URL}") --daemon \
+        --no-channel-add \
+        --nix-extra-conf-file <(echo "${CONFIGURATION}")
 fi
 
 # (if M1) softwareupdate --install-rosetta --agree-to-license
@@ -20,8 +26,8 @@ mkdir -p "$HOME/.config/kitty"
 
 SCRIPT_DIR=$(dirname "$0")
 
-sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.old
-sudo ln -s  "$HOME/Repos/$SCRIPT_DIR/nix.conf" "/etc/nix/nix.conf"
+# sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.old
+# sudo ln -s  "$HOME/Repos/$SCRIPT_DIR/nix.conf" "/etc/nix/nix.conf"
 
 # TODO move this to nix
 ln -s  "$HOME/Repos/$SCRIPT_DIR/conf.d/terminal/nvim.session" "$HOME/.config/nvim.session"
