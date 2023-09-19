@@ -69,6 +69,22 @@ dscacheutil -flushcache
 - log into spotify
 - nvim tree-sitter install all
 
+## Starting a nix linux-builder on macos
+
+```bash
+nix run 'github:NixOS/nixpkgs/23.05#darwin.builder'
+```
+
+if you have issues with port 22 already being allocated you can disable
+remote login in your machine with the following command:
+
+```bash
+sudo systemsetup -setremotelogin off
+```
+
+If you have started already the builder vm and you want to stop it just run
+`pkill qemu`.
+
 ## Varmilo keyboard
 
 - `FN` + `a` for about 3 seconds until `capslock` flashes and keyboard will swap to `mac` mode.

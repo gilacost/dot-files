@@ -37,6 +37,12 @@
       experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
+      builders = ssh-ng://builder@localhost aarch64-linux /etc/nix/builder_ed25519 4 - - - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpCV2N4Yi9CbGFxdDFhdU90RStGOFFVV3JVb3RpQzVxQkorVXVFV2RWQ2Igcm9vdEBuaXhvcwo=
+      trusted-public-keys = pepo.cachix.org-1:8sELuSHMV0vqHtuvnzKh3DCzb/+u+PtCY4Gl6V2blCg= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+      # Not strictly necessary, but this will reduce your disk utilization
+      builders-use-substitutes = true
+      substituters = https://cache.nixos.org https://cache.nixos.org/ https://devenv.cachix.org https://pepo.cachix.org
+      trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= pepo.cachix.org-1:8sELuSHMV0vqHtuvnzKh3DCzb/+u+PtCY4Gl6V2blCg= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
     '';
     gc = {
       automatic = true;
