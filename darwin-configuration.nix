@@ -274,6 +274,7 @@
     brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "ledger-live"
       "raycast"
       "anydesk"
       "1password"
@@ -292,7 +293,6 @@
       "loom"
       "microsoft-teams"
       "now-tv-player"
-      "recordit"
       "remarkable"
       "sketch"
       "skype"
