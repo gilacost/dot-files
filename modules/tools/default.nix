@@ -4,6 +4,10 @@
   home.packages = [ devenv ] ++ (with pkgs; [
     neovim-remote
     tree-sitter
+    p7zip
+    xorriso
+    # lxd
+    # lxc
 
     # TO REVIEW
     # cmake
