@@ -11,13 +11,13 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Mappings
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.keymap.set('n', '<Leader>h', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<Leader>h', vim.diagnostic.open_float(), bufopts)
   -- vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>")
   vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>")
   vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-  vim.keymap.set('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
 end
 

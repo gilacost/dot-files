@@ -271,10 +271,12 @@
     '';
 
     taps = [ "homebrew/core" "homebrew/cask" ];
-    brews = [ "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
+    brews = [ "qemu" "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "parallels-virtualization-sdk"
       "ledger-live"
+      "openvpn-connect"
       "raycast"
       "anydesk"
       "1password"
