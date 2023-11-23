@@ -274,6 +274,7 @@
     brews = [ "qemu" "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "pop"
       "parallels-virtualization-sdk"
       "ledger-live"
       "openvpn-connect"
