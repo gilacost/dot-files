@@ -88,7 +88,7 @@
     skopeo
     skaffold
     nomad
-    vagrant
+    #vagrant
     google-cloud-sdk
     linode-cli
     flyctl
@@ -103,9 +103,9 @@
     terraformer
     terraform-docs
     # openshift
-    # awcli
+    awscli
     azure-cli
-    awscli2
+    # awscli2
     argocd
     ansible
     # tanka
@@ -126,11 +126,11 @@
     erlang
 
     # PYTHON
-    python310Full
-    python310Packages.grip
-    python310Packages.autopep8
-    python310Packages.numpy
-    python310Packages.setuptools
+    # python312Full
+    # python312Packages.grip
+    # python312Packages.autopep8
+    # python312Packages.numpy
+    # python312Packages.setuptools
 
     # NIX
     cachix

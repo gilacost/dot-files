@@ -195,7 +195,7 @@
       lua << EOF
         vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
         ${builtins.readFile ./nvim/base.lua}
-      	${builtins.readFile ./nvim/lsp.lua}
+        ${builtins.readFile ./nvim/lsp.lua}
         ${builtins.readFile ./nvim/sets.lua}
         ${builtins.readFile ./nvim/terminal.lua}
         ${builtins.readFile ./nvim/treesitter.lua}
@@ -316,7 +316,7 @@
         vim-abolish
 
         # Linting / Fixing / Lsp
-        lspsaga-nvim
+        # lspsaga-nvim
         cmp-nvim-lsp
         cmp-buffer
         nvim-cmp
