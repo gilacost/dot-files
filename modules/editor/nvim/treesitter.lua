@@ -5,9 +5,12 @@ vim.fn.mkdir(parser_install_dir, "p")
 require'nvim-treesitter.configs'.setup {
   sync_install = true,
   highlight = {
+
+    disable = { "markdown", "inline_markdown", "php" },
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+  ignore_install = {"markdown", "inline_markdown", "php" },
 
   incremental_selection = {
     enable = true,

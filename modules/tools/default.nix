@@ -14,6 +14,7 @@
     # act
     # bind 
     # coreutils
+    lua-language-server
 
     # STILL NEEDS TO BE ORGANISED
     imagemagick
