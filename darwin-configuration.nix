@@ -274,6 +274,7 @@
     brews = [ "qemu" "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "cilicon"
       "pop"
       "parallels-virtualization-sdk"
       "ledger-live"
@@ -283,7 +284,6 @@
       "1password"
       "OmniGraffle"
       "adobe-acrobat-reader"
-      "chromium"
       "discord"
       "docker"
       "firefox"
