@@ -79,6 +79,8 @@
     nodePackages.markdownlint-cli
     nodePackages.cspell
     nodePackages.pyright
+    lua-language-server
+    # csharp-ls
     # nodePackages.textlint
     # todo Json ls and tailwindcss
 

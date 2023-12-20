@@ -9,7 +9,6 @@
     ./modules/zsh
     ./modules/tools
     ./modules/editor
-    ./modules/firefox
   ];
 
   # home.file.".ssh/config" = {
