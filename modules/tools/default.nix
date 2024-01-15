@@ -2,6 +2,7 @@
   #  TODO REVIEW ALL THESE PACKAGES
   # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
   home.packages = [ devenv ] ++ (with pkgs; [
+    nixos-generators
     neovim-remote
     tree-sitter
     p7zip
