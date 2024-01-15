@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+
   environment.shells = [ pkgs.zsh ];
   # https://github.com/LnL7/nix-darwin/issues/165
   environment.etc = {
@@ -58,7 +59,9 @@
 
   time.timeZone = "Europe/London";
 
+  #boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   system = {
+
     activationScripts.postActivation.text = ''
       # TODO: Rewrite as much of these as possible using nix-darwin
       # From https://github.com/mathiasbynens/dotfiles/blob/master/.macos taken
@@ -266,11 +269,6 @@
       lockfiles = true;
     };
 
-    extraConfig = ''
-      cask "firefox", args: { language: "en-GB" }
-    '';
-
-    taps = [ "homebrew/core" "homebrew/cask" ];
     brews = [ "qemu" "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
@@ -286,7 +284,6 @@
       "adobe-acrobat-reader"
       "discord"
       "docker"
-      "firefox"
       "google-chrome"
       "google-drive"
       "grammarly"
