@@ -165,33 +165,6 @@
       \   }
       \ }
 
-      let g:neoformat_prettier = {
-        \ 'exe': '/etc/profiles/per-user/pepo/bin/prettier',
-        \ 'args': ['--stdin-filepath', '"%:p"'],
-        \ 'stdin': 1,
-        \ }
-
-      let g:neoformat_hcl = {
-       \ 'exe': '/etc/profiles/per-user/pepo/bin/packer',
-       \ 'args': ['fmt', '-write', '-'],
-       \ 'stdin': 1,
-       \ }
-
-      let g:neoformat_hcl_hclfmt = g:neoformat_hcl
-      let g:neoformat_enabled_hcl = ['hclfmt']
-      let g:neoformat_javascript_prettier = g:neoformat_prettier
-      let g:neoformat_enabled_javascript = ['prettier']
-      let g:neoformat_json_prettier = g:neoformat_prettier
-      let g:neoformat_enabled_json = ['prettier']
-      let g:neoformat_css_prettier = g:neoformat_prettier
-      let g:neoformat_enabled_css = ['prettier']
-      let g:neoformat_typescript_prettier = g:neoformat_prettier
-      let g:neoformat_enabled_typescript = ['prettier']
-      let g:neoformat_yaml_prettier = g:neoformat_prettier
-      let g:neoformat_enabled_yaml = ['prettier']
-         
-      autocmd BufWritePre *.ex,*.exs,*.eex,*.leex,*.heex lua vim.lsp.buf.format()
-
       lua << EOF
         vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
         ${builtins.readFile ./nvim/base.lua}

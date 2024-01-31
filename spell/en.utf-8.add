@@ -3326,3 +3326,5 @@ savedView
 selectedAnnouncement
 selectedPriority
 Promtail
+source_path
+dotnet
