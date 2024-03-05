@@ -197,8 +197,8 @@
           src = fetchFromGitHub {
             owner = "github";
             repo = "copilot.vim";
-            rev = "c7d166ebda265370f38cec374e33f02eeec2f857";
-            sha256 = "1j2q62sac9gwcdzgc2cdxvvpxjgxi12sy33p49lk3gh5mlld53ij";
+            rev = "69455be5d4a892206bc08365ba3648a597485943";
+            sha256 = "0vcdfssw5nvdyxjq9d9vvdvvlwfr35cmrgrjc7ndbdxw778hsai0";
           };
         };
 
@@ -234,7 +234,8 @@
         #   };
         # };
 
-      in [
+      in
+      [
         vim-test
         co-pilot
         nui-nvim
