@@ -46,10 +46,6 @@
         execute 'bwipeout!' join(map(a:lines, {_, line -> split(line)[0]}))
       endfunction
 
-      let g:copilot_filetypes = {
-        \ 'markdown': v:true
-        \ }
-
       let g:projectionist_heuristics = {
       \  'rebar.config': {
       \     'apps/**/src/*.erl': {

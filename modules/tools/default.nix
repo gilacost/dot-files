@@ -16,6 +16,7 @@
     # bind 
     # coreutils
     lua-language-server
+    zellij
 
     # STILL NEEDS TO BE ORGANISED
     imagemagick
@@ -161,7 +162,10 @@
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  programs.bat.enable = true;
+  programs.bat = {
+    enable = true;
+    #theme = "T";
+  };
   programs.fzf.enable = true;
   programs.gpg.enable = true;
 

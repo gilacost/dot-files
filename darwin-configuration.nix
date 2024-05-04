@@ -272,6 +272,7 @@
     brews = [ "qemu" "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "arc"
       "cilicon"
       "pop"
       "parallels-virtualization-sdk"
