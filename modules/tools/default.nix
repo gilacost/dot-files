@@ -7,6 +7,7 @@
     tree-sitter
     p7zip
     xorriso
+    socat
     # lxd
     # lxc
 
