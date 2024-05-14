@@ -272,6 +272,7 @@
     brews = [ "qemu" "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "tableplus"
       "arc"
       "cilicon"
       "pop"
