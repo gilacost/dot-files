@@ -66,6 +66,7 @@
     erlang-ls
     terraform-ls
     rnix-lsp
+    tailwindcss-language-server
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server
     nodePackages.bash-language-server
