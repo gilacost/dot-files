@@ -65,7 +65,6 @@
     elixir_ls
     erlang-ls
     terraform-ls
-    rnix-lsp
     tailwindcss-language-server
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server
@@ -75,14 +74,13 @@
     rust-analyzer
     rustfmt
     hadolint
-    nixfmt
+    nixfmt-rfc-style
     tflint
     nodePackages.prettier
     erlfmt
     shellcheck
     nodePackages.markdownlint-cli
     nodePackages.cspell
-    nodePackages.pyright
     lua-language-server
     # csharp-ls
     # nodePackages.textlint
@@ -132,13 +130,6 @@
     elixir
     erlang
 
-    # PYTHON
-    # python312Full
-    # python312Packages.grip
-    # python312Packages.autopep8
-    # python312Packages.numpy
-    # python312Packages.setuptools
-
     # NIX
     cachix
 
@@ -159,7 +150,6 @@
     # /nix/store/kyxf3qrz6v4bmcdab56zgyr5myfhl23w-1password-8.10.4/Applications/
 
     # _1password-gui
-    git-credential-1password
   ]);
 
   programs.direnv.enable = true;
