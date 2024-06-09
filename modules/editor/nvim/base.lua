@@ -83,19 +83,23 @@ vim.keymap.set("n", "<Leader>r", ":%s/\\<<C-r><C-w>\\>/")
 -- NEOFORMAT
 --
 
--- vim.g.neoformat_basic_format_retab = 1
--- vim.g.neoformat_basic_format_trim = 1
+vim.g.neoformat_basic_format_retab = 1
+vim.g.neoformat_basic_format_trim = 1
 
--- local augroup = vim.api.nvim_create_augroup('fmt', {clear = true})
+local augroup = vim.api.nvim_create_augroup('fmt', {clear = true})
+
+vim.g.neoformat_enabled_elixir = {}
 
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*',
   group = augroup,
-  command = 'undojoin | Neoformat'
+  callback = function()
+    vim.cmd('undojoin | Neoformat')
+  end
 })
 
 vim.api.nvim_create_autocmd("BufWritePost", {
     callback = function()
-        vim.lsp.buf.format()
+            vim.lsp.buf.format()
     end
 })
