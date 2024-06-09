@@ -22,7 +22,7 @@ unsetopt correct
 # Pushing whole /nix/store
 
 function push_cachix {
-  nix path-info --all | cachix push "${1:"pepo"}"
+  nix path-info --all | cachix push pepo
 }
 
 function gsina {
@@ -82,6 +82,11 @@ function poyamlfimg {
 
 function insidecurl {
   kubectl run --image=praqma/network-multitool:alpine-extra -it --restart=Never --rm client-pod curl "$1"
+}
+
+function upgrade_nix {
+
+sudo nix-env --install --file '<nixpkgs>' --attr nix cacert -I nixpkgs=channel:nixpkgs-unstable && sudo launchctl remove org.nixos.nix-daemon && sudo launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
 }
 
 function erlv {

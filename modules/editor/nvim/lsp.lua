@@ -1,5 +1,5 @@
 local lsp = require('lspconfig')
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -52,77 +52,42 @@ for type, icon in pairs(signs) do
 end
 
 local border = {
-  {'╭', "FloatBorder"},
-  {'─', "FloatBorder"},
-  {'╮', "FloatBorder"},
-  {'│', "FloatBorder"},
-  {'╯', "FloatBorder"},
-  {'─', "FloatBorder"},
-  {'╰', "FloatBorder"},
-  {'│', "FloatBorder"},
+  { '╭', "FloatBorder" },
+  { '─', "FloatBorder" },
+  { '╮', "FloatBorder" },
+  { '│', "FloatBorder" },
+  { '╯', "FloatBorder" },
+  { '─', "FloatBorder" },
+  { '╰', "FloatBorder" },
+  { '│', "FloatBorder" },
 }
 
 lsp.elixirls.setup {
   cmd = { vim.g.lsp_elixir_bin },
   flags = { debounce_text_changes = 150, },
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
 }
 
-lsp.erlangls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.erlangls.setup {}
 
-lsp.terraformls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.terraformls.setup {}
 
-lsp.rnix.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.rnix.setup {}
 
-lsp.dockerls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.dockerls.setup {}
 
-lsp.vimls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.vimls.setup {}
 
-lsp.bashls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.bashls.setup {}
 
-lsp.pyright.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.pyright.setup {}
 
-lsp.rust_analyzer.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.rust_analyzer.setup {}
 
-lsp.ansiblels.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.ansiblels.setup {}
 
-lsp.tsserver.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.tsserver.setup {}
 
-lsp.tflint.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.tflint.setup {}
 
 lsp.yamlls.setup {
   settings = {
@@ -134,14 +99,9 @@ lsp.yamlls.setup {
       },
     },
   },
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
 }
 
-lsp.lua_ls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.tailwindcss.setup {}
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   pattern = {"*.ex","*.exs","*.eex","*.leex","*.heex"},
