@@ -88,11 +88,12 @@ vim.keymap.set("n", "<Leader>r", ":%s/\\<<C-r><C-w>\\>/")
 
 -- local augroup = vim.api.nvim_create_augroup('fmt', {clear = true})
 
--- vim.api.nvim_create_autocmd('BufWritePre', {
---   pattern = '*',
---   group = augroup,
---   command = 'undojoin | Neoformat'
--- })
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*',
+  group = augroup,
+  command = 'undojoin | Neoformat'
+})
+
 vim.api.nvim_create_autocmd("BufWritePost", {
     callback = function()
         vim.lsp.buf.format()

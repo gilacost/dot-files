@@ -71,8 +71,6 @@ lsp.erlangls.setup {}
 
 lsp.terraformls.setup {}
 
-lsp.rnix.setup {}
-
 lsp.dockerls.setup {}
 
 lsp.vimls.setup {}
@@ -102,6 +100,16 @@ lsp.yamlls.setup {
 }
 
 lsp.tailwindcss.setup {}
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+lsp.nixd.setup{}
+
+lsp.jsonls.setup {
+  capabilities = capabilities,
+}
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   pattern = {"*.ex","*.exs","*.eex","*.leex","*.heex"},
