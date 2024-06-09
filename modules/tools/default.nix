@@ -1,8 +1,10 @@
-{ pkgs, devenv, ... }: {
+{ pkgs, devenv, ... }:
+{
   #  TODO REVIEW ALL THESE PACKAGES
   # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
   # home.packages = [ devenv ] ++ (with pkgs; [
   home.packages = with pkgs; [
+
     nixos-generators
     neovim-remote
     tree-sitter
@@ -17,7 +19,6 @@
     # act
     # bind 
     # coreutils
-    lua-language-server
     zellij
 
     # STILL NEEDS TO BE ORGANISED
@@ -72,6 +73,7 @@
     nodePackages.bash-language-server
     nodePackages.yaml-language-server
     nodePackages_latest.typescript-language-server
+    nixd
     rust-analyzer
     rustfmt
     hadolint
@@ -82,10 +84,8 @@
     shellcheck
     nodePackages.markdownlint-cli
     nodePackages.cspell
+    vscode-langservers-extracted
     lua-language-server
-    # csharp-ls
-    # nodePackages.textlint
-    # todo Json ls and tailwindcss
 
     # CLOUD SDKS, OPS TOOLS AND WORKFLOW
     # pre-commit

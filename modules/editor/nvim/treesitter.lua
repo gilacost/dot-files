@@ -32,9 +32,9 @@ require'nvim-treesitter.configs'.setup {
 
 vim.opt.runtimepath:append(parser_install_dir)
 
-require("virt-column").setup({
-  virtcolumn = "80,100"
-})
+-- require("virt-column").setup({
+--   virtcolumn = "80,100"
+-- })
 -- -- -- TODO tailwind
 -- -- -- TODO yaml
 -- local saga = require 'lspsaga'
