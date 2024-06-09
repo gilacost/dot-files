@@ -1,7 +1,8 @@
 { pkgs, devenv, ... }: {
   #  TODO REVIEW ALL THESE PACKAGES
   # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
-  home.packages = [ devenv ] ++ (with pkgs; [
+  # home.packages = [ devenv ] ++ (with pkgs; [
+  home.packages = with pkgs; [
     nixos-generators
     neovim-remote
     tree-sitter
@@ -150,7 +151,7 @@
     # /nix/store/kyxf3qrz6v4bmcdab56zgyr5myfhl23w-1password-8.10.4/Applications/
 
     # _1password-gui
-  ]);
+  ];
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;

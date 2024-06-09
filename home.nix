@@ -1,7 +1,5 @@
 { config, pkgs, lib, devenv, ... }: {
 
-
-  # programs.nix.package = pkgs.nixVersions.latest;
   programs.home-manager.enable = true;
   home.stateVersion = "24.05";
 

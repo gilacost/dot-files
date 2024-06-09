@@ -34,7 +34,7 @@
     configureBuildUsers = true;
     settings = { trusted-users = [ "root" "pepo" ]; };
     package = pkgs.nixVersions.latest;
-      extraOptions = ''
+    extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
@@ -269,7 +269,7 @@
       lockfiles = true;
     };
 
-    brews = [ "qemu" "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
+    brews = [ "qemu" "mas" "asciinema" "fwup" "coreutils" "ansible" ];
 
     casks = [
       "tableplus"
