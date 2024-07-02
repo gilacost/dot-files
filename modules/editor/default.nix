@@ -1,7 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
 
   # TODO VAMOS HELIX 
-  programs.helix = { enable = true; };
+  programs.helix = {
+    enable = true;
+  };
 
   programs.neovim = {
     enable = true;
@@ -99,7 +102,8 @@
       EOF
     '';
 
-    plugins = with pkgs;
+    plugins =
+      with pkgs;
       with pkgs.vimPlugins;
       let
         virt-column = vimUtils.buildVimPlugin {
@@ -214,7 +218,7 @@
         cmp-buffer
         nvim-cmp
         nvim-lspconfig
-        neoformat
+        # neoformat
 
         # Snippets
         vim-vsnip
