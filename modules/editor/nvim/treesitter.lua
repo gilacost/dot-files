@@ -6,7 +6,7 @@ require'nvim-treesitter.configs'.setup {
   sync_install = true,
   highlight = {
 
-    disable = { "markdown", "inline_markdown", "php" },
+    disable = { "markdown", "inline_markdown", "php", "javascript" },
     enable = true,
     additional_vim_regex_highlighting = false,
   },

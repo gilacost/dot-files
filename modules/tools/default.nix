@@ -11,6 +11,9 @@
     p7zip
     xorriso
     socat
+    ffmpeg_7
+    hping
+    iperf
     # lxd
     # lxc
 

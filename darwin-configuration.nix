@@ -272,12 +272,14 @@
     brews = [ "qemu" "mas" "asciinema" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "postman"
       "tableplus"
       "arc"
       "cilicon"
       "pop"
       "parallels-virtualization-sdk"
       "ledger-live"
+      "tailscale"
       "openvpn-connect"
       "raycast"
       "anydesk"

@@ -99,7 +99,7 @@ lsp.yamlls.setup {
   },
 }
 
-lsp.tailwindcss.setup {}
+-- lsp.tailwindcss.setup {}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
