@@ -89,6 +89,7 @@
     nodePackages.cspell
     vscode-langservers-extracted
     lua-language-server
+    lexical
 
     # CLOUD SDKS, OPS TOOLS AND WORKFLOW
     # pre-commit
