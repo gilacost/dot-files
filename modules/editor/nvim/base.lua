@@ -93,3 +93,31 @@ vim.keymap.set("n", "<Leader>r", ":%s/\\<<C-r><C-w>\\>/")
 --   group = augroup,
 --   command = 'undojoin | Neoformat'
 -- })
+--
+--
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
+-- OR setup with some options
+require("nvim-tree").setup({
+  view = {
+    width = 30,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+-- Format on save
+local format_on_save_group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = format_on_save_group,
+  pattern = "*",
+  callback = function()
+    vim.lsp.buf.format({ async = true })
+  end,
+})

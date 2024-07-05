@@ -88,7 +88,8 @@
       \ }
 
       lua << EOF
-        vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
+
+        vim.g.lsp_elixir_bin = "${pkgs.lexical}/bin/lexical"
         ${builtins.readFile ./nvim/base.lua}
         ${builtins.readFile ./nvim/lsp.lua}
         ${builtins.readFile ./nvim/sets.lua}
@@ -146,6 +147,17 @@
             sha256 = "0mqrp9hpwrfdyjfpw85wmzd0qflx9pk4h50ax3r2snav61n9y6rg";
           };
         };
+
+        nvim-tree-lua = vimUtils.buildVimPlugin {
+          name = "nvim-tree-lua";
+          src = fetchFromGitHub {
+            owner = "nvim-tree";
+            repo = "nvim-tree.lua";
+            rev = "8b2c5c678be4b49dff6a2df794877000113fd77b";
+            sha256 = "160sk29hg0xqg02q26gi27h9si9ara4ljazqrd280igvh32xpyj5";
+          };
+        };
+
         # nix-prefetch-git https://github.com/jackMort/ChatGPT.nvim  --rev af509fceb70cab1867a611f3d8fad6d3e7760fb0
         # ChatGPT-vim = vimUtils.buildVimPlugin {
         #   name = "ChatGPT.nvim";
@@ -194,7 +206,7 @@
         # vim-markdown
 
         # Navigation
-        nerdtree
+        nvim-tree-lua
         vim-easymotion
         vim-startify
         telescope-nvim

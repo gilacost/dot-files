@@ -62,9 +62,13 @@ local border = {
   { '│', "FloatBorder" },
 }
 
-lsp.elixirls.setup {
-  cmd = { vim.g.lsp_elixir_bin },
-  flags = { debounce_text_changes = 150, },
+-- lsp.elixirls.setup {
+--   cmd = { vim.g.lsp_elixir_bin },
+--   flags = { debounce_text_changes = 150, },
+-- }
+
+lsp.lexical.setup{
+   cmd = { vim.g.lsp_elixir_bin },
 }
 
 lsp.erlangls.setup {}
