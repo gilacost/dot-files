@@ -79,39 +79,6 @@ vim.g.vim_markdown_folding_disabled = 1
 
 vim.keymap.set("n", "<Leader>r", ":%s/\\<<C-r><C-w>\\>/")
 
---
--- NEOFORMAT
---
-
--- vim.g.neoformat_basic_format_retab = 1
--- vim.g.neoformat_basic_format_trim = 1
-
--- local augroup = vim.api.nvim_create_augroup('fmt', {clear = true})
-
--- vim.api.nvim_create_autocmd('BufWritePre', {
---   pattern = '*',
---   group = augroup,
---   command = 'undojoin | Neoformat'
--- })
---
---
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
--- optionally enable 24-bit colour
-vim.opt.termguicolors = true
-
--- OR setup with some options
-require("nvim-tree").setup({
-  view = {
-    width = 30,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
-
 -- Format on save
 local format_on_save_group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {

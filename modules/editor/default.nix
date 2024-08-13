@@ -100,6 +100,7 @@
         ${builtins.readFile ./nvim/lspkind.lua}
         ${builtins.readFile ./nvim/neoai.lua}
         ${builtins.readFile ./nvim/cmp.lua}
+        ${builtins.readFile ./nvim/nvim-tree.lua}
       EOF
     '';
 
@@ -153,8 +154,8 @@
           src = fetchFromGitHub {
             owner = "nvim-tree";
             repo = "nvim-tree.lua";
-            rev = "8b2c5c678be4b49dff6a2df794877000113fd77b";
-            sha256 = "160sk29hg0xqg02q26gi27h9si9ara4ljazqrd280igvh32xpyj5";
+            rev = "ad0b95dee55955817af635fa121f6e2486b10583";
+            sha256 = "005rkw0p4gk0aav0llzmpfg2sq7ddxgdqzljmh0xqhacqn26jmky";
           };
         };
 
@@ -207,6 +208,7 @@
 
         # Navigation
         nvim-tree-lua
+        nerdtree
         vim-easymotion
         vim-startify
         telescope-nvim
