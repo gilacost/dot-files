@@ -208,7 +208,7 @@
 
         # Navigation
         nvim-tree-lua
-        nerdtree
+        # nerdtree
         vim-easymotion
         vim-startify
         telescope-nvim

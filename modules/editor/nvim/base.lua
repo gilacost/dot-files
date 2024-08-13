@@ -17,6 +17,13 @@ vim.g.maplocalleader = ","
 
 vim.g.startify_change_to_vcs_root = 1
 
+-- disable netrw at the very start of your init.lua
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+
+-- -- optionally enable 24-bit colour
+-- vim.opt.termguicolors = true
+
 --
 -- TEST
 --
@@ -66,6 +73,11 @@ vim.keymap.set("n", "s", "<Plug>(easymotion-s2)")
 
 vim.keymap.set("", "/", "<Plug>(easymotion-sn)")
 vim.keymap.set("o", "/", "<Plug>(easymotion-tn)")
+
+-- 
+-- Toggle NvimTree
+-- 
+vim.api.nvim_set_keymap("n", "<C-t>", ":NvimTreeFindFileToggle<CR>", { silent = true })
 
 -- 
 -- Vim markdown
