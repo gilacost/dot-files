@@ -134,6 +134,7 @@
     rebar3
     elixir
     erlang
+    gleam
 
     # NIX
     cachix
