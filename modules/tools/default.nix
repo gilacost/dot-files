@@ -67,7 +67,8 @@
 
     # LSP, LINTING AND FORMATTING
     hclfmt
-    elixir_ls
+    # elixir_ls
+    # (callPackage (import ./elixir-ls.nix) {})
     erlang-ls
     terraform-ls
     tailwindcss-language-server

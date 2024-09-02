@@ -88,7 +88,6 @@
       \ }
 
       lua << EOF
-
         vim.g.lsp_elixir_bin = "${pkgs.lexical}/bin/lexical"
         ${builtins.readFile ./nvim/base.lua}
         ${builtins.readFile ./nvim/lsp.lua}
@@ -103,7 +102,7 @@
         ${builtins.readFile ./nvim/nvim-tree.lua}
       EOF
     '';
-
+    # vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
     plugins =
       with pkgs;
       with pkgs.vimPlugins;
