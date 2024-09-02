@@ -1,6 +1,6 @@
 # launchers
 
-cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --session ~/.config/nvim.session --single-instance -d ~/Repos
+cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --session ~/.config/nvim.session -d ~/Repos
 
 cmd + ctrl - f : open  -n -a /Applications/Firefox.app
 
