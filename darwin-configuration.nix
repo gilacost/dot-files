@@ -6,11 +6,12 @@
   # https://github.com/LnL7/nix-darwin/issues/165
   environment.etc = {
     "sudoers.d/10-nix-commands".text = ''
-      %admin ALL=(ALL:ALL) NOPASSWD: /run/current-system/sw/bin/darwin-rebuild, \
-                                     /run/current-system/sw/bin/nix*, \
-                                     /run/current-system/sw/bin/ln, \
-                                     /nix/store/*/activate, \
-                                     /bin/launchctl
+        %admin ALL=(ALL:ALL) NOPASSWD: /run/current-system/sw/bin/*, \
+                                       /Users/pepo/.nix-profile/bin/nix, \
+                                       /usr/local/bin/*, \
+                                       /opt/homebrew/bin/*, \
+                                       /nix/store/*/activate, \
+                                       /bin/launchctl
     '';
   };
 
@@ -27,8 +28,7 @@
   programs.nix-index.enable = true;
   programs.zsh.enable = true;
 
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [ (nerdfonts.override { fonts = [ "Iosevka" ]; }) ];
+  fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "Iosevka" ]; }) ];
 
   nix = {
     configureBuildUsers = true;
@@ -272,6 +272,7 @@
     brews = [ "qemu" "mas" "asciinema" "fwup" "coreutils" "ansible" ];
 
     casks = [
+      "logitech-presentation"
       "postman"
       "tableplus"
       "arc"
@@ -286,7 +287,6 @@
       "1password"
       "OmniGraffle"
       "adobe-acrobat-reader"
-      "discord"
       "docker"
       "google-chrome"
       "google-drive"

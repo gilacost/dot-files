@@ -69,6 +69,7 @@ local border = {
 
 lsp.lexical.setup{
    cmd = { vim.g.lsp_elixir_bin },
+  flags = { debounce_text_changes = 150, },
 }
 
 lsp.erlangls.setup {}
