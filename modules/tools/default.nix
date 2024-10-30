@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
 
     nixos-generators
+    kas
     neovim-remote
     tree-sitter
     p7zip

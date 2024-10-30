@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
 
@@ -6,12 +11,12 @@
   # https://github.com/LnL7/nix-darwin/issues/165
   environment.etc = {
     "sudoers.d/10-nix-commands".text = ''
-        %admin ALL=(ALL:ALL) NOPASSWD: /run/current-system/sw/bin/*, \
-                                       /Users/pepo/.nix-profile/bin/nix, \
-                                       /usr/local/bin/*, \
-                                       /opt/homebrew/bin/*, \
-                                       /nix/store/*/activate, \
-                                       /bin/launchctl
+      %admin ALL=(ALL:ALL) NOPASSWD: /run/current-system/sw/bin/*, \
+                                     /Users/pepo/.nix-profile/bin/nix, \
+                                     /usr/local/bin/*, \
+                                     /opt/homebrew/bin/*, \
+                                     /nix/store/*/activate, \
+                                     /bin/launchctl
     '';
   };
 
@@ -32,7 +37,12 @@
 
   nix = {
     configureBuildUsers = true;
-    settings = { trusted-users = [ "root" "pepo" ]; };
+    settings = {
+      trusted-users = [
+        "root"
+        "pepo"
+      ];
+    };
     package = pkgs.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -224,6 +234,7 @@
       # }'
       enableKeyMapping = true;
       userKeyMapping = [
+        # Other mappings
         ({
           HIDKeyboardModifierMappingSrc = 30064771129;
           HIDKeyboardModifierMappingDst = 30064771296;
@@ -269,9 +280,17 @@
       lockfiles = true;
     };
 
-    brews = [ "qemu" "mas" "asciinema" "fwup" "coreutils" "ansible" ];
+    brews = [
+      "qemu"
+      "mas"
+      "asciinema"
+      "fwup"
+      "coreutils"
+      "ansible"
+    ];
 
     casks = [
+      "raspberry-pi-imager"
       "logitech-presentation"
       "postman"
       "tableplus"

@@ -23,6 +23,7 @@ fi
 # (if M1) softwareupdate --install-rosetta --agree-to-license
 
 mkdir -p "$HOME/.config/kitty"
+mkdir -p "$HOME/.config/zellij"
 
 SCRIPT_DIR=$(dirname "$0")
 
@@ -31,7 +32,8 @@ SCRIPT_DIR=$(dirname "$0")
 
 # TODO move this to nix
 ln -s  "$HOME/Repos/$SCRIPT_DIR/conf.d/terminal/nvim.session" "$HOME/.config/nvim.session"
-ln -s  "$HOME/Repos/$SCRIPT_DIR/conf.d/terminal/kitty.conf" "$HOME/.config/kitty/kitty.conf"
+ln -s  "$HOME/Repos/$SCRIPT_DIR/conf.d/terminal" "$HOME/.config/kitty/kitty.conf"
+ln -s  "$HOME/Repos/$SCRIPT_DIR/conf.d/zellij" "$HOME/.config/zellij"
 ln -s  "$HOME/Repos/$SCRIPT_DIR/spell" "$HOME/.config/nvim"
 
 # TODO check hostname?

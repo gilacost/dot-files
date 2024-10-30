@@ -1,5 +1,5 @@
 local actions = require('telescope.actions')
-local trouble = require("trouble.providers.telescope")
+local trouble = require("trouble.sources.telescope")
 local telescope = require("telescope")
 
 telescope.setup {
@@ -11,7 +11,7 @@ telescope.setup {
         ["<C-k>"] = actions.move_selection_previous,
       },
       n = {
-        ["<c-t>"] = trouble.open_with_trouble,
+        ["<c-t>"] = trouble.open,
         ["q"] = actions.close,
       },
     },
