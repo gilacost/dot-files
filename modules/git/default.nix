@@ -32,7 +32,7 @@ in {
 
     signing = {
       key = gitconfig.gpgKey;
-      signByDefault = true;
+      signByDefault = false;
     };
 
     extraConfig = {
