@@ -5,7 +5,8 @@ let
     gpgKey = "CA5FC2044BDAA993";
     userName = "Josep Lluis Giralt D'Lacoste";
   };
-in {
+in
+{
   #TODO review lazygit
   programs.lazygit.enable = true;
   programs.git = {
@@ -32,39 +33,54 @@ in {
 
     signing = {
       key = gitconfig.gpgKey;
-      signByDefault = false;
+      signByDefault = true;
     };
 
     extraConfig = {
-      "difftool \"nvr\"" = { cmd = "nvr -s -d $LOCAL $REMOTE"; };
+      "difftool \"nvr\"" = {
+        cmd = "nvr -s -d $LOCAL $REMOTE";
+      };
       "mergetool \"nvr\"" = {
         cmd = "nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='";
       };
-      diff = { tool = "nvr"; };
-      init = { defaultBranch = "main"; };
+      diff = {
+        tool = "nvr";
+      };
+      init = {
+        defaultBranch = "main";
+      };
       merge = {
         tool = "nvr";
         conflictstyle = "diff3";
       };
-      mergetool = { prompt = false; };
+      mergetool = {
+        prompt = false;
+      };
       pull.ff = "only";
-      apply = { whitefix = "fix"; };
-      push = { default = "current"; };
-      rebase = { autosquash = true; };
-      rerere = { enabled = true; }; # review
-      core = { editor = "nvr -cc split --remote-wait"; };
+      apply = {
+        whitefix = "fix";
+      };
+      push = {
+        default = "current";
+      };
+      rebase = {
+        autosquash = true;
+      };
+      rerere = {
+        enabled = true;
+      }; # review
+      core = {
+        editor = "nvr -cc split --remote-wait";
+      };
       alias = {
         ccount = "git rev-list --all --count";
         co = "checkout";
-        l =
-          "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative";
+        l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative";
         recommit = "commit --amend -m";
         commend = "commit --amend --no-edit";
-        here = ''
-          !git init && git add . && git commit -m "Initialized a new repository"'';
+        here = ''!git init && git add . && git commit -m "Initialized a new repository"'';
         zip = "archive --format=tar.gz -o ../repo.tar.gz";
-        plg =
-          "log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative";
+        plg = "log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative";
         fresh = "filter-branch --prune-empty --subdirectory-filter";
       };
     };

@@ -291,13 +291,11 @@
 
     casks = [
       "raspberry-pi-imager"
-      "logitech-presentation"
       "postman"
       "tableplus"
       "arc"
       "cilicon"
       "pop"
-      "parallels-virtualization-sdk"
       "ledger-live"
       "tailscale"
       "openvpn-connect"
@@ -324,8 +322,6 @@
       "transmission"
       "vlc"
       "zoom"
-      "parallels"
-      "vmware-fusion"
     ];
 
     masApps = {
