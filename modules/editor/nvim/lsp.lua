@@ -88,7 +88,7 @@ lsp.rust_analyzer.setup {}
 
 lsp.ansiblels.setup {}
 
-lsp.tsserver.setup {}
+lsp.ts_ls.setup {}
 
 lsp.tflint.setup {}
 

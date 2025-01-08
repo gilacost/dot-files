@@ -61,8 +61,10 @@ function depstree {
 }
 
 function rebuild_nix {
+  set -x
   darwin-rebuild build --flake "./#$1"
   darwin-rebuild switch --flake "./#$1"
+  set +x
 }
 
 function depstreefilter {
