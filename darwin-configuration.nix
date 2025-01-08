@@ -9,14 +9,31 @@
 
   environment.shells = [ pkgs.zsh ];
   # https://github.com/LnL7/nix-darwin/issues/165
+  # ENABLE ALL COMMANDS
+  # environment.etc = {
+  #   "sudoers.d/10-darwin-rebuild".text = ''
+  #     %staff ALL=(ALL) NOPASSWD: ALL
+  #   '';
+  # };
+  # IN SUDO VISUDO FOR DEBUGGING/RECOVERY
+  ########################## tricks
+  # Defaults log_output
+  # Defaults requiretty
+  # Defaults logfile="/var/log/sudo_commands.log"
+
+  # pepo ALL=(ALL) NOPASSWD: ALL
+  ######################### tricks
+
   environment.etc = {
-    "sudoers.d/10-nix-commands".text = ''
-      %admin ALL=(ALL:ALL) NOPASSWD: /run/current-system/sw/bin/*, \
-                                     /Users/pepo/.nix-profile/bin/nix, \
-                                     /usr/local/bin/*, \
-                                     /opt/homebrew/bin/*, \
-                                     /nix/store/*/activate, \
-                                     /bin/launchctl
+    "sudoers.d/10-darwin-rebuild".text = ''
+      Defaults env_keep += "PATH"
+      %staff ALL=(ALL) NOPASSWD: /usr/bin/env
+      %staff ALL=(ALL) NOPASSWD: /nix/store/*/activate
+      %staff ALL=(ALL) NOPASSWD: /usr/sbin/nvram
+      %staff ALL=(ALL) NOPASSWD: /usr/bin/defaults
+      %staff ALL=(ALL) NOPASSWD: /usr/sbin/systemsetup
+      %staff ALL=(ALL) NOPASSWD: /usr/bin/pmset
+      %staff ALL=(ALL) NOPASSWD: /usr/bin/chflags
     '';
   };
 
@@ -60,6 +77,8 @@
       options = "--delete-older-than 14d";
     };
   };
+
+  ids.uids.nixbld = lib.mkForce 30000;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -290,29 +309,22 @@
     ];
 
     casks = [
-      "raspberry-pi-imager"
       "postman"
-      "tableplus"
+      "wd-security"
       "arc"
-      "cilicon"
       "pop"
       "ledger-live"
       "tailscale"
-      "openvpn-connect"
       "raycast"
-      "anydesk"
       "1password"
       "OmniGraffle"
-      "adobe-acrobat-reader"
       "docker"
       "google-chrome"
       "google-drive"
-      "grammarly"
       "insomnia"
       "jiggler"
       "kitty"
       "loom"
-      "microsoft-teams"
       "now-tv-player"
       "remarkable"
       "sketch"

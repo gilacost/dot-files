@@ -26,33 +26,55 @@
     ];
   };
 
-  outputs = { self, darwin, nixpkgs, home-manager, nur, ... }@inputs: {
-    # devShells = import ./dev_shells inputs;
-    darwinConfigurations = {
+  outputs =
+    {
+      self,
+      darwin,
+      nixpkgs,
+      home-manager,
+      nur,
+      ...
+    }@inputs:
+    {
+      # devShells = import ./dev_shells inputs;
+      darwinConfigurations = {
 
-      "swamp" = let
-        system = "aarch64-darwin";
-        devenv = inputs.devenv.packages.${system}.devenv;
-        hostname = "swamp";
-        common = [
-          home-manager.darwinModules.home-manager
-          {
-            nixpkgs.overlays = [ nur.overlay ];
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.pepo = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit devenv; };
-          }
-        ];
-      in darwin.lib.darwinSystem rec {
-        inherit system;
-        modules = common ++ [ ./darwin-configuration.nix ]
-          ++ [ ({ pkgs, config, ... }: { networking.hostName = "swamp"; }) ];
+        "buque" =
+          let
+            system = "aarch64-darwin";
+            devenv = inputs.devenv.packages.${system}.devenv;
+            hostname = "buque";
+            common = [
+              home-manager.darwinModules.home-manager
+              {
+                nixpkgs.overlays = [ nur.overlay ];
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.pepo = import ./home.nix;
+                home-manager.extraSpecialArgs = {
+                  inherit devenv;
+                };
+              }
+            ];
+          in
+          darwin.lib.darwinSystem rec {
+            inherit system;
+            modules =
+              common
+              ++ [ ./darwin-configuration.nix ]
+              ++ [
+                (
+                  { pkgs, config, ... }:
+                  {
+                    networking.hostName = "buque";
+                  }
+                )
+              ];
+          };
+
+        # Building the flakes require root privileges to update the HOSTNAME
+        # and then be able to nix build ".#HOSTNAME"
+        # TODO build the flake also for nixos
       };
-
-      # Building the flakes require root privileges to update the HOSTNAME
-      # and then be able to nix build ".#HOSTNAME"
-      # TODO build the flake also for nixos
     };
-  };
 }

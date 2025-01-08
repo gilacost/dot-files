@@ -33,14 +33,6 @@ brew analytics off
 You need git to pull this repository if you open a terminal and type `git` then
 a prompt will appear asking you to install xcode developer tools.
 
-## Install nix
-
-Install nix using the interactive script that they provide for multi-user
-installation.
-
-```bash
-sh <(curl -L https://nixos.org/nix/install) --daemon
-```
 
 [official docs](https://nixos.org/download.html)
 
@@ -49,16 +41,8 @@ sh <(curl -L https://nixos.org/nix/install) --daemon
 Before running the install script set the hostname to one list in the `flake.nix`.
 
 ```bash
-sudo scutil --set HostName lair|swamp
-sudo scutil --set LocalHostName lair|swamp
-sudo scutil --set ComputerName lair|swamp
-dscacheutil -flushcache
+export HOSTNAME=buque
 ./install.sh
-
-sudo scutil --set HostName swamp.local
-sudo scutil --set LocalHostName swamp.local
-sudo scutil --set ComputerName swamp.local
-dscacheutil -flushcache
 ```
 
 - reboot
