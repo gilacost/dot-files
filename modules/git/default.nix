@@ -80,7 +80,7 @@ in
         editor = "nvr -cc split --remote-wait";
       };
       alias = {
-        ccount = "git rev-list --all --count";
+        ccount = "rev-list --all --count";
         co = "checkout";
         l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)an>%Creset' --abbrev-commit --date=relative";
         recommit = "commit --amend -m";
@@ -89,6 +89,7 @@ in
         zip = "archive --format=tar.gz -o ../repo.tar.gz";
         plg = "log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative";
         fresh = "filter-branch --prune-empty --subdirectory-filter";
+        ulast = "reset --soft HEAD~1";
       };
     };
     ignores = [
