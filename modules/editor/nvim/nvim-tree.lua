@@ -1,5 +1,5 @@
-local HEIGHT_RATIO = 0.5 -- You can change this
-local WIDTH_RATIO = 0.5 -- You can change this too
+local HEIGHT_RATIO = 0.5
+local WIDTH_RATIO = 0.5
 
 vim.cmd([[hi NvimTreeNormal guibg=NONE ctermbg=None]])
 require("nvim-tree").setup({

@@ -88,7 +88,7 @@
       \ }
 
       lua << EOF
-        vim.g.lsp_elixir_bin = "${pkgs.lexical}/bin/lexical"
+        vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
         ${builtins.readFile ./nvim/base.lua}
         ${builtins.readFile ./nvim/lsp.lua}
         ${builtins.readFile ./nvim/sets.lua}
@@ -97,35 +97,16 @@
         ${builtins.readFile ./nvim/theme.lua}
         ${builtins.readFile ./nvim/telescope.lua}
         ${builtins.readFile ./nvim/lspkind.lua}
-        ${builtins.readFile ./nvim/neoai.lua}
         ${builtins.readFile ./nvim/cmp.lua}
         ${builtins.readFile ./nvim/nvim-tree.lua}
       EOF
     '';
-    # vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
+    # ${builtins.readFile ./nvim/neoai.lua}
+    # vim.g.lsp_elixir_bin = "${pkgs.lexical}/bin/lexical"
     plugins =
       with pkgs;
       with pkgs.vimPlugins;
       let
-        virt-column = vimUtils.buildVimPlugin {
-          name = "virt-column";
-          src = fetchFromGitHub {
-            owner = "lukas-reineke";
-            repo = "virt-column.nvim";
-            rev = "fe3cff94710d648c57ac826fb846014903c76b00";
-            sha256 = "0m5b180ijk63ci4g1c8j1hi5ga4z6jcwfq8hv5kfmwjgiycf3wsc";
-          };
-        };
-        co-pilot = vimUtils.buildVimPlugin {
-          name = "copilot.vim";
-          src = fetchFromGitHub {
-            owner = "github";
-            repo = "copilot.vim";
-            rev = "69455be5d4a892206bc08365ba3648a597485943";
-            sha256 = "0vcdfssw5nvdyxjq9d9vvdvvlwfr35cmrgrjc7ndbdxw778hsai0";
-          };
-        };
-
         # nix-prefetch-git https://github.com/gilacost/vim-wakatime --rev cad0dabbad61f0116fcdc2142b98a5bc63b00d0d
         vim-wakatime = vimUtils.buildVimPlugin {
           name = "vim-wakatime";
@@ -137,24 +118,24 @@
           };
         };
 
-        # nix-prefetch-git https://github.com/Bryley/neoai.nvim --rev cdbc4c723577d642b5af796875dec660a4cb528b
-        neoai = vimUtils.buildVimPlugin {
-          name = "neoai";
-          src = fetchFromGitHub {
-            owner = "Bryley";
-            repo = "neoai.nvim";
-            rev = "14ffe5f1361bdfbd7667ca57cb07f52abcdcc00b";
-            sha256 = "0mqrp9hpwrfdyjfpw85wmzd0qflx9pk4h50ax3r2snav61n9y6rg";
-          };
-        };
+        # # nix-prefetch-git https://github.com/Bryley/neoai.nvim --rev cdbc4c723577d642b5af796875dec660a4cb528b
+        # neoai = vimUtils.buildVimPlugin {
+        #   name = "neoai";
+        #   src = fetchFromGitHub {
+        #     owner = "Bryley";
+        #     repo = "neoai.nvim";
+        #     rev = "14ffe5f1361bdfbd7667ca57cb07f52abcdcc00b";
+        #     sha256 = "0mqrp9hpwrfdyjfpw85wmzd0qflx9pk4h50ax3r2snav61n9y6rg";
+        #   };
+        # };
 
         nvim-tree-lua = vimUtils.buildVimPlugin {
           name = "nvim-tree-lua";
           src = fetchFromGitHub {
             owner = "nvim-tree";
             repo = "nvim-tree.lua";
-            rev = "ad0b95dee55955817af635fa121f6e2486b10583";
-            sha256 = "005rkw0p4gk0aav0llzmpfg2sq7ddxgdqzljmh0xqhacqn26jmky";
+            rev = "375e38673b5c61debd8074ced01cfd4f3b7ce1e9";
+            sha256 = "16rkswhc6gwf8rci51hilg5hkyvjmdf385wwp78733iznni938bw";
           };
         };
 
@@ -172,11 +153,13 @@
       in
       [
         vim-test
-        co-pilot
+        virt-column-nvim
+        tokyonight-nvim
         nui-nvim
-        neoai
+        # neoai
         # ChatGPT-vim
         # plenary-nvim
+        copilot-vim
 
         ###REVIEW###
         # indentLine
@@ -202,7 +185,6 @@
         lspkind-nvim
         lualine-nvim
         nvim-web-devicons
-        virt-column
         # vim-markdown
 
         # Navigation
