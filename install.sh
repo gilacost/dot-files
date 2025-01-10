@@ -25,21 +25,19 @@ fi
 softwareupdate --install-rosetta --agree-to-license
 
 mkdir -p "$HOME/.config/kitty"
+mkdir -p "$HOME/.config/peco"
+mkdir -p "$HOME/.ssh"
 
 SCRIPT_DIR=$(dirname "$0")
 
 sudo ln -s  "$HOME/Repos/$SCRIPT_DIR/nix.conf" "/etc/nix/nix.conf"
 
 # TODO move this to nix
-ln -s  "$HOME/Repos/$SCRIPT_DIR/conf.d/terminal/nvim.session" "$HOME/.config/nvim.session"
-ln -s  "$HOME/Repos/$SCRIPT_DIR/conf.d/terminal" "$HOME/.config/kitty/kitty.conf"
 ln -s  "$HOME/Repos/$SCRIPT_DIR/spell" "$HOME/.config/nvim"
-mkdir -p "$HOME/.config/kitty"
-mkdir -p "$HOME/.ssh"
 
-sudo scutil --set HostName $HOSTNAME
-sudo scutil --set LocalHostName $HOSTNAME
-sudo scutil --set ComputerName $HOSTNAME
+sudo scutil --set HostName "$HOSTNAME"
+sudo scutil --set LocalHostName "$HOSTNAME"
+sudo scutil --set ComputerName "$HOSTNAME"
 dscacheutil -flushcache
 
 # TODO if no nix print message indicating to reboot the shell and exit

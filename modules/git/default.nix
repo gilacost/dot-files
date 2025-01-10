@@ -19,9 +19,16 @@ in
         features = "side-by-side line-numbers decorations";
         whitespace-error-style = "22 reverse";
         decorations = {
-          commit-decoration-style = "bold yellow box ul";
+          commit-decoration-style = "bold yellow box";
           file-style = "bold yellow ul";
           file-decoration-style = "none";
+          hunk-header-decoration-style = "bold yellow box";
+          hunk-header-style = "bold yellow ul";
+          plus-style = "#7aa2f7";
+          minus-style = "#f7768e";
+          minus-emph-style = "#bb9af7";
+          plus-emph-style = "#9ece6a";
+          commit-style = "bold magenta";
         };
       };
     };

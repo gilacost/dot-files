@@ -68,9 +68,10 @@
 
     # LSP, LINTING AND FORMATTING
     hclfmt
-    # elixir_ls
+    elixir_ls
     # (callPackage (import ./elixir-ls.nix) {})
     erlang-ls
+    lexical
     terraform-ls
     tailwindcss-language-server
     nodePackages.dockerfile-language-server-nodejs
@@ -91,7 +92,6 @@
     nodePackages.cspell
     vscode-langservers-extracted
     lua-language-server
-    lexical
 
     # CLOUD SDKS, OPS TOOLS AND WORKFLOW
     # pre-commit

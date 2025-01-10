@@ -1,4 +1,5 @@
-{ config, pkgs, lib, devenv, ... }: {
+{ ... }:
+{
 
   programs.home-manager.enable = true;
   home.stateVersion = "24.05";
@@ -11,26 +12,30 @@
     ./modules/editor
   ];
 
-  # home.file.".ssh/config" = {
-  # text = ''
-  # Host *
-  # IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-  # '';
-  # };
-
   home.file.".config/peco/config.json" = {
     text = ''
       {
-         "Style": {
-             "Basic": ["on_default", "default"],
-             "SavedSelection": ["bold", "on_yellow", "black"],
-             "Selected": ["underline", "on_cyan", "black"],
-             "Query": ["yellow", "bold"],
-             "Matched": ["red", "on_blue"]
-         },
-         "Use256Color": true
+          "Style": {
+              "Basic": ["on_default", "default"],
+              "SavedSelection": ["bold", "on_blue", "white"],
+              "Selected": ["underline", "on_cyan", "black"],
+              "Query": ["cyan", "bold"],
+              "Matched": ["blue", "bold"]
+          },
+          "Use256Color": true
       }
     '';
   };
 
+  home.file.".config/nvim.session" = {
+    text = ''
+      ${builtins.readFile ./conf.d/terminal/nvim.session}
+    '';
+  };
+
+  home.file.".config/kitty/kitty.conf" = {
+    text = ''
+      ${builtins.readFile ./conf.d/terminal/kitty.conf}
+    '';
+  };
 }
