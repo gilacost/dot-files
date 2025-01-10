@@ -1,11 +1,6 @@
 { pkgs, ... }:
 {
 
-  # TODO VAMOS HELIX 
-  programs.helix = {
-    enable = true;
-  };
-
   programs.neovim = {
     enable = true;
     vimAlias = true;
@@ -14,22 +9,6 @@
     withPython3 = true;
 
     extraConfig = ''
-      autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
-
-      if has('nvim')
-        let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-      endif
-
-      function! RenameFile()
-        let old_name = expand('%')
-        let new_name = input('New file name: ', expand('%'), 'file')
-        if new_name != '\' && new_name != old_name
-          exec ':saveas ' . new_name
-          exec ':silent !rm ' . old_name
-          redraw!
-        endif
-      endfunction
-
       function! s:list_buffers()
           redir => list
           silent ls
@@ -99,6 +78,7 @@
         ${builtins.readFile ./nvim/lspkind.lua}
         ${builtins.readFile ./nvim/cmp.lua}
         ${builtins.readFile ./nvim/nvim-tree.lua}
+        ${builtins.readFile ./nvim/git.lua}
       EOF
     '';
     # ${builtins.readFile ./nvim/neoai.lua}
