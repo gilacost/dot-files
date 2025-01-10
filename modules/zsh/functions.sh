@@ -25,6 +25,49 @@ function push_cachix {
   nix path-info --all | cachix push pepo
 }
 
+function gcai() {
+  if git diff --staged | grep -q '.'; then
+    local diff
+    local escaped_diff
+    local response
+    local message
+
+    # Capture the staged diff
+    diff=$(git diff --staged)
+
+    # Escape the diff for JSON
+    escaped_diff=$(printf "%s" "$diff" | jq -Rs .)
+
+    # Create JSON payload
+    payload=$(jq -n --arg model "gpt-3.5-turbo" \
+                      --arg content "Generate a concise and clear commit message for the following changes:\n\n$escaped_diff" \
+                      '{
+                        model: $model,
+                        messages: [{role: "user", content: $content}]
+                      }')
+
+    # Call OpenAI API
+    response=$(curl -s -X POST https://api.openai.com/v1/chat/completions \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $OPENAI_API_KEY" \
+      -d "$payload")
+
+    # Extract the commit message
+    message=$(echo "$response" | jq -r '.choices[0].message.content // empty')
+
+    if [ -z "$message" ]; then
+      echo "Failed to generate a commit message. Please check the API response."
+      return 1
+    fi
+
+    # Commit with the generated message
+    echo "Committing with message: $message"
+    git commit -m "$message"
+  else
+    echo "No changes staged for commit."
+  fi
+}
+
 function gsina {
   git status --porcelain \
   | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
