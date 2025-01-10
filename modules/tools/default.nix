@@ -151,7 +151,16 @@
   programs.direnv.nix-direnv.enable = true;
   programs.bat = {
     enable = true;
-    #theme = "T";
+
+    themes = {
+      "tokyonight-moon" = {
+        src = ./bat/tokyonight-moon.tmTheme;
+        file = null; # Since the file is already at the correct path
+      };
+    };
+    config = {
+      theme = "tokyonight-moon";
+    };
   };
   programs.fzf.enable = true;
   programs.gpg.enable = true;
