@@ -1,6 +1,7 @@
 # launchers
 
 cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --session ~/.config/nvim.session -d ~/Repos
+#cmd - return : open /Applications/Ghostty.app
 cmd + ctrl - f : open  -n -a /Applications/Firefox.app
 
 # caps_lock - single : escape
