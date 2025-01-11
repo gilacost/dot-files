@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -88,7 +87,6 @@
 
   time.timeZone = "Europe/London";
 
-  #boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   system = {
 
     activationScripts.postActivation.text = ''
@@ -191,6 +189,9 @@
       defaults write com.apple.finder WarnOnEmptyTrash -bool false
       # Enable AirDrop over Ethernet and on unsupported Macs running Lion
       defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+      # The keyboard key repeat rate
+      defaults write -g KeyRepeat -int 1
+      defaults write -g InitialKeyRepeat -int 10
       # Show the ~/Library folder
       chflags nohidden ~/Library
       # Show the /Volumes folder
@@ -254,18 +255,18 @@
       enableKeyMapping = true;
       userKeyMapping = [
         # Other mappings
-        ({
+        {
           HIDKeyboardModifierMappingSrc = 30064771129;
           HIDKeyboardModifierMappingDst = 30064771296;
-        })
-        ({
+        }
+        {
           HIDKeyboardModifierMappingDst = 30064771125;
           HIDKeyboardModifierMappingSrc = 30064771172;
-        })
-        ({
+        }
+        {
           HIDKeyboardModifierMappingDst = 30064771172;
           HIDKeyboardModifierMappingSrc = 30064771125;
-        })
+        }
       ];
     };
   };
@@ -324,6 +325,7 @@
       "insomnia"
       "jiggler"
       "kitty"
+      "ghostty"
       "loom"
       "now-tv-player"
       "remarkable"
