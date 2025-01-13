@@ -63,7 +63,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
   };
 
   # elixir_chromic_pdf =
-  #   import ./elixir_chromic_pdf.nix { inherit system nixpkgs; };
+  # import ./elixir_chromic_pdf.nix { inherit system nixpkgs; };
 
   # elixir_wallaby = import ./elixir_wallaby.nix { inherit system nixpkgs; };
 
