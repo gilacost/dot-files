@@ -1,17 +1,19 @@
 # NOTE: nix-prefetch-url --type sha256 --unpack https://github.com/erlang/otp/archive/refs/tags/OTP-${VERSION}.zip
 # NOTE: nix-prefetch-url --type sha256 --unpack https://github.com/elixir-lang/elixir/archive/refs/tags/v${VERSION}.zip
 
+
 { flake-utils, nixpkgs, ... }:
 let mkElixirErlangShell = import ./elixir_erlang.nix;
 in
 flake-utils.lib.eachDefaultSystemMap (system: {
-  elixir_1_17_2_erlang_27_0_1 = mkElixirErlangShell {
+
+  elixir_1_18_1_erlang_27_2 = mkElixirErlangShell {
     inherit system;
     inherit nixpkgs;
-    elixirVersion = "1.17.2";
-    elixirSha256 = "063pfz6ljy22b4nyvk8pi8ggqb6nmzqcca08vnl3h9xgh1zzddpj";
+    elixirVersion = "1.18.1";
+    elixirSha256 = "1bzg3m4dbhvrxv7f20q77j3648j0fkpnmajh4yfz53wj5ail14yc";
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
-    erlangVersion = "27.0.1";
+    erlangVersion = "27.2";
     erlangSha256 = "0m3l2d5vpd7wlw7grzdvz63vi1h8px9pjqqls7i70idsxbsqk7if";
     erlangInterpreter = "erlang_27";
   };
