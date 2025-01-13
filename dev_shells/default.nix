@@ -3,7 +3,8 @@
 
 
 { flake-utils, nixpkgs, ... }:
-let mkElixirErlangShell = import ./elixir_erlang.nix;
+let 
+  mkElixirErlangShell = import ./elixir_erlang.nix;
 in
 flake-utils.lib.eachDefaultSystemMap (system: {
 
