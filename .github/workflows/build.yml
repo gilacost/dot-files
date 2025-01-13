@@ -40,7 +40,7 @@ jobs:
           # also it's is not possible to build with M1/M2 aarch64-darwin
           # so this step is not the most useful if you develop
           # on LATEST MACHINES :joy:
-          cat flake.nix  | sed "s/swamp/$(hostname | sed 's/.local//g')/g" | sed "s/aarch64-darwin/x86_64-darwin/g" > flake.nix2
+          cat flake.nix  | sed "s/buque/$(hostname | sed 's/.local//g')/g" | sed "s/aarch64-darwin/x86_64-darwin/g" > flake.nix2
           rm -f flake.nix
           mv flake.nix2 flake.nix
           nix flake check -v --show-trace

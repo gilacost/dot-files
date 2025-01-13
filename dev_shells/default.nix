@@ -27,7 +27,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
     erlangVersion = "26.2.5.2";
     erlangSha256 = "sha256-Co1rLqrdjq+aIiSEX0+59Cd5lOYkMdxsXgr3r7wt3Pc=";
-    erlangInterpreter = "erlangR26";
+    erlangInterpreter = "erlang_26";
   };
 
   elixir_1_15_6_erlang_26_1_1 = mkElixirErlangShell {
@@ -38,7 +38,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
     erlangVersion = "26.1.1";
     erlangSha256 = "Y0sArUFkGxlAAgrgUxn5Rjnd72geG08VO9FBxg/fJAg=";
-    erlangInterpreter = "erlangR26";
+    erlangInterpreter = "erlang_26";
   };
 
   elixir_1_15_4_erlang_26_0_2 = mkElixirErlangShell {
@@ -49,7 +49,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
     erlangVersion = "26.0.2";
     erlangSha256 = "sha256-GzF/cpTUe5hoocDK5aio/lo8oYFeTr+HkftTYpQnOdA=";
-    erlangInterpreter = "erlangR26";
+    erlangInterpreter = "erlang_26";
   };
 
   elixir_1_14_3_erlang_25_2_2 = mkElixirErlangShell {
@@ -59,33 +59,13 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     elixirSha256 = "0kkq1nk75snnk5z75ypcfcg2if611yi33lkr2n5dcr800k42xfgj";
     erlangVersion = "25.2.2";
     erlangSha256 = "0jwwvs6fq7rljnk9sy22ycd98y86dvgjnb0fh6zmfz32i3c23w8x";
-    erlangInterpreter = "erlangR25";
+    erlangInterpreter = "erlang_25";
   };
 
-  elixir_1_14_2_erlang_25_1 = mkElixirErlangShell {
-    inherit system;
-    inherit nixpkgs;
-    elixirVersion = "1.14.2";
-    elixirSha256 = "1w0wda304bk3j220n76bmv4yv0pkl9jca8myipvz7lm6fnsvw500";
-    erlangVersion = "25.2";
-    erlangSha256 = "138xyqaa114fgv3gk01rawz9asg86maffj8yrhikgd8zsb8a57nd";
-    erlangInterpreter = "erlangR25";
-  };
+  # elixir_chromic_pdf =
+  #   import ./elixir_chromic_pdf.nix { inherit system nixpkgs; };
 
-  elixir_1_13_4_erlang_24_3_4 = mkElixirErlangShell {
-    inherit system;
-    inherit nixpkgs;
-    elixirVersion = "1.13.4";
-    elixirSha256 = "1z19hwnv7czmg3p56hdk935gqxig3x7z78yxckh8fs1kdkmslqn4";
-    erlangVersion = "24.3.4";
-    erlangSha256 = "1hb5rr952lgglwz721hkczjrag29ri1w9q3va6whcx3dwsyw39i2";
-    erlangInterpreter = "erlangR24";
-  };
+  # elixir_wallaby = import ./elixir_wallaby.nix { inherit system nixpkgs; };
 
-  elixir_chromic_pdf =
-    import ./elixir_chromic_pdf.nix { inherit system nixpkgs; };
-
-  elixir_wallaby = import ./elixir_wallaby.nix { inherit system nixpkgs; };
-
-  node = import ./node.nix { inherit system nixpkgs; };
+  # node = import ./node.nix { inherit system nixpkgs; };
 })
