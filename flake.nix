@@ -28,15 +28,13 @@
 
   outputs =
     {
-      self,
       darwin,
-      nixpkgs,
       home-manager,
       nur,
       ...
     }@inputs:
     {
-      # devShells = import ./dev_shells inputs;
+      devShells = import ./dev_shells inputs;
       darwinConfigurations = {
 
         "buque" =
@@ -64,7 +62,7 @@
               ++ [ ./darwin-configuration.nix ]
               ++ [
                 (
-                  { pkgs, config, ... }:
+                  { ... }:
                   {
                     networking.hostName = "buque";
                   }
