@@ -1,134 +1,165 @@
-# My dot-files
+# My Dot-Files
 
-![https://builtwithnix.org](https://img.shields.io/badge/Built_With-Nix-5277C3.svg?logo=nixos&labelColor=73C3D5)
+[![Built with Nix](https://img.shields.io/badge/Built_With-Nix-5277C3.svg?logo=nixos&labelColor=73C3D5)](https://builtwithnix.org)
 
-OSX configurations, expressed in [Nix](https://nixos.org/nix)
+Comprehensive macOS configurations managed and expressed with [Nix](https://nixos.org/nix). This repository also includes a streamlined installation script for setting up Homebrew, Nix, and system configurations.
 
-## Installation requirements
+---
 
-There are three requirements to be able to apply this setup:
+## Features
 
-- homebrew
-- xcode developer tools
-- nix
-- being logged into the app store
+- Automated setup for Homebrew, Nix, and essential configurations.
+- Modular macOS configurations for developers.
+- Built-in development shell management.
 
-Generate a ssh key and add it to [github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+---
 
-```bash
-ssh-keygen -t rsa -b 4096 -N '' -C "EMAIL"
-```
+## Prerequisites
 
-## Installing homebrew
+Before running the installation script, ensure the following are installed on your system:
 
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew analytics off
-```
+1. **Xcode Command Line Tools**: Install via:
+   ```bash
+   xcode-select --install
+   ```
+2. **Git**: Verify with `git --version` and install via Xcode if not available.
 
-[official docs](https://brew.sh)
+---
 
-## Installing xcode developer tools
+## Installation
 
-You need git to pull this repository if you open a terminal and type `git` then
-a prompt will appear asking you to install xcode developer tools.
+### Using the Install Script
 
+The `install.sh` script automates the setup process, including:
+- Installing **Homebrew** (if not already installed).
+- Installing **Nix** with specific configurations and experimental features.
+- Setting the system hostname.
+- Installing Rosetta (if applicable).
+- Preparing essential directories and linking configurations.
 
-[official docs](https://nixos.org/download.html)
+### Steps
 
-## Install
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/dot-files.git
+   cd dot-files
+   ```
 
-Before running the install script set the hostname to one list in the `flake.nix`.
+2. Run the install script:
+   ```bash
+   export HOSTNAME=your-hostname
+   ./install.sh
+   ```
 
-```bash
-export HOSTNAME=buque
-./install.sh
-```
+   If you don’t provide a hostname, it defaults to `buque`.
 
-- reboot
-- set the keyboard to British PC
-- press `FN` + `ESC`
-- import GPG keys
-- log into password manager
-- log into spotify
-- nvim tree-sitter install all
+3. Reboot your machine.
 
-## Starting a nix linux-builder on macos
+4. Complete the following post-installation tasks:
+   - Configure the keyboard layout to **British PC**.
+   - Enable `FN` + `ESC` functionality to toggle the escape key.
+   - Import your GPG keys:
+     ```bash
+     gpg --import secrets/g.key
+     ```
+   - Log into your password manager and configure any required keys:
+     ```bash
+     git-crypt unlock <decoded-key>
+     ```
 
-```bash
-nix run 'github:NixOS/nixpkgs/23.05#darwin.builder'
-```
+---
 
-if you have issues with port 22 already being allocated you can disable
-remote login in your machine with the following command:
+## Script Details
 
-```bash
-sudo systemsetup -setremotelogin off
-```
+The `install.sh` script performs the following actions:
 
-If you have started already the builder vm and you want to stop it just run
-`pkill qemu`.
+1. **Install Homebrew** (if not already installed):
+   - Installs using the official [Homebrew installation script](https://brew.sh/).
 
-## Varmilo keyboard
+2. **Install Nix** (if not already installed):
+   - Installs version `2.25.3` with the following experimental features enabled:
+     - `nix-command`
+     - `flakes`
+     - `repl-flake`
 
-- `FN` + `a` for about 3 seconds until `capslock` flashes and keyboard will swap to `mac` mode.
-- `FN` + `w` for about 3 seconds until `capslock` flashes and keyboard will swap to `Windows` mode.
-- If `capslock` does not flash after pressing any of the previous combinations mentioned above. Keyboard
-  should be already in mentioned mode.
-- `FN` + `ESC` for about 3 seconds until `capslock` flashes and keyboard will be reset to defaults.
-- https://en.varmilo.com/keyboardproscenium/question
-- Hold Fn down and press ESC about 4 seconds, if Capslocked backlight can flash 3 times, it means reset succeed. If FN and left WIN swapped,hold left WIN down, and press ESC about 4 seconds, capslocked backlight will flash 3 times.
+3. **Set System Hostname**:
+   - Configures the system hostname, local hostname, and computer name using the `HOSTNAME` environment variable.
+
+4. **Rosetta Installation**:
+   - Installs Rosetta for compatibility with x86 applications.
+
+5. **Directory Setup**:
+   - Creates essential directories like `.config/kitty`, `.config/peco`, and `.ssh`.
+
+6. **Nix Configuration**:
+   - Links the custom Nix configuration file to `/etc/nix/nix.conf`.
+
+7. **Rebuild System**:
+   - Builds and switches the macOS configuration using `darwin-rebuild`.
+
+---
+
+## Development Shells
+
+The repository supports multiple development shells defined in `dev_shells/default.nix`. To list available shells dynamically:
+
+1. Run the following command to show all available shells:
+   ```bash
+   nix flake show ./#devShells
+   ```
+
+2. Load a specific shell with:
+   ```bash
+   nix develop ./#<shell-name>
+   ```
+
+   For example:
+   ```bash
+   nix develop ./#elixir_1_18_1_erlang_27_2
+   ```
+
+   Replace `<shell-name>` with any valid shell listed in the output of `nix flake show`.
+
+---
+
+## Post-Installation Notes
+
+- Configure right-click functionality on the Magic Mouse.
+- Configure any custom `.zshrc_local` settings as needed.
+- Install Tree-sitter modules in Neovim:
+  ```bash
+  nvim
+  :TSInstall all
+  ```
+
+---
+
+## License
+
+This repository is licensed under the [MIT License](LICENSE).
 
 <!-- Next steps: -->
 
-<!-- - [x] remove yabai and restore magnet -->
-<!-- - [x] all lua -->
 <!-- - [ ] secrets into age -->
-<!-- - [ ] refactor/modularise -->
-<!-- - [ ] disable sip and switch yabai//magnet -->
 
 <!-- TODO: -->
 
 <!-- - [ ] emoji shortcut -->
 <!-- - [ ] British pc is not in keyboard lists by defaults -->
 <!-- - [ ] keyboards do not appear in top bar -->
-<!-- - [ ] Bluetooth do not appear in the top bar -->
-<!-- - [ ] system preferences in the docker -->
+<!-- - [ ] system preferences in the dock -->
 <!-- - [ ] battery percentage are not in the top bar -->
-<!-- - [ ] waka apy key is not populated automatically -->
 <!-- - [ ] touch zsh_local -->
-<!-- - [ ] kubctl zsh completions -->
-<!-- - [ ] compe and lsp trouble -->
-<!-- - [ ] lua language server -->
 <!-- - [ ] hadolint -->
 <!-- - [ ] kubernetes YAML schemas investigate -->
-<!-- - [ ] firefox vimium and firefox profiles -->
-<!-- - [ ] review unverified -->
-<!-- - [ ] review all alias -->
 <!-- - [ ] youtube dl -->
-<!-- - [ ] vim-vsnip installation and bring nice snippets -->
 <!-- - [ ] review all maps MAKE A TODO and LIST THEM SOME WHERE PRINTABLE -->
-<!-- - [ ] hadolint somewhere (pre-commit docker?) -->
-<!-- - [ ] keyboard language? enable and uk? things about other defaults -->
-<!-- - [ ] review all vim plugins -->
-<!-- - [ ] review all confs with alvivi's and tidy owns -->
-<!-- - [ ] hacer list y tal mas fugitive and co -->
 <!-- - [ ] key rotation -->
 
 <!-- Si hay problema con lost sitter parsers rm -rf cd ~/.local/share/site -->
 
 <!-- TODO lua -->
 <!-- https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/ -->
-<!-- - [x] git.vim -->
-<!-- - [x] init-lua.vim -->
-<!-- - [x] init.lua (review) -->
-<!-- - [x] lsp.nix -->
-<!-- - [x] sets.vim -->
-<!-- - [x] terminal.vim -->
-<!-- - [x] lspkind.vim -->
-<!-- - [x] telescope.vim -->
-<!-- - [x] theme.vim -->
-<!-- - [x] review buff delete -->
 <!-- - [ ] lualine.vim REVIEW -->
 <!-- - [ ] mappings.lua -->
 <!-- - [ ] projections.vim REVIEW move to -->
@@ -141,10 +172,3 @@ If you have started already the builder vm and you want to stop it just run
 <!-- ## 1password -->
 
 <!-- https://developer.1password.com/docs/cli/shell-plugins/github/ -->
-
-<!-- - eval $(op signin) -->
-<!-- - eval $(op signin --account my) -->
-<!-- - eval $(op signin --account my.1password.com) -->
-<!-- - https://1password.community/discussion/127950/v2-client-unable-to-connect-to-desktop-app -->
-<!-- - https://developer.1password.com/docs/cli/get-started/?utm_source=google&utm_medium=cpc&utm_campaign=18646033576&utm_content=&utm_term=&gclid=CjwKCAjw__ihBhADEiwAXEazJkRCGq2GSVzS61dBrVpuQnbHFfWB0YKFWa8epb8LqdCRbmhRuCdkGxoCG_IQAvD_BwE&gclsrc=aw.ds -->
-<!-- - https://github.com/NixOS/nixpkgs/issues/222991 -->
