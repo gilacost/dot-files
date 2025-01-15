@@ -159,7 +159,6 @@ function gcai() {
 function gbai() {
   if git diff --staged | grep -q '.'; then
     local staged_files
-    local payload_template
     local response
     local branch_name
 
@@ -207,6 +206,71 @@ function gbai() {
   else
     echo "No changes staged for branch generation."
   fi
+}
+
+function prdai() {
+  local base_branch=${1:-main}  # Default to "main" if no argument is provided
+  local current_branch
+  local branch_diff
+  local payload
+  local response
+  local pr_description
+
+  # Get the current branch name
+  current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+  if [ "$current_branch" = "$base_branch" ]; then
+    echo "You are on the $base_branch branch. Switch to a feature branch before generating a PR description."
+    return 1
+  fi
+
+  # Ensure the base branch exists locally
+  if ! git show-ref --quiet "refs/heads/$base_branch"; then
+    echo "Base branch $base_branch not found locally. Fetching..."
+    git fetch origin "$base_branch:$base_branch"
+  fi
+
+  # Generate the diff between the current branch and the base branch
+  branch_diff=$(git diff "$base_branch...$current_branch" --no-ext-diff --diff-filter=AM)
+
+  if [ -z "$branch_diff" ]; then
+    echo "No changes detected between $current_branch and $base_branch for PR description generation."
+    return 1
+  fi
+
+  # Sanitize the diff for JSON by escaping control characters
+  branch_diff=$(printf "%s" "$branch_diff" | sed -e 's/[\x00-\x1F\x7F]//g' -e 's/\r//g' | jq -Rs .)
+
+  # Generate JSON payload for the OpenAI API
+  payload=$(jq -n \
+    --arg model "gpt-3.5-turbo" \
+    --arg content "Generate a detailed pull request description in markdown format based on the following Git diff\n\n$branch_diff. Please return the content between markdown backticks" \
+    '{model: $model, messages: [{role: "user", content: $content}]}')
+
+  # Send the request to the OpenAI API
+  response=$(curl -s -X POST https://api.openai.com/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    -d "$payload")
+
+  # Debug: Print the response for troubleshooting (optional)
+  echo "$response"
+
+  # Extract the AI's response for the PR description
+  pr_description=$(echo "$response" | sed -n '/```markdown/,/```/p' | sed '1d;$d')
+
+  if [ -z "$pr_description" ]; then
+    echo "Failed to generate a PR description. Please check the API response."
+    return 1
+  fi
+
+  # Output the PR description
+  echo "Generated Pull Request Description:"
+  echo "$pr_description"
+  echo
+
+  # Optionally, copy the description to the clipboard
+  echo "$pr_description" | pbcopy  # macOS (replace with xclip for Linux)
 }
 
 nixify() {
