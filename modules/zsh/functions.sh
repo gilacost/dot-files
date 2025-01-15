@@ -25,55 +25,13 @@ function push_cachix {
   nix path-info --all | cachix push pepo
 }
 
-function gcai() {
-  if git diff --staged | grep -q '.'; then
-    local diff
-    local escaped_diff
-    local response
-    local message
-
-    # Capture the staged diff
-    diff=$(git diff --staged)
-
-    # Escape the diff for JSON
-    escaped_diff=$(printf "%s" "$diff" | jq -Rs .)
-
-    # Create JSON payload
-    payload=$(jq -n --arg model "gpt-3.5-turbo" \
-                      --arg content "Generate a concise and clear commit message for the following changes:\n\n$escaped_diff" \
-                      '{
-                        model: $model,
-                        messages: [{role: "user", content: $content}]
-                      }')
-
-    # Call OpenAI API
-    response=$(curl -s -X POST https://api.openai.com/v1/chat/completions \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Bearer $OPENAI_API_KEY" \
-      -d "$payload")
-
-    # Extract the commit message
-    message=$(echo "$response" | jq -r '.choices[0].message.content // empty')
-
-    if [ -z "$message" ]; then
-      echo "Failed to generate a commit message. Please check the API response."
-      return 1
-    fi
-
-    # Commit with the generated message
-    echo "Committing with message: $message"
-    git commit -m "$message"
-  else
-    echo "No changes staged for commit."
-  fi
-}
-
 function gsina {
   git status --porcelain \
   | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
   | peco \
   | awk '{ print "$(git rev-parse --show-toplevel)/"$2 }'
 }
+
 
 function service_port {
   sudo netstat -tulnp "${1:-tcp}"
@@ -146,6 +104,59 @@ function dockerlogin {
   echo $CR_PAT | docker login ghcr.io -u gilacost --password-stdin
 }
 
+function gbai() {
+  if git diff --staged | grep -q '.'; then
+    local staged_files
+    local payload_template
+    local response
+    local branch_name
+
+    # Capture the list of staged files
+    staged_files=$(git diff --cached --name-only)
+
+    if [ -z "$staged_files" ]; then
+      echo "No staged changes to generate a branch name."
+      exit 1
+    fi
+
+    # Escape newline characters in staged files for JSON
+    staged_files=$(echo "$staged_files" | jq -Rsa .)
+
+ # Escape and format staged files for JSON
+    staged_files=$(echo "$staged_files" | jq -Rsa .)
+
+    # Define the JSON payload with properly formatted content
+    payload=$(jq -n \
+      --arg model "gpt-3.5-turbo" \
+      --arg content "Generate a concise and descriptive Git branch name based on these staged files: $staged_files" \
+      '{model: $model, messages: [{role: "user", content: $content}]}')
+
+
+# Send the request to the OpenAI API
+    response=$(curl -s -X POST https://api.openai.com/v1/chat/completions \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $OPENAI_API_KEY" \
+      -d "$payload")
+
+    # Debug: Print the response for troubleshooting
+    # echo "$response"
+
+    # Extract the AI's response for the branch name
+    branch_name=$(echo "$response" | jq -r '.choices[0].message.content // empty' | tr -d '\n' | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
+
+    if [ -z "$branch_name" ]; then
+      echo "Failed to generate a branch name. Please check the API response."
+      return 1
+    fi
+
+    # Create and switch to the new branch
+    echo "Creating and switching to branch: $branch_name"
+    git checkout -b "$branch_name"
+  else
+    echo "No changes staged for branch generation."
+  fi
+}
+
 nixify() {
   if [ ! -e ./.envrc ]; then
     echo "use nix" > .envrc
@@ -177,6 +188,8 @@ flakifiy() {
 source <(kubectl completion zsh)
 alias k=kubectl
 complete -F __start_kubectl k
+
+source <(gh copilot alias -- zsh)
 
 export PATH=$PATH:$HOME/Repos/dot-files/modules/node_modules/@ansible/ansible-language-server/bin
 eval "$(jump shell)"

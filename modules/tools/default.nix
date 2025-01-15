@@ -27,6 +27,8 @@
 
     # STILL NEEDS TO BE ORGANISED
     imagemagick
+    pngquant
+    jpegoptim
     zsh-syntax-highlighting
     cloc
     nodePackages.node2nix
