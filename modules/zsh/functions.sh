@@ -104,6 +104,58 @@ function dockerlogin {
   echo $CR_PAT | docker login ghcr.io -u gilacost --password-stdin
 }
 
+function gcai() {
+  if git diff --staged | grep -q '.'; then
+    local staged_diff
+    local payload
+    local response
+    local commit_message
+
+    # Capture the staged diff
+    staged_diff=$(git diff --cached --no-ext-diff --diff-filter=AM)
+
+    if [[ -z "$staged_diff" ]]; then
+      echo "No textual changes staged for commit message generation."
+      return 1
+    fi
+
+    # Escape the diff for JSON
+    staged_diff=$(echo "$staged_diff" | jq -Rs .)
+
+    # Generate JSON payload for the OpenAI API
+    payload=$(jq -n \
+      --arg model "gpt-3.5-turbo" \
+      --arg content "Generate a concise and descriptive commit message based on the following Git diff:\n\n$staged_diff" \
+      '{model: $model, messages: [{role: "user", content: $content}]}')
+
+    # Send the request to the OpenAI API
+    response=$(curl -s -X POST https://api.openai.com/v1/chat/completions \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $OPENAI_API_KEY" \
+      -d "$payload")
+
+    # Debug: Print the response for troubleshooting (optional)
+    # echo "$response"
+
+    # Extract the AI's response for the commit message
+    commit_message=$(echo "$response" | jq -r '.choices[0].message.content // empty')
+
+    if [ -z "$commit_message" ]; then
+      echo "Failed to generate a commit message. Please check the API response."
+      return 1
+    fi
+
+    # Perform the commit
+    echo "Generated Commit Message:"
+    echo "$commit_message"
+    echo
+
+    git commit -m "$commit_message"
+  else
+    echo "No changes staged for commit message generation."
+  fi
+}
+
 function gbai() {
   if git diff --staged | grep -q '.'; then
     local staged_files
