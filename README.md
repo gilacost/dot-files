@@ -99,7 +99,25 @@ The `install.sh` script performs the following actions:
 
 ---
 
-## Development Shells
+## Using Remote Development Shells
+
+You can easily access remote development shells defined in this flake. Here's how:
+
+1. Add a remote shell to your `.envrc`:
+   ```bash
+   echo "use flake github:gilacost/dot-files#elixir_1_18_1_erlang_27_2" > .envrc
+   ```
+
+2. Allow `direnv` to load the environment:
+   ```bash
+   direnv allow
+   ```
+
+Now, your shell environment will automatically load the specified development shell whenever you enter the directory.
+
+---
+
+## Debugging Development Shells
 
 The repository supports multiple development shells defined in `dev_shells/default.nix`. To list available shells dynamically:
 
@@ -133,6 +151,12 @@ The repository supports multiple development shells defined in `dev_shells/defau
   ```
 
 ---
+
+## TODO
+
+- gh auth login --web -h github.com
+- first time gh copilot alias -- zsh
+- review gh in dot-files
 
 ## License
 

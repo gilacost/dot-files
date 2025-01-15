@@ -31,7 +31,7 @@
 
     sessionVariables = {
       DOCKER_BUILDKIT = 1;
-      TMPDIR = "~/nix-temp";
+      TMPDIR = "$HOME/nix-temp";
       ERL_AFLAGS = "-kernel shell_history enabled";
       NIX_PATH = "darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
       FZF_DEFAULT_COMMAND = "rg --files --hidden --follow";
