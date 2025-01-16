@@ -310,6 +310,7 @@
     ];
 
     casks = [
+      "chatgpt"
       "postman"
       "wd-security"
       "arc"
