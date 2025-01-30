@@ -11,6 +11,7 @@
     tree-sitter
     p7zip
     xorriso
+    smartcat
     socat
     ffmpeg_7
     hping
