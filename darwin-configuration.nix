@@ -310,6 +310,7 @@
     ];
 
     casks = [
+      "cursor"
       "chatgpt"
       "postman"
       "wd-security"
@@ -345,8 +346,7 @@
       Pages = 409201541;
       Keynote = 409183694;
       "Surfshark: Unlimited VPN Proxy" = 1437809329;
-      Magnet = 441258766;
-      "TickTick:To-Do List, Calendar" = 966085870;
+      Xcode = 497799835;
     };
   };
 
