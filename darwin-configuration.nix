@@ -347,6 +347,7 @@
       Keynote = 409183694;
       "Surfshark: Unlimited VPN Proxy" = 1437809329;
       Xcode = 497799835;
+      "Apple Developer" = 640199958;
     };
   };
 
