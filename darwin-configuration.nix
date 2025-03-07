@@ -49,10 +49,11 @@
   programs.nix-index.enable = true;
   programs.zsh.enable = true;
 
-  fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "Iosevka" ]; }) ];
+  fonts.packages = [ 
+    pkgs.nerd-fonts.iosevka 
+  ];
 
   nix = {
-    configureBuildUsers = true;
     settings = {
       trusted-users = [
         "root"
@@ -77,8 +78,7 @@
     };
   };
 
-  ids.uids.nixbld = lib.mkForce 30000;
-
+  ids.gids.nixbld = 305;
   nixpkgs.config.allowUnfree = true;
 
   ############
@@ -203,6 +203,8 @@
         OpenWith -bool true \
         Privileges -bool true
     '';
+
+    stateVersion = 6;
     defaults = {
       NSGlobalDomain = {
         "com.apple.mouse.tapBehavior" = 1;
@@ -254,7 +256,7 @@
       # }'
       enableKeyMapping = true;
       userKeyMapping = [
-        # Other mappings
+        # her mappings
         {
           HIDKeyboardModifierMappingSrc = 30064771129;
           HIDKeyboardModifierMappingDst = 30064771296;
@@ -280,27 +282,26 @@
     skhdConfig = builtins.readFile ./conf.d/skhdrc;
   };
 
-  services.nix-daemon.enable = true;
-
   ############
   # Homebrew #
   ############
 
   homebrew = {
     enable = true;
-    onActivation = {
-      upgrade = true;
-      autoUpdate = true;
-      cleanup = "zap";
-    };
+    #onActivation = {
+    #  upgrade = true;
+    #  autoUpdate = true;
+    #  cleanup = "zap";
+    #};
 
-    global = {
-      autoUpdate = true;
-      brewfile = true;
-      lockfiles = true;
-    };
+    #global = {
+    #  autoUpdate = true;
+    #  brewfile = true;
+    #  lockfiles = true;
+    #};
 
     brews = [
+      "dive"
       "qemu"
       "mas"
       "asciinema"
@@ -310,33 +311,36 @@
     ];
 
     casks = [
-      "cursor"
-      "chatgpt"
-      "postman"
-      "wd-security"
-      "arc"
-      "pop"
-      "ledger-live"
-      "tailscale"
-      "raycast"
+      "inkscape"
       "1password"
       "OmniGraffle"
+      "arc"
+      "chatgpt"
+      "cursor"
+      "discord"
       "docker"
+      "figma"
+      "ghostty"
       "google-chrome"
       "google-drive"
       "insomnia"
       "jiggler"
       "kitty"
-      "ghostty"
+      "ledger-live"
       "loom"
       "now-tv-player"
+      "pop"
+      "postman"
+      "raycast"
       "remarkable"
       "sketch"
       "skype"
       "slack"
       "spotify"
+      "tailscale"
       "transmission"
       "vlc"
+      "wd-security"
       "zoom"
     ];
 
@@ -352,6 +356,4 @@
   };
 
   environment.variables.LANG = "en_GB.UTF-8";
-  environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
-  services.activate-system.enable = true;
 }

@@ -4,7 +4,21 @@
   # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
   # home.packages = [ devenv ] ++ (with pkgs; [
   home.packages = with pkgs; [
+    # Add Whaler
+  # (pkgs.buildGoModule rec {
+  #     pname = "whaler";
+  #     version = "latest";
+  #     src = pkgs.fetchFromGitHub {
+  #       owner = "P3GLEG";
+  #       repo = "Whaler";
+  #       rev = "master";
+  #       sha256 = "0468l42grwma9d49j0bdsbvcnqawlx41sqkh24kx0lvni0a9i9w9"; 
+  #     };
 
+  #     vendorHash = "sha256-kpyiMdqWGU9MusVuIHqLAoHlMxgLDeu1tr4dzsTIoe4="
+# ; 
+  #     doCheck = false;
+  #   })
     nixos-generators
     kas
     neovim-remote
@@ -16,6 +30,7 @@
     ffmpeg_7
     hping
     iperf
+    potrace
     # lxd
     # lxc
 
@@ -39,7 +54,7 @@
 
     dasel
     silver-searcher
-    (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    nerd-fonts.iosevka
     # STILL NEEDS TO BE ORGANISED
 
     # RANDOM
