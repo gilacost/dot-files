@@ -114,8 +114,8 @@
           src = fetchFromGitHub {
             owner = "nvim-tree";
             repo = "nvim-tree.lua";
-            rev = "375e38673b5c61debd8074ced01cfd4f3b7ce1e9";
-            sha256 = "16rkswhc6gwf8rci51hilg5hkyvjmdf385wwp78733iznni938bw";
+            rev = "c09ff35de503a41fa62465c6b4ae72d96e7a7ce4";
+            sha256 = "0bnc2fc9ipz9yp917l61vvcaqmbdg5fhqxrp7jfjxj5qmvadhai9";
           };
         };
 
@@ -168,7 +168,7 @@
         # vim-markdown
 
         # Navigation
-        nvim-tree-lua
+        #nvim-tree-lua
         # nerdtree
         vim-easymotion
         vim-startify
