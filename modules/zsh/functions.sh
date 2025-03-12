@@ -105,10 +105,10 @@ function dockerlogin {
 }
 
 function gcai() {
-  # Check if there are staged changes
+  # Check if there are staged changes (excluding lock files)
   if ! git diff --staged --quiet; then
       # Generate commit message using OpenAI API via sc
-      COMMIT_MESSAGE=$(git diff --staged | sc --api openai "summarize changes as a commit message")
+      COMMIT_MESSAGE=$(git diff --staged -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | sc --api openai "summarize changes as a commit message")
   
       # Trim leading/trailing spaces
       COMMIT_MESSAGE=$(echo "$COMMIT_MESSAGE" | sed 's/^ *//;s/ *$//')
@@ -122,7 +122,7 @@ function gcai() {
           exit 1
       fi
   else
-      echo "No staged changes to commit."
+      echo "No staged changes to commit (or only lock files were changed)."
   fi
 }
 
@@ -168,7 +168,7 @@ function prdai() {
   fi
   
   # Generate the PR description by comparing the current branch to the base branch
-  PR_DESCRIPTION=$(git diff "$BASE_BRANCH"..."$CURRENT_BRANCH" | sc --api openai "summarize changes in a detailed pull request description")
+  PR_DESCRIPTION=$(git diff "$BASE_BRANCH"..."$CURRENT_BRANCH" -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | sc --api openai "summarize changes in a detailed pull request description")
   
   # Trim leading/trailing spaces
   PR_DESCRIPTION=$(echo "$PR_DESCRIPTION" | sed 's/^ *//;s/ *$//')
