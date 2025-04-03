@@ -29,6 +29,8 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     erlangVersion = "27.2";
     erlangSha256 = "00zk0cziyylmzg63gq3h5p2p348ahg2wp5h8zhbva4h3v5w6fi7j";
     erlangInterpreter = "erlang_27";
+    elixirLsVersion = "2257b6b100e200f3ce1a8d08e37d1fd224ecdeb1";
+    elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
   };
 
   elixir_1_17_2_erlang_26_2_5 = mkElixirErlangShell {
