@@ -16,10 +16,44 @@ let
         escriptPath = inputs.elixirEscriptPath;
       } else
         { }));
+      elixir-ls = super.stdenv.mkDerivation {
+        pname = "elixir-ls";
+        version = inputs.elixirLsVersion;
+
+        src = super.fetchFromGitHub {
+          owner = "elixir-lsp";
+          repo = "elixir-ls";
+          rev = inputs.elixirLsVersion;
+          sha256 = inputs.elixirLsSha256;
+        };
+
+        buildInputs = [ self.elixir super.git ];
+
+        # Fix: Provide a safe, temporary home directory
+        buildPhase = ''
+          export HOME=$(mktemp -d)
+          export PATH=$PATH:${super.git}/bin
+          export SSL_CERT_FILE=${super.cacert}/etc/ssl/certs/ca-bundle.crt
+          export GIT_SSL_CAINFO=${super.cacert}/etc/ssl/certs/ca-bundle.crt
+        
+          mix local.hex --force
+          mix local.rebar --force
+        
+          mix deps.get
+          mix compile
+          mix elixir_ls.release2 -o elixir-ls-release
+        '';
+        
+        installPhase = ''
+          mkdir -p $out/bin
+          cp -r elixir-ls-release/* $out/bin/
+        '';
+      };
     })
   ];
   system = inputs.system;
   pkgs = import inputs.nixpkgs { inherit system overlays; };
+  elixirLsBinPath = "${pkgs.elixir-ls}/bin/language_server.sh";
 in
 pkgs.mkShell {
   buildInputs = with pkgs;
@@ -33,7 +67,7 @@ pkgs.mkShell {
           CoreServices
         ]);
     in
-    builtins.concatLists [ [ erlang elixir ] linuxPackages darwinPackages ];
+    builtins.concatLists [ [ erlang elixir elixir-ls] linuxPackages darwinPackages ];
 
   shellHook =
     let
@@ -50,7 +84,20 @@ pkgs.mkShell {
       '';
     in
     ''
-      echo "🍎 Erlang OTP-$(erl -eval '${escript}' -noshell)"
-      echo "💧 $(${pkgs.elixir}/bin/elixir --version | tail -n 1)"
+    export ELIXIR_LS_PATH="${elixirLsBinPath}"
+
+    echo "🍎 Erlang OTP-$(erl -eval '${escript}' -noshell)"
+    echo "💧 $(${pkgs.elixir}/bin/elixir --version | tail -n 1)"
+    echo "🧠 ElixirLS available at: $ELIXIR_LS_PATH"
+
+    # Ensure global symlink exists
+    mkdir -p "$HOME/.elixir-ls"
+
+    if [ ! -e "$HOME/.elixir-ls/elixir-ls" ] || [ "$(readlink "$HOME/.elixir-ls/elixir-ls")" != "$ELIXIR_LS_PATH" ]; then
+      ln -sf "$ELIXIR_LS_PATH" "$HOME/.elixir-ls/elixir-ls"
+      echo "🔗 Symlinked ElixirLS to: $HOME/.elixir-ls/elixir-ls"
+    fi
+      
+      echo "🧠 ElixirLS linked to: $HOME/.elixir-ls/elixir-ls"
     '';
 }

@@ -1,5 +1,22 @@
 local lsp = require('lspconfig')
 local opts = { noremap = true, silent = true }
+local elixir_ls_path = vim.fn.expand("~/.elixir-ls/elixir-ls")
+
+-- 🧠 Float border styling for LSP popups
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  { border = "rounded" }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  { border = "rounded" }
+)
+
+-- 🧠 Diagnostics use rounded border too
+vim.diagnostic.config({
+  float = { border = "rounded" },
+})
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -62,10 +79,16 @@ local border = {
   { '│', "FloatBorder" },
 }
 
-lsp.elixirls.setup {
-  cmd = { "/Users/pepo/Repos/elixir-ls/release/language_server.sh" },
-  flags = { debounce_text_changes = 150, },
-}
+if vim.fn.filereadable(elixir_ls_path) == 1 then
+  require("lspconfig").elixirls.setup {
+    cmd = { elixir_ls_path },
+    flags = {
+      debounce_text_changes = 150,
+    },
+  }
+else
+  vim.notify("⚠️ ElixirLS not found at " .. elixir_ls_path, vim.log.levels.WARN)
+end
 
 -- lsp.lexical.setup{
 --    cmd = { vim.g.lsp_elixir_bin },
