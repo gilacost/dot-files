@@ -49,8 +49,8 @@
   programs.nix-index.enable = true;
   programs.zsh.enable = true;
 
-  fonts.packages = [ 
-    pkgs.nerd-fonts.iosevka 
+  fonts.packages = [
+    pkgs.nerd-fonts.iosevka
   ];
 
   nix = {
@@ -301,6 +301,7 @@
     #};
 
     brews = [
+      "amazon-ecs-cli"
       "dive"
       "qemu"
       "mas"
