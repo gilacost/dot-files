@@ -4,6 +4,8 @@ local telescope = require("telescope")
 
 telescope.setup {
   defaults = {
+    cwd = require('lspconfig.util').root_pattern('.git')(vim.fn.getcwd()),
+    file_ignore_patterns = {"^%.git/", "node_modules"},
     mappings = {
       i = {
         ["<c-t>"] = trouble.open_with_trouble ,
@@ -14,6 +16,11 @@ telescope.setup {
         ["<c-t>"] = trouble.open,
         ["q"] = actions.close,
       },
+    },
+  },
+  pickers = {
+    find_files = {
+      hidden = true,  -- Include dotfiles in the search
     },
   },
 }

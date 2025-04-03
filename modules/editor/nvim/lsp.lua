@@ -63,7 +63,7 @@ local border = {
 }
 
 lsp.elixirls.setup {
-  cmd = { vim.g.lsp_elixir_bin },
+  cmd = { "/Users/pepo/Repos/elixir-ls/release/language_server.sh" },
   flags = { debounce_text_changes = 150, },
 }
 

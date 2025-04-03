@@ -1,24 +1,8 @@
-{ pkgs, devenv, ... }:
+{ pkgs, ... }:
 {
   #  TODO REVIEW ALL THESE PACKAGES
   # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
-  # home.packages = [ devenv ] ++ (with pkgs; [
   home.packages = with pkgs; [
-    # Add Whaler
-  # (pkgs.buildGoModule rec {
-  #     pname = "whaler";
-  #     version = "latest";
-  #     src = pkgs.fetchFromGitHub {
-  #       owner = "P3GLEG";
-  #       repo = "Whaler";
-  #       rev = "master";
-  #       sha256 = "0468l42grwma9d49j0bdsbvcnqawlx41sqkh24kx0lvni0a9i9w9"; 
-  #     };
-
-  #     vendorHash = "sha256-kpyiMdqWGU9MusVuIHqLAoHlMxgLDeu1tr4dzsTIoe4="
-# ; 
-  #     doCheck = false;
-  #   })
     nixos-generators
     kas
     neovim-remote
@@ -37,7 +21,7 @@
     # TO REVIEW
     # cmake
     # act
-    # bind 
+    # bind
     # coreutils
     zellij
 
@@ -86,7 +70,7 @@
 
     # LSP, LINTING AND FORMATTING
     hclfmt
-    elixir_ls
+    # elixir_ls
     # (callPackage (import ./elixir-ls.nix) {})
     erlang-ls
     lexical
