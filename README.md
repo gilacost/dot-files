@@ -105,6 +105,7 @@ You can easily access remote development shells defined in this flake. Here's ho
 
 1. Add a remote shell to your `.envrc`:
    ```bash
+   echo "use flake /Users/<your-username>/Repos/dot-files#elixir_1_18_1_erlang_27_2" > .envrc
    echo "use flake github:gilacost/dot-files#elixir_1_18_1_erlang_27_2" > .envrc
    ```
 
