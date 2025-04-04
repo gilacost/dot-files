@@ -30,6 +30,7 @@
     initExtra = builtins.readFile ./functions.sh;
 
     sessionVariables = {
+      DIRENV_LOG_FORMAT = "";
       DOCKER_BUILDKIT = 1;
       TMPDIR = "$HOME/nix-temp";
       ERL_AFLAGS = "-kernel shell_history enabled";

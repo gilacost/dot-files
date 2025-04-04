@@ -5,8 +5,15 @@
 let
   mkElixirErlangShell = import ./elixir_erlang.nix;
   mkTerraformShell = import ./terraform.nix;
+  mkOpenTofuShell = import ./opentofu.nix;
 in
 flake-utils.lib.eachDefaultSystemMap (system: {
+
+  opentofu_1_9_0 = mkOpenTofuShell {
+    inherit system nixpkgs;
+    tofuVersion = "1.9.0";
+    tofuSha256 = "sha256-c2vGE4+FAzG0Z8gUu7uPowflKR3I2kKmb7zqjqdo0x4=";
+  };
 
   terraform_1_11_3 = mkTerraformShell {
     inherit system nixpkgs;

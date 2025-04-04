@@ -1,23 +1,32 @@
-{ system, nixpkgs, terraformVersion, terraformSha256 }:
+{
+  system,
+  nixpkgs,
+  terraformVersion,
+  terraformSha256,
+}:
 let
   inherit (nixpkgs.lib) optionalString;
 
   # Map system to platform triple used by HashiCorp
   platform =
-    if system == "x86_64-linux" then "linux_amd64"
-    else if system == "aarch64-linux" then "linux_arm64"
-    else if system == "x86_64-darwin" then "darwin_amd64"
-    else if system == "aarch64-darwin" then "darwin_arm64"
-    else throw "Unsupported system: ${system}";
+    if system == "x86_64-linux" then
+      "linux_amd64"
+    else if system == "aarch64-linux" then
+      "linux_arm64"
+    else if system == "x86_64-darwin" then
+      "darwin_amd64"
+    else if system == "aarch64-darwin" then
+      "darwin_arm64"
+    else
+      throw "Unsupported system: ${system}";
 
   # Build the URL dynamically
-  terraformUrl =
-    "https://releases.hashicorp.com/terraform/${terraformVersion}/terraform_${terraformVersion}_${platform}.zip";
+  terraformUrl = "https://releases.hashicorp.com/terraform/${terraformVersion}/terraform_${terraformVersion}_${platform}.zip";
 
   pkgs = import nixpkgs {
     inherit system;
     # Not needed unless using nixpkgs-provided terraform
-    # config.allowUnfree = true;
+    config.allowUnfree = true;
   };
 
   terraform = pkgs.stdenv.mkDerivation {
