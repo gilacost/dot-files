@@ -101,14 +101,14 @@ function image_tags {
 }
 
 function dockerlogin {
-  echo $CR_PAT | docker login ghcr.io -u gilacost --password-stdin
+  echo "$CR_PAT" | docker login ghcr.io -u gilacost --password-stdin
 }
 
 function gcai() {
   # Check if there are staged changes (excluding lock files)
   if ! git diff --staged --quiet; then
       # Generate commit message using OpenAI API via sc
-      COMMIT_MESSAGE=$(git diff --staged -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | sc --api openai "summarize changes as a commit message")
+      COMMIT_MESSAGE=$(git diff --staged -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | sc --api openai "summarize changes as a commit message, make it short and descriptive, andproperly formatted")
   
       # Trim leading/trailing spaces
       COMMIT_MESSAGE=$(echo "$COMMIT_MESSAGE" | sed 's/^ *//;s/ *$//')
