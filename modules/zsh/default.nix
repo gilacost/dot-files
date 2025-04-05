@@ -62,6 +62,11 @@
     };
 
     shellAliases = {
+      # latest release
+      latest_elixir = "get_latest_release elixir-lang/elixir";
+      latest_terraform = "get_latest_release hashicorp/terraform";
+      latest_elixir_ls = "get_latest_release elixir-lsp/elixir-ls";
+      latest_erlang = "get_latest_release erlang/otp";
       # git
       gbr = ''git branch | grep -v "master" | xargs git branch -D'';
       # gcoi =

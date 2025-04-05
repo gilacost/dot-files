@@ -104,6 +104,25 @@ function dockerlogin {
   echo "$CR_PAT" | docker login ghcr.io -u gilacost --password-stdin
 }
 
+function get_latest_release() {
+  if [[ "$1" == "--help" || -z "$1" ]]; then
+    echo "Usage: get_latest_release <github_owner/repo>"
+    echo
+    echo "Fetch the latest release tag from a GitHub repository."
+    echo
+    echo "Examples:"
+    echo "  get_latest_release elixir-lang/elixir       # => v1.16.2"
+    echo "  get_latest_release hashicorp/terraform      # => v1.7.5"
+    echo "  get_latest_release burntsushi/ripgrep       # => 13.0.0"
+    echo "  get_latest_release erlang/otp               # => OTP-27.3.2"
+
+    return 0
+  fi
+  local repo="$1"
+  curl -s "https://api.github.com/repos/${repo}/releases/latest" \
+    | jq -r '.tag_name'
+}
+
 function gcai() {
   # Check if there are staged changes (excluding lock files)
   if ! git diff --staged --quiet; then
