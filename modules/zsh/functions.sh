@@ -118,8 +118,6 @@ function dockerlogin {
   echo "$CR_PAT" | docker login ghcr.io -u gilacost --password-stdin
 }
 
-fetc
-
 function nix_prefetch() {
   local repo="$1"
   local tag="$2"
