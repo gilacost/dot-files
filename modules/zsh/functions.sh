@@ -96,12 +96,69 @@ function erlv {
   cat "$(dirname $(dirname $(which erl)))/lib/erlang/releases/**/OTP_VERSION"
 }
 
+function sri_to_nix32() {
+  local sri="$1"
+  if [[ -z "$sri" || "$sri" == "--help" ]]; then
+    echo "Usage: sri_to_nix32 sha256-<base64>"
+    echo "Converts an SRI-style sha256 hash to Nix base32 format"
+    echo
+    echo "Example:"
+    echo "  sri_to_nix32 sha256-Pybkcm3pLt0wV+S9ia/BAmM1AKp/nVSAckEzNn4KjSg="
+    return 1
+  fi
+
+  nix hash convert --from sri --to nix32 "$sri"
+}
+
 function image_tags {
   curl -s "https://registry.hub.docker.com/v2/repositories/$1/tags/?page_size=${2:-200}" | jq -r '.results[].name'
 }
 
 function dockerlogin {
   echo "$CR_PAT" | docker login ghcr.io -u gilacost --password-stdin
+}
+
+fetc
+
+function nix_prefetch() {
+  local repo="$1"
+  local tag="$2"
+
+  if [[ -z "$repo" || -z "$tag" ]]; then
+    echo "Usage: nix_prefetch <github_owner/repo> <tag>"
+    return 1
+  fi
+
+  local url="https://github.com/${repo}"
+  nix-prefetch-git --url "$url" --rev "$tag"
+}
+
+function nix_prefetch_latest() {
+  local repo="$1"
+
+  if [[ "$repo" == "--help" || -z "$repo" ]]; then
+    echo "Usage: nix_prefetch_latest <github_owner/repo>"
+    echo
+    echo "Fetches the latest release tag from a GitHub repository using the GitHub API"
+    echo "and prefetches the corresponding Git revision using nix-prefetch-git."
+    echo
+    echo "Examples:"
+    echo "  nix_prefetch_latest elixir-lang/elixir       # => prefetch latest Elixir release"
+    echo "  nix_prefetch_latest erlang/otp               # => prefetch latest OTP release"
+    echo "  nix_prefetch_latest elixir-lsp/elixir-ls     # => prefetch latest ElixirLS release"
+    return 0
+  fi
+
+  local tag
+  tag=$(get_latest_release "$repo")
+
+  if [[ -z "$tag" || "$tag" == "null" ]]; then
+    echo "Could not determine the latest release tag for $repo"
+    return 1
+  fi
+
+  echo "Latest tag for $repo: $tag"
+  nix_prefetch "$repo" "$tag"
 }
 
 function get_latest_release() {
