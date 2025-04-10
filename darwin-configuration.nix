@@ -313,6 +313,8 @@
 
     casks = [
       "inkscape"
+      # "windsurf"
+      "trae"
       "1password"
       "OmniGraffle"
       "arc"
@@ -343,6 +345,7 @@
       "vlc"
       "wd-security"
       "zoom"
+      "imageoptim"
     ];
 
     masApps = {

@@ -27,7 +27,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     terraformSha256 = "sha256-mcTU/q+wGDry9/vge+7qb4Pl9aKa4p/uMWi2gQ43/5g=";
   };
 
-  elixir_1_18_3_erlang_27_3_2 = mkElixirErlangShell {
+  elixir_latest_erlang_latest = mkElixirErlangShell {
     inherit system;
     inherit nixpkgs;
     elixirVersion = "1.18.3";
