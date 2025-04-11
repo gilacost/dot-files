@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     nixos-generators
     kas
+    ssm-session-manager-plugin
     neovim-remote
     tree-sitter
     p7zip
