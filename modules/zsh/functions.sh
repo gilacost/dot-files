@@ -25,6 +25,17 @@ function push_cachix {
   nix path-info --all | cachix push pepo
 }
 
+function gha() {
+  latest_run_id=$(gh run list --limit 1 --json databaseId,url --jq ".[0].databaseId")
+  latest_run_url=$(gh run list --limit 1 --json url --jq ".[0].url")
+
+  if [[ "$1" == "--log" ]]; then
+    gh run view --log --run-id "$latest_run_id"
+  else
+    open "$latest_run_url" # or xdg-open on Linux
+  fi
+}
+
 function gsina {
   git status --porcelain \
   | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
