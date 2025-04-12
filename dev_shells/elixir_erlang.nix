@@ -23,15 +23,15 @@ let
             { }
         )
       );
-      elixir-ls = super.stdenv.mkDerivation {
-        pname = "elixir-ls";
-        version = inputs.elixirLsVersion;
+      lexical = super.stdenv.mkDerivation {
+        pname = "lexical";
+        version = inputs.lexicalVersion;
 
         src = super.fetchFromGitHub {
-          owner = "elixir-lsp";
-          repo = "elixir-ls";
-          rev = inputs.elixirLsVersion;
-          sha256 = inputs.elixirLsSha256;
+          owner = "lexical-lsp";
+          repo = "lexical";
+          rev = inputs.lexicalVersion;
+          sha256 = inputs.lexicalSha256;
         };
 
         buildInputs = [
@@ -39,7 +39,6 @@ let
           super.git
         ];
 
-        # Fix: Provide a safe, temporary home directory
         buildPhase = ''
           export HOME=$(mktemp -d)
           export PATH=$PATH:${super.git}/bin
@@ -48,22 +47,23 @@ let
 
           mix local.hex --force
           mix local.rebar --force
-
           mix deps.get
-          mix compile
-          mix elixir_ls.release2 -o elixir-ls-release
+          mix deps.compile
+          mix compile --warnings-as-errors
+          mix package
         '';
 
         installPhase = ''
-          mkdir -p $out/bin
-          cp -r elixir-ls-release/* $out/bin/
+          mkdir -p $out/package
+          cp -r _build/dev/package/lexical/* $out/package
+          chmod +x $out/package
+          chmod +x $out/package/bin/*.sh
         '';
       };
     })
   ];
   system = inputs.system;
   pkgs = import inputs.nixpkgs { inherit system overlays; };
-  elixirLsBinPath = "${pkgs.elixir-ls}/bin/language_server.sh";
 in
 pkgs.mkShell {
   buildInputs =
@@ -86,7 +86,7 @@ pkgs.mkShell {
       [
         erlang
         elixir
-        elixir-ls
+        lexical
       ]
       linuxPackages
       darwinPackages
@@ -107,48 +107,23 @@ pkgs.mkShell {
       '';
     in
     ''
-      export ELIXIR_LS_PATH="${elixirLsBinPath}"
+      export LEXICAL_PATH="${pkgs.lexical}/package"
 
       export OTP_VERSION="$(erl -eval '${escript}' -noshell | tr -d '\n')"
       export ELIXIR_VERSION="$(${pkgs.elixir}/bin/elixir --version | grep 'Elixir' | awk '{print $2}')"
 
       echo "🍎 Erlang OTP-$OTP_VERSION"
       echo "💧 Elixir $ELIXIR_VERSION"
-      echo "🧠 ElixirLS version: ${inputs.elixirLsVersion}"
+      echo "🧠 Lexical version: ${inputs.lexicalVersion}"
       echo ""
 
-      # Ensure global symlink exists
-      mkdir -p "$HOME/.elixir-ls"
+      # Remove existing directory/symlink if it exists
+      rm -rf "$HOME/.elixir-lsp/lexical"
+      mkdir -p "$HOME/.elixir-lsp"
 
-      if [ ! -e "$HOME/.elixir-ls/elixir-ls" ] || [ "$(readlink "$HOME/.elixir-ls/elixir-ls")" != "$ELIXIR_LS_PATH" ]; then
-        ln -sf "$ELIXIR_LS_PATH" "$HOME/.elixir-ls/elixir-ls"
-        echo "🔗 Symlinked ElixirLS to: $HOME/.elixir-ls/elixir-ls"
-      fi
-        
-        echo "🧠 ElixirLS linked to: $HOME/.elixir-ls/elixir-ls"
-        echo "🧠 ElixirLS available at: $ELIXIR_LS_PATH"
-        # Compatibility check
-        echo ""
-        echo "🧪 Checking ElixirLS compatibility..."
-        
-        check_warning() {
-          echo "⚠️  Warning: Your Elixir ($ELIXIR_VERSION) and OTP ($OTP_VERSION) combination may not be supported by ElixirLS."
-          echo "   Please consult the support matrix: https://github.com/elixir-lsp/elixir-ls#support-matrix"
-          export COMPAT_WARNING=1
-        }
-        
-        export COMPAT_WARNING=0
-        
-        case "$OTP_VERSION-$ELIXIR_VERSION" in
-          2[2-4].*-1.13*) check_warning ;;
-          25.*-1.13.*) check_warning ;;
-          26.0.*-*) check_warning ;;
-          26.1.*-*) check_warning ;;
-          *-1.15.5) check_warning ;;  # Formatter broken
-        esac
-        
-        if [ "$COMPAT_WARNING" -eq 0 ]; then
-          echo "✅ ElixirLS compatibility looks good!"
-        fi
+      ln -sf "$LEXICAL_PATH" "$HOME/.elixir-lsp/lexical"
+      echo "🔗 Symlinked Lexical package to: $HOME/.elixir-lsp/lexical"
+      echo "🧠 Lexical path in store at: $LEXICAL_PATH"
+      echo "🧠 Lexical start path at: $HOME/.elixir-lsp/lexical/bin/start_lexical.sh"
     '';
 }
