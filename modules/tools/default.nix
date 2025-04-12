@@ -118,9 +118,9 @@
     terraformer
     terraform-docs
     # openshift
-    awscli
+    #awscli
     azure-cli
-    # awscli2
+    awscli2
     argocd
     ansible
     # tanka

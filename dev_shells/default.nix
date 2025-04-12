@@ -35,8 +35,8 @@ flake-utils.lib.eachDefaultSystemMap (system: {
   elixir_latest_erlang_latest = mkElixirErlangShell {
     inherit system;
     inherit nixpkgs;
-    elixirVersion = "1.18.3";
-    elixirSha256 = "03d2ha0ykrxwfzj1w7wvapc0w3nm1xchl1m9m7r287anh3wbazwc";
+    elixirVersion = "1.17.3";
+    elixirSha256 = "02d2ha0ykrxwfzj1w7wvapc0w3nm1xchl1m9m7r287anh3wbazwc";
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
     erlangVersion = "27.3.2";
     erlangSha256 = "0a4d19z3ccs1fa0597bzm803aqq2q6pqkgg4awqdsbp9dmrf89iz";
@@ -54,7 +54,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     erlangVersion = "27.2";
     erlangSha256 = "00zk0cziyylmzg63gq3h5p2p348ahg2wp5h8zhbva4h3v5w6fi7j";
     erlangInterpreter = "erlang_27";
-    elixirLsVersion = "2257b6b100e200f3ce1a8d08e37d1fd224ecdeb1";
+    elixirLsVersion = "v0.27.2";
     elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
   };
 
@@ -64,10 +64,23 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     elixirVersion = "1.17.2";
     elixirSha256 = "063pfz6ljy22b4nyvk8pi8ggqb6nmzqcca08vnl3h9xgh1zzddpj";
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
-    erlangVersion = "26.2.5.2";
-    erlangSha256 = "sha256-Co1rLqrdjq+aIiSEX0+59Cd5lOYkMdxsXgr3r7wt3Pc=";
+    erlangVersion = "26.2.5";
+    erlangSha256 = "sha256-tUAvzkTE51gT4kS7voEZZpsMKVyBQR+wgk6mI0s1Vac=";
     erlangInterpreter = "erlang_26";
-    elixirLsVersion = "2257b6b100e200f3ce1a8d08e37d1fd224ecdeb1"; # try 0.15.0 for the blog post
+    elixirLsVersion = "v0.27.2";
+    elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
+  };
+
+  elixir_1_17_2_erlang_26_0 = mkElixirErlangShell {
+    inherit system;
+    inherit nixpkgs;
+    elixirVersion = "1.17.2";
+    elixirSha256 = "063pfz6ljy22b4nyvk8pi8ggqb6nmzqcca08vnl3h9xgh1zzddpj";
+    elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
+    erlangVersion = "26.0";
+    erlangSha256 = "sha256-7z5LkCLyjqGlo48XlcwAUiu1FkmAAewEGnP30QDDme8=";
+    erlangInterpreter = "erlang_26";
+    elixirLsVersion = "v0.27.2";
     elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
   };
 
