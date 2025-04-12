@@ -1,6 +1,7 @@
 local lsp = require('lspconfig')
 local opts = { noremap = true, silent = true }
-local elixir_ls_path = vim.fn.expand("~/.elixir-ls/elixir-ls")
+-- local elixir_ls_path = vim.fn.expand("~/.elixir-ls/elixir-ls")
+local elixir_lsp_path = vim.fn.expand("~/.elixir-lsp/lexical/bin/start_lexical.sh")
 
 -- 🧠 Float border styling for LSP popups
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -79,21 +80,20 @@ local border = {
   { '│', "FloatBorder" },
 }
 
-if vim.fn.filereadable(elixir_ls_path) == 1 then
-  require("lspconfig").elixirls.setup {
-    cmd = { elixir_ls_path },
-    flags = {
-      debounce_text_changes = 150,
-    },
+if vim.fn.filereadable(elixir_lsp_path) == 1 then
+  lsp.lexical.setup {
+    cmd = { elixir_lsp_path },
+    root_dir = function(fname)
+      return util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
+    end,
+    filetypes = { "elixir", "eelixir", "heex" },
+    -- optional settings
+    settings = {}
   }
 else
-  vim.notify("⚠️ ElixirLS not found at " .. elixir_ls_path, vim.log.levels.WARN)
+  vim.notify("LEXICAL not found at " .. elixir_lsp_path, vim.log.levels.WARN)
 end
 
--- lsp.lexical.setup{
---    cmd = { vim.g.lsp_elixir_bin },
---   flags = { debounce_text_changes = 150, },
--- }
 
 lsp.erlangls.setup {}
 
