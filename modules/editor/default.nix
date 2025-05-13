@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ mcphub-nvim, pkgs, ... }:
 {
 
   programs.neovim = {
@@ -79,6 +79,7 @@
         ${builtins.readFile ./nvim/cmp.lua}
         ${builtins.readFile ./nvim/nvim-tree.lua}
         ${builtins.readFile ./nvim/git.lua}
+        ${builtins.readFile ./nvim/mcphub.lua}
       EOF
     '';
     # ${builtins.readFile ./nvim/neoai.lua}
@@ -132,6 +133,7 @@
 
       in
       [
+        mcphub-nvim
         vim-test
         virt-column-nvim
         tokyonight-nvim
