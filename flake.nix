@@ -2,6 +2,7 @@
   description = "Pep's darwin system";
 
   inputs = {
+    mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -51,6 +52,7 @@
                 home-manager.users.pepo = import ./home.nix;
                 home-manager.extraSpecialArgs = {
                   inherit devenv;
+                  mcphub-nvim = inputs.mcphub-nvim.packages.${system}.default;
                 };
               }
             ];

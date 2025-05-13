@@ -1,8 +1,12 @@
 { pkgs, ... }:
+#  TODO REVIEW ALL THESE PACKAGES
+# check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
+let
+  mcp-proxy = import ./mcp-proxy.nix { inherit pkgs; };
+in
 {
-  #  TODO REVIEW ALL THESE PACKAGES
-  # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
   home.packages = with pkgs; [
+    mcp-proxy
     nixos-generators
     kas
     ssm-session-manager-plugin
@@ -148,6 +152,15 @@
     nodePackages.npm
     yarn
   ];
+
+  home.file.".config/mcphub/servers.json".text = builtins.toJSON {
+    mcpServers = {
+      tidewave = {
+        command = "${mcp-proxy}/bin/mcp-proxy";
+        args = [ "http://localhost:$PORT/tidewave/mcp" ]; # 🔁 Replace `$PORT`
+      };
+    };
+  };
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
