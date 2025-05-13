@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ mcp-hub, pkgs, ... }:
 #  TODO REVIEW ALL THESE PACKAGES
 # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
 let
@@ -6,6 +6,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    mcp-hub
     mcp-proxy
     nixos-generators
     kas
@@ -157,7 +158,7 @@ in
     mcpServers = {
       tidewave = {
         command = "${mcp-proxy}/bin/mcp-proxy";
-        args = [ "http://localhost:$PORT/tidewave/mcp" ]; # 🔁 Replace `$PORT`
+        args = [ "http://localhost:4000/tidewave/mcp" ]; # 🔁 Replace `$PORT`
       };
     };
   };
