@@ -74,7 +74,6 @@
     # elixir_ls
     # (callPackage (import ./elixir-ls.nix) {})
     erlang-ls
-    lexical
     terraform-ls
     tailwindcss-language-server
     nodePackages.dockerfile-language-server-nodejs

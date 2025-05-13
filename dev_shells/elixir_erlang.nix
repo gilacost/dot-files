@@ -23,6 +23,7 @@ let
             { }
         )
       );
+
       lexical = super.stdenv.mkDerivation {
         pname = "lexical";
         version = inputs.lexicalVersion;
@@ -37,6 +38,7 @@ let
         buildInputs = [
           self.elixir
           super.git
+          super.makeWrapper
         ];
 
         buildPhase = ''
@@ -50,14 +52,34 @@ let
           mix deps.get
           mix deps.compile
           mix compile --warnings-as-errors
-          mix package
         '';
 
         installPhase = ''
-          mkdir -p $out/package
-          cp -r _build/dev/package/lexical/* $out/package
-          chmod +x $out/package
-          chmod +x $out/package/bin/*.sh
+                  mix package --path "$out"
+                  chmod +x $out/bin/*.sh
+
+                  # Create a wrapper script with version support
+                  mv "$out/bin/start_lexical.sh" "$out/bin/start_lexical.sh.orig"
+                  cat > "$out/bin/start_lexical.sh" << EOF
+          #!/bin/sh
+
+          if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
+              echo "${inputs.lexicalVersion}"
+              exit 0
+          fi
+
+          exec "$out/bin/start_lexical.sh.orig" "\$@"
+          EOF
+                  chmod +x "$out/bin/start_lexical.sh"
+
+                  # Add Nix detection to version manager script
+                  substituteInPlace "$out/bin/activate_version_manager.sh" \
+                    --replace-fail 'activate_version_manager() {' '
+          activate_version_manager() {
+              if [ -n "$IN_NIX_SHELL" ]; then
+                  echo >&2 "Using Nix-provided Elixir: $(which elixir)"
+                  return 0
+              fi'
         '';
       };
     })
@@ -107,7 +129,7 @@ pkgs.mkShell {
       '';
     in
     ''
-      export LEXICAL_PATH="${pkgs.lexical}/package"
+      export LEXICAL_PATH="${pkgs.lexical}/bin/lexical"
 
       export OTP_VERSION="$(erl -eval '${escript}' -noshell | tr -d '\n')"
       export ELIXIR_VERSION="$(${pkgs.elixir}/bin/elixir --version | grep 'Elixir' | awk '{print $2}')"
@@ -119,11 +141,10 @@ pkgs.mkShell {
 
       # Remove existing directory/symlink if it exists
       rm -rf "$HOME/.elixir-lsp/lexical"
-      mkdir -p "$HOME/.elixir-lsp"
 
-      ln -sf "$LEXICAL_PATH" "$HOME/.elixir-lsp/lexical"
-      echo "🔗 Symlinked Lexical package to: $HOME/.elixir-lsp/lexical"
-      echo "🧠 Lexical path in store at: $LEXICAL_PATH"
-      echo "🧠 Lexical start path at: $HOME/.elixir-lsp/lexical/bin/start_lexical.sh"
+      # Link the correct lexical binary
+      ln -sf "${pkgs.lexical}/" "$HOME/.elixir-lsp/lexical"
+      echo "🔗 Symlinked Lexical to: $HOME/.elixir-lsp/lexical"
+      echo "🧠 Lexical available at: ${pkgs.lexical}/bin/start_lexical.sh"
     '';
 }

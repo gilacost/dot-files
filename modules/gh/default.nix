@@ -56,12 +56,12 @@ let
     '';
 
     meta = with pkgs.lib; {
-      description =
-        "A `gh` extension for combining multiple PRs (e.g. Dependabot PRs) into one. ";
+      description = "A `gh` extension for combining multiple PRs (e.g. Dependabot PRs) into one. ";
     };
   };
 
-in {
+in
+{
   programs.gh = {
     enable = true;
     extensions = with pkgs; [
@@ -73,6 +73,12 @@ in {
       gh-actions-cache
       gh-combine-prs
     ];
-    settings = { git_protocol = "ssh"; };
+    settings = {
+      git_protocol = "ssh";
+
+      aliases = {
+        run-open = "!gh run list --workflow \"$1\" --limit 1 --json url --jq '.[0].url' | xargs open";
+      };
+    };
   };
 }
