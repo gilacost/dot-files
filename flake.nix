@@ -3,6 +3,7 @@
 
   inputs = {
     mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
+    mcp-hub.url = "github:ravitemer/mcp-hub";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -53,6 +54,7 @@
                 home-manager.extraSpecialArgs = {
                   inherit devenv;
                   mcphub-nvim = inputs.mcphub-nvim.packages.${system}.default;
+                  mcp-hub = inputs.mcp-hub.packages.${system}.default;
                 };
               }
             ];
