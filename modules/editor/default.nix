@@ -80,6 +80,7 @@
         ${builtins.readFile ./nvim/nvim-tree.lua}
         ${builtins.readFile ./nvim/git.lua}
         ${builtins.readFile ./nvim/mcphub.lua}
+        ${builtins.readFile ./nvim/avante.lua}
       EOF
     '';
     # ${builtins.readFile ./nvim/neoai.lua}
@@ -134,6 +135,13 @@
       in
       [
         mcphub-nvim
+        plenary-nvim
+        nvim-treesitter
+        dressing-nvim
+        nui-nvim
+        avante-nvim
+        img-clip-nvim
+
         vim-test
         virt-column-nvim
         tokyonight-nvim
