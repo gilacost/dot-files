@@ -100,15 +100,16 @@
           };
         };
 
-        # # nix-prefetch-git https://github.com/Bryley/neoai.nvim --rev cdbc4c723577d642b5af796875dec660a4cb528b
-        # neoai = vimUtils.buildVimPlugin {
-        #   name = "neoai";
-        #   src = fetchFromGitHub {
-        #     owner = "Bryley";
-        #     repo = "neoai.nvim";
-        #     rev = "14ffe5f1361bdfbd7667ca57cb07f52abcdcc00b";
-        #     sha256 = "0mqrp9hpwrfdyjfpw85wmzd0qflx9pk4h50ax3r2snav61n9y6rg";
+        # avante-nvim = pkgs.vimUtils.buildVimPlugin {
+        #   name = "avante-nvim";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "yetone";
+        #     repo = "avante.nvim";
+        #     rev = "v0.0.22";
+        #     sha256 = "sha256-m33yNoGnSYKfjTuabxx/QsMptiUxAcP8NVe/su+JfkE=";
         #   };
+        #   dontBuild = true;
+        #   doCheck = false;
         # };
 
         nvim-tree-lua = vimUtils.buildVimPlugin {

@@ -2,11 +2,14 @@
 
 let
   arch = if pkgs.stdenv.isAarch64 then "aarch64" else "x86_64";
-  platform = "${arch}-apple-darwin";
-  version = "0.1.1";
+
+  # mcp-proxy-macOS-arm64.tar.gz
+  # platform = "${arch}-apple-darwin";
+  platform = "arm64";
+  version = "0.1.0";
   sha256s = {
-    aarch64 = "sha256-dkuoL7ndfkZPAoyyHnnGp98jMrk7ZC4jtdJEZIYyAy4=";
-    x86_64 = "sha256-wUEqILHQx9kH0Tmn0QymSLdVO2A+OrUMqkpsh5g3m5o=";
+    aarch64 = "sha256-LJVRKzSQXBV4OpHAzsKH5sfpg1kcGXdSnhGC0S/GFgw=";
+    x86_64 = "sha256-wUEqILHQx9kH0Tmn0QymSLdVO2A+OrUMqkpsh5g3m53=";
   };
 in
 pkgs.stdenv.mkDerivation {
@@ -14,7 +17,7 @@ pkgs.stdenv.mkDerivation {
   inherit version;
 
   src = pkgs.fetchurl {
-    url = "https://github.com/tidewave-ai/mcp_proxy_rust/releases/download/v${version}/mcp-proxy-${platform}.tar.gz";
+    url = "https://github.com/tidewave-ai/mcp_proxy_rust/releases/download/v${version}/mcp-proxy-macOS-${platform}.tar.gz";
     sha256 = sha256s.${arch};
   };
 
@@ -30,7 +33,7 @@ pkgs.stdenv.mkDerivation {
     description = "Rust bidirectional MCP proxy between stdio and SSE";
     homepage = "https://github.com/tidewave-ai/mcp_proxy_rust";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
     platforms = platforms.darwin;
   };
 }
