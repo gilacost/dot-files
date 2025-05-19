@@ -9,6 +9,7 @@ in
     mcp-hub
     mcp-proxy
     nixos-generators
+    cf-terraforming
     kas
     ssm-session-manager-plugin
     neovim-remote
@@ -72,6 +73,7 @@ in
 
     # SECRET MANAGEMENT
     sops
+    age
     git-crypt
 
     # LSP, LINTING AND FORMATTING
