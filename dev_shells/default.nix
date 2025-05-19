@@ -22,10 +22,10 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     terraformSha256 = "sha256-TmyrkCvUPSGLo+kho9gNTJ5QVtnVutuscZB0GvwJVQY=";
 
     sopsVersion = "3.8.1";
-    sopsSha256 = "sha256-d6bf07fb61972127c9e0d622523124c2d81caf9f7971fb123228961021811697";
+    sopsSha256 = "sha256-Qaq5kHBbq5SX/p7kEKptQ+BN4gVMdlAV6+hO8HwvNwQ=";
 
     ageVersion = "1.1.1";
-    ageSha256 = "sha256-cf16cbb108fc56e2064b00ba2b65d9fb1b8d7002ca5e38260ee1cc34f6aaa8f9";
+    ageSha256 = "sha256-g9IbXJ+pmVlzZSw2+ece1jzDvCCDxLF4aC5er7OL9OA=";
   };
 
   terraform_1_11_3 = mkTerraformShell {
