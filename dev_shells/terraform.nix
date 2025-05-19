@@ -46,12 +46,22 @@ let
     '';
   };
 
+  sopsPlatform =
+    if system == "x86_64-linux" then
+      "linux"
+    else if system == "aarch64-linux" then
+      "linux"
+    else if system == "x86_64-darwin" || system == "aarch64-darwin" then
+      "darwin"
+    else
+      throw "Unsupported system: ${system}";
+
   sops = pkgs.stdenv.mkDerivation {
     pname = "sops";
     version = sopsVersion;
 
     src = pkgs.fetchurl {
-      url = "https://github.com/mozilla/sops/releases/download/v${sopsVersion}/sops-v${sopsVersion}.${platform}";
+      url = "https://github.com/mozilla/sops/releases/download/v${sopsVersion}/sops-v${sopsVersion}.${sopsPlatform}";
       sha256 = sopsSha256;
     };
 
@@ -64,16 +74,31 @@ let
     '';
   };
 
+  agePlatform =
+    if system == "x86_64-linux" then
+      "linux-amd64"
+    else if system == "aarch64-linux" then
+      "linux-arm64"
+    else if system == "x86_64-darwin" then
+      "darwin-amd64"
+    else if system == "aarch64-darwin" then
+      "darwin-arm64"
+    else
+      throw "Unsupported system: ${system}";
+
   age = pkgs.stdenv.mkDerivation {
     pname = "age";
     version = ageVersion;
 
     src = pkgs.fetchurl {
-      url = "https://github.com/FiloSottile/age/releases/download/v${ageVersion}/age-v${ageVersion}-${platform}.tar.gz";
+      url = "https://github.com/FiloSottile/age/releases/download/v${ageVersion}/age-v${ageVersion}-${agePlatform}.tar.gz";
       sha256 = ageSha256;
     };
 
-    nativeBuildInputs = [ pkgs.tar pkgs.gzip ];
+    nativeBuildInputs = [
+      pkgs.gnutar
+      pkgs.gzip
+    ];
     unpackPhase = "tar -xzf $src";
 
     installPhase = ''
@@ -84,7 +109,8 @@ let
     '';
   };
 
-in pkgs.mkShell {
+in
+pkgs.mkShell {
   buildInputs = [
     terraform
     pkgs.tflint
