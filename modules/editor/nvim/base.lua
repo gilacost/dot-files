@@ -17,6 +17,13 @@ vim.g.maplocalleader = ","
 
 vim.g.startify_change_to_vcs_root = 1
 
+-- disable netrw at the very start of your init.lua
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+
+-- -- optionally enable 24-bit colour
+-- vim.opt.termguicolors = true
+
 --
 -- TEST
 --
@@ -68,6 +75,11 @@ vim.keymap.set("", "/", "<Plug>(easymotion-sn)")
 vim.keymap.set("o", "/", "<Plug>(easymotion-tn)")
 
 -- 
+-- Toggle NvimTree
+-- 
+vim.api.nvim_set_keymap("n", "<C-t>", ":NvimTreeFindFileToggle<CR>", { silent = true })
+
+-- 
 -- Vim markdown
 --
 
@@ -79,22 +91,55 @@ vim.g.vim_markdown_folding_disabled = 1
 
 vim.keymap.set("n", "<Leader>r", ":%s/\\<<C-r><C-w>\\>/")
 
---
--- NEOFORMAT
---
-
--- vim.g.neoformat_basic_format_retab = 1
--- vim.g.neoformat_basic_format_trim = 1
-
--- local augroup = vim.api.nvim_create_augroup('fmt', {clear = true})
-
--- vim.api.nvim_create_autocmd('BufWritePre', {
---   pattern = '*',
---   group = augroup,
---   command = 'undojoin | Neoformat'
--- })
+-- Format on save
+local format_on_save_group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
-    callback = function()
-        vim.lsp.buf.format()
-    end
+  group = format_on_save_group,
+  pattern = "*",
+  callback = function()
+    vim.lsp.buf.format({ async = true })
+  end,
 })
+
+-- Save on leave if not terminal
+vim.api.nvim_create_autocmd("BufLeave", {
+  pattern = "*",
+  callback = function()
+    if vim.bo.buftype ~= "terminal" then
+      vim.cmd("silent! w")
+    end
+  end,
+})
+
+-- -- Function to close hidden, unmodified buffers not loaded in any visible tab
+-- local function close_hidden_buffers()
+--   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+--     if vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_buf_is_loaded(bufnr) then
+--       -- Check if the buffer is hidden (not displayed in any window)
+--       local is_hidden = vim.fn.bufwinnr(bufnr) == -1
+--       local is_displayed_in_any_tab = false
+
+--       -- Loop through all tab handles and their windows to check if the buffer is displayed
+--       for _, tab_handle in ipairs(vim.api.nvim_list_tabpages()) do
+--         for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab_handle)) do
+--           if vim.api.nvim_win_get_buf(win) == bufnr then
+--             is_displayed_in_any_tab = true
+--             break
+--           end
+--         end
+--         if is_displayed_in_any_tab then break end
+--       end
+
+--       -- Delete the buffer if it's hidden, not displayed in any tab, and unmodified
+--       if is_hidden and not is_displayed_in_any_tab and not vim.bo[bufnr].modified then
+--         vim.api.nvim_buf_delete(bufnr, { force = true })
+--       end
+--     end
+--   end
+-- end
+
+-- -- Autocommand to run the function on each buffer switch
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = "*",
+--   callback = close_hidden_buffers,
+-- })

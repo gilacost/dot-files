@@ -2,6 +2,8 @@
   description = "Pep's darwin system";
 
   inputs = {
+    mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
+    mcp-hub.url = "github:ravitemer/mcp-hub";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,33 +28,55 @@
     ];
   };
 
-  outputs = { self, darwin, nixpkgs, home-manager, nur, ... }@inputs: {
-    # devShells = import ./dev_shells inputs;
-    darwinConfigurations = {
+  outputs =
+    {
+      darwin,
+      home-manager,
+      nur,
+      ...
+    }@inputs:
+    {
+      devShells = import ./dev_shells inputs;
+      darwinConfigurations = {
 
-      "swamp" = let
-        system = "aarch64-darwin";
-        devenv = inputs.devenv.packages.${system}.devenv;
-        hostname = "swamp";
-        common = [
-          home-manager.darwinModules.home-manager
-          {
-            nixpkgs.overlays = [ nur.overlay ];
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.pepo = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit devenv; };
-          }
-        ];
-      in darwin.lib.darwinSystem rec {
-        inherit system;
-        modules = common ++ [ ./darwin-configuration.nix ]
-          ++ [ ({ pkgs, config, ... }: { networking.hostName = "swamp"; }) ];
+        "buque" =
+          let
+            system = "aarch64-darwin";
+            devenv = inputs.devenv.packages.${system}.devenv;
+            hostname = "buque";
+            common = [
+              home-manager.darwinModules.home-manager
+              {
+                # nixpkgs.overlays = [ nur.overlay.default ];
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.pepo = import ./home.nix;
+                home-manager.extraSpecialArgs = {
+                  inherit devenv;
+                  mcphub-nvim = inputs.mcphub-nvim.packages.${system}.default;
+                  mcp-hub = inputs.mcp-hub.packages.${system}.default;
+                };
+              }
+            ];
+          in
+          darwin.lib.darwinSystem rec {
+            inherit system;
+            modules =
+              common
+              ++ [ ./darwin-configuration.nix ]
+              ++ [
+                (
+                  { ... }:
+                  {
+                    networking.hostName = "buque";
+                  }
+                )
+              ];
+          };
+
+        # Building the flakes require root privileges to update the HOSTNAME
+        # and then be able to nix build ".#HOSTNAME"
+        # TODO build the flake also for nixos
       };
-
-      # Building the flakes require root privileges to update the HOSTNAME
-      # and then be able to nix build ".#HOSTNAME"
-      # TODO build the flake also for nixos
     };
-  };
 }

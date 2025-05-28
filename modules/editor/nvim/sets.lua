@@ -37,5 +37,3 @@ set.splitright = true
 set.spell = true
 set.spelllang='en_gb'
 set.completeopt='menu,menuone,noselect'
--- s.t foldmethod=expr
-set.foldexpr='nvim_treesitter#foldexpr()'

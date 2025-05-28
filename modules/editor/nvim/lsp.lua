@@ -1,5 +1,22 @@
 local lsp = require('lspconfig')
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
+local elixir_lsp_path = vim.fn.expand("~/.elixir-lsp/lexical/bin/start_lexical.sh")
+
+-- 🧠 Float border styling for LSP popups
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  { border = "rounded" }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  { border = "rounded" }
+)
+
+-- 🧠 Diagnostics use rounded border too
+vim.diagnostic.config({
+  float = { border = "rounded" },
+})
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -52,77 +69,40 @@ for type, icon in pairs(signs) do
 end
 
 local border = {
-  {'╭', "FloatBorder"},
-  {'─', "FloatBorder"},
-  {'╮', "FloatBorder"},
-  {'│', "FloatBorder"},
-  {'╯', "FloatBorder"},
-  {'─', "FloatBorder"},
-  {'╰', "FloatBorder"},
-  {'│', "FloatBorder"},
+  { '╭', "FloatBorder" },
+  { '─', "FloatBorder" },
+  { '╮', "FloatBorder" },
+  { '│', "FloatBorder" },
+  { '╯', "FloatBorder" },
+  { '─', "FloatBorder" },
+  { '╰', "FloatBorder" },
+  { '│', "FloatBorder" },
 }
 
-lsp.elixirls.setup {
-  cmd = { vim.g.lsp_elixir_bin },
-  flags = { debounce_text_changes = 150, },
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
+lsp.lexical.setup {
+  cmd = { elixir_lsp_path },
+  filetypes = { "elixir", "eelixir", "heex" },
 }
 
-lsp.erlangls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.erlangls.setup {}
 
-lsp.terraformls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.terraformls.setup {}
 
-lsp.rnix.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.dockerls.setup {}
 
-lsp.dockerls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.vimls.setup {}
 
-lsp.vimls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.bashls.setup {}
 
-lsp.bashls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.pyright.setup {}
 
-lsp.pyright.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.rust_analyzer.setup {}
 
-lsp.rust_analyzer.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.ansiblels.setup {}
 
-lsp.ansiblels.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.ts_ls.setup {}
 
-lsp.tsserver.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
-
-lsp.tflint.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
-}
+lsp.tflint.setup {}
 
 lsp.yamlls.setup {
   settings = {
@@ -134,13 +114,18 @@ lsp.yamlls.setup {
       },
     },
   },
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
 }
 
-lsp.lua_ls.setup{
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
+-- lsp.tailwindcss.setup {}
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+lsp.nixd.setup{}
+
+lsp.jsonls.setup {
+  capabilities = capabilities,
 }
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {

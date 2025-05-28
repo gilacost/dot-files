@@ -1,7 +1,5 @@
-{ pkgs, ... }: {
-
-  # TODO VAMOS HELIX 
-  programs.helix = { enable = true; };
+{ mcphub-nvim, pkgs, ... }:
+{
 
   programs.neovim = {
     enable = true;
@@ -11,22 +9,6 @@
     withPython3 = true;
 
     extraConfig = ''
-      autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
-
-      if has('nvim')
-        let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-      endif
-
-      function! RenameFile()
-        let old_name = expand('%')
-        let new_name = input('New file name: ', expand('%'), 'file')
-        if new_name != '\' && new_name != old_name
-          exec ':saveas ' . new_name
-          exec ':silent !rm ' . old_name
-          redraw!
-        endif
-      endfunction
-
       function! s:list_buffers()
           redir => list
           silent ls
@@ -45,10 +27,6 @@
       function! s:delete_buffers(lines)
         execute 'bwipeout!' join(map(a:lines, {_, line -> split(line)[0]}))
       endfunction
-
-      let g:copilot_filetypes = {
-        \ 'markdown': v:true
-        \ }
 
       let g:projectionist_heuristics = {
       \  'rebar.config': {
@@ -77,90 +55,13 @@
       \     }
       \  },
       \  'mix.exs': {
-      \     'lib/**/views/*_view.ex': {
-      \       'type': 'view',
-      \       'alternate': 'test/{dirname}/views/{basename}_view_test.exs',
-      \       'template': [
-      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}View do',
-      \         '  use {dirname|camelcase|capitalize}, :view',
-      \         'end'
-      \       ]
-      \     },
-      \     'test/**/views/*_view_test.exs': {
-      \       'alternate': 'lib/{dirname}/views/{basename}_view.ex',
-      \       'type': 'test',
-      \       'template': [
-      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ViewTest do',
-      \         '  use ExUnit.Case, async: true',
-      \         '\',
-      \         '  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}View',
-      \         'end'
-      \       ]
-      \     },
-      \     'lib/**/controllers/*_controller.ex': {
-      \       'type': 'controller',
-      \       'alternate': 'test/{dirname}/controllers/{basename}_controller_test.exs',
-      \       'template': [
-      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Controller do',
-      \         '  use {dirname|camelcase|capitalize}, :controller',
-      \         'end'
-      \       ]
-      \     },
-      \     'test/**/controllers/*_controller_test.exs': {
-      \       'alternate': 'lib/{dirname}/controllers/{basename}_controller.ex',
-      \       'type': 'test',
-      \       'template': [
-      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ControllerTest do',
-      \         '  use {dirname|camelcase|capitalize}.ConnCase, async: true',
-      \         'end'
-      \       ]
-      \     },
-      \     'lib/**/channels/*_channel.ex': {
-      \       'type': 'channel',
-      \       'alternate': 'test/{dirname}/channels/{basename}_channel_test.exs',
-      \       'template': [
-      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Channel do',
-      \         '  use {dirname|camelcase|capitalize}, :channel',
-      \         'end'
-      \       ]
-      \     },
-      \     'test/**/channels/*_channel_test.exs': {
-      \       'alternate': 'lib/{dirname}/channels/{basename}_channel.ex',
-      \       'type': 'test',
-      \       'template': [
-      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ChannelTest do',
-      \         '  use {dirname|camelcase|capitalize}.ChannelCase, async: true',
-      \         '\',
-      \         '  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Channel',
-      \         'end'
-      \       ]
-      \     },
-      \     'test/**/features/*_test.exs': {
-      \       'type': 'feature',
-      \       'template': [
-      \         'defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Test do',
-      \         '  use {dirname|camelcase|capitalize}.FeatureCase, async: true',
-      \         'end'
-      \       ]
-      \     },
       \     'lib/*.ex': {
+      \       'type': 'lib',
       \       'alternate': 'test/{}_test.exs',
-      \       'type': 'source',
-      \       'template': [
-      \         'defmodule {camelcase|capitalize|dot} do',
-      \         'end'
-      \       ]
       \     },
       \     'test/*_test.exs': {
       \       'alternate': 'lib/{}.ex',
       \       'type': 'test',
-      \       'template': [
-      \         'defmodule {camelcase|capitalize|dot}Test do',
-      \         '  use ExUnit.Case, async: true',
-      \         '\',
-      \         '  alias {camelcase|capitalize|dot}',
-      \         'end'
-      \       ]
       \     }
       \   }
       \ }
@@ -175,33 +76,19 @@
         ${builtins.readFile ./nvim/theme.lua}
         ${builtins.readFile ./nvim/telescope.lua}
         ${builtins.readFile ./nvim/lspkind.lua}
-        ${builtins.readFile ./nvim/neoai.lua}
         ${builtins.readFile ./nvim/cmp.lua}
+        ${builtins.readFile ./nvim/nvim-tree.lua}
+        ${builtins.readFile ./nvim/git.lua}
+        ${builtins.readFile ./nvim/mcphub.lua}
+        ${builtins.readFile ./nvim/avante.lua}
       EOF
     '';
-
-    plugins = with pkgs;
+    # ${builtins.readFile ./nvim/neoai.lua}
+    # vim.g.lsp_elixir_bin = "${pkgs.lexical}/bin/lexical"
+    plugins =
+      with pkgs;
       with pkgs.vimPlugins;
       let
-        virt-column = vimUtils.buildVimPlugin {
-          name = "virt-column";
-          src = fetchFromGitHub {
-            owner = "lukas-reineke";
-            repo = "virt-column.nvim";
-            rev = "fe3cff94710d648c57ac826fb846014903c76b00";
-            sha256 = "0m5b180ijk63ci4g1c8j1hi5ga4z6jcwfq8hv5kfmwjgiycf3wsc";
-          };
-        };
-        co-pilot = vimUtils.buildVimPlugin {
-          name = "copilot.vim";
-          src = fetchFromGitHub {
-            owner = "github";
-            repo = "copilot.vim";
-            rev = "69455be5d4a892206bc08365ba3648a597485943";
-            sha256 = "0vcdfssw5nvdyxjq9d9vvdvvlwfr35cmrgrjc7ndbdxw778hsai0";
-          };
-        };
-
         # nix-prefetch-git https://github.com/gilacost/vim-wakatime --rev cad0dabbad61f0116fcdc2142b98a5bc63b00d0d
         vim-wakatime = vimUtils.buildVimPlugin {
           name = "vim-wakatime";
@@ -213,16 +100,28 @@
           };
         };
 
-        # nix-prefetch-git https://github.com/Bryley/neoai.nvim --rev cdbc4c723577d642b5af796875dec660a4cb528b
-        neoai = vimUtils.buildVimPlugin {
-          name = "neoai";
+        # avante-nvim = pkgs.vimUtils.buildVimPlugin {
+        #   name = "avante-nvim";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "yetone";
+        #     repo = "avante.nvim";
+        #     rev = "v0.0.22";
+        #     sha256 = "sha256-m33yNoGnSYKfjTuabxx/QsMptiUxAcP8NVe/su+JfkE=";
+        #   };
+        #   dontBuild = true;
+        #   doCheck = false;
+        # };
+
+        nvim-tree-lua = vimUtils.buildVimPlugin {
+          name = "nvim-tree-lua";
           src = fetchFromGitHub {
-            owner = "Bryley";
-            repo = "neoai.nvim";
-            rev = "14ffe5f1361bdfbd7667ca57cb07f52abcdcc00b";
-            sha256 = "0mqrp9hpwrfdyjfpw85wmzd0qflx9pk4h50ax3r2snav61n9y6rg";
+            owner = "nvim-tree";
+            repo = "nvim-tree.lua";
+            rev = "c7639482a1598f4756798df1b2d72f79fe5bb34f";
+            sha256 = "1wxlb9z3kv0h88lsx18qsiwvaw6bc9gxr9byx5qlzmibfd1kipff";
           };
         };
+
         # nix-prefetch-git https://github.com/jackMort/ChatGPT.nvim  --rev af509fceb70cab1867a611f3d8fad6d3e7760fb0
         # ChatGPT-vim = vimUtils.buildVimPlugin {
         #   name = "ChatGPT.nvim";
@@ -236,12 +135,22 @@
 
       in
       [
-        vim-test
-        co-pilot
+        mcphub-nvim
+        plenary-nvim
+        nvim-treesitter
+        dressing-nvim
         nui-nvim
-        neoai
+        avante-nvim
+        img-clip-nvim
+
+        vim-test
+        virt-column-nvim
+        tokyonight-nvim
+        nui-nvim
+        # neoai
         # ChatGPT-vim
         # plenary-nvim
+        copilot-vim
 
         ###REVIEW###
         # indentLine
@@ -267,11 +176,11 @@
         lspkind-nvim
         lualine-nvim
         nvim-web-devicons
-        virt-column
         # vim-markdown
 
         # Navigation
-        nerdtree
+        nvim-tree-lua
+        # nerdtree
         vim-easymotion
         vim-startify
         telescope-nvim
@@ -295,7 +204,7 @@
         cmp-buffer
         nvim-cmp
         nvim-lspconfig
-        neoformat
+        # neoformat
 
         # Snippets
         vim-vsnip

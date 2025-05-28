@@ -1,24 +1,41 @@
-{ pkgs, devenv, ... }: {
-  #  TODO REVIEW ALL THESE PACKAGES
-  # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
-  home.packages = [ devenv ] ++ (with pkgs; [
+{ mcp-hub, pkgs, ... }:
+#  TODO REVIEW ALL THESE PACKAGES
+# check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
+let
+  mcp-proxy = import ./mcp-proxy.nix { inherit pkgs; };
+in
+{
+  home.packages = with pkgs; [
+    mcp-hub
+    mcp-proxy
     nixos-generators
+    cf-terraforming
+    kas
+    ssm-session-manager-plugin
     neovim-remote
     tree-sitter
     p7zip
     xorriso
+    smartcat
+    socat
+    ffmpeg_7
+    hping
+    iperf
+    potrace
     # lxd
     # lxc
 
     # TO REVIEW
     # cmake
     # act
-    # bind 
+    # bind
     # coreutils
-    lua-language-server
+    zellij
 
     # STILL NEEDS TO BE ORGANISED
     imagemagick
+    pngquant
+    jpegoptim
     zsh-syntax-highlighting
     cloc
     nodePackages.node2nix
@@ -28,7 +45,7 @@
 
     dasel
     silver-searcher
-    (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    nerd-fonts.iosevka
     # STILL NEEDS TO BE ORGANISED
 
     # RANDOM
@@ -56,34 +73,34 @@
 
     # SECRET MANAGEMENT
     sops
+    age
     git-crypt
 
     # LSP, LINTING AND FORMATTING
     hclfmt
-    elixir_ls
+    # elixir_ls
+    # (callPackage (import ./elixir-ls.nix) {})
     erlang-ls
     terraform-ls
-    rnix-lsp
+    tailwindcss-language-server
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server
     nodePackages.bash-language-server
     nodePackages.yaml-language-server
     nodePackages_latest.typescript-language-server
+    nixd
     rust-analyzer
     rustfmt
     hadolint
-    nixfmt
+    nixfmt-rfc-style
     tflint
     nodePackages.prettier
     erlfmt
     shellcheck
     nodePackages.markdownlint-cli
     nodePackages.cspell
-    nodePackages.pyright
+    vscode-langservers-extracted
     lua-language-server
-    # csharp-ls
-    # nodePackages.textlint
-    # todo Json ls and tailwindcss
 
     # CLOUD SDKS, OPS TOOLS AND WORKFLOW
     # pre-commit
@@ -107,9 +124,9 @@
     terraformer
     terraform-docs
     # openshift
-    awscli
+    #awscli
     azure-cli
-    # awscli2
+    awscli2
     argocd
     ansible
     # tanka
@@ -128,13 +145,7 @@
     rebar3
     elixir
     erlang
-
-    # PYTHON
-    # python312Full
-    # python312Packages.grip
-    # python312Packages.autopep8
-    # python312Packages.numpy
-    # python312Packages.setuptools
+    gleam
 
     # NIX
     cachix
@@ -143,25 +154,32 @@
     nodejs
     nodePackages.npm
     yarn
+  ];
 
-    # SECURITY
-    _1password
-    # https://github.com/NixOS/nixpkgs/issues/222991
-    # I've been trying to connect 1password-cli with 1password-gui for a long time
-    # now and it has not been possible. Ideally, I would like to use 1password-cli
-    # to handle ssh-keys and gihub tokens, I think this is possible with nixos but 
-    # not with darwin. When you install 1password-gui it installs it the wrong 
-    # path and I have not been able to find a way to change it, in this scenario
-    # I am lost.  
-    # /nix/store/kyxf3qrz6v4bmcdab56zgyr5myfhl23w-1password-8.10.4/Applications/
-
-    # _1password-gui
-    git-credential-1password
-  ]);
+  home.file.".config/mcphub/servers.json".text = builtins.toJSON {
+    mcpServers = {
+      tidewave = {
+        command = "${mcp-proxy}/bin/mcp-proxy";
+        args = [ "http://localhost:4000/tidewave/mcp" ]; # 🔁 Replace `$PORT`
+      };
+    };
+  };
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  programs.bat.enable = true;
+  programs.bat = {
+    enable = true;
+
+    themes = {
+      "tokyonight-moon" = {
+        src = ./bat/tokyonight-moon.tmTheme;
+        file = null; # Since the file is already at the correct path
+      };
+    };
+    config = {
+      theme = "tokyonight-moon";
+    };
+  };
   programs.fzf.enable = true;
   programs.gpg.enable = true;
 
