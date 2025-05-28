@@ -1,16 +1,38 @@
-{ config, lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 
 {
 
   environment.shells = [ pkgs.zsh ];
   # https://github.com/LnL7/nix-darwin/issues/165
+  # ENABLE ALL COMMANDS
+  # environment.etc = {
+  #   "sudoers.d/10-darwin-rebuild".text = ''
+  #     %staff ALL=(ALL) NOPASSWD: ALL
+  #   '';
+  # };
+  # IN SUDO VISUDO FOR DEBUGGING/RECOVERY
+  ########################## tricks
+  # Defaults log_output
+  # Defaults requiretty
+  # Defaults logfile="/var/log/sudo_commands.log"
+
+  # pepo ALL=(ALL) NOPASSWD: ALL
+  ######################### tricks
+
   environment.etc = {
-    "sudoers.d/10-nix-commands".text = ''
-      %admin ALL=(ALL:ALL) NOPASSWD: /run/current-system/sw/bin/darwin-rebuild, \
-                                     /run/current-system/sw/bin/nix*, \
-                                     /run/current-system/sw/bin/ln, \
-                                     /nix/store/*/activate, \
-                                     /bin/launchctl
+    "sudoers.d/10-darwin-rebuild".text = ''
+      Defaults env_keep += "PATH"
+      %staff ALL=(ALL) NOPASSWD: /usr/bin/env
+      %staff ALL=(ALL) NOPASSWD: /nix/store/*/activate
+      %staff ALL=(ALL) NOPASSWD: /usr/sbin/nvram
+      %staff ALL=(ALL) NOPASSWD: /usr/bin/defaults
+      %staff ALL=(ALL) NOPASSWD: /usr/sbin/systemsetup
+      %staff ALL=(ALL) NOPASSWD: /usr/bin/pmset
+      %staff ALL=(ALL) NOPASSWD: /usr/bin/chflags
     '';
   };
 
@@ -27,13 +49,18 @@
   programs.nix-index.enable = true;
   programs.zsh.enable = true;
 
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [ (nerdfonts.override { fonts = [ "Iosevka" ]; }) ];
+  fonts.packages = [
+    pkgs.nerd-fonts.iosevka
+  ];
 
   nix = {
-    configureBuildUsers = true;
-    settings = { trusted-users = [ "root" "pepo" ]; };
-    package = pkgs.nixUnstable;
+    settings = {
+      trusted-users = [
+        "root"
+        "pepo"
+      ];
+    };
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
@@ -51,6 +78,7 @@
     };
   };
 
+  ids.gids.nixbld = 305;
   nixpkgs.config.allowUnfree = true;
 
   ############
@@ -59,7 +87,6 @@
 
   time.timeZone = "Europe/London";
 
-  #boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   system = {
 
     activationScripts.postActivation.text = ''
@@ -162,6 +189,9 @@
       defaults write com.apple.finder WarnOnEmptyTrash -bool false
       # Enable AirDrop over Ethernet and on unsupported Macs running Lion
       defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+      # The keyboard key repeat rate
+      defaults write -g KeyRepeat -int 1
+      defaults write -g InitialKeyRepeat -int 10
       # Show the ~/Library folder
       chflags nohidden ~/Library
       # Show the /Volumes folder
@@ -173,6 +203,8 @@
         OpenWith -bool true \
         Privileges -bool true
     '';
+
+    stateVersion = 6;
     defaults = {
       NSGlobalDomain = {
         "com.apple.mouse.tapBehavior" = 1;
@@ -224,18 +256,19 @@
       # }'
       enableKeyMapping = true;
       userKeyMapping = [
-        ({
+        # her mappings
+        {
           HIDKeyboardModifierMappingSrc = 30064771129;
           HIDKeyboardModifierMappingDst = 30064771296;
-        })
-        ({
+        }
+        {
           HIDKeyboardModifierMappingDst = 30064771125;
           HIDKeyboardModifierMappingSrc = 30064771172;
-        })
-        ({
+        }
+        {
           HIDKeyboardModifierMappingDst = 30064771172;
           HIDKeyboardModifierMappingSrc = 30064771125;
-        })
+        }
       ];
     };
   };
@@ -249,60 +282,70 @@
     skhdConfig = builtins.readFile ./conf.d/skhdrc;
   };
 
-  services.nix-daemon.enable = true;
-
   ############
   # Homebrew #
   ############
 
   homebrew = {
     enable = true;
-    onActivation = {
-      upgrade = true;
-      autoUpdate = true;
-      cleanup = "zap";
-    };
+    #onActivation = {
+    #  upgrade = true;
+    #  autoUpdate = true;
+    #  cleanup = "zap";
+    #};
 
-    global = {
-      autoUpdate = true;
-      brewfile = true;
-      lockfiles = true;
-    };
+    #global = {
+    #  autoUpdate = true;
+    #  brewfile = true;
+    #  lockfiles = true;
+    #};
 
-    brews = [ "qemu" "mas" "asciinema" "checkov" "fwup" "coreutils" "ansible" ];
+    brews = [
+      "amazon-ecs-cli"
+      "dive"
+      "qemu"
+      "mas"
+      "asciinema"
+      "fwup"
+      "coreutils"
+      "ansible"
+    ];
 
     casks = [
-      "cilicon"
-      "pop"
-      "parallels-virtualization-sdk"
-      "ledger-live"
-      "openvpn-connect"
-      "raycast"
-      "anydesk"
+      "inkscape"
+      # "windsurf"
+      "trae"
       "1password"
       "OmniGraffle"
-      "adobe-acrobat-reader"
+      "arc"
+      "chatgpt"
+      "cursor"
       "discord"
       "docker"
+      "figma"
+      "ghostty"
       "google-chrome"
       "google-drive"
-      "grammarly"
       "insomnia"
       "jiggler"
       "kitty"
+      "ledger-live"
       "loom"
-      "microsoft-teams"
       "now-tv-player"
+      "pop"
+      "postman"
+      "raycast"
       "remarkable"
       "sketch"
       "skype"
       "slack"
       "spotify"
+      "tailscale"
       "transmission"
       "vlc"
+      "wd-security"
       "zoom"
-      "parallels"
-      "vmware-fusion"
+      "imageoptim"
     ];
 
     masApps = {
@@ -311,12 +354,10 @@
       Pages = 409201541;
       Keynote = 409183694;
       "Surfshark: Unlimited VPN Proxy" = 1437809329;
-      Magnet = 441258766;
-      "TickTick:To-Do List, Calendar" = 966085870;
+      Xcode = 497799835;
+      "Apple Developer" = 640199958;
     };
   };
 
   environment.variables.LANG = "en_GB.UTF-8";
-  environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
-  services.activate-system.enable = true;
 }

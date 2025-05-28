@@ -1,24 +1,6 @@
 { pkgs, ... }:
 let
 
-  # gabe565/gh-profile
-  # maybe 1PASSWORD stuff 
-  #  TODO gh search repos --topic "gh-extension"
-  gh-poi = pkgs.buildGoModule rec {
-    pname = "gh-poi";
-    version = "0.9.1";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "seachicken";
-      repo = "gh-poi";
-      rev = "v${version}";
-      hash = "sha256-7KZSZsYfo9zZ0HSg5yLDNTlwb30byD73kqMNHc0tQpo=";
-    };
-
-    vendorHash = "sha256-D/YZLwwGJWCekq9mpfCECzJyJ/xSlg7fC6leJh+e8i0=";
-    doCheck = false;
-  };
-
   gh-profile = pkgs.buildGoModule rec {
     pname = "gh-profile";
     version = "1.3.2";
@@ -74,21 +56,29 @@ let
     '';
 
     meta = with pkgs.lib; {
-      description =
-        "A `gh` extension for combining multiple PRs (e.g. Dependabot PRs) into one. ";
+      description = "A `gh` extension for combining multiple PRs (e.g. Dependabot PRs) into one. ";
     };
   };
 
-in {
+in
+{
   programs.gh = {
     enable = true;
     extensions = with pkgs; [
       gh-profile
       gh-markdown-preview
+      gh-copilot
       gh-poi
       gh-clone-org
+      gh-actions-cache
       gh-combine-prs
     ];
-    settings = { git_protocol = "ssh"; };
+    settings = {
+      git_protocol = "ssh";
+
+      aliases = {
+        run-open = "!gh run list --workflow \"$1\" --limit 1 --json url --jq '.[0].url' | xargs open";
+      };
+    };
   };
 }
