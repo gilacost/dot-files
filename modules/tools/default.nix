@@ -81,7 +81,6 @@ in
     # elixir_ls
     # (callPackage (import ./elixir-ls.nix) {})
     erlang-ls
-    terraform-ls
     tailwindcss-language-server
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server

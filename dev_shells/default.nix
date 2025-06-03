@@ -26,6 +26,9 @@ flake-utils.lib.eachDefaultSystemMap (system: {
 
     ageVersion = "1.1.1";
     ageSha256 = "sha256-g9IbXJ+pmVlzZSw2+ece1jzDvCCDxLF4aC5er7OL9OA=";
+
+    terraformLsVersion = "0.36.4";
+    terraformLsSha256 = "sha256-55AkxwTEj6POUKVBFTwtJrnosKhRpvGNwcgc1X1BlTI=";
   };
 
   terraform_1_11_3 = mkTerraformShell {
