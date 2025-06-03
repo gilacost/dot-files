@@ -1,7 +1,7 @@
 { ... }:
 let
   gitconfig = {
-    userEmail = "josepgiraltdlacoste@gmail.com";
+    userEmail = "pep@beamops.co.uk";
     gpgKey = "CA5FC2044BDAA993";
     userName = "Josep Lluis Giralt D'Lacoste";
   };

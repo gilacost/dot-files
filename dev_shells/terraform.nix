@@ -7,6 +7,8 @@
   sopsSha256,
   ageVersion,
   ageSha256,
+  terraformLsVersion,
+  terraformLsSha256,
 }:
 let
   inherit (nixpkgs.lib) optionalString;
@@ -108,6 +110,36 @@ let
       chmod +x $out/bin/age $out/bin/age-keygen
     '';
   };
+  terraformLsPlatform =
+    if system == "x86_64-linux" then
+      "linux_amd64"
+    else if system == "aarch64-linux" then
+      "linux_arm64"
+    else if system == "x86_64-darwin" then
+      "darwin_amd64"
+    else if system == "aarch64-darwin" then
+      "darwin_arm64"
+    else
+      throw "Unsupported system: ${system}";
+
+  terraformLs = pkgs.stdenv.mkDerivation {
+    pname = "terraform-ls";
+    version = terraformLsVersion;
+
+    src = pkgs.fetchurl {
+      url = "https://releases.hashicorp.com/terraform-ls/${terraformLsVersion}/terraform-ls_${terraformLsVersion}_${terraformLsPlatform}.zip";
+      sha256 = terraformLsSha256;
+    };
+
+    nativeBuildInputs = [ pkgs.unzip ];
+    dontUnpack = true;
+
+    installPhase = ''
+      mkdir -p $out/bin
+      unzip $src -d $out/bin
+      chmod +x $out/bin/terraform-ls
+    '';
+  };
 
 in
 pkgs.mkShell {
@@ -116,6 +148,7 @@ pkgs.mkShell {
     pkgs.tflint
     pkgs.terraform-docs
     pkgs.tfsec
+    terraformLs
     sops
     age
   ];
@@ -124,8 +157,19 @@ pkgs.mkShell {
     echo "🌍 Terraform $(${terraform}/bin/terraform version | head -n 1)"
     echo "🧹 TFLint $(${pkgs.tflint}/bin/tflint --version)"
     echo "📄 Terraform-docs $(${pkgs.terraform-docs}/bin/terraform-docs --version)"
+    echo "🧠 Terraform LS $(${terraformLs}/bin/terraform-ls version)"
     echo "🔐 tfsec $(${pkgs.tfsec}/bin/tfsec --version)"
     echo "🔐 SOPS $(${sops}/bin/sops --version)"
     echo "🔑 age $(${age}/bin/age --version)"
+    export TERRAFORM_LS_PATH="${terraformLs}/bin/terraform-ls"
+
+    echo "🧠 Terraform LS version: $(${terraformLs}/bin/terraform-ls --version)"
+
+    # Remove old symlink
+    rm -rf "$HOME/.terraform-ls"
+
+    # Link the correct terraform-ls binary
+    ln -sf "${terraformLs}/" "$HOME/.terraform-ls"
+    echo "🔗 Symlinked Terraform LS to: $HOME/.terraform-ls"
   '';
 }
