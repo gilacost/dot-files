@@ -51,6 +51,7 @@ in
         cmd = "nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='";
       };
       diff = {
+        "sopsd".textconv = "sops -d";
         tool = "nvr";
       };
       init = {

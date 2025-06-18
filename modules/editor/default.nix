@@ -79,10 +79,10 @@
         ${builtins.readFile ./nvim/cmp.lua}
         ${builtins.readFile ./nvim/nvim-tree.lua}
         ${builtins.readFile ./nvim/git.lua}
-        ${builtins.readFile ./nvim/mcphub.lua}
-        ${builtins.readFile ./nvim/avante.lua}
       EOF
     '';
+    # ${builtins.readFile ./nvim/mcphub.lua}
+    # ${builtins.readFile ./nvim/avante.lua}
     # ${builtins.readFile ./nvim/neoai.lua}
     # vim.g.lsp_elixir_bin = "${pkgs.lexical}/bin/lexical"
     plugins =
@@ -135,12 +135,12 @@
 
       in
       [
-        mcphub-nvim
+        # mcphub-nvim
         plenary-nvim
         nvim-treesitter
         dressing-nvim
         nui-nvim
-        avante-nvim
+        # avante-nvim
         img-clip-nvim
 
         vim-test

@@ -2,8 +2,8 @@
   description = "Pep's darwin system";
 
   inputs = {
-    mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
-    mcp-hub.url = "github:ravitemer/mcp-hub";
+    # mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
+    # mcp-hub.url = "github:ravitemer/mcp-hub";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -13,6 +13,10 @@
     nur.url = "github:nix-community/NUR";
     devenv.url = "github:cachix/devenv/latest";
     devenv.inputs.nixpkgs.follows = "nixpkgs";
+    claude-code = {
+      url = "github:anthropics/claude-code";
+      flake = false;
+    };
   };
 
   nixConfig = {
