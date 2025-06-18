@@ -313,8 +313,6 @@
 
     casks = [
       "inkscape"
-      # "windsurf"
-      "trae"
       "1password"
       "OmniGraffle"
       "arc"

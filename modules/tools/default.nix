@@ -1,13 +1,20 @@
-{ mcp-hub, pkgs, ... }:
+{
+  mcp-hub,
+  pkgs,
+  inputs,
+  ...
+}:
 #  TODO REVIEW ALL THESE PACKAGES
 # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
 let
-  mcp-proxy = import ./mcp-proxy.nix { inherit pkgs; };
+  src = inputs.claude-code;
 in
+#mcp-proxy = import ./mcp-proxy.nix { inherit pkgs; };
 {
   home.packages = with pkgs; [
-    mcp-hub
-    mcp-proxy
+    #mcp-hub
+    #mcp-proxy
+    claude-code
     nixos-generators
     cf-terraforming
     kas
@@ -155,14 +162,14 @@ in
     yarn
   ];
 
-  home.file.".config/mcphub/servers.json".text = builtins.toJSON {
-    mcpServers = {
-      tidewave = {
-        command = "${mcp-proxy}/bin/mcp-proxy";
-        args = [ "http://localhost:4000/tidewave/mcp" ]; # 🔁 Replace `$PORT`
-      };
-    };
-  };
+  # home.file.".config/mcphub/servers.json".text = builtins.toJSON {
+  #   mcpServers = {
+  #     tidewave = {
+  #       command = "${mcp-proxy}/bin/mcp-proxy";
+  #       args = [ "http://localhost:4000/tidewave/mcp" ]; # 🔁 Replace `$PORT`
+  #     };
+  #   };
+  # };
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
@@ -187,4 +194,5 @@ in
     enable = true;
     enableAliases = true;
   };
+
 }

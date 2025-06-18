@@ -1,6 +1,7 @@
 local lsp = require('lspconfig')
 local opts = { noremap = true, silent = true }
 local elixir_lsp_path = vim.fn.expand("~/.elixir-lsp/lexical/bin/start_lexical.sh")
+local terraformls_path = vim.fn.expand("~/.terraform-ls/bin/terraform-ls")
 
 -- 🧠 Float border styling for LSP popups
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -86,7 +87,9 @@ lsp.lexical.setup {
 
 lsp.erlangls.setup {}
 
-lsp.terraformls.setup {}
+lsp.terraformls.setup {
+  cmd = { terraformls_path, "serve" }
+}
 
 lsp.dockerls.setup {}
 
