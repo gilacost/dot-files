@@ -68,7 +68,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
     erlangVersion = "25.3.2.20";
     erlangSha256 = "0xz61gasvzlpbws56jbh4lgpa8zanf9dbhwzxkgyscbh6ph6zspg";
-    erlangInterpreter = "erlang_25";
+    erlangInterpreter = "erlang_26";
     lexicalVersion = "v0.7.3";
     lexicalSha256 = "sha256-p8XSJBX1igwC+ssEJGD8wb/ZYaEgLGozlY8N6spo3cA=";
   };

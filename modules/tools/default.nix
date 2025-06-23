@@ -1,46 +1,52 @@
 {
   pkgs,
+  lib,
+  writeShellScriptBin,
+  nodejs,
   ...
 }:
-#  TODO REVIEW ALL THESE PACKAGES
-# check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
 let
-  claudeCode = pkgs.stdenv.mkDerivation {
-    pname = "claude-code";
-    version = "0.2.29";
-
-    src = pkgs.fetchurl {
-      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-0.2.29.tgz";
-      sha256 = "1iKDtTE+cHXMW/3zxfsNFjMGMxJlIBzGEXWtTfQfSMM=";
-    };
-
-    nativeBuildInputs = [
-      pkgs.nodejs
-      pkgs.makeWrapper
-    ];
-
-    installPhase = ''
-      mkdir -p $out/lib/node_modules/@anthropic-ai/claude-code
-      tar -xzf $src --strip-components=1 -C $out/lib/node_modules/@anthropic-ai/claude-code
-
-      mkdir -p $out/bin
-      makeWrapper ${pkgs.nodejs}/bin/node $out/bin/claude-code \
-        --add-flags "$out/lib/node_modules/@anthropic-ai/claude-code/cli.mjs"
-    '';
-
-    meta = with pkgs.lib; {
-      description = "Claude Code CLI tool";
-      homepage = "https://www.anthropic.com/claude-code";
-      mainProgram = "claude-code";
-    };
-  };
+  inherit (pkgs)
+    writeShellScriptBin
+    nodejs
+    ;
+  claudeCode = pkgs.writeShellScriptBin "claude" ''
+    # Set up npm global prefix to avoid permission issues  
+    export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+    export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
+    
+    # Create npm global directory if it doesn't exist
+    mkdir -p "$NPM_CONFIG_PREFIX"
+    
+    # Check if claude is installed and working
+    if ! "$NPM_CONFIG_PREFIX/bin/claude" --version &> /dev/null; then
+      echo "Installing @anthropic-ai/claude-code..."
+      ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code
+      
+      # Verify installation
+      if ! "$NPM_CONFIG_PREFIX/bin/claude" --version &> /dev/null; then
+        echo "Installation failed or claude binary not found at expected location."
+        echo "Trying to find claude binary..."
+        
+        # Try to find where npm actually installed it
+        CLAUDE_PATH=$(find "$NPM_CONFIG_PREFIX" -name "claude" -type f -executable 2>/dev/null | head -1)
+        
+        if [ -n "$CLAUDE_PATH" ]; then
+          echo "Found claude at: $CLAUDE_PATH"
+          exec "$CLAUDE_PATH" "$@"
+        else
+          echo "Could not find claude binary. Trying npx as fallback..."
+          exec ${pkgs.nodejs}/bin/npx @anthropic-ai/claude-code "$@"
+        fi
+      fi
+    fi
+    
+    # Run claude command
+    exec "$NPM_CONFIG_PREFIX/bin/claude" "$@"
+  '';
 in
-#mcp-proxy = import ./mcp-proxy.nix { inherit pkgs; };
 {
   home.packages = with pkgs; [
-    #mcp-hub
-    #mcp-proxy
-    #claude-code
     claudeCode
     nixos-generators
     cf-terraforming
@@ -56,39 +62,22 @@ in
     hping
     iperf
     potrace
-    # lxd
-    # lxc
-
-    # TO REVIEW
-    # cmake
-    # act
-    # bind
-    # coreutils
     zellij
-
-    # STILL NEEDS TO BE ORGANISED
     imagemagick
     pngquant
     jpegoptim
     zsh-syntax-highlighting
     cloc
     nodePackages.node2nix
-
     postgresql
     htop
-
     dasel
     silver-searcher
     nerd-fonts.iosevka
-    # STILL NEEDS TO BE ORGANISED
-
-    # RANDOM
     unixtools.watch
     fortune
     hugo
     jump
-
-    # OUTPUT DATA MANIPULATION, SEARCH AND NAVIGATION
     fd
     jq
     yq
@@ -97,23 +86,15 @@ in
     tig
     tree
     peco
-
-    # HTTP, NETWORK AND CO
     httpie
     nix-prefetch-git
     wget
     nmap
     inetutils
-
-    # SECRET MANAGEMENT
     sops
     age
     git-crypt
-
-    # LSP, LINTING AND FORMATTING
     hclfmt
-    # elixir_ls
-    # (callPackage (import ./elixir-ls.nix) {})
     erlang-ls
     tailwindcss-language-server
     nodePackages.dockerfile-language-server-nodejs
@@ -134,15 +115,11 @@ in
     nodePackages.cspell
     vscode-langservers-extracted
     lua-language-server
-
-    # CLOUD SDKS, OPS TOOLS AND WORKFLOW
-    # pre-commit
     terragrunt
     packer
     skopeo
     skaffold
     nomad
-    #vagrant
     google-cloud-sdk
     linode-cli
     flyctl
@@ -156,57 +133,32 @@ in
     kubernetes-helm
     terraformer
     terraform-docs
-    # openshift
-    #awscli
     azure-cli
     awscli2
     argocd
     ansible
-    # tanka
-    # cloud
-    # eksctl
-    # minikube
     kompose
-
-    # RUST
     cargo
     cargo-edit
     rustc
     go
-
-    # # BEAM
     rebar3
     elixir
     erlang
     gleam
-
-    # NIX
     cachix
-
-    # FE
     nodejs
     nodePackages.npm
     yarn
   ];
-
-  # home.file.".config/mcphub/servers.json".text = builtins.toJSON {
-  #   mcpServers = {
-  #     tidewave = {
-  #       command = "${mcp-proxy}/bin/mcp-proxy";
-  #       args = [ "http://localhost:4000/tidewave/mcp" ]; # 🔁 Replace `$PORT`
-  #     };
-  #   };
-  # };
-
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
   programs.bat = {
     enable = true;
-
     themes = {
       "tokyonight-moon" = {
         src = ./bat/tokyonight-moon.tmTheme;
-        file = null; # Since the file is already at the correct path
+        file = null;
       };
     };
     config = {
@@ -215,11 +167,8 @@ in
   };
   programs.fzf.enable = true;
   programs.gpg.enable = true;
-
-  # MAYBE MOVE TO SHELL/TERMINAL module
   programs.lsd = {
     enable = true;
     enableZshIntegration = true;
   };
-
 }
