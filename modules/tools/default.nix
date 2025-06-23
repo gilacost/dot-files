@@ -1,20 +1,47 @@
 {
-  mcp-hub,
   pkgs,
-  inputs,
   ...
 }:
 #  TODO REVIEW ALL THESE PACKAGES
 # check https://github.com/jmackie/dotfiles/blob/main/modules/tools/default.nix
 let
-  src = inputs.claude-code;
+  claudeCode = pkgs.stdenv.mkDerivation {
+    pname = "claude-code";
+    version = "0.2.29";
+
+    src = pkgs.fetchurl {
+      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-0.2.29.tgz";
+      sha256 = "1iKDtTE+cHXMW/3zxfsNFjMGMxJlIBzGEXWtTfQfSMM=";
+    };
+
+    nativeBuildInputs = [
+      pkgs.nodejs
+      pkgs.makeWrapper
+    ];
+
+    installPhase = ''
+      mkdir -p $out/lib/node_modules/@anthropic-ai/claude-code
+      tar -xzf $src --strip-components=1 -C $out/lib/node_modules/@anthropic-ai/claude-code
+
+      mkdir -p $out/bin
+      makeWrapper ${pkgs.nodejs}/bin/node $out/bin/claude-code \
+        --add-flags "$out/lib/node_modules/@anthropic-ai/claude-code/cli.mjs"
+    '';
+
+    meta = with pkgs.lib; {
+      description = "Claude Code CLI tool";
+      homepage = "https://www.anthropic.com/claude-code";
+      mainProgram = "claude-code";
+    };
+  };
 in
 #mcp-proxy = import ./mcp-proxy.nix { inherit pkgs; };
 {
   home.packages = with pkgs; [
     #mcp-hub
     #mcp-proxy
-    claude-code
+    #claude-code
+    claudeCode
     nixos-generators
     cf-terraforming
     kas
@@ -192,7 +219,7 @@ in
   # MAYBE MOVE TO SHELL/TERMINAL module
   programs.lsd = {
     enable = true;
-    enableAliases = true;
+    enableZshIntegration = true;
   };
 
 }

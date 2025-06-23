@@ -6,6 +6,8 @@
 
 {
 
+  system.primaryUser = "pepo"; # ✅ this is now required
+
   environment.shells = [ pkgs.zsh ];
   # https://github.com/LnL7/nix-darwin/issues/165
   # ENABLE ALL COMMANDS
