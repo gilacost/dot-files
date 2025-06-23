@@ -26,8 +26,7 @@
       enable = true;
       prompt.theme = "pure";
     };
-
-    initExtra = builtins.readFile ./functions.sh;
+    initContent = builtins.readFile ./functions.sh;
 
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
