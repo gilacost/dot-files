@@ -8,6 +8,10 @@
 
   system.primaryUser = "pepo"; # ✅ this is now required
 
+  environment.systemPackages = [
+    pkgs.devenv
+  ];
+
   environment.shells = [ pkgs.zsh ];
   # https://github.com/LnL7/nix-darwin/issues/165
   # ENABLE ALL COMMANDS
@@ -314,6 +318,7 @@
     ];
 
     casks = [
+      "claude"
       "inkscape"
       "1password"
       "OmniGraffle"

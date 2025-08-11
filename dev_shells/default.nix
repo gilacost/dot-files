@@ -7,6 +7,8 @@ let
   mkTerraformShell = import ./terraform.nix;
   mkOpenTofuShell = import ./opentofu.nix;
   mkRedisShell = import ./redis.nix;
+  mkMiseShell = import ./mise.nix;
+  mkAsdfShell = import ./asdf.nix;
 in
 flake-utils.lib.eachDefaultSystemMap (system: {
 
@@ -122,6 +124,18 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     inherit system nixpkgs;
     redisVersion = "7.2.4";
     redisSha256 = "sha256-jRBMJqFUsp/WfWVotPN1ISISrUHgwsqj1mSA5429O1k=";
+  };
+
+  mise_2024_1_35 = mkMiseShell {
+    inherit system nixpkgs;
+    miseVersion = "2024.1.35";
+    miseSha256 = "197gighri4689w3kikjmyls8mimlrhhsvshprlzgsvs4rwjy2xd8";
+  };
+
+  asdf_0_14_0 = mkAsdfShell {
+    inherit system nixpkgs;
+    asdfVersion = "0.14.0";
+    asdfSha256 = "0s1jm8rkv9f5xhjhfy0a8fn2x24az3249xhq6cj3l7i8dp6hlv0f";
   };
 
   # elixir_chromic_pdf =

@@ -1,4 +1,4 @@
-{ ... }:
+{ claudeCodeSrc, pkgs, ... }:
 {
 
   programs.home-manager.enable = true;
@@ -38,4 +38,5 @@
       ${builtins.readFile ./conf.d/terminal/kitty.conf}
     '';
   };
+
 }
