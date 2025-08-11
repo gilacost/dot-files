@@ -56,9 +56,10 @@
                 home-manager.useUserPackages = true;
                 home-manager.users.pepo = import ./home.nix;
                 home-manager.extraSpecialArgs = {
-                  inherit devenv;
+                  inherit devenv system inputs;
                   mcphub-nvim = inputs.mcphub-nvim.packages.${system}.default;
                   mcp-hub = inputs.mcp-hub.packages.${system}.default;
+                  claudeCodeSrc = inputs.claude-code;
                 };
               }
             ];
