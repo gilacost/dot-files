@@ -6,7 +6,7 @@ let
   miseVersion = inputs.miseVersion or "2024.1.35";
   miseSha256 = inputs.miseSha256 or "sha256-PLACEHOLDER";
   
-  mise = pkgs.stdenv.mkDerivation {
+  mise = pkgs.rustPlatform.buildRustPackage rec {
     pname = "mise";
     version = miseVersion;
     
@@ -17,16 +17,12 @@ let
       sha256 = miseSha256;
     };
     
-    nativeBuildInputs = with pkgs; [ rustPlatform.cargoSetupHook rustc cargo ];
+    cargoHash = "sha256-aj6zb+5TYlom1tDulCOwjw2CB0L8C9BdYHUVARgZV6c=";
     
-    buildPhase = ''
-      cargo build --release
-    '';
+    doCheck = false;
     
-    installPhase = ''
-      mkdir -p $out/bin
-      cp target/release/mise $out/bin/
-    '';
+    nativeBuildInputs = with pkgs; [ pkg-config ];
+    buildInputs = with pkgs; [ openssl ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.Security ];
   };
   
 in pkgs.mkShell {

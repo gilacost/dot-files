@@ -126,10 +126,10 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     redisSha256 = "sha256-jRBMJqFUsp/WfWVotPN1ISISrUHgwsqj1mSA5429O1k=";
   };
 
-  mise_2024_1_35 = mkMiseShell {
+  mise_2024_12_5 = mkMiseShell {
     inherit system nixpkgs;
-    miseVersion = "2024.1.35";
-    miseSha256 = "197gighri4689w3kikjmyls8mimlrhhsvshprlzgsvs4rwjy2xd8";
+    miseVersion = "2024.12.5";
+    miseSha256 = "sha256-dODngIwyrpLEB57c4348N4Ik+lNYEjS0kOw7Ug92QA8=";
   };
 
   asdf_0_14_0 = mkAsdfShell {
