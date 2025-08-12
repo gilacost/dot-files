@@ -101,6 +101,8 @@ in
       ".direnv/"
       ".envrc"
       ".DS_Store"
+      ".asdf-test/"
+      ".mise-test/"
     ];
   };
 }
