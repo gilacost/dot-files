@@ -49,6 +49,19 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     inherit system nixpkgs;
   };
 
+  elixir_1_18_4_erlang_28_0_2 = mkElixirErlangShell {
+    inherit system;
+    inherit nixpkgs;
+    elixirVersion = "1.18.4";
+    elixirSha256 = "0861h06x1594jsqq21lkmd96yvlfhfngrrxm6fwpqifzw4ij02iz";
+    elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
+    erlangVersion = "28.0.2";
+    erlangSha256 = "0hqljgbhw7yx9hbpd2k0sdvr1psp4aq56wn3d8qa1q0pqpn6zqp3";
+    erlangInterpreter = "erlang_28";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "18rjx74vx73rgqpvj6xm2wp7pb7ca6rhzzry50jx045zkclg7bhp";
+  };
+
   elixir_latest_erlang_latest = mkElixirErlangShell {
     inherit system;
     inherit nixpkgs;
