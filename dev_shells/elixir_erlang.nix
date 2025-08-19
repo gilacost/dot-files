@@ -28,58 +28,24 @@ let
         pname = "lexical";
         version = inputs.lexicalVersion;
 
-        src = super.fetchFromGitHub {
-          owner = "lexical-lsp";
-          repo = "lexical";
-          rev = inputs.lexicalVersion;
+        src = super.fetchurl {
+          url = "https://github.com/lexical-lsp/lexical/releases/download/${inputs.lexicalVersion}/lexical.zip";
           sha256 = inputs.lexicalSha256;
         };
 
-        buildInputs = [
-          self.elixir
-          super.git
-          super.makeWrapper
-        ];
+        nativeBuildInputs = [ super.unzip ];
 
-        buildPhase = ''
-          export HOME=$(mktemp -d)
-          export PATH=$PATH:${super.git}/bin
-          export SSL_CERT_FILE=${super.cacert}/etc/ssl/certs/ca-bundle.crt
-          export GIT_SSL_CAINFO=${super.cacert}/etc/ssl/certs/ca-bundle.crt
-
-          mix local.hex --force
-          mix local.rebar --force
-          mix deps.get
-          mix deps.compile
-          mix compile --warnings-as-errors
+        unpackPhase = ''
+          unzip $src
         '';
 
         installPhase = ''
-                  mix package --path "$out"
-                  chmod +x $out/bin/*.sh
-
-                  # Create a wrapper script with version support
-                  mv "$out/bin/start_lexical.sh" "$out/bin/start_lexical.sh.orig"
-                  cat > "$out/bin/start_lexical.sh" << EOF
-          #!/bin/sh
-
-          if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
-              echo "${inputs.lexicalVersion}"
-              exit 0
+          mkdir -p $out
+          cp -r * $out/
+          # Make all files in bin directory executable
+          if [ -d "$out/bin" ]; then
+            chmod +x $out/bin/*
           fi
-
-          exec "$out/bin/start_lexical.sh.orig" "\$@"
-          EOF
-                  chmod +x "$out/bin/start_lexical.sh"
-
-                  # Add Nix detection to version manager script
-                  substituteInPlace "$out/bin/activate_version_manager.sh" \
-                    --replace-fail 'activate_version_manager() {' '
-          activate_version_manager() {
-              if [ -n "$IN_NIX_SHELL" ]; then
-                  echo >&2 "Using Nix-provided Elixir: $(which elixir)"
-                  return 0
-              fi'
         '';
       };
     })
@@ -129,7 +95,7 @@ pkgs.mkShell {
       '';
     in
     ''
-      export LEXICAL_PATH="${pkgs.lexical}/bin/lexical"
+      export LEXICAL_PATH="${pkgs.lexical}/bin/start_lexical.sh"
 
       export OTP_VERSION="$(erl -eval '${escript}' -noshell | tr -d '\n')"
       export ELIXIR_VERSION="$(${pkgs.elixir}/bin/elixir --version | grep 'Elixir' | awk '{print $2}')"
@@ -137,7 +103,6 @@ pkgs.mkShell {
       echo "🍎 Erlang OTP-$OTP_VERSION"
       echo "💧 Elixir $ELIXIR_VERSION"
       echo "🧠 Lexical version: ${inputs.lexicalVersion}"
-      echo ""
 
       # Remove existing directory/symlink if it exists
       rm -rf "$HOME/.elixir-lsp/lexical"
@@ -146,5 +111,6 @@ pkgs.mkShell {
       ln -sf "${pkgs.lexical}/" "$HOME/.elixir-lsp/lexical"
       echo "🔗 Symlinked Lexical to: $HOME/.elixir-lsp/lexical"
       echo "🧠 Lexical available at: ${pkgs.lexical}/bin/start_lexical.sh"
+      echo ""
     '';
 }
