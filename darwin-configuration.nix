@@ -319,6 +319,7 @@
 
     casks = [
       "claude"
+      "deckset"
       "inkscape"
       "1password"
       "OmniGraffle"
