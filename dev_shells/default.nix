@@ -1,7 +1,7 @@
 # NOTE: nix-prefetch-url --type sha256 --unpack https://github.com/erlang/otp/archive/refs/tags/OTP-${VERSION}.zip
 # NOTE: nix-prefetch-url --type sha256 --unpack https://github.com/elixir-lang/elixir/archive/refs/tags/v${VERSION}.zip
 
-{ flake-utils, nixpkgs, ... }:
+{ flake-utils, nixpkgs, expert, ... }:
 let
   mkElixirErlangShell = import ./elixir_erlang.nix;
   mkTerraformShell = import ./terraform.nix;
@@ -51,7 +51,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
 
   elixir_1_18_4_erlang_28_0_2 = mkElixirErlangShell {
     inherit system;
-    inherit nixpkgs;
+    inherit nixpkgs expert;
     elixirVersion = "1.18.4";
     elixirSha256 = "0861h06x1594jsqq21lkmd96yvlfhfngrrxm6fwpqifzw4ij02iz";
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";

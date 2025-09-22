@@ -1,6 +1,6 @@
 local lsp = require('lspconfig')
 local opts = { noremap = true, silent = true }
-local elixir_lsp_path = vim.fn.expand("~/.elixir-lsp/lexical/bin/start_lexical.sh")
+local elixir_lsp_path = vim.g.lsp_elixir_bin or vim.fn.expand("~/.elixir-lsp/expert")
 local terraformls_path = vim.fn.expand("~/.terraform-ls/bin/terraform-ls")
 
 -- 🧠 Float border styling for LSP popups
@@ -80,10 +80,20 @@ local border = {
   { '│', "FloatBorder" },
 }
 
-lsp.lexical.setup {
-  cmd = { elixir_lsp_path },
-  filetypes = { "elixir", "eelixir", "heex" },
-}
+lsp.util.default_config = vim.tbl_extend("force", lsp.util.default_config, {
+  expert = {
+    default_config = {
+      cmd = { elixir_lsp_path },
+      filetypes = { "elixir", "eelixir", "heex" },
+      root_dir = function(fname)
+        return lsp.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
+      end,
+      settings = {}
+    }
+  }
+})
+
+lsp.expert.setup {}
 
 lsp.erlangls.setup {}
 

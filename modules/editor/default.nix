@@ -67,7 +67,6 @@
       \ }
 
       lua << EOF
-        vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
         ${builtins.readFile ./nvim/base.lua}
         ${builtins.readFile ./nvim/lsp.lua}
         ${builtins.readFile ./nvim/sets.lua}
@@ -146,7 +145,7 @@
         nui-nvim
         # avante-nvim
         img-clip-nvim
-        
+
         # Enhanced navigation
         harpoon
         which-key-nvim
@@ -160,7 +159,7 @@
         # neoai
         # ChatGPT-vim
         # plenary-nvim
-        copilot-vim
+        # copilot-vim
 
         ###REVIEW###
         # indentLine

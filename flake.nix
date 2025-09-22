@@ -17,6 +17,9 @@
       url = "github:anthropics/claude-code";
       flake = false;
     };
+    expert = {
+      url = "github:elixir-lang/expert";
+    };
   };
 
   nixConfig = {
