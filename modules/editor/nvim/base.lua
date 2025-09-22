@@ -16,6 +16,22 @@ vim.g.maplocalleader = ","
 --
 
 vim.g.startify_change_to_vcs_root = 1
+vim.g.startify_change_to_dir = 0  -- Don't change to file's directory
+
+-- Auto change directory to VCS root when opening files
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  callback = function()
+    if vim.bo.buftype ~= "terminal" and vim.bo.buftype ~= "nofile" then
+      -- Try to find git root
+      local git_root = vim.fn.system("git -C " .. vim.fn.expand("%:p:h") .. " rev-parse --show-toplevel 2>/dev/null")
+      git_root = git_root:gsub("\n", "")
+      if vim.v.shell_error == 0 and git_root ~= "" then
+        vim.cmd("silent! lcd " .. git_root)
+      end
+    end
+  end,
+})
 
 -- disable netrw at the very start of your init.lua
 -- vim.g.loaded_netrw = 1

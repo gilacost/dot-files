@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 set -x
-darwin-rebuild build --flake "./#$1"
-sudo darwin-rebuild switch --flake "./#$1"
+darwin-rebuild build --impure --flake "./#$1"
+sudo darwin-rebuild switch --impure --flake "./#$1"
 set +x

@@ -34,9 +34,7 @@
   };
 
   home.file.".config/kitty/kitty.conf" = {
-    text = ''
-      ${builtins.readFile ./conf.d/terminal/kitty.conf}
-    '';
+    source = ./conf.d/terminal/kitty.conf;
   };
 
 }
