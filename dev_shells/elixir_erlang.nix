@@ -24,30 +24,7 @@ let
         )
       );
 
-      lexical = super.stdenv.mkDerivation {
-        pname = "lexical";
-        version = inputs.lexicalVersion;
-
-        src = super.fetchurl {
-          url = "https://github.com/lexical-lsp/lexical/releases/download/${inputs.lexicalVersion}/lexical.zip";
-          sha256 = inputs.lexicalSha256;
-        };
-
-        nativeBuildInputs = [ super.unzip ];
-
-        unpackPhase = ''
-          unzip $src
-        '';
-
-        installPhase = ''
-          mkdir -p $out
-          cp -r * $out/
-          # Make all files in bin directory executable
-          if [ -d "$out/bin" ]; then
-            chmod +x $out/bin/*
-          fi
-        '';
-      };
+      expert = inputs.expert.packages.${system}.default;
     })
   ];
   system = inputs.system;
@@ -74,7 +51,7 @@ pkgs.mkShell {
       [
         erlang
         elixir
-        lexical
+        expert
       ]
       linuxPackages
       darwinPackages
@@ -95,22 +72,22 @@ pkgs.mkShell {
       '';
     in
     ''
-      export LEXICAL_PATH="${pkgs.lexical}/bin/start_lexical.sh"
-
       export OTP_VERSION="$(erl -eval '${escript}' -noshell | tr -d '\n')"
       export ELIXIR_VERSION="$(${pkgs.elixir}/bin/elixir --version | grep 'Elixir' | awk '{print $2}')"
 
       echo "🍎 Erlang OTP-$OTP_VERSION"
       echo "💧 Elixir $ELIXIR_VERSION"
-      echo "🧠 Lexical version: ${inputs.lexicalVersion}"
+      echo "🚀 Expert available at: ${pkgs.expert}/bin/expert"
+
+      # Create .elixir-lsp directory if it doesn't exist
+      mkdir -p "$HOME/.elixir-lsp"
 
       # Remove existing directory/symlink if it exists
-      rm -rf "$HOME/.elixir-lsp/lexical"
+      rm -rf "$HOME/.elixir-lsp/expert"
 
-      # Link the correct lexical binary
-      ln -sf "${pkgs.lexical}/" "$HOME/.elixir-lsp/lexical"
-      echo "🔗 Symlinked Lexical to: $HOME/.elixir-lsp/lexical"
-      echo "🧠 Lexical available at: ${pkgs.lexical}/bin/start_lexical.sh"
+      # Link the expert binary
+      ln -sf "${pkgs.expert}/bin/expert" "$HOME/.elixir-lsp/expert"
+      echo "🔗 Linked Expert to: $HOME/.elixir-lsp/expert"
       echo ""
     '';
 }
