@@ -79,6 +79,10 @@
         ${builtins.readFile ./nvim/cmp.lua}
         ${builtins.readFile ./nvim/nvim-tree.lua}
         ${builtins.readFile ./nvim/git.lua}
+        ${builtins.readFile ./nvim/harpoon.lua}
+        ${builtins.readFile ./nvim/which-key.lua}
+        ${builtins.readFile ./nvim/flash.lua}
+        ${builtins.readFile ./nvim/oil.lua}
       EOF
     '';
     # ${builtins.readFile ./nvim/mcphub.lua}
@@ -142,6 +146,12 @@
         nui-nvim
         # avante-nvim
         img-clip-nvim
+        
+        # Enhanced navigation
+        harpoon
+        which-key-nvim
+        flash-nvim
+        oil-nvim
 
         vim-test
         virt-column-nvim

@@ -1,3 +1,4 @@
+
 if [ -x "$(command -v nvr)" ]; then
   # alias nvim=nvr
   export EDITOR="nvr --remote-wait"
@@ -299,5 +300,6 @@ source <(gh copilot alias -- zsh)
 
 export PATH=$PATH:$HOME/Repos/dot-files/modules/node_modules/@ansible/ansible-language-server/bin
 eval "$(jump shell)"
+eval "$(zoxide init zsh)"
 
 source $HOME/.zshrc_local

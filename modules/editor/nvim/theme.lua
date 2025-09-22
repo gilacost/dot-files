@@ -5,9 +5,33 @@
 -- syntax enable
 -- syntax sync minlines=256
 
+-- Read theme from external file that can be changed dynamically
+local theme_file = vim.fn.expand("~/.config/nvim-theme")
+local theme_style = "day" -- default
+local colorscheme = "tokyonight-day" -- default
+local lualine_theme = "tokyonight-day" -- default
+
+-- Try to read theme file with error handling
+local success, content = pcall(function()
+  if vim.fn.filereadable(theme_file) == 1 then
+    local lines = vim.fn.readfile(theme_file)
+    return lines and lines[1]
+  end
+  return nil
+end)
+
+if success and content and content ~= "" then
+  theme_style = content
+  colorscheme = "tokyonight-" .. content
+  lualine_theme = "tokyonight-" .. content
+  print("Using theme: " .. content .. " (colorscheme: " .. colorscheme .. ")")
+else
+  print("Using default theme: day (file not found or error)")
+end
+
 require("tokyonight").setup({
-  -- use the night style
-  style = "moon",
+  -- use the configured style
+  style = theme_style,
   -- disable italic for functions
   styles = {
     functions = {}
@@ -24,11 +48,14 @@ require("tokyonight").setup({
   end
 })
 
-vim.cmd("colorscheme tokyonight-moon")
+vim.cmd("colorscheme " .. colorscheme)
 
+-- Setup lualine with dynamic theme and background fix
 require('lualine').setup {
   options = {
-    theme = "tokyonight-moon"
+    theme = lualine_theme,
+    component_separators = '',
+    section_separators = ''
   }
 }
 

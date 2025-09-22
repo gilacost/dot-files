@@ -1,4 +1,3 @@
-lua << EOF
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
@@ -34,13 +33,23 @@ local conditions = {
   end,
 }
 
+-- Read theme from external file
+local theme_file = vim.fn.expand("~/.config/nvim-theme")
+local lualine_theme = "tokyonight" -- default
+if vim.fn.filereadable(theme_file) == 1 then
+  local content = vim.fn.readfile(theme_file)[1]
+  if content then
+    lualine_theme = "tokyonight-" .. content
+  end
+end
+
 -- Config
 local config = {
   options = {
     -- Disable sections and component separators
     component_separators = '',
     section_separators = '',
-    theme = "tokyonight"
+    theme = lualine_theme
   },
   sections = {
     -- these are to remove the defaults
@@ -213,5 +222,4 @@ ins_right({
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)
-EOF
 

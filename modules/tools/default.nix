@@ -14,10 +14,10 @@ let
     # Set up npm global prefix to avoid permission issues  
     export NPM_CONFIG_PREFIX="$HOME/.npm-global"
     export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
-    
+
     # Create npm global directory if it doesn't exist
     mkdir -p "$NPM_CONFIG_PREFIX"
-    
+
     # Check if claude is installed and working
     if ! "$NPM_CONFIG_PREFIX/bin/claude" --version &> /dev/null; then
       echo "Installing @anthropic-ai/claude-code..."
@@ -40,7 +40,7 @@ let
         fi
       fi
     fi
-    
+
     # Run claude command
     exec "$NPM_CONFIG_PREFIX/bin/claude" "$@"
   '';
@@ -48,6 +48,8 @@ in
 {
   home.packages = with pkgs; [
     claudeCode
+    lazygit
+    zoxide
     nixos-generators
     cf-terraforming
     kas
@@ -150,6 +152,7 @@ in
     nodejs
     nodePackages.npm
     yarn
+    tesseract
   ];
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
@@ -160,9 +163,13 @@ in
         src = ./bat/tokyonight-moon.tmTheme;
         file = null;
       };
+      "tokyonight-day" = {
+        src = ./bat/tokyonight-day.tmTheme;
+        file = null;
+      };
     };
     config = {
-      theme = "tokyonight-moon";
+      theme = "tokyonight-day";
     };
   };
   programs.fzf.enable = true;
