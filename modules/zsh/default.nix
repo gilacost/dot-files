@@ -39,7 +39,7 @@
       # FZF Theme - change "dark" to "light" to switch themes
       FZF_DEFAULT_OPTS =
         let
-          theme = "light"; # Change to "light" for light theme
+          theme = "dark"; # Change to "light" for light theme
           darkTheme = ''
             --highlight-line \
             --info=inline-right \
