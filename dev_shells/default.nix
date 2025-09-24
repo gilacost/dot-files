@@ -97,8 +97,8 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     erlangVersion = "27.2";
     erlangSha256 = "00zk0cziyylmzg63gq3h5p2p348ahg2wp5h8zhbva4h3v5w6fi7j";
     erlangInterpreter = "erlang_27";
-    elixirLsVersion = "v0.27.2";
-    elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "sha256-F67zKJu/ENAlKD7/D7NR7Kx7Lhe1G7kvfnmcvsnpMqM=";
   };
 
   elixir_1_17_2_erlang_26_2_5 = mkElixirErlangShell {
