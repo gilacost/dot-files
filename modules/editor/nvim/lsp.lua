@@ -54,7 +54,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
@@ -80,20 +79,14 @@ local border = {
   { '│', "FloatBorder" },
 }
 
-lsp.util.default_config = vim.tbl_extend("force", lsp.util.default_config, {
-  expert = {
-    default_config = {
-      cmd = { elixir_lsp_path },
-      filetypes = { "elixir", "eelixir", "heex" },
-      root_dir = function(fname)
-        return lsp.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
-      end,
-      settings = {}
-    }
-  }
-})
-
-lsp.expert.setup {}
+lsp.lexical.setup {
+  cmd = { elixir_lsp_path },
+  root_dir = function(fname)
+    return lsp.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
+  end,
+  filetypes = { "elixir", "eelixir", "heex" },
+  settings = {}
+}
 
 lsp.erlangls.setup {}
 

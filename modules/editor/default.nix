@@ -67,6 +67,9 @@
       \ }
 
       lua << EOF
+        -- Primary stable LSP (lexical)
+        vim.g.lsp_elixir_bin = "/Users/pepo/.elixir-lsp/lexical-wrapper.sh"
+        -- Experimental LSP (expert) - available at /Users/pepo/.elixir-lsp/expert-wrapper.sh
         ${builtins.readFile ./nvim/base.lua}
         ${builtins.readFile ./nvim/lsp.lua}
         ${builtins.readFile ./nvim/sets.lua}
