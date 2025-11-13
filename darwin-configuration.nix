@@ -318,6 +318,7 @@
     ];
 
     casks = [
+      "cyberduck"
       "claude"
       "deckset"
       "inkscape"
