@@ -18,6 +18,21 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     tofuSha256 = "sha256-c2vGE4+FAzG0Z8gUu7uPowflKR3I2kKmb7zqjqdo0x4=";
   };
 
+  terraform_1_13_5 = mkTerraformShell {
+    inherit system nixpkgs;
+    terraformVersion = "1.13.5";
+    terraformSha256 = "1jv2vdnmqhja1jgx31vz92n2dxal1s17nvccqfjf3rrm28il5y8v";
+
+    sopsVersion = "3.11.0";
+    sopsSha256 = "sha256-ylVg3kap6Dw4afu9vI5jn8Wfhik5lBJ+GAye5vzSgfY=";
+
+    ageVersion = "1.2.1";
+    ageSha256 = "sha256-z3mHW9WXDcLaxgyH+lDO4f8fmkGw6yc/ZeF0r/N8Nno=";
+
+    terraformLsVersion = "0.38.2";
+    terraformLsSha256 = "0yralczjcgg6lryypj9wqxr83j5djmmnrcy4yj5a6z6yr1fx39xi";
+  };
+
   terraform_1_13_3 = mkTerraformShell {
     inherit system nixpkgs;
     terraformVersion = "1.13.3";
