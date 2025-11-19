@@ -10,6 +10,7 @@
     ./modules/zsh
     ./modules/tools
     ./modules/editor
+    ./modules/claude
   ];
 
   home.file.".config/peco/config.json" = {
