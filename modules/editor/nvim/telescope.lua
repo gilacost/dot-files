@@ -1,10 +1,19 @@
 local actions = require('telescope.actions')
 local trouble = require("trouble.sources.telescope")
 local telescope = require("telescope")
+local builtin = require('telescope.builtin')
+
+-- Helper function to find git root or fallback to cwd
+local function get_git_root()
+  local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  if vim.v.shell_error == 0 then
+    return root
+  end
+  return vim.fn.getcwd()
+end
 
 telescope.setup {
   defaults = {
-    cwd = require('lspconfig.util').root_pattern('.git')(vim.fn.getcwd()),
     file_ignore_patterns = {"^%.git/", "node_modules"},
     mappings = {
       i = {
@@ -27,10 +36,31 @@ telescope.setup {
 
 -- Existing mappings
 vim.keymap.set("n", "<Leader>o", "<cmd>Telescope oldfiles<cr>")
-vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>")
-vim.keymap.set("n", "<Leader>sc", "<cmd>Telescope live_grep<cr>")
+
+-- Smart find files - searches from git root if in a git repo, otherwise from cwd
+vim.keymap.set("n", "<C-p>", function()
+  builtin.find_files({ cwd = get_git_root() })
+end, { desc = "Find files in git root" })
+
+-- Smart live grep - searches from git root if in a git repo, otherwise from cwd
+vim.keymap.set("n", "<Leader>sc", function()
+  builtin.live_grep({ cwd = get_git_root() })
+end, { desc = "Live grep in git root" })
+
+-- Additional useful mappings
 vim.keymap.set("n", "<Leader>fh", "<cmd>Telescope help_tags<cr>")
 vim.keymap.set("n", "<Leader>fs", "<cmd>Telescope symbols<cr>")
+
+-- Search files from current directory (not git root) when you need it
+vim.keymap.set("n", "<Leader>ff", function()
+  builtin.find_files({ cwd = vim.fn.getcwd() })
+end, { desc = "Find files in current directory" })
+
+-- Search in current directory (not git root)
+vim.keymap.set("n", "<Leader>ss", function()
+  builtin.live_grep({ cwd = vim.fn.getcwd() })
+end, { desc = "Live grep in current directory" })
+
 vim.keymap.set("n", "<C-c>", "<cmd>bd!<cr>", {})
 vim.keymap.set("n", "<Leader>n", ":call RenameFile()<CR>")
 

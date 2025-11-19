@@ -67,16 +67,36 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     inherit system nixpkgs;
     terraformVersion = "1.11.3";
     terraformSha256 = "sha256-wMZPp7hZ9QX9zv2riTF+mLJo9o1AHah98LACHoJ88Zc=";
+
+    sopsVersion = "3.11.0";
+    sopsSha256 = "sha256-ylVg3kap6Dw4afu9vI5jn8Wfhik5lBJ+GAye5vzSgfY=";
+
+    ageVersion = "1.2.1";
+    ageSha256 = "sha256-z3mHW9WXDcLaxgyH+lDO4f8fmkGw6yc/ZeF0r/N8Nno=";
+
+    terraformLsVersion = "0.38.2";
+    terraformLsSha256 = "0yralczjcgg6lryypj9wqxr83j5djmmnrcy4yj5a6z6yr1fx39xi";
   };
 
   terraform_1_7_5 = mkTerraformShell {
     inherit system nixpkgs;
     terraformVersion = "1.7.5";
     terraformSha256 = "sha256-mcTU/q+wGDry9/vge+7qb4Pl9aKa4p/uMWi2gQ43/5g=";
+
+    sopsVersion = "3.10.2";
+    sopsSha256 = "10hxym70a6xwvsc1sm904kvfp7cqx4v1wh57cm95jq0775vp5af2";
+
+    ageVersion = "1.2.1";
+    ageSha256 = "sha256-z3mHW9WXDcLaxgyH+lDO4f8fmkGw6yc/ZeF0r/N8Nno=";
+
+    terraformLsVersion = "0.36.4";
+    terraformLsSha256 = "sha256-55AkxwTEj6POUKVBFTwtJrnosKhRpvGNwcgc1X1BlTI=";
   };
 
   redis_latest = mkRedisShell {
     inherit system nixpkgs;
+    redisVersion = "7.4.2";
+    redisSha256 = "sha256-Td678JBhy7WJAReG/r2zTyl2fdf4nb5xLSto6Aivah8=";
   };
 
   elixir_1_19_2_erlang_28_1_1 = mkElixirErlangShell {
@@ -107,7 +127,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
 
   elixir_latest_erlang_latest = mkElixirErlangShell {
     inherit system;
-    inherit nixpkgs;
+    inherit nixpkgs expert;
     elixirVersion = "1.18.3";
     elixirSha256 = "03d2ha0ykrxwfzj1w7wvapc0w3nm1xchl1m9m7r287anh3wbazwc";
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
@@ -140,6 +160,8 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     erlangVersion = "27.2";
     erlangSha256 = "00zk0cziyylmzg63gq3h5p2p348ahg2wp5h8zhbva4h3v5w6fi7j";
     erlangInterpreter = "erlang_27";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "sha256-p8XSJBX1igwC+ssEJGD8wb/ZYaEgLGozlY8N6spo3cA=";
     elixirLsVersion = "v0.27.2";
     elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
   };
@@ -153,6 +175,8 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     erlangVersion = "26.2.5";
     erlangSha256 = "sha256-tUAvzkTE51gT4kS7voEZZpsMKVyBQR+wgk6mI0s1Vac=";
     erlangInterpreter = "erlang_26";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "sha256-p8XSJBX1igwC+ssEJGD8wb/ZYaEgLGozlY8N6spo3cA=";
     elixirLsVersion = "v0.27.2";
     elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
   };
@@ -166,6 +190,8 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     erlangVersion = "26.0";
     erlangSha256 = "sha256-7z5LkCLyjqGlo48XlcwAUiu1FkmAAewEGnP30QDDme8=";
     erlangInterpreter = "erlang_26";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "sha256-p8XSJBX1igwC+ssEJGD8wb/ZYaEgLGozlY8N6spo3cA=";
     elixirLsVersion = "v0.27.2";
     elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
   };
