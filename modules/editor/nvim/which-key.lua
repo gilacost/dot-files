@@ -28,11 +28,13 @@ require("which-key").register({
   },
   f = {
     name = "Find",
+    f = "Files in current dir",
     h = "Help tags",
     s = "Symbols",
   },
   s = {
     name = "Search",
-    c = "Live grep",
+    c = "Live grep (git root)",
+    s = "Live grep (current dir)",
   },
 }, { prefix = "<leader>" })
