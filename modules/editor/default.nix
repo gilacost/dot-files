@@ -1,4 +1,4 @@
-{ mcphub-nvim, pkgs, ... }:
+{ pkgs, ... }:
 {
 
   programs.neovim = {

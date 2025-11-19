@@ -44,6 +44,33 @@ function gsina {
   | awk '{ print "$(git rev-parse --show-toplevel)/"$2 }'
 }
 
+function glog_peco {
+  # Search through git commit messages with peco
+  # Shows commits in a nice format and opens the selected one with git show
+  git log --oneline --color=always --decorate | \
+    peco | \
+    awk '{print $1}' | \
+    xargs -I {} git show --color=always {}
+}
+
+function gdiff_peco {
+  # Search through git commit diffs with peco
+  # Useful for finding when specific code was changed
+  git log --oneline --color=always --decorate | \
+    peco | \
+    awk '{print $1}' | \
+    xargs -I {} git diff --color=always {}^..{}
+}
+
+function glog_search {
+  # Interactive search through commit messages and diffs
+  # Shows full commit info in peco preview
+  git log --oneline --all --decorate --color=always | \
+    peco --query "$1" | \
+    awk '{print $1}' | \
+    xargs -I {} git show --color=always {}
+}
+
 
 function service_port {
   sudo netstat -tulnp "${1:-tcp}"

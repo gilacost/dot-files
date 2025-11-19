@@ -49,8 +49,14 @@ let
         '';
       };
 
-      expert = inputs.expert.packages.${system}.default;
-    })
+    } // (
+      if inputs ? expert then
+        {
+          expert = inputs.expert.packages.${system}.default;
+        }
+      else
+        { }
+    ))
   ];
   system = inputs.system;
   pkgs = import inputs.nixpkgs { inherit system overlays; };
@@ -77,8 +83,8 @@ pkgs.mkShell {
         erlang
         elixir
         lexical
-        expert
       ]
+      (lib.optionals (inputs ? expert) [ expert ])
       linuxPackages
       darwinPackages
     ];
@@ -105,23 +111,29 @@ pkgs.mkShell {
       echo "🍎 Erlang OTP-$OTP_VERSION"
       echo "💧 Elixir $ELIXIR_VERSION"
       echo "🧠 Lexical version: ${inputs.lexicalVersion}"
-      echo "🚀 Expert available at: ${pkgs.expert}/bin/expert"
+      ${pkgs.lib.optionalString (inputs ? expert) ''
+        echo "🚀 Expert available at: ${pkgs.expert}/bin/expert"
+      ''}
 
       # Create .elixir-lsp directory if it doesn't exist
       mkdir -p "$HOME/.elixir-lsp"
 
       # Remove existing directory/symlink if it exists
       rm -rf "$HOME/.elixir-lsp/lexical"
-      rm -rf "$HOME/.elixir-lsp/expert"
+      ${pkgs.lib.optionalString (inputs ? expert) ''
+        rm -rf "$HOME/.elixir-lsp/expert"
+      ''}
 
       # Link lexical (primary/stable LSP)
       ln -sf "${pkgs.lexical}/lexical" "$HOME/.elixir-lsp/lexical"
       echo "🔗 Symlinked Lexical to: $HOME/.elixir-lsp/lexical"
       echo "🧠 Lexical available at: ${pkgs.lexical}/lexical/bin/start_lexical.sh"
 
-      # Link expert (experimental LSP)
-      ln -sf "${pkgs.expert}/bin/expert" "$HOME/.elixir-lsp/expert"
-      echo "🚀 Expert available at: $HOME/.elixir-lsp/expert"
+      ${pkgs.lib.optionalString (inputs ? expert) ''
+        # Link expert (experimental LSP)
+        ln -sf "${pkgs.expert}/bin/expert" "$HOME/.elixir-lsp/expert"
+        echo "🚀 Expert available at: $HOME/.elixir-lsp/expert"
+      ''}
       echo ""
     '';
 }
