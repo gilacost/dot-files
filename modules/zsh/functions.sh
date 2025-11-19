@@ -37,6 +37,16 @@ function gha() {
   fi
 }
 
+function gha_peco() {
+  # List GitHub Actions runs with peco and open selected run in browser
+  # Shows workflow name, status, and branch
+  gh run list --limit 50 --json displayTitle,status,conclusion,headBranch,url \
+    --jq '.[] | "\(.displayTitle) [\(.status)] [\(.conclusion // "running")] (\(.headBranch)) \(.url)"' | \
+    peco | \
+    awk '{print $NF}' | \
+    xargs open
+}
+
 function gsina {
   git status --porcelain \
   | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
