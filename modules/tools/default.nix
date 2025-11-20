@@ -147,7 +147,9 @@ in
     rebar3
     elixir
     erlang
-    gleam
+    (gleam.overrideAttrs (old: {
+      doCheck = false;  # Skip tests on x86_64-darwin (CI)
+    }))
     cachix
     nodejs
     nodePackages.npm
