@@ -318,6 +318,7 @@
     ];
 
     casks = [
+      "insta360-studio"
       "cyberduck"
       "claude"
       "deckset"

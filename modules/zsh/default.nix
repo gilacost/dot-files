@@ -139,6 +139,9 @@
       dockerrmiall = "docker rmi $(docker images -a -q)";
       dockerrmall = "docker rm $(docker ps -a -q)";
       dockerstopall = "docker stop $(docker ps -a -q)";
+      # ECS/AWS (use ECS_CLUSTER and AWS_REGION env vars)
+      ecssh = "CLUSTER=\${ECS_CLUSTER} && REGION=\${AWS_REGION} && SELECTED=$(aws ecs list-tasks --cluster $CLUSTER --desired-status RUNNING --region $REGION --query 'taskArns[]' --output text | xargs aws ecs describe-tasks --cluster $CLUSTER --region $REGION --tasks --query 'tasks[].[taskArn,group,containers[0].name]' --output text | awk '{split(\$1,a,\"/\"); print a[length(a)] \": \" \$2 \" \" \$3}' | fzf --layout=reverse -m) && TASK=$(echo \$SELECTED | awk '{print \$1}' | sed 's/://g') && CONTAINER=$(echo \$SELECTED | awk '{print \$NF}') && aws ecs execute-command --cluster $CLUSTER --task \$TASK --container \$CONTAINER --command /bin/bash --interactive --region $REGION";
+      awslogs = "REGION=\${AWS_REGION} && aws logs describe-log-groups --region $REGION --query 'logGroups[*].logGroupName' --output text | tr '\t' '\n' | fzf --layout=reverse -m | xargs -I{} -ot aws logs tail {} --follow --region $REGION";
       # KUBE
       kubelogs = "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl logs -f \${1} -n \${0}'";
       kuberm = "kubectl get pods --all-namespaces | sed -n '2!p' | fzf --layout=reverse -m | awk '{print $1, $2}' | xargs -n2 -ot sh -c 'kubectl delete pod \${1} -n \${0}'";

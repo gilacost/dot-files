@@ -99,6 +99,19 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     redisSha256 = "sha256-Td678JBhy7WJAReG/r2zTyl2fdf4nb5xLSto6Aivah8=";
   };
 
+  elixir_1_19_4_erlang_28_2 = mkElixirErlangShell {
+    inherit system;
+    inherit nixpkgs expert;
+    elixirVersion = "1.19.4";
+    elixirSha256 = "1ik8bls9b60w3cagn77h21q2gl0b79swmxq20bxca8hmg72vz44l";
+    elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
+    erlangVersion = "28.2";
+    erlangSha256 = "128pmwgbjb138pkw78pklh7myzlbrlnkjl55vsrsj3p3k96i9lp7";
+    erlangInterpreter = "erlang_28";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "sha256-F67zKJu/ENAlKD7/D7NR7Kx7Lhe1G7kvfnmcvsnpMqM=";
+  };
+
   elixir_1_19_2_erlang_28_1_1 = mkElixirErlangShell {
     inherit system;
     inherit nixpkgs expert;
@@ -128,14 +141,14 @@ flake-utils.lib.eachDefaultSystemMap (system: {
   elixir_latest_erlang_latest = mkElixirErlangShell {
     inherit system;
     inherit nixpkgs expert;
-    elixirVersion = "1.18.3";
-    elixirSha256 = "03d2ha0ykrxwfzj1w7wvapc0w3nm1xchl1m9m7r287anh3wbazwc";
+    elixirVersion = "1.19.4";
+    elixirSha256 = "1ik8bls9b60w3cagn77h21q2gl0b79swmxq20bxca8hmg72vz44l";
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
-    erlangVersion = "27.3.2";
-    erlangSha256 = "0a4d19z3ccs1fa0597bzm803aqq2q6pqkgg4awqdsbp9dmrf89iz";
-    erlangInterpreter = "erlang_27";
+    erlangVersion = "28.2";
+    erlangSha256 = "128pmwgbjb138pkw78pklh7myzlbrlnkjl55vsrsj3p3k96i9lp7";
+    erlangInterpreter = "erlang_28";
     lexicalVersion = "v0.7.3";
-    lexicalSha256 = "sha256-p8XSJBX1igwC+ssEJGD8wb/ZYaEgLGozlY8N6spo3cA=";
+    lexicalSha256 = "sha256-F67zKJu/ENAlKD7/D7NR7Kx7Lhe1G7kvfnmcvsnpMqM=";
   };
 
   elixir_1_16_3_erlang_25_3_2_20 = mkElixirErlangShell {

@@ -329,6 +329,34 @@ flakifiy() {
   "${EDITOR:-vim}" flake.nix
 }
 
+function oom_rate() {
+  if [[ -z "$1" || "$1" == "--help" ]]; then
+    echo "Usage: oom_rate <log-group-name> [days]"
+    echo
+    echo "Calculate the rate of OutOfMemoryError events in AWS CloudWatch logs"
+    echo
+    echo "Arguments:"
+    echo "  log-group-name    AWS CloudWatch log group name (required)"
+    echo "  days              Number of days to analyze (default: 7)"
+    echo
+    echo "Example:"
+    echo "  oom_rate /aws/chatbot/ecs-alerts-channel 14"
+    return 1
+  fi
+
+  local log_group="$1"
+  local days=${2:-7}
+  local seconds=$((days * 86400))
+
+  aws logs filter-log-events \
+    --log-group-name "$log_group" \
+    --start-time $(($(date +%s) - $seconds))000 \
+    --filter-pattern "OutOfMemoryError" \
+    --region ${AWS_REGION:-us-east-1} | \
+  jq '.events | length' | \
+  awk -v d=$days '{printf "Last %d days: %d OOMs (%.2f per day)\n", d, $1, $1/d}'
+}
+
 source <(kubectl completion zsh)
 alias k=kubectl
 complete -F __start_kubectl k
