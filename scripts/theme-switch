@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+
+# Theme switcher for dotfiles
+# Usage: theme-switch [light|dark]
+
+set -e
+
+DOTFILES_DIR="$HOME/Repos/dot-files"
+THEME="${1:-}"
+
+show_help() {
+    echo "Theme switcher for dotfiles"
+    echo "Usage: $0 [light|dark|current]"
+    echo ""
+    echo "Commands:"
+    echo "  light   - Switch to light theme"
+    echo "  dark    - Switch to dark theme"
+    echo "  current - Show current theme"
+    echo "  help    - Show this help"
+}
+
+get_current_theme() {
+    if [[ -f "$DOTFILES_DIR/conf.d/terminal/kitty.conf" ]]; then
+        if grep -q "Tokyo Night Day" "$DOTFILES_DIR/conf.d/terminal/kitty.conf"; then
+            echo "light"
+        else
+            echo "dark"
+        fi
+    else
+        echo "unknown"
+    fi
+}
+
+switch_to_light() {
+    echo "🌞 Switching to light theme..."
+
+    # Switch Kitty theme
+    if [[ -f "$DOTFILES_DIR/conf.d/terminal/kitty.conf" ]]; then
+        # Save current config as dark if it's not already light
+        if ! grep -q "Tokyo Night Day" "$DOTFILES_DIR/conf.d/terminal/kitty.conf"; then
+            cp "$DOTFILES_DIR/conf.d/terminal/kitty.conf" "$DOTFILES_DIR/conf.d/terminal/kitty-dark.conf"
+        fi
+        # Apply light theme
+        if [[ -f "$DOTFILES_DIR/conf.d/terminal/kitty-light.conf" ]]; then
+            cp "$DOTFILES_DIR/conf.d/terminal/kitty-light.conf" "$DOTFILES_DIR/conf.d/terminal/kitty.conf"
+        fi
+    fi
+    
+    # Switch Neovim and lualine themes
+    echo "day" > "$HOME/.config/nvim-theme"
+
+    # Switch FZF theme
+    if [[ -f "$DOTFILES_DIR/modules/zsh/default.nix" ]]; then
+        sed -i '' 's/theme = "dark"/theme = "light"/g' "$DOTFILES_DIR/modules/zsh/default.nix"
+    fi
+    
+    # Switch bat theme (create temp config for immediate effect)
+    mkdir -p "$HOME/.config/bat"
+    # Remove symlink if it exists and create a regular file
+    if [[ -L "$HOME/.config/bat/config" ]]; then
+        rm "$HOME/.config/bat/config"
+    fi
+    echo "--theme=GitHub" > "$HOME/.config/bat/config"
+    
+    # Reload Kitty config if running in Kitty
+    if [[ "$TERM" == "xterm-kitty" ]]; then
+        kill -SIGUSR1 $(pgrep kitty) 2>/dev/null || echo "Note: Restart Kitty to see terminal changes"
+    fi
+    
+    echo "✅ Switched to light theme!"
+    echo "Note: Restart Neovim and run 'darwin-rebuild switch' for full effect"
+}
+
+switch_to_dark() {
+    echo "🌙 Switching to dark theme..."
+
+    # Switch Kitty theme
+    if [[ -f "$DOTFILES_DIR/conf.d/terminal/kitty.conf" ]]; then
+        # Save current config as light if it's not already dark
+        if grep -q "Tokyo Night Day" "$DOTFILES_DIR/conf.d/terminal/kitty.conf"; then
+            cp "$DOTFILES_DIR/conf.d/terminal/kitty.conf" "$DOTFILES_DIR/conf.d/terminal/kitty-light.conf"
+        fi
+        # Apply dark theme
+        if [[ -f "$DOTFILES_DIR/conf.d/terminal/kitty-dark.conf" ]]; then
+            cp "$DOTFILES_DIR/conf.d/terminal/kitty-dark.conf" "$DOTFILES_DIR/conf.d/terminal/kitty.conf"
+        fi
+    fi
+    
+    # Switch Neovim and lualine themes
+    echo "moon" > "$HOME/.config/nvim-theme"
+
+    # Switch FZF theme
+    if [[ -f "$DOTFILES_DIR/modules/zsh/default.nix" ]]; then
+        sed -i '' 's/theme = "light"/theme = "dark"/g' "$DOTFILES_DIR/modules/zsh/default.nix"
+    fi
+    
+    # Switch bat theme (create temp config for immediate effect)
+    mkdir -p "$HOME/.config/bat"
+    # Remove symlink if it exists and create a regular file
+    if [[ -L "$HOME/.config/bat/config" ]]; then
+        rm "$HOME/.config/bat/config"
+    fi
+    echo "--theme=TwoDark" > "$HOME/.config/bat/config"
+    
+    # Reload Kitty config if running in Kitty
+    if [[ "$TERM" == "xterm-kitty" ]]; then
+        kill -SIGUSR1 $(pgrep kitty) 2>/dev/null || echo "Note: Restart Kitty to see terminal changes"
+    fi
+    
+    echo "✅ Switched to dark theme!"
+    echo "Note: Restart Neovim and run 'darwin-rebuild switch' for full effect"
+}
+
+case "$THEME" in
+    "light")
+        switch_to_light
+        ;;
+    "dark")  
+        switch_to_dark
+        ;;
+    "current")
+        echo "Current theme: $(get_current_theme)"
+        ;;
+    "help"|"")
+        show_help
+        ;;
+    *)
+        echo "Error: Invalid theme '$THEME'"
+        show_help
+        exit 1
+        ;;
+esac

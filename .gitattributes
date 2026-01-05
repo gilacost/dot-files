@@ -1,0 +1,3 @@
+# Encrypt goals and thoughts directories with git-crypt
+goals/** filter=git-crypt diff=git-crypt
+thoughts/** filter=git-crypt diff=git-crypt
