@@ -10,11 +10,11 @@
 
 ## Running Totals
 
-**Last updated:** 2026-01-05
+**Last updated:** 2026-01-06
 
 ### Fitness
-- **Push-ups:** 170 / 27,000 (0.63%)
-- **Running:** 0 km / 1,000 km (0%)
+- **Push-ups:** 220 / 27,000 (0.81%)
+- **Running:** 1.4 km / 1,000 km (0.14%)
 
 ### Business
 - **Turnover:** €0 / €500,000 (0%)
