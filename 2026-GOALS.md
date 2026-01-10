@@ -10,11 +10,11 @@
 
 ## Running Totals
 
-**Last updated:** 2026-01-07
+**Last updated:** 2026-01-09
 
 ### Fitness
-- **Push-ups:** 270 / 27,000 (1.00%)
-- **Running:** 1.4 km / 1,000 km (0.14%)
+- **Push-ups:** 320 / 27,000 (1.19%)
+- **Running:** 2.4 km / 1,000 km (0.24%)
 
 ### Business
 - **Turnover:** €0 / €500,000 (0%)
@@ -33,7 +33,11 @@
 
 ### Business
 - [ ] €500,000 turnover
-- [ ] Perfect up-to-date accountancy/bookkeeping
+- [ ] Perfect up-to-date accountancy/bookkeeping:
+  - All entries current
+  - Salary documents attached
+  - Dividend vouchers filed
+  - Supporting documents organized
 - [ ] Beamops website: minimum 2 posts per month → 24 posts/year
 
 ### Investment
