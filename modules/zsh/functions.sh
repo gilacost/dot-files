@@ -220,22 +220,113 @@ function get_latest_release() {
     | jq -r '.tag_name'
 }
 
+###############
+# Git + Claude #
+###############
+
+# Claude-powered git search
+function gsearch() {
+  # Search git history with Claude's help
+  if [ -z "$1" ]; then
+    echo "Usage: gsearch 'what are you looking for?'"
+    echo "Example: gsearch 'when did we add authentication?'"
+    return 1
+  fi
+
+  echo "Searching git history with Claude..."
+  git log --all --oneline --decorate | claude "Search through this git history for: $1. Show relevant commits with explanations."
+}
+
+# Find when a function/feature was added
+function gwhen() {
+  if [ -z "$1" ]; then
+    echo "Usage: gwhen <function_name_or_code>"
+    echo "Example: gwhen 'processPayment'"
+    return 1
+  fi
+
+  echo "Finding when '$1' was introduced..."
+  git log -S "$1" --all --oneline --pretty=format:"%C(yellow)%h%Creset %Cgreen%ad%Creset %s" --date=short
+}
+
+# Who wrote this mess?
+function gblame-ai() {
+  if [ ! -f "$1" ]; then
+    echo "Usage: gblame-ai <file>"
+    return 1
+  fi
+
+  git blame "$1" | claude "Summarize who worked on this file and what sections they own. Group by author."
+}
+
+# Git stats with Claude insights
+function gstats() {
+  git log --all --pretty=format:"%an" | sort | uniq -c | sort -rn | claude "Analyze these git contributor stats and provide insights about team contributions."
+}
+
+# Show me what changed in the last N commits
+function grecent() {
+  local count=${1:-5}
+  git log -n "$count" --oneline --color=always | claude "Summarize these recent commits and highlight any important patterns or concerns."
+}
+
+# Quick reminder of available git+claude commands
+function ghelp() {
+  cat << 'EOF'
+Git + Claude Helper Commands
+=============================
+
+Commits & Branches:
+  gcai              Generate commit message and commit
+  gbai              Generate branch name and create branch
+  prdai [base]      Generate PR description
+
+History Search:
+  gsearch 'query'   Search git history with Claude
+  gwhen <code>      Find when code/function was added
+  grecent [N]       Summarize last N commits (default 5)
+  gblame-ai <file>  Summarize who owns what in a file
+  gstats            Team contribution insights
+
+Quick Claude:
+  c "prompt"        Claude on current directory
+  cg "prompt"       Claude with git diff context
+  cfix              Fix last failed command
+  cexp <file>       Explain file or concept
+
+Existing Tools:
+  glog_peco         Search commits interactively
+  gdiff_peco        Search commit diffs
+  glog_search       Search commits with query
+
+Daily:
+  ailog             Open today's AI workflow log
+
+Run 'ghelp' anytime to see this list!
+EOF
+}
+
 function gcai() {
-  # Check if there are staged changes (excluding lock files)
+  # Generate commit message with Claude
   if ! git diff --staged --quiet; then
-      # Generate commit message using OpenAI API via sc
-      COMMIT_MESSAGE=$(git diff --staged -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | sc --api openai "summarize changes as a commit message, make it short and descriptive, andproperly formatted")
-  
-      # Trim leading/trailing spaces
+      echo "Generating commit message with Claude..."
+      COMMIT_MESSAGE=$(git diff --staged -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | claude "Write a concise git commit message for these changes. Just the message, no explanations. Follow conventional commits format if appropriate.")
+
       COMMIT_MESSAGE=$(echo "$COMMIT_MESSAGE" | sed 's/^ *//;s/ *$//')
-  
-      # Ensure the commit message is not empty
+
       if [[ -n "$COMMIT_MESSAGE" ]]; then
-          git commit -m "$COMMIT_MESSAGE"
-          echo "Committed with message: $COMMIT_MESSAGE"
+          echo "Commit message: $COMMIT_MESSAGE"
+          read "?Commit with this message? (y/n) " -n 1 -r
+          echo
+          if [[ $REPLY =~ ^[Yy]$ ]]; then
+              git commit -m "$COMMIT_MESSAGE"
+              echo "✓ Committed"
+          else
+              echo "Cancelled"
+          fi
       else
           echo "Error: Generated commit message is empty."
-          exit 1
+          return 1
       fi
   else
       echo "No staged changes to commit (or only lock files were changed)."
@@ -243,21 +334,26 @@ function gcai() {
 }
 
 function gbai() {
-  # Check if there are staged changes
+  # Generate branch name with Claude
   if ! git diff --staged --quiet; then
-      # Generate branch name using OpenAI API via sc
-      BRANCH_NAME=$(git diff --staged | sc --api openai "summarize changes as a short and descriptive branch name, use-kebab-case")
-  
-      # Trim leading/trailing spaces and replace spaces with dashes
-      BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^ *//;s/ *$//' | tr ' ' '-')
-  
-      # Ensure the branch name is not empty
+      echo "Generating branch name with Claude..."
+      BRANCH_NAME=$(git diff --staged | claude "Generate a short, descriptive git branch name for these changes. Use kebab-case. Just the branch name, nothing else.")
+
+      BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^ *//;s/ *$//' | tr ' ' '-' | tr -cd '[:alnum:]-')
+
       if [[ -n "$BRANCH_NAME" ]]; then
-          git checkout -b "$BRANCH_NAME"
-          echo "Switched to new branch: $BRANCH_NAME"
+          echo "Branch name: $BRANCH_NAME"
+          read "?Create this branch? (y/n) " -n 1 -r
+          echo
+          if [[ $REPLY =~ ^[Yy]$ ]]; then
+              git checkout -b "$BRANCH_NAME"
+              echo "✓ Switched to new branch: $BRANCH_NAME"
+          else
+              echo "Cancelled"
+          fi
       else
           echo "Error: Generated branch name is empty."
-          exit 1
+          return 1
       fi
   else
       echo "No staged changes to create a branch."
@@ -265,39 +361,36 @@ function gbai() {
 }
 
 function prdai() {
-  # Define the base branch (default to 'main' or set it as an argument)
+  # Generate PR description with Claude
   BASE_BRANCH=${1:-main}
-  
-  # Get the current branch
   CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  
-  # Ensure we're not on the base branch
+
   if [ "$CURRENT_BRANCH" = "$BASE_BRANCH" ]; then
-      echo "You are on the $BASE_BRANCH branch. Switch to a feature branch before generating a PR description."
-      exit 1
+      echo "You are on the $BASE_BRANCH branch. Switch to a feature branch first."
+      return 1
   fi
-  
-  # Ensure the base branch exists locally; fetch if necessary
+
   if ! git show-ref --quiet "refs/heads/$BASE_BRANCH"; then
       echo "Base branch $BASE_BRANCH not found locally. Fetching..."
       git fetch origin "$BASE_BRANCH:$BASE_BRANCH"
   fi
-  
-  # Generate the PR description by comparing the current branch to the base branch
-  PR_DESCRIPTION=$(git diff "$BASE_BRANCH"..."$CURRENT_BRANCH" -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | sc --api openai "summarize changes in a detailed pull request description")
-  
-  # Trim leading/trailing spaces
+
+  echo "Generating PR description with Claude..."
+  PR_DESCRIPTION=$(git diff "$BASE_BRANCH"..."$CURRENT_BRANCH" -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | claude "Write a detailed PR description for these changes. Include: ## Summary (what changed), ## Why (motivation), ## Changes (bullet points), ## Testing (how to verify). Use markdown format.")
+
   PR_DESCRIPTION=$(echo "$PR_DESCRIPTION" | sed 's/^ *//;s/ *$//')
-  
-  # Ensure the PR description is not empty
+
   if [[ -n "$PR_DESCRIPTION" ]]; then
+      echo ""
       echo "Generated PR Description:"
-      echo "--------------------------------------"
+      echo "======================================"
       echo "$PR_DESCRIPTION"
-      echo "--------------------------------------"
+      echo "======================================"
+      echo ""
+      echo "Copy this for your PR, or pipe to: gh pr create --body-file -"
   else
       echo "Error: Generated PR description is empty."
-      exit 1
+      return 1
   fi
 }
 
@@ -356,6 +449,86 @@ function oom_rate() {
   jq '.events | length' | \
   awk -v d=$days '{printf "Last %d days: %d OOMs (%.2f per day)\n", d, $1, $1/d}'
 }
+
+###############
+# Claude Code #
+###############
+
+# Quick Claude on current directory
+function c() {
+  claude "$@"
+}
+
+# Claude with context from git diff
+function cg() {
+  if git diff --quiet; then
+    echo "No git changes to provide as context"
+    return 1
+  fi
+  git diff | claude "$@"
+}
+
+# Claude fix - for when tests fail
+function cfix() {
+  local last_cmd="${history[$((HISTCMD-1))]}"
+  echo "Last command: $last_cmd"
+  claude "The command '$last_cmd' failed. Fix it: $@"
+}
+
+# Claude explain - quick explanation
+function cexp() {
+  if [ -f "$1" ]; then
+    claude "Explain this file briefly" < "$1"
+  else
+    claude "Explain: $@"
+  fi
+}
+
+# Daily AI workflow log
+function ailog() {
+  local log_dir="$HOME/Repos/dot-files/.claude/logs"
+  local today=$(date +%Y-%m-%d)
+  local log_file="$log_dir/$today.md"
+
+  # Create logs directory if it doesn't exist
+  mkdir -p "$log_dir"
+
+  # Create today's log from template if it doesn't exist
+  if [ ! -f "$log_file" ]; then
+    sed "s/\[DATE\]/$today/g" "$HOME/Repos/dot-files/.claude/ai-workflow-log-template.md" > "$log_file"
+    echo "Created today's AI workflow log"
+  fi
+
+  # Open in editor
+  ${EDITOR:-nvim} "$log_file"
+}
+
+# Show ghelp reminder occasionally (once per day)
+function _show_git_reminder() {
+  local reminder_file="$HOME/.cache/git-reminder-shown"
+  local today=$(date +%Y-%m-%d)
+
+  # Create cache dir if needed
+  mkdir -p "$HOME/.cache"
+
+  # Show reminder if not shown today
+  if [ ! -f "$reminder_file" ] || [ "$(cat $reminder_file 2>/dev/null)" != "$today" ]; then
+    echo "$today" > "$reminder_file"
+    echo ""
+    echo "💡 Tip: Type 'ghelp' to see all git+Claude helper commands"
+    echo ""
+  fi
+}
+
+# Show reminder when entering git repos
+function _git_dir_reminder() {
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    _show_git_reminder
+  fi
+}
+
+# Hook into directory changes (if using zoxide/jump)
+chpwd_functions+=(_git_dir_reminder)
 
 source <(kubectl completion zsh)
 alias k=kubectl
