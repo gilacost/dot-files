@@ -318,6 +318,7 @@
     ];
 
     casks = [
+      "crossover"
       "insta360-studio"
       "cyberduck"
       "claude"
