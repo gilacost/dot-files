@@ -503,6 +503,143 @@ function ailog() {
   ${EDITOR:-nvim} "$log_file"
 }
 
+#####################
+# AI Pair Workflow  #
+#####################
+
+# Quick AI session (save everything, run Claude, reopen)
+function ai() {
+  # Check if in git repo
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "⚠️  Not in a git repository - running without safety commits"
+    if [ -z "$1" ]; then
+      claude
+    else
+      claude "$@"
+    fi
+    return
+  fi
+
+  # Safety commit
+  echo "💾 Creating safety commit..."
+  git add -A
+  if git commit -m "WIP: before AI session [$(date +%H:%M)]" --no-verify 2>/dev/null; then
+    echo "✓ Safety commit created"
+  else
+    echo "ℹ️  No changes to commit"
+  fi
+
+  # Run Claude
+  echo "🤖 Starting Claude session..."
+  echo ""
+  if [ -z "$1" ]; then
+    claude
+  else
+    claude "$@"
+  fi
+
+  # Show what changed
+  echo ""
+  echo "=== Changes from AI session ==="
+  git diff HEAD~1 --stat 2>/dev/null || echo "No changes"
+  echo ""
+  echo "📋 Commands:"
+  echo "  git diff HEAD~1  - Review all changes"
+  echo "  ai-accept        - Accept with proper commit message"
+  echo "  ai-undo          - Undo all AI changes"
+}
+
+# AI session with specific files as context
+function aif() {
+  if [ -z "$1" ]; then
+    echo "Usage: aif <files...> -- <prompt>"
+    echo "Example: aif src/app.js src/utils.js -- 'refactor to use async/await'"
+    return 1
+  fi
+
+  # Parse files and prompt
+  local files=()
+  local prompt=""
+  local found_separator=false
+
+  for arg in "$@"; do
+    if [ "$arg" = "--" ]; then
+      found_separator=true
+    elif [ "$found_separator" = true ]; then
+      prompt="$prompt $arg"
+    else
+      files+=("$arg")
+    fi
+  done
+
+  if [ ${#files[@]} -eq 0 ]; then
+    echo "Error: No files specified"
+    return 1
+  fi
+
+  # Safety commit
+  git add -A
+  git commit -m "WIP: before AI session on ${files[*]}" --no-verify 2>/dev/null
+
+  # Run Claude with files
+  claude "$prompt" "${files[@]}"
+
+  # Show changes
+  git diff HEAD~1 --stat
+}
+
+# Undo last AI session
+function ai-undo() {
+  local last_commit=$(git log -1 --format=%s 2>/dev/null)
+  if [[ "$last_commit" =~ ^WIP:.*AI\ session ]]; then
+    echo "↩️  Undoing AI session: $last_commit"
+    git reset HEAD~1
+    echo "✓ AI session undone"
+  else
+    echo "⚠️  No AI session to undo (last commit wasn't a WIP AI session)"
+    echo "Last commit was: $last_commit"
+  fi
+}
+
+# Accept AI changes (cleanup commit message)
+function ai-accept() {
+  local last_commit=$(git log -1 --format=%s 2>/dev/null)
+  if [[ "$last_commit" =~ ^WIP:.*AI\ session ]]; then
+    echo "✍️  What did the AI do? (commit message):"
+    read -r message
+    if [ -n "$message" ]; then
+      git commit --amend -m "$message" --no-verify
+      echo "✓ AI changes accepted with message: $message"
+    else
+      echo "⚠️  Empty message, keeping WIP commit"
+    fi
+  else
+    echo "⚠️  No AI session to accept"
+  fi
+}
+
+# AI session status
+function ai-status() {
+  local last_commit=$(git log -1 --format=%s 2>/dev/null)
+
+  if [[ "$last_commit" =~ ^WIP:.*AI\ session ]]; then
+    echo "📌 Currently in AI session"
+    echo ""
+    echo "Last commit: $last_commit"
+    echo ""
+    echo "Changes:"
+    git diff HEAD~1 --stat
+    echo ""
+    echo "Commands:"
+    echo "  ai-accept  - Accept changes and write proper commit message"
+    echo "  ai-undo    - Undo AI changes completely"
+    echo "  git diff HEAD~1  - Review all changes"
+  else
+    echo "✓ Not in AI session"
+    echo "Last commit: $last_commit"
+  fi
+}
+
 # Show ghelp reminder occasionally (once per day)
 function _show_git_reminder() {
   local reminder_file="$HOME/.cache/git-reminder-shown"
