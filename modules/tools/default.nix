@@ -144,6 +144,7 @@ in
     cargo-edit
     rustc
     go
+    sentry-cli
     rebar3
     elixir
     erlang
