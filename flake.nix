@@ -13,10 +13,6 @@
     nur.url = "github:nix-community/NUR";
     devenv.url = "github:cachix/devenv/latest";
     devenv.inputs.nixpkgs.follows = "nixpkgs";
-    claude-code = {
-      url = "github:anthropics/claude-code";
-      flake = false;
-    };
     expert = {
       url = "github:elixir-lang/expert";
     };
@@ -61,7 +57,6 @@
                 home-manager.users.pepo = import ./home.nix;
                 home-manager.extraSpecialArgs = {
                   inherit devenv system inputs;
-                  claudeCodeSrc = inputs.claude-code;
                 };
               }
             ];

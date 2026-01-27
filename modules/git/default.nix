@@ -9,41 +9,44 @@ in
 {
   #TODO review lazygit
   programs.lazygit.enable = true;
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      syntax-theme = "Monokai Extended Bright";
+      features = "side-by-side line-numbers decorations";
+      whitespace-error-style = "22 reverse";
+      decorations = {
+        commit-decoration-style = "bold yellow box";
+        file-style = "bold yellow ul";
+        file-decoration-style = "none";
+        hunk-header-decoration-style = "bold yellow box";
+        hunk-header-style = "bold yellow ul";
+        plus-style = "#7aa2f7";
+        minus-style = "#f7768e";
+        minus-emph-style = "#bb9af7";
+        plus-emph-style = "#9ece6a";
+        commit-style = "bold magenta";
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
 
-    delta = {
-      enable = true;
-      options = {
-        syntax-theme = "Monokai Extended Bright";
-        features = "side-by-side line-numbers decorations";
-        whitespace-error-style = "22 reverse";
-        decorations = {
-          commit-decoration-style = "bold yellow box";
-          file-style = "bold yellow ul";
-          file-decoration-style = "none";
-          hunk-header-decoration-style = "bold yellow box";
-          hunk-header-style = "bold yellow ul";
-          plus-style = "#7aa2f7";
-          minus-style = "#f7768e";
-          minus-emph-style = "#bb9af7";
-          plus-emph-style = "#9ece6a";
-          commit-style = "bold magenta";
-        };
-      };
-    };
-
     lfs.enable = true;
-
-    userEmail = gitconfig.userEmail;
-    userName = gitconfig.userName;
 
     signing = {
       key = gitconfig.gpgKey;
       signByDefault = true;
     };
 
-    extraConfig = {
+    settings = {
+      user = {
+        email = gitconfig.userEmail;
+        name = gitconfig.userName;
+      };
       "difftool \"nvr\"" = {
         cmd = "nvr -s -d $LOCAL $REMOTE";
       };
