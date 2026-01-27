@@ -143,7 +143,6 @@
       [
         # mcphub-nvim
         plenary-nvim
-        nvim-treesitter
         dressing-nvim
         nui-nvim
         # avante-nvim
@@ -176,8 +175,8 @@
         # Programming
         emmet-vim
         nvim-treesitter
-        nvim-treesitter-refactor
-        nvim-treesitter-textobjects
+        # nvim-treesitter-refactor
+        # nvim-treesitter-textobjects
         vim-vsnip
         vim-vsnip-integ
         vim-jsonnet
