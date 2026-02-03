@@ -103,25 +103,42 @@ The `install.sh` script performs the following actions:
 
 You can easily access remote development shells defined in this flake. Here's how:
 
-### Quick Setup with Utility Script
+### Quick Setup with Shell Functions
 
-The easiest way to set up a development shell is using the provided utility script:
+The easiest way to set up a development shell is using the shell functions available from anywhere:
 
 ```bash
-# List all available shells
-./utilities/set_dev_shell.sh --list
+# List all available shells (run from ANY directory)
+set-dev-shell --list
 
-# Get and set the latest Elixir shell
-./utilities/set_dev_shell.sh --latest elixir
+# Get and set the latest Elixir shell (run from YOUR PROJECT directory)
+cd ~/my-elixir-project
+set-dev-shell --latest elixir
 
 # Get and set the latest Terraform shell
-./utilities/set_dev_shell.sh --latest terraform
+cd ~/my-terraform-project
+set-dev-shell --latest terraform
 
 # Set a specific shell directly
-./utilities/set_dev_shell.sh elixir_1_18_1_erlang_27_2
+cd ~/my-project
+set-dev-shell elixir_1_18_1_erlang_27_2
 ```
 
-The script will create a `.envrc` file with the appropriate `use flake` directive and offer to use either a local path or GitHub reference.
+The function will create a `.envrc` file in your current directory with the appropriate `use flake` directive and offer to use either a local path or GitHub reference.
+
+**Note**: These functions are available globally after the dotfiles are installed, so you can run them from any project directory!
+
+### Direct Script Usage
+
+If you prefer to call the scripts directly (e.g., from CI or other contexts):
+
+```bash
+# From the dotfiles directory
+~/Repos/dot-files/utilities/set_dev_shell.sh --list
+
+# Or with full path from anywhere
+~/Repos/dot-files/utilities/set_dev_shell.sh --latest elixir
+```
 
 ### Manual Setup
 
@@ -146,13 +163,19 @@ Now, your shell environment will automatically load the specified development sh
 
 ### Checking for Updates
 
-To check the current versions of all development shells:
+To check the current versions of all development shells (run from any directory):
 
 ```bash
-./utilities/check_shell_versions.sh
+check-shell-versions
 ```
 
-This script will display:
+Or call the script directly:
+
+```bash
+~/Repos/dot-files/utilities/check_shell_versions.sh
+```
+
+This will display:
 - Current latest versions for Elixir, Terraform, Redis, and OpenTofu
 - All available dev shells
 - Suggestions for adding new versions

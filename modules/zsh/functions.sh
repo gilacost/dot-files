@@ -667,6 +667,35 @@ function _git_dir_reminder() {
 # Hook into directory changes (if using zoxide/jump)
 chpwd_functions+=(_git_dir_reminder)
 
+#####################
+# Dev Shell Helpers #
+#####################
+
+# Get the dotfiles directory path
+function _dotfiles_path() {
+  echo "$HOME/Repos/dot-files"
+}
+
+# Set up a dev shell in the current project directory
+function set-dev-shell() {
+  local dotfiles_path=$(_dotfiles_path)
+  if [ ! -f "$dotfiles_path/utilities/set_dev_shell.sh" ]; then
+    echo "Error: Could not find dotfiles at $dotfiles_path"
+    return 1
+  fi
+  "$dotfiles_path/utilities/set_dev_shell.sh" "$@"
+}
+
+# Check versions of available dev shells
+function check-shell-versions() {
+  local dotfiles_path=$(_dotfiles_path)
+  if [ ! -f "$dotfiles_path/utilities/check_shell_versions.sh" ]; then
+    echo "Error: Could not find dotfiles at $dotfiles_path"
+    return 1
+  fi
+  "$dotfiles_path/utilities/check_shell_versions.sh" "$@"
+}
+
 source <(kubectl completion zsh)
 alias k=kubectl
 complete -F __start_kubectl k
