@@ -1,7 +1,7 @@
 vim.lsp.set_log_level 'trace'
 -- TREESITTER
 -- Using pre-built grammars from Nix, no need for parser_install_dir or auto_install
-require'nvim-treesitter.config'.setup {
+require'nvim-treesitter.configs'.setup {
   highlight = {
     -- disable = { "markdown", "inline_markdown", "php", "javascript" },
     enable = true,

@@ -30,23 +30,21 @@ jobs:
           # If you chose API tokens for write access OR if you have a private cache
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
-      - name: Run Flake Checks and replace darwinConfiguration with hostname
+      - name: Run Flake Checks for aarch64-darwin
         run: |
-          # GITHUB RUNNERS use a local TLD which needs to be removed
-          # also it's is not possible to build with M1/M2 aarch64-darwin
-          # so this step is not the most useful if you develop
-          # on LATEST MACHINES :joy:
-          cat flake.nix  | sed "s/buque/$(hostname | sed 's/.local//g')/g" | sed "s/aarch64-darwin/x86_64-darwin/g" > flake.nix2
-          rm -f flake.nix
-          mv flake.nix2 flake.nix
-          nix flake check -v --show-trace
-          cat flake.nix
+          # GitHub Actions now supports M1/M2 runners natively!
+          # Build for aarch64 so binaries can be reused locally via Cachix
+          nix flake check -v --show-trace --system aarch64-darwin
         timeout-minutes: 240
 
-      - name: Run build
+      - name: Build system configuration
         run: |
-          cachix use pepo
-          nix build "./#darwinConfigurations.$(hostname | sed -E 's/\.local//g').system"
+          # Build the buque configuration for aarch64-darwin
+          # This will be cached to Cachix and reusable locally
+          nix build "./#darwinConfigurations.buque.system" --verbose
+
+          # Push all build outputs to Cachix
+          nix path-info --all --json | jq -r 'keys[]' | cachix push pepo
           # error: Directory /run does not exist, aborting activation
           # Create a symlink to /var/run with:
           # $ printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf
