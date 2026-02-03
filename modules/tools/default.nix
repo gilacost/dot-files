@@ -1,8 +1,6 @@
 {
   pkgs,
   lib,
-  writeShellScriptBin,
-  nodejs,
   ...
 }:
 let
@@ -11,7 +9,7 @@ let
     nodejs
     ;
   claudeCode = pkgs.writeShellScriptBin "claude" ''
-    # Set up npm global prefix to avoid permission issues
+    # Set up npm global prefix to avoid permission issues  
     export NPM_CONFIG_PREFIX="$HOME/.npm-global"
     export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
 
@@ -21,21 +19,16 @@ let
     # Check if claude is installed and working
     if ! "$NPM_CONFIG_PREFIX/bin/claude" --version &> /dev/null; then
       echo "Installing @anthropic-ai/claude-code..."
-
-      # Clean up any corrupted installations first
-      rm -rf "$NPM_CONFIG_PREFIX/lib/node_modules/@anthropic-ai/claude-code"
-      rm -rf "$NPM_CONFIG_PREFIX/lib/node_modules/@anthropic-ai/.claude-code-"*
-
       ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code
-
+      
       # Verify installation
       if ! "$NPM_CONFIG_PREFIX/bin/claude" --version &> /dev/null; then
         echo "Installation failed or claude binary not found at expected location."
         echo "Trying to find claude binary..."
-
+        
         # Try to find where npm actually installed it
         CLAUDE_PATH=$(find "$NPM_CONFIG_PREFIX" -name "claude" -type f -executable 2>/dev/null | head -1)
-
+        
         if [ -n "$CLAUDE_PATH" ]; then
           echo "Found claude at: $CLAUDE_PATH"
           exec "$CLAUDE_PATH" "$@"
@@ -104,7 +97,7 @@ in
     hclfmt
     erlang-language-platform
     tailwindcss-language-server
-    dockerfile-language-server
+    nodePackages.dockerfile-language-server-nodejs
     nodePackages.vim-language-server
     nodePackages.bash-language-server
     nodePackages.yaml-language-server
@@ -113,7 +106,7 @@ in
     rust-analyzer
     rustfmt
     hadolint
-    nixfmt
+    nixfmt-rfc-style
     tflint
     nodePackages.prettier
     erlfmt
@@ -150,14 +143,16 @@ in
     rustc
     go
     sentry-cli
+    python313Packages.diagrams
+    python313Packages.graphviz
+    d2
     rebar3
     elixir
     erlang
     (gleam.overrideAttrs (old: {
-      doCheck = false;  # Skip tests on x86_64-darwin (CI)
+      doCheck = false; # Skip tests on x86_64-darwin (CI)
     }))
     cachix
-    nodejs
     nodePackages.npm
     yarn
     tesseract

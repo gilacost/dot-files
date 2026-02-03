@@ -174,7 +174,7 @@
 
         # Programming
         emmet-vim
-        nvim-treesitter
+        (nvim-treesitter.withAllGrammars)
         # nvim-treesitter-refactor
         # nvim-treesitter-textobjects
         vim-vsnip

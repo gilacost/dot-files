@@ -145,11 +145,7 @@ The repository supports multiple development shells defined in `dev_shells/defau
 
 - Configure right-click functionality on the Magic Mouse.
 - Configure any custom `.zshrc_local` settings as needed.
-- Install Tree-sitter modules in Neovim:
-  ```bash
-  nvim
-  :TSInstall all
-  ```
+- Tree-sitter grammars are pre-installed via Nix (using `nvim-treesitter.withAllGrammars`)
 
 ---
 
