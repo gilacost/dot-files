@@ -50,7 +50,7 @@ in
     nixos-generators
     cf-terraforming
     kas
-    ssm-session-manager-plugin
+    # ssm-session-manager-plugin # Temporarily disabled due to Go vendoring issue
     neovim-remote
     tree-sitter
     p7zip
