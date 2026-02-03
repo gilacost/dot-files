@@ -53,14 +53,11 @@ pkgs.mkShell {
         inotify-tools
         libnotify
       ];
-      darwinPackages = lib.optionals (stdenv.isDarwin) (
-        with darwin.apple_sdk.frameworks;
-        [
-          terminal-notifier
-          CoreFoundation
-          CoreServices
-        ]
-      );
+      darwinPackages = lib.optionals (stdenv.isDarwin) [
+        terminal-notifier
+        darwin.apple_sdk.frameworks.CoreFoundation
+        darwin.apple_sdk.frameworks.CoreServices
+      ];
     in
     builtins.concatLists [
       [
