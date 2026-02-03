@@ -672,8 +672,9 @@ chpwd_functions+=(_git_dir_reminder)
 #####################
 
 # Get the dotfiles directory path
+# Can be overridden with DOTFILES_PATH environment variable
 function _dotfiles_path() {
-  echo "$HOME/Repos/dot-files"
+  echo "${DOTFILES_PATH:-$HOME/Repos/dot-files}"
 }
 
 # Set up a dev shell in the current project directory
@@ -681,6 +682,7 @@ function set-dev-shell() {
   local dotfiles_path=$(_dotfiles_path)
   if [ ! -f "$dotfiles_path/utilities/set_dev_shell.sh" ]; then
     echo "Error: Could not find dotfiles at $dotfiles_path"
+    echo "Set DOTFILES_PATH environment variable to your dotfiles location"
     return 1
   fi
   "$dotfiles_path/utilities/set_dev_shell.sh" "$@"
@@ -691,6 +693,7 @@ function check-shell-versions() {
   local dotfiles_path=$(_dotfiles_path)
   if [ ! -f "$dotfiles_path/utilities/check_shell_versions.sh" ]; then
     echo "Error: Could not find dotfiles at $dotfiles_path"
+    echo "Set DOTFILES_PATH environment variable to your dotfiles location"
     return 1
   fi
   "$dotfiles_path/utilities/check_shell_versions.sh" "$@"

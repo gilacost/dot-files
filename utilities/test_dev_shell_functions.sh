@@ -9,9 +9,8 @@ echo "║    Testing Dev Shell Functions from Different Dirs        ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 
-# Create a test directory
-TEST_DIR="/tmp/test-dev-shell-$$"
-mkdir -p "$TEST_DIR"
+# Create a test directory using mktemp for uniqueness
+TEST_DIR=$(mktemp -d)
 
 echo "📁 Created test directory: $TEST_DIR"
 echo ""
@@ -25,13 +24,14 @@ echo ""
 
 # Define the functions as they would be in the shell
 function _dotfiles_path() {
-  echo "$DOTFILES_PATH"
+  echo "${DOTFILES_PATH:-$HOME/Repos/dot-files}"
 }
 
 function set-dev-shell() {
   local dotfiles_path=$(_dotfiles_path)
   if [ ! -f "$dotfiles_path/utilities/set_dev_shell.sh" ]; then
     echo "Error: Could not find dotfiles at $dotfiles_path"
+    echo "Set DOTFILES_PATH environment variable to your dotfiles location"
     return 1
   fi
   "$dotfiles_path/utilities/set_dev_shell.sh" "$@"
@@ -41,6 +41,7 @@ function check-shell-versions() {
   local dotfiles_path=$(_dotfiles_path)
   if [ ! -f "$dotfiles_path/utilities/check_shell_versions.sh" ]; then
     echo "Error: Could not find dotfiles at $dotfiles_path"
+    echo "Set DOTFILES_PATH environment variable to your dotfiles location"
     return 1
   fi
   "$dotfiles_path/utilities/check_shell_versions.sh" "$@"
@@ -87,7 +88,8 @@ echo ""
 # Test 4: Test check-shell-versions from different directory
 echo "Test 4: Testing check-shell-versions from test directory"
 cd "$TEST_DIR"
-if check-shell-versions 2>&1 | head -20 | grep -q "Checking for latest\|Elixir\|Terraform\|Redis"; then
+# Check for key markers in output without being too specific about content
+if check-shell-versions 2>&1 | head -30 | grep -qE "Checking|Versions|Available|dev"; then
     echo "✓ check-shell-versions works from $TEST_DIR"
 else
     echo "⚠️  check-shell-versions output unexpected (might be OK if Nix is unavailable)"

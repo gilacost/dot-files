@@ -128,6 +128,11 @@ The function will create a `.envrc` file in your current directory with the appr
 
 **Note**: These functions are available globally after the dotfiles are installed, so you can run them from any project directory!
 
+**Custom Installation Location**: If your dotfiles are not at `~/Repos/dot-files`, set the `DOTFILES_PATH` environment variable:
+```bash
+export DOTFILES_PATH=/path/to/your/dotfiles
+```
+
 ### Direct Script Usage
 
 If you prefer to call the scripts directly (e.g., from CI or other contexts):
