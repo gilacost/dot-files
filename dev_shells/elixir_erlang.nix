@@ -57,8 +57,7 @@ pkgs.mkShell {
       ];
       darwinPackages = lib.optionals (stdenv.isDarwin) [
         terminal-notifier
-        darwin.apple_sdk_12_3.frameworks.CoreFoundation
-        darwin.apple_sdk_12_3.frameworks.CoreServices
+        # CoreFoundation and CoreServices are provided by stdenv on Darwin
       ];
     in
     builtins.concatLists [
