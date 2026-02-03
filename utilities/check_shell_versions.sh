@@ -8,6 +8,17 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# Detect system architecture for dev shells
+get_system_arch() {
+    case "$(uname -m)" in
+        arm64|aarch64) echo "aarch64-darwin" ;;
+        x86_64) echo "x86_64-darwin" ;;
+        *) echo "x86_64-darwin" ;;  # Default fallback
+    esac
+}
+
+SYSTEM_ARCH=$(get_system_arch)
+
 echo "🔍 Checking for latest versions of development tools..."
 echo ""
 
@@ -65,8 +76,8 @@ list_all_shells() {
     echo "📋 All Available Dev Shells"
     cd "$DOTFILES_ROOT"
     nix flake show --json 2>/dev/null | jq -r '
-        .devShells."x86_64-darwin" // .devShells."aarch64-darwin" | 
-        keys[] | 
+        .devShells."'"$SYSTEM_ARCH"'" |
+        keys[] |
         select(. != "default")
     ' | sort -V || echo "Could not list shells (nix not available?)"
     echo ""

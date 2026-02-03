@@ -11,13 +11,24 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# Detect system architecture for dev shells
+get_system_arch() {
+    case "$(uname -m)" in
+        arm64|aarch64) echo "aarch64-darwin" ;;
+        x86_64) echo "x86_64-darwin" ;;
+        *) echo "x86_64-darwin" ;;  # Default fallback
+    esac
+}
+
+SYSTEM_ARCH=$(get_system_arch)
+
 # Function to list available dev shells
 list_shells() {
     echo "🔍 Available dev shells:"
     cd "$DOTFILES_ROOT"
     nix flake show --json 2>/dev/null | jq -r '
-        .devShells."x86_64-darwin" // .devShells."aarch64-darwin" | 
-        keys[] | 
+        .devShells."'"$SYSTEM_ARCH"'" |
+        keys[] |
         select(. != "default")
     ' | sort || {
         echo "Error: Could not retrieve dev shells. Make sure you're in the dotfiles directory."
@@ -29,19 +40,19 @@ list_shells() {
 get_latest_shell() {
     local shell_type="$1"
     cd "$DOTFILES_ROOT"
-    
+
     # Get all shells matching the type and sort to get the latest
     local latest=$(nix flake show --json 2>/dev/null | jq -r '
-        .devShells."x86_64-darwin" // .devShells."aarch64-darwin" | 
-        keys[] | 
+        .devShells."'"$SYSTEM_ARCH"'" |
+        keys[] |
         select(startswith("'$shell_type'"))
     ' | sort -V | tail -1)
-    
+
     if [ -z "$latest" ]; then
         echo "Error: No shells found matching '$shell_type'"
         exit 1
     fi
-    
+
     echo "$latest"
 }
 
@@ -49,15 +60,15 @@ get_latest_shell() {
 write_envrc() {
     local shell_name="$1"
     local use_local="${2:-false}"
-    
+
     # Verify the shell exists
     cd "$DOTFILES_ROOT"
-    if ! nix flake show --json 2>/dev/null | jq -e '.devShells."x86_64-darwin"."'$shell_name'" // .devShells."aarch64-darwin"."'$shell_name'"' > /dev/null; then
+    if ! nix flake show --json 2>/dev/null | jq -e '.devShells."'"$SYSTEM_ARCH"'"."'$shell_name'"' > /dev/null; then
         echo "Error: Shell '$shell_name' not found"
         echo "Run with --list to see available shells"
         exit 1
     fi
-    
+
     # Determine the flake reference
     local flake_ref
     if [ "$use_local" = "true" ]; then
@@ -65,15 +76,15 @@ write_envrc() {
     else
         flake_ref="github:gilacost/dot-files#$shell_name"
     fi
-    
+
     # Create or update .envrc
     if [ -f ".envrc" ]; then
         echo "⚠️  .envrc already exists. Creating backup as .envrc.backup"
         cp .envrc .envrc.backup
     fi
-    
+
     echo "use flake $flake_ref" > .envrc
-    
+
     echo "✅ Created .envrc with: use flake $flake_ref"
     echo ""
     echo "Next steps:"
