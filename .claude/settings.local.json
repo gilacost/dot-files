@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nix-prefetch-url:*)",
+      "Bash(nix-prefetch-git:*)",
+      "Bash(./utilities/rebuild_nix:*)",
+      "Bash(nix flake check:*)",
+      "Bash(nix flake update:*)",
+      "Bash(nix build:*)",
+      "Bash(darwin-rebuild:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(gh pr:*)",
+      "Bash(gh run:*)",
+      "Bash(gh issue:*)",
+      "Bash(cachix:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

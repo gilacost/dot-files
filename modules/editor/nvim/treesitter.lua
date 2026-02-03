@@ -1,11 +1,8 @@
 vim.lsp.set_log_level 'trace'
-local parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"
-vim.fn.mkdir(parser_install_dir, "p")
 -- TREESITTER
+-- Using pre-built grammars from Nix, no need for parser_install_dir or auto_install
 require'nvim-treesitter.configs'.setup {
-  sync_install = true,
   highlight = {
-
     -- disable = { "markdown", "inline_markdown", "php", "javascript" },
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -25,12 +22,10 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   },
 
-  parser_install_dir = parser_install_dir,
-
-  auto_install = true,
+  -- Using pre-built grammars from Nix
+  auto_install = false,
+  sync_install = false,
 }
-
-vim.opt.runtimepath:append(parser_install_dir)
 
 -- require("virt-column").setup({
 --   virtcolumn = "80,100"
