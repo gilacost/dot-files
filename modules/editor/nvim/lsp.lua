@@ -100,6 +100,29 @@ lsp.vimls.setup {}
 
 lsp.bashls.setup {}
 
+lsp.lua_ls.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = {
+          vim.env.VIMRUNTIME,
+          "${3rd}/luv/library"
+        },
+        checkThirdParty = false,
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
 lsp.pyright.setup {}
 
 lsp.rust_analyzer.setup {}
