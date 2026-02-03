@@ -4,7 +4,9 @@ inputs:
 let
   overlays = [
     (self: super: rec {
-      erlang = super.beam.interpreters.${inputs.erlangInterpreter};
+      # Use default erlang from nixpkgs instead of specific version
+      # to avoid apple_sdk_11_0 compatibility issues in CI
+      erlang = super.beam.interpreters.erlang;
 
       elixir = (super.beam.packagesWith erlang).elixir;
 
