@@ -6,7 +6,6 @@
 let
   inherit (pkgs)
     writeShellScriptBin
-    nodejs
     ;
   claudeCode = pkgs.writeShellScriptBin "claude" ''
     # Set up npm global prefix to avoid permission issues  
