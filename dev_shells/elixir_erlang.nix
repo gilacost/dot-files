@@ -6,20 +6,7 @@ let
     (self: super: rec {
       erlang = super.beam.interpreters.${inputs.erlangInterpreter};
 
-      elixir = (super.beam.packagesWith erlang).elixir.override (
-        {
-          sha256 = inputs.elixirSha256;
-          version = inputs.elixirVersion;
-        }
-        // (
-          if inputs ? elixirEscriptPath then
-            {
-              escriptPath = inputs.elixirEscriptPath;
-            }
-          else
-            { }
-        )
-      );
+      elixir = (super.beam.packagesWith erlang).elixir;
 
       lexical = super.stdenv.mkDerivation {
         pname = "lexical";
