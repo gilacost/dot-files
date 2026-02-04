@@ -315,7 +315,6 @@
       "fwup"
       "coreutils"
       "ansible"
-      "session-manager-plugin"
     ];
 
     casks = [
@@ -346,6 +345,7 @@
       "postman"
       "raycast"
       "remarkable"
+      "session-manager-plugin"
       "sketch"
       "skype"
       "slack"
