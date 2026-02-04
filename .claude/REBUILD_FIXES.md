@@ -13,13 +13,15 @@
 **Fix:** Removed explicit `nodejs` from the packages list in `modules/tools/default.nix:158` since it's already provided via nodePackages dependencies.
 
 ### 3. Tree-sitter Configuration
-**Problem:** Tree-sitter was configured to auto-install and compile parsers at runtime, which doesn't work well in Nix environments.
+**Problem:** Tree-sitter was configured to auto-install and compile parsers at runtime, which doesn't work well in Nix environments. Additionally, nvim-treesitter updated its API and the old `require('nvim-treesitter.configs').setup` no longer exists.
 
 **Fixes:**
 - Changed `nvim-treesitter` to `nvim-treesitter.withAllGrammars` in `modules/editor/default.nix:177`
-- Updated `treesitter.lua` to disable `auto_install` and `sync_install`
-- Removed custom `parser_install_dir` configuration
+- Removed obsolete `configs.setup` call from `treesitter.lua` (API changed)
+- Modern nvim-treesitter uses built-in `vim.treesitter` for highlighting with pre-built grammars
+- Added `treesitter.lua` back to extraConfig loading order
 - Updated README.md to reflect that tree-sitter grammars are pre-installed
+- Verified nvim starts without tree-sitter errors
 
 ### 4. CI Workflow Update
 **Fix:** Updated `actions/checkout` from v6.0.1 to v6.0.2 in `.github/workflows/build.yml`
