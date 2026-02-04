@@ -315,6 +315,7 @@
       "fwup"
       "coreutils"
       "ansible"
+      "session-manager-plugin"
     ];
 
     casks = [
