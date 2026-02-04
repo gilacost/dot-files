@@ -134,6 +134,7 @@ in
     terraform-docs
     azure-cli
     awscli2
+    # ssm-session-manager-plugin # Broken in nixpkgs (Go vendoring issue), use Homebrew instead
     argocd
     ansible
     kompose
