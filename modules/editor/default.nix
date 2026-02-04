@@ -74,6 +74,7 @@
         ${builtins.readFile ./nvim/lsp.lua}
         ${builtins.readFile ./nvim/sets.lua}
         ${builtins.readFile ./nvim/terminal.lua}
+        ${builtins.readFile ./nvim/treesitter.lua}
         ${builtins.readFile ./nvim/theme.lua}
         ${builtins.readFile ./nvim/telescope.lua}
         ${builtins.readFile ./nvim/lspkind.lua}
@@ -173,11 +174,7 @@
 
         # Programming
         emmet-vim
-        {
-          plugin = nvim-treesitter.withAllGrammars;
-          type = "lua";
-          config = builtins.readFile ./nvim/treesitter.lua;
-        }
+        (nvim-treesitter.withAllGrammars)
         # nvim-treesitter-refactor
         # nvim-treesitter-textobjects
         vim-vsnip
