@@ -1,0 +1,128 @@
+# Global mise configuration
+# Manages ~70 tools previously in Nix
+# For project-specific versions, create .mise.toml in project root
+
+[tools]
+# ============================================================================
+# Language Runtimes (mise core)
+# Pinned to specific versions for reproducibility
+# ============================================================================
+node = "25.6.0"
+erlang = "28.3.1"
+elixir = "1.19.5-otp-28"
+python = "3.14.3"
+go = "1.25.7"
+rust = "latest"  # Always use latest rust for newest tool versions
+
+# ============================================================================
+# CLI Utilities (cargo - Rust-based tools)
+# Updated to latest versions on 2026-02-05
+# ============================================================================
+"cargo:ripgrep" = "15.1.0"
+"cargo:fd-find" = "10.3.0"
+"cargo:bat" = "0.26.1"
+"cargo:zoxide" = "0.9.9"
+"cargo:sd" = "1.0.0"
+"cargo:git-delta" = "0.18.2"
+"cargo:tokei" = "14.0.0"
+"cargo:eza" = "0.23.4"
+
+# ============================================================================
+# Node/NPM Tools
+# ============================================================================
+"npm:prettier" = "3.8.1"
+"npm:typescript-language-server" = "5.1.3"
+"npm:bash-language-server" = "5.6.0"
+"npm:yaml-language-server" = "1.19.2"
+"npm:dockerfile-language-server-nodejs" = "0.15.0"
+"npm:vim-language-server" = "2.3.1"
+"npm:markdownlint-cli" = "0.47.0"
+"npm:cspell" = "9.6.4"
+"npm:vscode-langservers-extracted" = "4.10.0"
+"npm:node2nix" = "1.11.0"
+"npm:yarn" = "1.22.22"
+"npm:@tailwindcss/language-server" = "0.14.29"
+
+# ============================================================================
+# Rust Development Tools (cargo)
+# Note: rust-analyzer is complex to build, use Nix version instead
+# ============================================================================
+# "cargo:rust-analyzer" = "0.0.1"  # Disabled - use Nix version
+
+# ============================================================================
+# Elixir/Erlang Tools
+# Note: elp compilation is complex, use Nix version instead
+# ============================================================================
+# "cargo:elp" = "2.0.0"  # Disabled - use Nix version (erlang-language-platform)
+
+# ============================================================================
+# Infrastructure & Cloud (mise core + ubi)
+# ============================================================================
+terraform = "1.14.4"
+"ubi:gruntwork-io/terragrunt" = "0.99.1"
+kubectl = "1.35.0"
+# Note: Hashicorp tools and helm have asset matching issues via ubi
+# These are also available in Nix, disabling from mise
+# "ubi:helm/helm" = "4.1.0"  # Use Nix version instead
+# "ubi:hashicorp/vault" = "1.21.2"  # Use Nix version instead
+# "ubi:hashicorp/packer" = "1.15.0"  # Use Nix version instead
+# "ubi:hashicorp/nomad" = "1.11.1"  # Use Nix version instead
+"ubi:terraform-linters/tflint" = "0.60.0"
+"ubi:terraform-docs/terraform-docs" = "0.21.0"
+"ubi:GoogleCloudPlatform/terraformer" = "0.8.30"
+
+# ============================================================================
+# Kubernetes Ecosystem (ubi)
+# ============================================================================
+"ubi:argoproj/argo-cd" = "3.3.0"
+"ubi:kubernetes-sigs/kind" = "0.31.0"
+"ubi:GoogleContainerTools/skaffold" = "2.17.1"
+"ubi:kubernetes/kompose" = "1.38.0"
+
+# ============================================================================
+# CLI Utilities (ubi - GitHub releases)
+# ============================================================================
+jq = "1.8.1"
+"ubi:jesseduffield/lazygit" = "0.58.1"
+"ubi:charmbracelet/glow" = "2.1.1"
+# "ubi:gohugoio/hugo" = "0.155.2"  # Asset matching issue - use Nix version
+shellcheck = "0.11.0"
+"ubi:hadolint/hadolint" = "2.14.0"
+"ubi:mikefarah/yq" = "4.52.2"
+"ubi:TomWright/dasel" = "3.2.1"
+
+# ============================================================================
+# Development Tools (ubi)
+# ============================================================================
+"ubi:LuaLS/lua-language-server" = "3.17.1"
+"ubi:terrastruct/d2" = "0.7.1"
+"ubi:getsentry/sentry-cli" = "3.1.0"
+
+# ============================================================================
+# Settings
+# ============================================================================
+[settings]
+experimental = true
+verbose = false
+yes = false                     # Don't auto-install on cd
+
+# Always use latest for bugfixes
+always_keep_download = false
+always_keep_install = false
+plugin_autoupdate_last_check_duration = "7d"
+
+# ============================================================================
+# Global Environment Variables
+# ============================================================================
+[env]
+_.path = [
+  "~/.local/bin",
+  "$PATH"
+]
+
+# ============================================================================
+# Aliases (optional shortcuts)
+# ============================================================================
+[alias]
+# Example: mise use -g cargo:my-tool
+# Then access via: mise x my-tool
