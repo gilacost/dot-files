@@ -308,13 +308,12 @@
 
     brews = [
       "amazon-ecs-cli"
-      "dive"
       "qemu"
       "mas"
       "asciinema"
       "fwup"
       "coreutils"
-      "ansible"
+      # Removed duplicates: dive, ansible (now in Nix tools module)
     ];
 
     casks = [

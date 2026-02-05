@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Update all tool versions in mise config to their latest available versions
+
+set -euo pipefail
+
+# Update the SOURCE file in the git repo, not the symlink
+CONFIG_FILE="$HOME/Repos/dot-files/conf.d/mise/config.toml"
+TEMP_FILE=$(mktemp)
+
+echo "🔍 Updating: $CONFIG_FILE"
+echo ""
+
+# Copy original config
+cp "$CONFIG_FILE" "$TEMP_FILE"
+
+# Extract tools from config and update each one
+grep -E '^\s*[a-zA-Z0-9_":/-]+ = ".+"' "$CONFIG_FILE" | while IFS='=' read -r tool_line rest; do
+    # Clean up the tool name (remove leading/trailing whitespace and quotes)
+    tool=$(echo "$tool_line" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | tr -d '"')
+
+    # Skip if it's already set to "latest"
+    if echo "$rest" | grep -q '"latest"'; then
+        echo "⏭️  $tool: already set to 'latest'"
+        continue
+    fi
+
+    # Get current version
+    current_version=$(echo "$rest" | sed 's/^[[:space:]]*"//;s/".*$//')
+
+    # Get latest version
+    echo -n "🔄 $tool: $current_version → "
+    if latest_version=$(mise latest "$tool" 2>/dev/null); then
+        echo "$latest_version"
+
+        # Update in temp file if version changed
+        if [ "$current_version" != "$latest_version" ]; then
+            # Escape special characters for sed
+            escaped_tool=$(echo "$tool" | sed 's/[]\/$*.^[]/\\&/g')
+            escaped_current=$(echo "$current_version" | sed 's/[]\/$*.^[]/\\&/g')
+            escaped_latest=$(echo "$latest_version" | sed 's/[]\/$*.^[]/\\&/g')
+
+            sed -i.bak "s/^\([[:space:]]*[\"]*${escaped_tool}[\"]*[[:space:]]*=[[:space:]]*\)\"${escaped_current}\"/\1\"${escaped_latest}\"/" "$TEMP_FILE"
+        fi
+    else
+        echo "❌ (failed to get latest version)"
+    fi
+done
+
+echo ""
+echo "📝 Review changes:"
+echo "  diff $CONFIG_FILE $TEMP_FILE"
+echo ""
+read -p "Apply changes? (y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    cp "$TEMP_FILE" "$CONFIG_FILE"
+    echo "✅ Updated $CONFIG_FILE"
+    echo ""
+    echo "Next steps:"
+    echo "  1. darwin-rebuild switch --flake ~/.nixpkgs"
+    echo "  2. mise install"
+else
+    echo "❌ Changes not applied. Temp file kept at: $TEMP_FILE"
+fi
