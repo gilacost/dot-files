@@ -96,21 +96,15 @@ function update_input {
 }
 
 function mise-update() {
-  # Update all mise tool versions to latest available versions
-  local script="$HOME/Repos/dot-files/scripts/update-mise-versions"
-
-  if [ ! -f "$script" ]; then
-    echo "❌ Update script not found: $script"
-    return 1
-  fi
-
-  echo "🔄 Updating all mise tool versions..."
+  # Update all mise tool versions to latest available
+  echo "🔄 Upgrading mise tools to latest versions..."
   echo ""
 
-  # Run the update script
-  "$script"
+  # Use mise's built-in upgrade with --bump to update config.toml
+  mise upgrade --bump
 
-  # Ask if user wants to rebuild
+  echo ""
+  echo "✅ Tools upgraded and config.toml updated"
   echo ""
   read "?🔨 Rebuild darwin configuration now? (y/n) " -n 1 -r
   echo
@@ -118,11 +112,10 @@ function mise-update() {
     echo "🏗️  Rebuilding darwin configuration..."
     darwin-rebuild switch --flake ~/.nixpkgs
     echo ""
-    echo "✅ Rebuild complete. Run 'mise install' to install new versions."
+    echo "✅ Rebuild complete!"
   else
-    echo "ℹ️  Skipped rebuild. Remember to run:"
+    echo "ℹ️  Skipped rebuild. Run when ready:"
     echo "  darwin-rebuild switch --flake ~/.nixpkgs"
-    echo "  mise install"
   fi
 }
 
