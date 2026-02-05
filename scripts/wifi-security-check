@@ -1,0 +1,400 @@
+#!/usr/bin/env bash
+
+# WiFi Security Check for untrusted networks (Airbnb, hotels, cafes, etc.)
+# Usage: wifi-security-check [quick|full|monitor]
+
+set -e
+
+REPORT_DIR="$HOME/.wifi-security-reports"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+REPORT_FILE="$REPORT_DIR/wifi_check_${TIMESTAMP}.txt"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+show_help() {
+    echo "WiFi Security Check - Scan untrusted networks for security issues"
+    echo ""
+    echo "Usage: $0 [quick|full|monitor|report]"
+    echo ""
+    echo "Commands:"
+    echo "  quick   - Quick security scan (default, ~10 seconds)"
+    echo "  full    - Comprehensive scan with device identification (~30 seconds)"
+    echo "  monitor - Continuous monitoring of network activity (Ctrl+C to stop)"
+    echo "  report  - View last saved report"
+    echo "  help    - Show this help"
+    echo ""
+    echo "Examples:"
+    echo "  $0              # Run quick scan"
+    echo "  $0 full         # Run full scan with nmap"
+    echo "  $0 monitor      # Monitor network in real-time"
+}
+
+# Create report directory if it doesn't exist
+mkdir -p "$REPORT_DIR"
+
+print_header() {
+    echo -e "\n${BLUE}========================================${NC}"
+    echo -e "${BLUE}$1${NC}"
+    echo -e "${BLUE}========================================${NC}\n"
+}
+
+print_status() {
+    local status=$1
+    local message=$2
+
+    case $status in
+        "OK")
+            echo -e "${GREEN}✓${NC} $message"
+            ;;
+        "WARNING")
+            echo -e "${YELLOW}⚠${NC} $message"
+            ;;
+        "DANGER")
+            echo -e "${RED}✗${NC} $message"
+            ;;
+        "INFO")
+            echo -e "${BLUE}ℹ${NC} $message"
+            ;;
+    esac
+}
+
+check_dependencies() {
+    local missing=()
+
+    command -v networksetup >/dev/null 2>&1 || missing+=("networksetup")
+    command -v lsof >/dev/null 2>&1 || missing+=("lsof")
+    command -v arp >/dev/null 2>&1 || missing+=("arp")
+
+    if [ ${#missing[@]} -gt 0 ]; then
+        print_status "DANGER" "Missing required tools: ${missing[*]}"
+        exit 1
+    fi
+}
+
+get_network_info() {
+    print_header "NETWORK INFORMATION"
+
+    # Try to detect active network interface
+    # First check WiFi
+    WIFI_INTERFACE=$(networksetup -listallhardwareports | awk '/Wi-Fi/{getline; print $2}')
+    SSID=""
+    NETWORK_TYPE=""
+
+    if [ -n "$WIFI_INTERFACE" ]; then
+        SSID_CHECK=$(networksetup -getairportnetwork "$WIFI_INTERFACE" 2>/dev/null)
+        if [[ "$SSID_CHECK" != *"not associated"* ]]; then
+            SSID=$(echo "$SSID_CHECK" | awk -F': ' '{print $2}')
+            ACTIVE_INTERFACE="$WIFI_INTERFACE"
+            NETWORK_TYPE="WiFi"
+        fi
+    fi
+
+    # If not on WiFi, find active ethernet interface
+    if [ -z "$ACTIVE_INTERFACE" ]; then
+        ACTIVE_INTERFACE=$(route -n get default 2>/dev/null | awk '/interface:/ {print $2}')
+        NETWORK_TYPE="Ethernet"
+
+        if [ -z "$ACTIVE_INTERFACE" ]; then
+            print_status "DANGER" "No active network interface found"
+            return 1
+        fi
+    fi
+
+    # Get local IP
+    LOCAL_IP=$(ipconfig getifaddr "$ACTIVE_INTERFACE" 2>/dev/null)
+
+    if [ -z "$LOCAL_IP" ]; then
+        print_status "DANGER" "Not connected to any network"
+        return 1
+    fi
+
+    # Get gateway/router IP
+    GATEWAY=$(route -n get default 2>/dev/null | awk '/gateway:/ {print $2}')
+
+    # Display network info
+    print_status "INFO" "Connection Type: $NETWORK_TYPE"
+    if [ -n "$SSID" ]; then
+        print_status "INFO" "Network Name (SSID): $SSID"
+    fi
+    print_status "INFO" "Interface: $ACTIVE_INTERFACE"
+    print_status "INFO" "Your IP: $LOCAL_IP"
+    print_status "INFO" "Router/Gateway: $GATEWAY"
+
+    # Get DNS servers (try to determine service name)
+    SERVICE_NAME="Wi-Fi"
+    if [ "$NETWORK_TYPE" = "Ethernet" ]; then
+        # Try to find the service name for this ethernet interface
+        SERVICE_NAME=$(networksetup -listnetworkserviceorder | grep -B1 "$ACTIVE_INTERFACE" | head -1 | sed 's/(.*) //' | sed 's/^[0-9]* //')
+        if [ -z "$SERVICE_NAME" ]; then
+            SERVICE_NAME="Ethernet"
+        fi
+    fi
+
+    DNS_SERVERS=$(networksetup -getdnsservers "$SERVICE_NAME" 2>/dev/null | grep -v "There aren't any DNS Servers")
+    if [ -n "$DNS_SERVERS" ]; then
+        print_status "INFO" "DNS Servers:"
+        echo "$DNS_SERVERS" | while read -r dns; do
+            echo "  - $dns"
+        done
+    fi
+
+    export ACTIVE_INTERFACE WIFI_INTERFACE SSID LOCAL_IP GATEWAY NETWORK_TYPE
+}
+
+check_encryption() {
+    print_header "ENCRYPTION CHECK"
+
+    # Check WiFi security type
+    SECURITY=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | grep "link auth" | awk '{print $3}')
+
+    case $SECURITY in
+        "wpa2"|"wpa3")
+            print_status "OK" "Security: $SECURITY (Strong)"
+            ;;
+        "wpa")
+            print_status "WARNING" "Security: $SECURITY (Weak, upgrade to WPA2/WPA3)"
+            ;;
+        "wep"|"none"|"open")
+            print_status "DANGER" "Security: $SECURITY (INSECURE! Avoid sensitive data)"
+            ;;
+        *)
+            print_status "INFO" "Security: $SECURITY"
+            ;;
+    esac
+}
+
+scan_network_devices() {
+    print_header "CONNECTED DEVICES"
+
+    # Get all devices on network
+    arp -a | grep -v "incomplete" | while read -r line; do
+        IP=$(echo "$line" | awk '{print $2}' | tr -d '()')
+        MAC=$(echo "$line" | awk '{print $4}')
+
+        # Skip broadcast and multicast addresses
+        if [[ "$IP" == *".255" ]] || [[ "$IP" == "224."* ]] || [[ "$IP" == "239."* ]]; then
+            continue
+        fi
+
+        # Try to get vendor from MAC
+        VENDOR="Unknown"
+        if command -v curl >/dev/null 2>&1 && [[ "$MAC" != "ff:ff:ff:ff:ff:ff" ]]; then
+            VENDOR=$(curl -s "https://api.macvendors.com/$MAC" 2>/dev/null | head -1)
+            if [[ "$VENDOR" == *"errors"* ]] || [ -z "$VENDOR" ]; then
+                # Check if it's a randomized MAC (locally administered)
+                SECOND_CHAR=$(echo "$MAC" | cut -d: -f1)
+                if [[ $((16#$SECOND_CHAR & 2)) -eq 2 ]]; then
+                    VENDOR="Randomized MAC (privacy enabled)"
+                else
+                    VENDOR="Unknown"
+                fi
+            fi
+            sleep 0.5  # Rate limiting for API
+        fi
+
+        if [ "$IP" = "$GATEWAY" ]; then
+            print_status "INFO" "Router: $IP ($MAC) - $VENDOR"
+        else
+            print_status "INFO" "Device: $IP ($MAC) - $VENDOR"
+        fi
+    done
+}
+
+check_listening_ports() {
+    print_header "LISTENING PORTS (Your Machine)"
+
+    print_status "INFO" "Services exposed on your machine:"
+
+    # Get listening ports
+    lsof -i -P | grep LISTEN | awk '{print $1, $9}' | sort -u | while read -r service port; do
+        # Check if port is accessible from network
+        if [[ "$port" == *"*:"* ]] || [[ "$port" == *"0.0.0.0:"* ]]; then
+            PORT_NUM=$(echo "$port" | awk -F: '{print $NF}')
+            print_status "WARNING" "Port $PORT_NUM exposed (all interfaces) - $service"
+        elif [[ "$port" == *"127.0.0.1:"* ]] || [[ "$port" == *"localhost:"* ]]; then
+            PORT_NUM=$(echo "$port" | awk -F: '{print $NF}')
+            print_status "OK" "Port $PORT_NUM (localhost only) - $service"
+        else
+            print_status "INFO" "$port - $service"
+        fi
+    done
+}
+
+check_active_connections() {
+    print_header "ACTIVE CONNECTIONS"
+
+    print_status "INFO" "Current outbound connections:"
+
+    # Get unique external connections
+    netstat -an | grep ESTABLISHED | awk '{print $5}' | \
+        grep -v "127.0.0.1" | \
+        grep -v "::1" | \
+        grep -v "*.* " | \
+        cut -d. -f1-4 | sort -u | head -20 | while read -r ip; do
+
+        # Try to get hostname
+        HOST=$(host "$ip" 2>/dev/null | awk '{print $NF}' | head -1)
+        if [ -z "$HOST" ] || [ "$HOST" = "3(NXDOMAIN)" ]; then
+            HOST="Unknown"
+        fi
+
+        echo "  → $ip ($HOST)"
+    done
+}
+
+check_dns_hijacking() {
+    print_header "DNS HIJACKING CHECK"
+
+    # Test known domains
+    GOOGLE_IP=$(host google.com | grep "has address" | head -1 | awk '{print $NF}')
+
+    if [ -z "$GOOGLE_IP" ]; then
+        print_status "WARNING" "DNS resolution issues detected"
+    else
+        print_status "OK" "DNS appears to be working (google.com → $GOOGLE_IP)"
+    fi
+
+    # Check for common DNS redirects
+    TEST_IP=$(host thisshouldnotexist12345.com 2>&1)
+    if echo "$TEST_IP" | grep -q "has address"; then
+        print_status "DANGER" "Possible DNS hijacking - Non-existent domains resolve to IPs"
+    else
+        print_status "OK" "DNS hijacking test passed"
+    fi
+}
+
+full_scan() {
+    if ! command -v nmap >/dev/null 2>&1; then
+        print_status "WARNING" "nmap not installed - skipping device scan"
+        print_status "INFO" "Install with: brew install nmap"
+        return
+    fi
+
+    print_header "DEVICE PORT SCAN (This may take a while)"
+
+    # Get network range
+    NETWORK=$(echo "$LOCAL_IP" | cut -d. -f1-3).0/24
+
+    print_status "INFO" "Scanning network: $NETWORK"
+
+    # Quick scan of common ports
+    nmap -T4 -F "$NETWORK" 2>/dev/null | grep -E "Nmap scan report|open" | while read -r line; do
+        if [[ "$line" == *"Nmap scan report"* ]]; then
+            echo ""
+            echo "$line"
+        else
+            echo "  $line"
+        fi
+    done
+}
+
+monitor_network() {
+    print_header "NETWORK MONITORING (Press Ctrl+C to stop)"
+
+    print_status "INFO" "Monitoring active connections..."
+    echo ""
+
+    # Continuous monitoring
+    while true; do
+        clear
+        echo "=== Network Monitor - $(date) ==="
+        echo ""
+        echo "Active Connections:"
+        lsof -i -n -P | grep ESTABLISHED | awk '{print $1, $9}' | sort -u
+        echo ""
+        echo "Listening Ports:"
+        lsof -i -P | grep LISTEN | awk '{print $1, $9}' | sort -u
+        sleep 2
+    done
+}
+
+generate_report() {
+    {
+        echo "WiFi Security Report"
+        echo "Generated: $(date)"
+        echo "Network: $SSID"
+        echo "Location: Unknown (Airbnb/Hotel/Cafe)"
+        echo ""
+        echo "==================================="
+        echo ""
+    } > "$REPORT_FILE"
+
+    # Run all checks and append to report
+    {
+        get_network_info
+        check_encryption
+        check_dns_hijacking
+        scan_network_devices
+        check_listening_ports
+        check_active_connections
+    } >> "$REPORT_FILE" 2>&1
+
+    print_status "OK" "Report saved to: $REPORT_FILE"
+}
+
+show_last_report() {
+    LAST_REPORT=$(ls -t "$REPORT_DIR"/wifi_check_*.txt 2>/dev/null | head -1)
+
+    if [ -z "$LAST_REPORT" ]; then
+        print_status "WARNING" "No reports found"
+        return
+    fi
+
+    print_status "INFO" "Showing last report: $LAST_REPORT"
+    echo ""
+    cat "$LAST_REPORT"
+}
+
+quick_scan() {
+    print_header "QUICK WIFI SECURITY SCAN"
+    echo "Scanning network: $SSID"
+    echo ""
+
+    get_network_info
+    check_encryption
+    check_dns_hijacking
+    check_listening_ports
+    check_active_connections
+
+    print_header "SECURITY RECOMMENDATIONS"
+    echo "1. Always use HTTPS websites (check for lock icon)"
+    echo "2. Use a VPN on untrusted networks"
+    echo "3. Avoid accessing sensitive accounts (banking, email)"
+    echo "4. Disable file sharing: System Settings → General → Sharing"
+    echo "5. Turn on Firewall: System Settings → Network → Firewall"
+    echo "6. Forget network when leaving: Wi-Fi Settings → Forget Network"
+}
+
+# Main logic
+check_dependencies
+
+case "${1:-quick}" in
+    "quick")
+        quick_scan
+        ;;
+    "full")
+        quick_scan
+        echo ""
+        scan_network_devices
+        full_scan
+        ;;
+    "monitor")
+        monitor_network
+        ;;
+    "report")
+        show_last_report
+        ;;
+    "help"|"-h"|"--help")
+        show_help
+        ;;
+    *)
+        echo "Error: Invalid command '$1'"
+        show_help
+        exit 1
+        ;;
+esac
