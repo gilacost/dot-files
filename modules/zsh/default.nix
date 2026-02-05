@@ -26,11 +26,10 @@
       enable = true;
       prompt.theme = "pure";
     };
-    initContent = builtins.readFile ./functions.sh;
+    initContent = ''
+      ${builtins.readFile ./functions.sh}
 
-    # mise activation - must come after other init
-    initExtra = ''
-      # Activate mise for tool version management
+      # Activate mise for tool version management (must come after other init)
       eval "$(mise activate zsh)"
     '';
 

@@ -59,7 +59,7 @@ in
     nerd-fonts.iosevka
     nix-prefetch-git
     nixd
-    nixfmt-rfc-style
+    nixfmt
     cachix
 
     # Media processing tools
