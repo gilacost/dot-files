@@ -104,18 +104,26 @@ function mise-update() {
   mise upgrade --bump
 
   echo ""
-  echo "✅ Tools upgraded and config.toml updated"
+  echo "✅ Tools upgraded!"
   echo ""
-  read "?🔨 Rebuild darwin configuration now? (y/n) " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "🏗️  Rebuilding darwin configuration..."
-    darwin-rebuild switch --flake ~/.nixpkgs
+
+  # Check if config changed
+  if ! git -C ~/Repos/dot-files diff --quiet conf.d/mise/config.toml; then
+    echo "📝 Changes to mise config:"
+    git -C ~/Repos/dot-files diff --stat conf.d/mise/config.toml
     echo ""
-    echo "✅ Rebuild complete!"
+    read "?📌 Commit changes to git? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      cd ~/Repos/dot-files
+      git add conf.d/mise/config.toml
+      git commit -m "chore: update mise tool versions"
+      echo "✅ Changes committed!"
+    else
+      echo "ℹ️  Remember to commit: cd ~/Repos/dot-files && git add conf.d/mise/config.toml"
+    fi
   else
-    echo "ℹ️  Skipped rebuild. Run when ready:"
-    echo "  darwin-rebuild switch --flake ~/.nixpkgs"
+    echo "ℹ️  No version changes"
   fi
 }
 
