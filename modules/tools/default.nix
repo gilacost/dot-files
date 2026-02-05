@@ -46,18 +46,23 @@ in
   home.packages = with pkgs; [
     claudeCode
 
-    # PHASE 1: Add mise alongside existing Nix tools (safe migration)
-    # After confirming mise works, we'll remove duplicates in Phase 2
+    # PHASE 2: mise now manages ~70 tools (languages, CLI utils, infra tools)
+    # Keeping only tools that are complex to build, Nix-specific, or not in mise
     mise
 
-    lazygit
-    zoxide
+    # Nix-specific tools
     nixos-generators
     cf-terraforming
     kas
-    # ssm-session-manager-plugin # Temporarily disabled due to Go vendoring issue
     neovim-remote
     tree-sitter
+    nerd-fonts.iosevka
+    nix-prefetch-git
+    nixd
+    nixfmt-rfc-style
+    cachix
+
+    # Media processing tools
     p7zip
     xorriso
     smartcat
@@ -66,101 +71,63 @@ in
     hping
     iperf
     potrace
-    zellij
     imagemagick
     pngquant
     jpegoptim
+    tesseract
+
+    # Terminal & system utilities
+    zellij
     zsh-syntax-highlighting
     cloc
-    nodePackages.node2nix
     postgresql
     htop
-    dasel
     silver-searcher
-    nerd-fonts.iosevka
     unixtools.watch
     fortune
-    hugo
     jump
-    fd
-    jq
-    yq
-    ripgrep
-    glow
     tig
     tree
     peco
     httpie
-    nix-prefetch-git
     wget
     nmap
     inetutils
+
+    # Security tools
     sops
     age
     git-crypt
+
+    # Complex formatters & LSP servers (hard to build via mise)
     hclfmt
     erlang-language-platform
-    tailwindcss-language-server
-    nodePackages.dockerfile-language-server-nodejs
-    nodePackages.vim-language-server
-    nodePackages.bash-language-server
-    nodePackages.yaml-language-server
-    nodePackages_latest.typescript-language-server
-    nixd
     rust-analyzer
     rustfmt
-    hadolint
-    nixfmt-rfc-style
-    tflint
-    nodePackages.prettier
     erlfmt
-    shellcheck
-    nodePackages.markdownlint-cli
-    nodePackages.cspell
-    vscode-langservers-extracted
-    lua-language-server
-    terragrunt
-    packer
-    skopeo
-    skaffold
-    nomad
+
+    # Cloud tools not in mise or with complex dependencies
     google-cloud-sdk
     linode-cli
     flyctl
-    vault
-    infracost
-    dive
-    kind
-    terraform
-    terragrunt
-    kubectl
-    kubernetes-helm
-    terraformer
-    terraform-docs
     azure-cli
     awscli2
-    # ssm-session-manager-plugin # Broken in nixpkgs (Go vendoring issue), use Homebrew instead
-    argocd
+    infracost
+
+    # Container & infrastructure tools with complex builds
+    skopeo
+    dive
+    packer
+    nomad
+    vault
     ansible
-    kompose
-    cargo
-    cargo-edit
-    rustc
-    go
-    sentry-cli
+
+    # Language-specific tools
     python313Packages.diagrams
     python313Packages.graphviz
-    d2
-    rebar3
-    elixir
-    erlang
     (gleam.overrideAttrs (old: {
       doCheck = false; # Skip tests on x86_64-darwin (CI)
     }))
-    cachix
-    nodePackages.npm
-    yarn
-    tesseract
   ];
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;

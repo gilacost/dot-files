@@ -7,16 +7,16 @@
 # Language Runtimes (mise core)
 # Pinned to specific versions for reproducibility
 # ============================================================================
-node = "20.20.0"
-erlang = "26.2.5.16"
-elixir = "1.16.3-otp-26"
-python = "3.13.12"
-go = "1.22.12"
+node = "25.6.0"
+erlang = "28.3.1"
+elixir = "1.19.5-otp-28"
+python = "3.14.3"
+go = "1.25.7"
 rust = "latest"  # Always use latest rust for newest tool versions
 
 # ============================================================================
 # CLI Utilities (cargo - Rust-based tools)
-# Pinned to latest versions as of 2026-02-05
+# Updated to latest versions on 2026-02-05
 # ============================================================================
 "cargo:ripgrep" = "15.1.0"
 "cargo:fd-find" = "10.3.0"
@@ -58,9 +58,9 @@ rust = "latest"  # Always use latest rust for newest tool versions
 # ============================================================================
 # Infrastructure & Cloud (mise core + ubi)
 # ============================================================================
-terraform = "1.7.5"
+terraform = "1.14.4"
 "ubi:gruntwork-io/terragrunt" = "0.99.1"
-kubectl = "1.29.15"
+kubectl = "1.35.0"
 # Note: Hashicorp tools and helm have asset matching issues via ubi
 # These are also available in Nix, disabling from mise
 # "ubi:helm/helm" = "4.1.0"  # Use Nix version instead
@@ -82,11 +82,11 @@ kubectl = "1.29.15"
 # ============================================================================
 # CLI Utilities (ubi - GitHub releases)
 # ============================================================================
-jq = "1.7"
+jq = "1.8.1"
 "ubi:jesseduffield/lazygit" = "0.58.1"
 "ubi:charmbracelet/glow" = "2.1.1"
 # "ubi:gohugoio/hugo" = "0.155.2"  # Asset matching issue - use Nix version
-shellcheck = "0.9.0"
+shellcheck = "0.11.0"
 "ubi:hadolint/hadolint" = "2.14.0"
 "ubi:mikefarah/yq" = "4.52.2"
 "ubi:TomWright/dasel" = "3.2.1"
