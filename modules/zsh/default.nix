@@ -28,6 +28,12 @@
     };
     initContent = builtins.readFile ./functions.sh;
 
+    # mise activation - must come after other init
+    initExtra = ''
+      # Activate mise for tool version management
+      eval "$(mise activate zsh)"
+    '';
+
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
       DOCKER_BUILDKIT = 1;

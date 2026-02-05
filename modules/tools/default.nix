@@ -44,118 +44,106 @@ let
 in
 {
   home.packages = with pkgs; [
-    claudeCode
-    lazygit
-    zoxide
-    nixos-generators
-    cf-terraforming
-    kas
-    # ssm-session-manager-plugin # Temporarily disabled due to Go vendoring issue
-    neovim-remote
-    tree-sitter
-    p7zip
-    xorriso
-    smartcat
+    # ========================================================================
+    # Custom Tools
+    # ========================================================================
+    claudeCode  # Custom wrapper for Claude CLI
+
+    # ========================================================================
+    # Tool Version Manager
+    # ========================================================================
+    mise  # Manages language runtimes and CLI tools (see ~/.config/mise/config.toml)
+
+    # ========================================================================
+    # Nix-Specific Tools (MUST stay in Nix)
+    # ========================================================================
+    nixd                   # Nix LSP server
+    nixfmt-rfc-style       # Nix formatter
+    nix-prefetch-git       # Nix utility for fetching git sources
+    cachix                 # Nix binary cache
+    nixos-generators       # NixOS image generators
+
+    # ========================================================================
+    # System Integration & Security (better via Nix)
+    # ========================================================================
+    zsh-syntax-highlighting  # Shell integration
+    git-crypt                # Git encryption
+    age                      # Modern encryption tool
+    sops                     # Secrets management
+
+    # ========================================================================
+    # Complex Packages with System Dependencies
+    # ========================================================================
+    google-cloud-sdk       # GCP CLI (complex Python + system deps)
+    azure-cli              # Azure CLI (complex Python + system deps)
+    awscli2                # AWS CLI (Python + system deps)
+    postgresql             # Database with system libs
+    imagemagick            # Graphics libs
+    ffmpeg_7               # Media processing
+    tesseract              # OCR with training data
+
+    # ========================================================================
+    # Fonts
+    # ========================================================================
+    nerd-fonts.iosevka
+
+    # ========================================================================
+    # Specialized/Niche Tools (keeping in Nix for stability)
+    # ========================================================================
+    neovim-remote          # nvim remote control
+    tree-sitter            # Required for nvim treesitter
+    cf-terraforming        # Cloudflare → Terraform
+    kas                    # Kubernetes deployment tool
+    smartcat               # Smart file concatenation
+    p7zip                  # Archive utility
+    xorriso                # ISO manipulation
+    potrace                # Bitmap tracing
+    linode-cli             # Linode CLI
+    flyctl                 # Fly.io CLI
+    infracost              # Cloud cost estimation
+    dive                   # Docker image analyzer
+    skopeo                 # Container image operations
+    (gleam.overrideAttrs (old: {
+      doCheck = false;     # Skip tests on x86_64-darwin
+    }))
+    python313Packages.diagrams
+    python313Packages.graphviz
+
+    # ========================================================================
+    # Simple Unix Tools (keeping in Nix for now)
+    # ========================================================================
     socat
-    ffmpeg_7
     hping
     iperf
-    potrace
-    zellij
-    imagemagick
-    pngquant
-    jpegoptim
-    zsh-syntax-highlighting
-    cloc
-    nodePackages.node2nix
-    postgresql
-    htop
-    dasel
-    silver-searcher
-    nerd-fonts.iosevka
-    unixtools.watch
     fortune
-    hugo
-    jump
-    fd
-    jq
-    yq
-    ripgrep
-    glow
-    tig
-    tree
-    peco
-    httpie
-    nix-prefetch-git
     wget
     nmap
     inetutils
-    sops
-    age
-    git-crypt
-    hclfmt
-    erlang-language-platform
-    tailwindcss-language-server
-    nodePackages.dockerfile-language-server-nodejs
-    nodePackages.vim-language-server
-    nodePackages.bash-language-server
-    nodePackages.yaml-language-server
-    nodePackages_latest.typescript-language-server
-    nixd
-    rust-analyzer
-    rustfmt
-    hadolint
-    nixfmt-rfc-style
-    tflint
-    nodePackages.prettier
-    erlfmt
-    shellcheck
-    nodePackages.markdownlint-cli
-    nodePackages.cspell
-    vscode-langservers-extracted
-    lua-language-server
-    terragrunt
-    packer
-    skopeo
-    skaffold
-    nomad
-    google-cloud-sdk
-    linode-cli
-    flyctl
-    vault
-    infracost
-    dive
-    kind
-    terraform
-    terragrunt
-    kubectl
-    kubernetes-helm
-    terraformer
-    terraform-docs
-    azure-cli
-    awscli2
-    # ssm-session-manager-plugin # Broken in nixpkgs (Go vendoring issue), use Homebrew instead
-    argocd
+    unixtools.watch
+    tree
+    peco
+    httpie
+    tig
+    silver-searcher        # ag
+    htop
+    cloc
+    jump
+    pngquant
+    jpegoptim
+    zellij
     ansible
-    kompose
-    cargo
-    cargo-edit
-    rustc
-    go
-    sentry-cli
-    python313Packages.diagrams
-    python313Packages.graphviz
-    d2
-    rebar3
-    elixir
-    erlang
-    (gleam.overrideAttrs (old: {
-      doCheck = false; # Skip tests on x86_64-darwin (CI)
-    }))
-    cachix
-    nodePackages.npm
-    yarn
-    tesseract
+
+    # ========================================================================
+    # Migrated to mise (see conf.d/mise/config.toml)
+    # ========================================================================
+    # - Language runtimes: node, erlang, elixir, python, go, rust
+    # - CLI tools: ripgrep, fd, bat, zoxide, jq, yq, lazygit, glow, hugo
+    # - LSPs: typescript-language-server, bash-language-server, yaml-language-server, etc.
+    # - Formatters: prettier, shellcheck, hadolint, etc.
+    # - Infrastructure: terraform, terragrunt, kubectl, helm, vault, packer, nomad
+    # - Kubernetes: argocd, kind, skaffold, kompose
+    # - Development: lua-language-server, d2, sentry-cli, rust-analyzer
+    # ========================================================================
   ];
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;

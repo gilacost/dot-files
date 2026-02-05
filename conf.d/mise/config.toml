@@ -1,0 +1,122 @@
+# Global mise configuration
+# Manages ~70 tools previously in Nix
+# For project-specific versions, create .mise.toml in project root
+
+[tools]
+# ============================================================================
+# Language Runtimes (mise core)
+# ============================================================================
+node = "20"                    # Replaces: nodejs, npm
+erlang = "26"
+elixir = "1.16"                # Replaces: elixir, rebar3
+python = "3.13"
+go = "1.22"
+rust = "1.75"                  # Replaces: cargo, rustc, cargo-edit, rustfmt
+
+# ============================================================================
+# CLI Utilities (cargo - Rust-based tools)
+# ============================================================================
+"cargo:ripgrep" = "latest"
+"cargo:fd-find" = "latest"     # Replaces: fd
+"cargo:bat" = "latest"
+"cargo:zoxide" = "latest"
+"cargo:sd" = "latest"
+"cargo:git-delta" = "latest"
+"cargo:tokei" = "latest"
+"cargo:eza" = "latest"         # Modern ls alternative
+
+# ============================================================================
+# Node/NPM Tools
+# ============================================================================
+"npm:prettier" = "latest"
+"npm:typescript-language-server" = "latest"
+"npm:bash-language-server" = "latest"
+"npm:yaml-language-server" = "latest"
+"npm:dockerfile-language-server-nodejs-npm" = "latest"
+"npm:vim-language-server" = "latest"
+"npm:markdownlint-cli" = "latest"
+"npm:cspell" = "latest"
+"npm:vscode-langservers-extracted" = "latest"
+"npm:node2nix" = "latest"
+"npm:yarn" = "latest"
+"npm:@tailwindcss/language-server" = "latest"
+
+# ============================================================================
+# Rust Development Tools (cargo)
+# ============================================================================
+"cargo:rust-analyzer" = "latest"
+
+# ============================================================================
+# Elixir/Erlang Tools (cargo)
+# ============================================================================
+"cargo:elp" = "latest"         # Replaces: erlang-language-platform
+
+# ============================================================================
+# Infrastructure & Cloud (mise core + ubi)
+# ============================================================================
+terraform = "1.7"
+"ubi:gruntwork-io/terragrunt" = "latest"
+kubectl = "1.29"
+"ubi:helm/helm" = "latest"     # Replaces: kubernetes-helm
+"ubi:hashicorp/vault" = "latest"
+"ubi:hashicorp/packer" = "latest"
+"ubi:hashicorp/nomad" = "latest"
+"ubi:terraform-linters/tflint" = "latest"
+"ubi:terraform-docs/terraform-docs" = "latest"
+"ubi:GoogleCloudPlatform/terraformer" = "latest"
+
+# ============================================================================
+# Kubernetes Ecosystem (ubi)
+# ============================================================================
+"ubi:argoproj/argo-cd" = "latest"
+"ubi:kubernetes-sigs/kind" = "latest"
+"ubi:GoogleContainerTools/skaffold" = "latest"
+"ubi:kubernetes/kompose" = "latest"
+
+# ============================================================================
+# CLI Utilities (ubi - GitHub releases)
+# ============================================================================
+jq = "1.7"
+"ubi:jesseduffield/lazygit" = "latest"
+"ubi:charmbracelet/glow" = "latest"
+"ubi:gohugoio/hugo" = "latest"
+shellcheck = "0.9"
+"ubi:hadolint/hadolint" = "latest"
+"ubi:mikefarah/yq" = "latest"
+"ubi:TomWright/dasel" = "latest"
+
+# ============================================================================
+# Development Tools (ubi)
+# ============================================================================
+"ubi:LuaLS/lua-language-server" = "latest"
+"ubi:terrastruct/d2" = "latest"
+"ubi:getsentry/sentry-cli" = "latest"
+
+# ============================================================================
+# Settings
+# ============================================================================
+[settings]
+experimental = true
+verbose = false
+yes = false                     # Don't auto-install on cd
+
+# Always use latest for bugfixes
+always_keep_download = false
+always_keep_install = false
+plugin_autoupdate_last_check_duration = "7d"
+
+# ============================================================================
+# Global Environment Variables
+# ============================================================================
+[env]
+_.path = [
+  "~/.local/bin",
+  "$PATH"
+]
+
+# ============================================================================
+# Aliases (optional shortcuts)
+# ============================================================================
+[alias]
+# Example: mise use -g cargo:my-tool
+# Then access via: mise x my-tool
