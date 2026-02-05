@@ -1,2 +1,6 @@
 # AI workflow logs (personal tracking)
 .claude/logs/
+
+# Expert and temp files
+.expert/
+TODO.init.lua
