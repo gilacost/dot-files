@@ -26,7 +26,12 @@
       enable = true;
       prompt.theme = "pure";
     };
-    initContent = builtins.readFile ./functions.sh;
+    initContent = ''
+      ${builtins.readFile ./functions.sh}
+
+      # Activate mise for tool version management (must come after other init)
+      eval "$(mise activate zsh)"
+    '';
 
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";

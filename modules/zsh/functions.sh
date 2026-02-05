@@ -95,6 +95,37 @@ function update_input {
   nix flake lock --update-input "${1:"nixpkgs"}"
 }
 
+function mise-update() {
+  # Update all mise tool versions to latest available versions
+  local script="$HOME/Repos/dot-files/scripts/update-mise-versions"
+
+  if [ ! -f "$script" ]; then
+    echo "❌ Update script not found: $script"
+    return 1
+  fi
+
+  echo "🔄 Updating all mise tool versions..."
+  echo ""
+
+  # Run the update script
+  "$script"
+
+  # Ask if user wants to rebuild
+  echo ""
+  read "?🔨 Rebuild darwin configuration now? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "🏗️  Rebuilding darwin configuration..."
+    darwin-rebuild switch --flake ~/.nixpkgs
+    echo ""
+    echo "✅ Rebuild complete. Run 'mise install' to install new versions."
+  else
+    echo "ℹ️  Skipped rebuild. Remember to run:"
+    echo "  darwin-rebuild switch --flake ~/.nixpkgs"
+    echo "  mise install"
+  fi
+}
+
 function checkports_host {
   sudo nmap -sTU -O "$1"
 }

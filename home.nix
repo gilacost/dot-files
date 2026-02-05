@@ -28,6 +28,10 @@
     '';
   };
 
+  home.file.".config/mise/config.toml" = {
+    source = ./conf.d/mise/config.toml;
+  };
+
   home.file.".config/nvim.session" = {
     text = ''
       ${builtins.readFile ./conf.d/terminal/nvim.session}
