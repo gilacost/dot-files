@@ -12,20 +12,20 @@ erlang = "26.2.5.16"
 elixir = "1.16.3-otp-26"
 python = "3.13.12"
 go = "1.22.12"
-rust = "1.83.0"  # Updated for better cargo tool compatibility
+rust = "latest"  # Always use latest rust for newest tool versions
 
 # ============================================================================
 # CLI Utilities (cargo - Rust-based tools)
-# Note: These are also available in Nix, mise versions are optional
+# Pinned to latest versions as of 2026-02-05
 # ============================================================================
-"cargo:ripgrep" = "14.1.1"     # Older stable version
-"cargo:fd-find" = "9.0.0"      # Compatible with older rust
-"cargo:bat" = "0.24.0"         # Older stable version
-"cargo:zoxide" = "0.9.6"       # Older stable version
+"cargo:ripgrep" = "15.1.0"
+"cargo:fd-find" = "10.3.0"
+"cargo:bat" = "0.26.1"
+"cargo:zoxide" = "0.9.9"
 "cargo:sd" = "1.0.0"
 "cargo:git-delta" = "0.18.2"
-"cargo:tokei" = "12.1.2"       # Older stable version
-"cargo:eza" = "0.20.11"        # Older stable version
+"cargo:tokei" = "14.0.0"
+"cargo:eza" = "0.23.4"
 
 # ============================================================================
 # Node/NPM Tools
