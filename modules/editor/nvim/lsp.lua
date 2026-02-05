@@ -1,3 +1,8 @@
+-- Suppress lspconfig deprecation warnings for neovim 0.11
+-- The plugin works fine, this is just a notice about future API changes
+local original_warn = vim.deprecate
+vim.deprecate = function() end
+
 local lsp = require('lspconfig')
 local opts = { noremap = true, silent = true }
 local elixir_lsp_path = vim.g.lsp_elixir_bin or vim.fn.expand("~/.elixir-lsp/expert")
@@ -156,6 +161,9 @@ lsp.nixd.setup{}
 lsp.jsonls.setup {
   capabilities = capabilities,
 }
+
+-- Restore original deprecate function after all LSP servers are configured
+vim.deprecate = original_warn
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   pattern = {"*.ex","*.exs","*.eex","*.leex","*.heex"},
