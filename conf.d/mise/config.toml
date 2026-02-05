@@ -5,92 +5,98 @@
 [tools]
 # ============================================================================
 # Language Runtimes (mise core)
+# Pinned to specific versions for reproducibility
 # ============================================================================
-node = "20"                    # Replaces: nodejs, npm
-erlang = "26"
-elixir = "1.16"                # Replaces: elixir, rebar3
-python = "3.13"
-go = "1.22"
-rust = "1.75"                  # Replaces: cargo, rustc, cargo-edit, rustfmt
+node = "20.20.0"
+erlang = "26.2.5.16"
+elixir = "1.16.3-otp-26"
+python = "3.13.12"
+go = "1.22.12"
+rust = "1.83.0"  # Updated for better cargo tool compatibility
 
 # ============================================================================
 # CLI Utilities (cargo - Rust-based tools)
+# Note: These are also available in Nix, mise versions are optional
 # ============================================================================
-"cargo:ripgrep" = "latest"
-"cargo:fd-find" = "latest"     # Replaces: fd
-"cargo:bat" = "latest"
-"cargo:zoxide" = "latest"
-"cargo:sd" = "latest"
-"cargo:git-delta" = "latest"
-"cargo:tokei" = "latest"
-"cargo:eza" = "latest"         # Modern ls alternative
+"cargo:ripgrep" = "14.1.1"     # Older stable version
+"cargo:fd-find" = "9.0.0"      # Compatible with older rust
+"cargo:bat" = "0.24.0"         # Older stable version
+"cargo:zoxide" = "0.9.6"       # Older stable version
+"cargo:sd" = "1.0.0"
+"cargo:git-delta" = "0.18.2"
+"cargo:tokei" = "12.1.2"       # Older stable version
+"cargo:eza" = "0.20.11"        # Older stable version
 
 # ============================================================================
 # Node/NPM Tools
 # ============================================================================
-"npm:prettier" = "latest"
-"npm:typescript-language-server" = "latest"
-"npm:bash-language-server" = "latest"
-"npm:yaml-language-server" = "latest"
-"npm:dockerfile-language-server-nodejs" = "latest"
-"npm:vim-language-server" = "latest"
-"npm:markdownlint-cli" = "latest"
-"npm:cspell" = "latest"
-"npm:vscode-langservers-extracted" = "latest"
-"npm:node2nix" = "latest"
-"npm:yarn" = "latest"
-"npm:@tailwindcss/language-server" = "latest"
+"npm:prettier" = "3.8.1"
+"npm:typescript-language-server" = "5.1.3"
+"npm:bash-language-server" = "5.6.0"
+"npm:yaml-language-server" = "1.19.2"
+"npm:dockerfile-language-server-nodejs" = "0.15.0"
+"npm:vim-language-server" = "2.3.1"
+"npm:markdownlint-cli" = "0.47.0"
+"npm:cspell" = "9.6.4"
+"npm:vscode-langservers-extracted" = "4.10.0"
+"npm:node2nix" = "1.11.0"
+"npm:yarn" = "1.22.22"
+"npm:@tailwindcss/language-server" = "0.14.29"
 
 # ============================================================================
 # Rust Development Tools (cargo)
+# Note: rust-analyzer is complex to build, use Nix version instead
 # ============================================================================
-"cargo:rust-analyzer" = "latest"
+# "cargo:rust-analyzer" = "0.0.1"  # Disabled - use Nix version
 
 # ============================================================================
-# Elixir/Erlang Tools (cargo)
+# Elixir/Erlang Tools
+# Note: elp compilation is complex, use Nix version instead
 # ============================================================================
-"cargo:elp" = "latest"         # Replaces: erlang-language-platform
+# "cargo:elp" = "2.0.0"  # Disabled - use Nix version (erlang-language-platform)
 
 # ============================================================================
 # Infrastructure & Cloud (mise core + ubi)
 # ============================================================================
-terraform = "1.7"
-"ubi:gruntwork-io/terragrunt" = "latest"
-kubectl = "1.29"
-"ubi:helm/helm" = "latest"     # Replaces: kubernetes-helm
-"ubi:hashicorp/vault" = "latest"
-"ubi:hashicorp/packer" = "latest"
-"ubi:hashicorp/nomad" = "latest"
-"ubi:terraform-linters/tflint" = "latest"
-"ubi:terraform-docs/terraform-docs" = "latest"
-"ubi:GoogleCloudPlatform/terraformer" = "latest"
+terraform = "1.7.5"
+"ubi:gruntwork-io/terragrunt" = "0.99.1"
+kubectl = "1.29.15"
+# Note: Hashicorp tools and helm have asset matching issues via ubi
+# These are also available in Nix, disabling from mise
+# "ubi:helm/helm" = "4.1.0"  # Use Nix version instead
+# "ubi:hashicorp/vault" = "1.21.2"  # Use Nix version instead
+# "ubi:hashicorp/packer" = "1.15.0"  # Use Nix version instead
+# "ubi:hashicorp/nomad" = "1.11.1"  # Use Nix version instead
+"ubi:terraform-linters/tflint" = "0.60.0"
+"ubi:terraform-docs/terraform-docs" = "0.21.0"
+"ubi:GoogleCloudPlatform/terraformer" = "0.8.30"
 
 # ============================================================================
 # Kubernetes Ecosystem (ubi)
 # ============================================================================
-"ubi:argoproj/argo-cd" = "latest"
-"ubi:kubernetes-sigs/kind" = "latest"
-"ubi:GoogleContainerTools/skaffold" = "latest"
-"ubi:kubernetes/kompose" = "latest"
+"ubi:argoproj/argo-cd" = "3.3.0"
+"ubi:kubernetes-sigs/kind" = "0.31.0"
+"ubi:GoogleContainerTools/skaffold" = "2.17.1"
+"ubi:kubernetes/kompose" = "1.38.0"
 
 # ============================================================================
 # CLI Utilities (ubi - GitHub releases)
 # ============================================================================
 jq = "1.7"
-"ubi:jesseduffield/lazygit" = "latest"
-"ubi:charmbracelet/glow" = "latest"
-"ubi:gohugoio/hugo" = "latest"
-shellcheck = "0.9"
-"ubi:hadolint/hadolint" = "latest"
-"ubi:mikefarah/yq" = "latest"
-"ubi:TomWright/dasel" = "latest"
+"ubi:jesseduffield/lazygit" = "0.58.1"
+"ubi:charmbracelet/glow" = "2.1.1"
+# "ubi:gohugoio/hugo" = "0.155.2"  # Asset matching issue - use Nix version
+shellcheck = "0.9.0"
+"ubi:hadolint/hadolint" = "2.14.0"
+"ubi:mikefarah/yq" = "4.52.2"
+"ubi:TomWright/dasel" = "3.2.1"
 
 # ============================================================================
 # Development Tools (ubi)
 # ============================================================================
-"ubi:LuaLS/lua-language-server" = "latest"
-"ubi:terrastruct/d2" = "latest"
-"ubi:getsentry/sentry-cli" = "latest"
+"ubi:LuaLS/lua-language-server" = "3.17.1"
+"ubi:terrastruct/d2" = "0.7.1"
+"ubi:getsentry/sentry-cli" = "3.1.0"
 
 # ============================================================================
 # Settings
