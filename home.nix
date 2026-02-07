@@ -27,9 +27,13 @@
     '';
   };
 
-  # Note: mise config is symlinked manually to allow mise to modify it
-  # Manual symlink: ~/.config/mise/config.toml -> ~/Repos/dot-files/conf.d/mise/config.toml
-  # Run once: ln -sf ~/Repos/dot-files/conf.d/mise/config.toml ~/.config/mise/config.toml
+  # mise config: create writable symlink to git repo (not nix store)
+  # This allows mise to modify the config when upgrading
+  home.activation.linkMiseConfig = pkgs.lib.hm.dag.entryAfter ["writeBoundary"] ''
+    mkdir -p $HOME/.config/mise
+    rm -f $HOME/.config/mise/config.toml
+    ln -sf $HOME/Repos/dot-files/conf.d/mise/config.toml $HOME/.config/mise/config.toml
+  '';
 
   home.file.".config/nvim.session" = {
     text = ''
