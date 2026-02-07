@@ -95,6 +95,45 @@ function update_input {
   nix flake lock --update-input "${1:"nixpkgs"}"
 }
 
+function nix-update() {
+  # Update Nix flakes and rebuild darwin
+  echo "🔄 Updating Nix flake inputs..."
+  echo ""
+
+  cd ~/Repos/dot-files
+
+  # Update all flake inputs
+  nix flake update
+
+  echo ""
+  echo "📊 What changed:"
+  git diff flake.lock | grep -A 3 "locked" || echo "No changes"
+
+  echo ""
+  read -k 1 -r "?🔨 Rebuild darwin now? (y/n) "
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "🏗️  Rebuilding darwin configuration..."
+    darwin-rebuild switch --flake ~/.nixpkgs
+    echo ""
+    echo "✅ System updated!"
+  else
+    echo "ℹ️  Skipped rebuild. Run when ready:"
+    echo "  darwin-rebuild switch --flake ~/.nixpkgs"
+  fi
+
+  echo ""
+  read -k 1 -r "?📌 Commit flake.lock changes? (y/n) "
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    git add flake.lock
+    git commit -m "chore: update flake inputs"
+    echo "✅ Changes committed!"
+  else
+    echo "ℹ️  Remember to commit: git add flake.lock && git commit"
+  fi
+}
+
 function mise-update() {
   # Update all mise tool versions to latest available
   echo "🔄 Upgrading mise tools to latest versions..."
