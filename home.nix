@@ -10,7 +10,6 @@
     ./modules/zsh
     ./modules/tools
     ./modules/editor
-    ./modules/claude
   ];
 
   home.file.".config/peco/config.json" = {
@@ -28,9 +27,9 @@
     '';
   };
 
-  home.file.".config/mise/config.toml" = {
-    source = ./conf.d/mise/config.toml;
-  };
+  # Note: mise config is symlinked manually to allow mise to modify it
+  # Manual symlink: ~/.config/mise/config.toml -> ~/Repos/dot-files/conf.d/mise/config.toml
+  # Run once: ln -sf ~/Repos/dot-files/conf.d/mise/config.toml ~/.config/mise/config.toml
 
   home.file.".config/nvim.session" = {
     text = ''
