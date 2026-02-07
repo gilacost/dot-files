@@ -112,7 +112,7 @@ function mise-update() {
     echo "📝 Changes to mise config:"
     git -C ~/Repos/dot-files diff --stat conf.d/mise/config.toml
     echo ""
-    read "?📌 Commit changes to git? (y/n) " -n 1 -r
+    read -k 1 -r "?📌 Commit changes to git? (y/n) "
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
       cd ~/Repos/dot-files
