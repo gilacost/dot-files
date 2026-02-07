@@ -68,7 +68,7 @@ kubectl = "1.35.0"
 # "ubi:hashicorp/vault" = "1.21.2"  # Use Nix version instead
 # "ubi:hashicorp/packer" = "1.15.0"  # Use Nix version instead
 # "ubi:hashicorp/nomad" = "1.11.1"  # Use Nix version instead
-"ubi:terraform-linters/tflint" = "0.60.0"
+"ubi:terraform-linters/tflint" = "0.61.0"
 "ubi:terraform-docs/terraform-docs" = "0.21.0"
 "ubi:GoogleCloudPlatform/terraformer" = "0.8.30"
 
@@ -84,7 +84,7 @@ kubectl = "1.35.0"
 # CLI Utilities (ubi - GitHub releases)
 # ============================================================================
 jq = "1.8.1"
-"ubi:jesseduffield/lazygit" = "0.58.1"
+"ubi:jesseduffield/lazygit" = "0.59.0"
 "ubi:charmbracelet/glow" = "2.1.1"
 # "ubi:gohugoio/hugo" = "0.155.2"  # Asset matching issue - use Nix version
 shellcheck = "0.11.0"
