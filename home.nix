@@ -1,4 +1,4 @@
-{ claudeCodeSrc, pkgs, ... }:
+{ claudeCodeSrc, pkgs, lib, ... }:
 {
 
   programs.home-manager.enable = true;
@@ -29,7 +29,7 @@
 
   # mise config: create writable symlink to git repo (not nix store)
   # This allows mise to modify the config when upgrading
-  home.activation.linkMiseConfig = pkgs.lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.linkMiseConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
     mkdir -p $HOME/.config/mise
     rm -f $HOME/.config/mise/config.toml
     ln -sf $HOME/Repos/dot-files/conf.d/mise/config.toml $HOME/.config/mise/config.toml
