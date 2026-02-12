@@ -103,6 +103,52 @@ The `install.sh` script performs the following actions:
 
 You can easily access remote development shells defined in this flake. Here's how:
 
+### Quick Setup with Shell Functions
+
+The easiest way to set up a development shell is using the shell functions available from anywhere:
+
+```bash
+# List all available shells (run from ANY directory)
+set-dev-shell --list
+
+# Get and set the latest Elixir shell (run from YOUR PROJECT directory)
+cd ~/my-elixir-project
+set-dev-shell --latest elixir
+
+# Get and set the latest Terraform shell
+cd ~/my-terraform-project
+set-dev-shell --latest terraform
+
+# Set a specific shell directly
+cd ~/my-project
+set-dev-shell elixir_1_18_1_erlang_27_2
+```
+
+The function will create a `.envrc` file in your current directory with the appropriate `use flake` directive and offer to use either a local path or GitHub reference.
+
+**Note**: These functions are available globally after the dotfiles are installed, so you can run them from any project directory!
+
+**Custom Installation Location**: If your dotfiles are not at `~/Repos/dot-files`, set the `DOTFILES_PATH` environment variable:
+```bash
+export DOTFILES_PATH=/path/to/your/dotfiles
+```
+
+### Direct Script Usage
+
+If you prefer to call the scripts directly (e.g., from CI or other contexts):
+
+```bash
+# From the dotfiles directory
+~/Repos/dot-files/utilities/set_dev_shell.sh --list
+
+# Or with full path from anywhere
+~/Repos/dot-files/utilities/set_dev_shell.sh --latest elixir
+```
+
+### Manual Setup
+
+You can also manually add a remote shell to your `.envrc`:
+
 1. Add a remote shell to your `.envrc`:
    ```bash
    echo "use flake /Users/<your-username>/Repos/dot-files#elixir_1_18_1_erlang_27_2" > .envrc
@@ -118,7 +164,28 @@ Now, your shell environment will automatically load the specified development sh
 
 ---
 
-## Debugging Development Shells
+## Managing Development Shells
+
+### Checking for Updates
+
+To check the current versions of all development shells (run from any directory):
+
+```bash
+check-shell-versions
+```
+
+Or call the script directly:
+
+```bash
+~/Repos/dot-files/utilities/check_shell_versions.sh
+```
+
+This will display:
+- Current latest versions for Elixir, Terraform, Redis, and OpenTofu
+- All available dev shells
+- Suggestions for adding new versions
+
+### Debugging Development Shells
 
 The repository supports multiple development shells defined in `dev_shells/default.nix`. To list available shells dynamically:
 
@@ -138,6 +205,25 @@ The repository supports multiple development shells defined in `dev_shells/defau
    ```
 
    Replace `<shell-name>` with any valid shell listed in the output of `nix flake show`.
+
+---
+
+## Automated Updates
+
+This repository includes a GitHub Actions workflow that automatically:
+- Updates Nix flake dependencies every Monday at 9:00 AM UTC
+- Tests the build with the updated dependencies
+- Verifies that Neovim starts without errors
+- Creates a pull request with the changes
+
+The workflow can also be triggered manually from the Actions tab.
+
+### Workflow Features
+
+- **Automated Dependency Updates**: Uses `nix flake update` to update all dependencies
+- **Build Testing**: Ensures the system builds successfully after updates
+- **Neovim Validation**: Tests that Neovim starts without errors
+- **Pull Request Creation**: Automatically creates a PR for review with detailed information
 
 ---
 
