@@ -15,10 +15,10 @@ vim.api.nvim_create_autocmd('FileType', {
     local ft = vim.bo[buf].filetype
 
     -- Check if a parser exists for this filetype
-    local has_parser = pcall(vim.treesitter.language.get_lang, ft)
+    local ok, lang = pcall(vim.treesitter.language.get_lang, ft)
 
-    if has_parser then
-      vim.treesitter.start(buf, ft)
+    if ok and lang then
+      pcall(vim.treesitter.start, buf, lang)
     end
   end,
 })
