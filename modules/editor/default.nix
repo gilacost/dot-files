@@ -1,4 +1,4 @@
-{ mcphub-nvim, pkgs, ... }:
+{ pkgs, ... }:
 {
 
   programs.neovim = {
@@ -67,7 +67,9 @@
       \ }
 
       lua << EOF
-        vim.g.lsp_elixir_bin = "${pkgs.elixir_ls}/bin/elixir-ls"
+        -- Primary stable LSP (lexical)
+        vim.g.lsp_elixir_bin = "/Users/pepo/.elixir-lsp/lexical-wrapper.sh"
+        -- Experimental LSP (expert) - available at /Users/pepo/.elixir-lsp/expert-wrapper.sh
         ${builtins.readFile ./nvim/base.lua}
         ${builtins.readFile ./nvim/lsp.lua}
         ${builtins.readFile ./nvim/sets.lua}
@@ -141,12 +143,11 @@
       [
         # mcphub-nvim
         plenary-nvim
-        nvim-treesitter
         dressing-nvim
         nui-nvim
         # avante-nvim
         img-clip-nvim
-        
+
         # Enhanced navigation
         harpoon
         which-key-nvim
@@ -160,7 +161,7 @@
         # neoai
         # ChatGPT-vim
         # plenary-nvim
-        copilot-vim
+        # copilot-vim
 
         ###REVIEW###
         # indentLine
@@ -173,9 +174,9 @@
 
         # Programming
         emmet-vim
-        nvim-treesitter
-        nvim-treesitter-refactor
-        nvim-treesitter-textobjects
+        (nvim-treesitter.withAllGrammars)
+        # nvim-treesitter-refactor
+        # nvim-treesitter-textobjects
         vim-vsnip
         vim-vsnip-integ
         vim-jsonnet

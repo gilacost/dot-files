@@ -1,7 +1,7 @@
 # NOTE: nix-prefetch-url --type sha256 --unpack https://github.com/erlang/otp/archive/refs/tags/OTP-${VERSION}.zip
 # NOTE: nix-prefetch-url --type sha256 --unpack https://github.com/elixir-lang/elixir/archive/refs/tags/v${VERSION}.zip
 
-{ flake-utils, nixpkgs, ... }:
+{ flake-utils, nixpkgs, expert, ... }:
 let
   mkElixirErlangShell = import ./elixir_erlang.nix;
   mkTerraformShell = import ./terraform.nix;
@@ -16,6 +16,36 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     inherit system nixpkgs;
     tofuVersion = "1.9.0";
     tofuSha256 = "sha256-c2vGE4+FAzG0Z8gUu7uPowflKR3I2kKmb7zqjqdo0x4=";
+  };
+
+  terraform_1_13_5 = mkTerraformShell {
+    inherit system nixpkgs;
+    terraformVersion = "1.13.5";
+    terraformSha256 = "1jv2vdnmqhja1jgx31vz92n2dxal1s17nvccqfjf3rrm28il5y8v";
+
+    sopsVersion = "3.11.0";
+    sopsSha256 = "sha256-ylVg3kap6Dw4afu9vI5jn8Wfhik5lBJ+GAye5vzSgfY=";
+
+    ageVersion = "1.2.1";
+    ageSha256 = "sha256-z3mHW9WXDcLaxgyH+lDO4f8fmkGw6yc/ZeF0r/N8Nno=";
+
+    terraformLsVersion = "0.38.2";
+    terraformLsSha256 = "0yralczjcgg6lryypj9wqxr83j5djmmnrcy4yj5a6z6yr1fx39xi";
+  };
+
+  terraform_1_13_3 = mkTerraformShell {
+    inherit system nixpkgs;
+    terraformVersion = "1.13.3";
+    terraformSha256 = "sha256-g2LnKEs4oRlIhJY97tg0gWltRotC2riAUndfQoA4NYQ=";
+
+    sopsVersion = "3.10.2";
+    sopsSha256 = "10hxym70a6xwvsc1sm904kvfp7cqx4v1wh57cm95jq0775vp5af2";
+
+    ageVersion = "1.2.1";
+    ageSha256 = "sha256-z3mHW9WXDcLaxgyH+lDO4f8fmkGw6yc/ZeF0r/N8Nno=";
+
+    terraformLsVersion = "0.37.0";
+    terraformLsSha256 = "sha256-ax3Vd3BgD9K5+/WrI5fcksrG2f4SedRV8uQws0o06Yk=";
   };
 
   terraform_1_12_0 = mkTerraformShell {
@@ -37,21 +67,67 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     inherit system nixpkgs;
     terraformVersion = "1.11.3";
     terraformSha256 = "sha256-wMZPp7hZ9QX9zv2riTF+mLJo9o1AHah98LACHoJ88Zc=";
+
+    sopsVersion = "3.11.0";
+    sopsSha256 = "sha256-ylVg3kap6Dw4afu9vI5jn8Wfhik5lBJ+GAye5vzSgfY=";
+
+    ageVersion = "1.2.1";
+    ageSha256 = "sha256-z3mHW9WXDcLaxgyH+lDO4f8fmkGw6yc/ZeF0r/N8Nno=";
+
+    terraformLsVersion = "0.38.2";
+    terraformLsSha256 = "0yralczjcgg6lryypj9wqxr83j5djmmnrcy4yj5a6z6yr1fx39xi";
   };
 
   terraform_1_7_5 = mkTerraformShell {
     inherit system nixpkgs;
     terraformVersion = "1.7.5";
     terraformSha256 = "sha256-mcTU/q+wGDry9/vge+7qb4Pl9aKa4p/uMWi2gQ43/5g=";
+
+    sopsVersion = "3.10.2";
+    sopsSha256 = "10hxym70a6xwvsc1sm904kvfp7cqx4v1wh57cm95jq0775vp5af2";
+
+    ageVersion = "1.2.1";
+    ageSha256 = "sha256-z3mHW9WXDcLaxgyH+lDO4f8fmkGw6yc/ZeF0r/N8Nno=";
+
+    terraformLsVersion = "0.36.4";
+    terraformLsSha256 = "sha256-55AkxwTEj6POUKVBFTwtJrnosKhRpvGNwcgc1X1BlTI=";
   };
 
   redis_latest = mkRedisShell {
     inherit system nixpkgs;
+    redisVersion = "7.4.2";
+    redisSha256 = "sha256-Td678JBhy7WJAReG/r2zTyl2fdf4nb5xLSto6Aivah8=";
+  };
+
+  elixir_1_19_4_erlang_28_2 = mkElixirErlangShell {
+    inherit system;
+    inherit nixpkgs expert;
+    elixirVersion = "1.19.4";
+    elixirSha256 = "1ik8bls9b60w3cagn77h21q2gl0b79swmxq20bxca8hmg72vz44l";
+    elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
+    erlangVersion = "28.2";
+    erlangSha256 = "128pmwgbjb138pkw78pklh7myzlbrlnkjl55vsrsj3p3k96i9lp7";
+    erlangInterpreter = "erlang_28";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "sha256-F67zKJu/ENAlKD7/D7NR7Kx7Lhe1G7kvfnmcvsnpMqM=";
+  };
+
+  elixir_1_19_2_erlang_28_1_1 = mkElixirErlangShell {
+    inherit system;
+    inherit nixpkgs expert;
+    elixirVersion = "1.19.2";
+    elixirSha256 = "0556xjkh5229afl22av2g8gkq5ak0gfipm90ybgnq2d2brd714xh";
+    elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
+    erlangVersion = "28.1.1";
+    erlangSha256 = "09774q6j15gyka2497cj1yzzj5l2a4qb4ifkwcwxdpbi7bvjk2nr";
+    erlangInterpreter = "erlang_28";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "18rjx74vx73rgqpvj6xm2wp7pb7ca6rhzzry50jx045zkclg7bhp";
   };
 
   elixir_1_18_4_erlang_28_0_2 = mkElixirErlangShell {
     inherit system;
-    inherit nixpkgs;
+    inherit nixpkgs expert;
     elixirVersion = "1.18.4";
     elixirSha256 = "0861h06x1594jsqq21lkmd96yvlfhfngrrxm6fwpqifzw4ij02iz";
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
@@ -64,15 +140,15 @@ flake-utils.lib.eachDefaultSystemMap (system: {
 
   elixir_latest_erlang_latest = mkElixirErlangShell {
     inherit system;
-    inherit nixpkgs;
-    elixirVersion = "1.18.3";
-    elixirSha256 = "03d2ha0ykrxwfzj1w7wvapc0w3nm1xchl1m9m7r287anh3wbazwc";
+    inherit nixpkgs expert;
+    elixirVersion = "1.19.4";
+    elixirSha256 = "1ik8bls9b60w3cagn77h21q2gl0b79swmxq20bxca8hmg72vz44l";
     elixirEscriptPath = "lib/elixir/scripts/generate_app.escript";
-    erlangVersion = "27.3.2";
-    erlangSha256 = "0a4d19z3ccs1fa0597bzm803aqq2q6pqkgg4awqdsbp9dmrf89iz";
-    erlangInterpreter = "erlang_27";
+    erlangVersion = "28.2";
+    erlangSha256 = "128pmwgbjb138pkw78pklh7myzlbrlnkjl55vsrsj3p3k96i9lp7";
+    erlangInterpreter = "erlang_28";
     lexicalVersion = "v0.7.3";
-    lexicalSha256 = "sha256-p8XSJBX1igwC+ssEJGD8wb/ZYaEgLGozlY8N6spo3cA=";
+    lexicalSha256 = "sha256-F67zKJu/ENAlKD7/D7NR7Kx7Lhe1G7kvfnmcvsnpMqM=";
   };
 
   elixir_1_16_3_erlang_25_3_2_20 = mkElixirErlangShell {
@@ -99,6 +175,7 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     erlangInterpreter = "erlang_27";
     lexicalVersion = "v0.7.3";
     lexicalSha256 = "sha256-F67zKJu/ENAlKD7/D7NR7Kx7Lhe1G7kvfnmcvsnpMqM=";
+
   };
 
   elixir_1_17_2_erlang_26_2_5 = mkElixirErlangShell {
@@ -110,6 +187,8 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     erlangVersion = "26.2.5";
     erlangSha256 = "sha256-tUAvzkTE51gT4kS7voEZZpsMKVyBQR+wgk6mI0s1Vac=";
     erlangInterpreter = "erlang_26";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "sha256-p8XSJBX1igwC+ssEJGD8wb/ZYaEgLGozlY8N6spo3cA=";
     elixirLsVersion = "v0.27.2";
     elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
   };
@@ -123,6 +202,8 @@ flake-utils.lib.eachDefaultSystemMap (system: {
     erlangVersion = "26.0";
     erlangSha256 = "sha256-7z5LkCLyjqGlo48XlcwAUiu1FkmAAewEGnP30QDDme8=";
     erlangInterpreter = "erlang_26";
+    lexicalVersion = "v0.7.3";
+    lexicalSha256 = "sha256-p8XSJBX1igwC+ssEJGD8wb/ZYaEgLGozlY8N6spo3cA=";
     elixirLsVersion = "v0.27.2";
     elixirLsSha256 = "sha256-y1QT+wRFc+++OVFJwEheqcDIwaKHlyjbhEjhLJ2rYaI=";
   };

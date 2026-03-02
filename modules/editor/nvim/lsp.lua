@@ -1,6 +1,11 @@
+-- Suppress lspconfig deprecation warnings for neovim 0.11
+-- The plugin works fine, this is just a notice about future API changes
+local original_warn = vim.deprecate
+vim.deprecate = function() end
+
 local lsp = require('lspconfig')
 local opts = { noremap = true, silent = true }
-local elixir_lsp_path = vim.fn.expand("~/.elixir-lsp/lexical/bin/start_lexical.sh")
+local elixir_lsp_path = vim.g.lsp_elixir_bin or vim.fn.expand("~/.elixir-lsp/expert")
 local terraformls_path = vim.fn.expand("~/.terraform-ls/bin/terraform-ls")
 
 -- 🧠 Float border styling for LSP popups
@@ -54,7 +59,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
@@ -82,7 +86,11 @@ local border = {
 
 lsp.lexical.setup {
   cmd = { elixir_lsp_path },
+  root_dir = function(fname)
+    return lsp.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
+  end,
   filetypes = { "elixir", "eelixir", "heex" },
+  settings = {}
 }
 
 lsp.erlangls.setup {}
@@ -96,6 +104,29 @@ lsp.dockerls.setup {}
 lsp.vimls.setup {}
 
 lsp.bashls.setup {}
+
+lsp.lua_ls.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = {
+          vim.env.VIMRUNTIME,
+          "${3rd}/luv/library"
+        },
+        checkThirdParty = false,
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 
 lsp.pyright.setup {}
 
@@ -130,6 +161,9 @@ lsp.nixd.setup{}
 lsp.jsonls.setup {
   capabilities = capabilities,
 }
+
+-- Restore original deprecate function after all LSP servers are configured
+vim.deprecate = original_warn
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   pattern = {"*.ex","*.exs","*.eex","*.leex","*.heex"},

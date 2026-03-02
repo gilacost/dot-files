@@ -37,11 +37,48 @@ function gha() {
   fi
 }
 
+function gha_peco() {
+  # List GitHub Actions runs with peco and open selected run in browser
+  # Shows workflow name, status, and branch
+  gh run list --limit 50 --json displayTitle,status,conclusion,headBranch,url \
+    --jq '.[] | "\(.displayTitle) [\(.status)] [\(.conclusion // "running")] (\(.headBranch)) \(.url)"' | \
+    peco | \
+    awk '{print $NF}' | \
+    xargs open
+}
+
 function gsina {
   git status --porcelain \
   | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
   | peco \
   | awk '{ print "$(git rev-parse --show-toplevel)/"$2 }'
+}
+
+function glog_peco {
+  # Search through git commit messages with peco
+  # Shows commits in a nice format and opens the selected one with git show
+  git log --oneline --color=always --decorate | \
+    peco | \
+    awk '{print $1}' | \
+    xargs -I {} git show --color=always {}
+}
+
+function gdiff_peco {
+  # Search through git commit diffs with peco
+  # Useful for finding when specific code was changed
+  git log --oneline --color=always --decorate | \
+    peco | \
+    awk '{print $1}' | \
+    xargs -I {} git diff --color=always {}^..{}
+}
+
+function glog_search {
+  # Interactive search through commit messages and diffs
+  # Shows full commit info in peco preview
+  git log --oneline --all --decorate --color=always | \
+    peco --query "$1" | \
+    awk '{print $1}' | \
+    xargs -I {} git show --color=always {}
 }
 
 
@@ -56,6 +93,77 @@ function rm_pattern {
 
 function update_input {
   nix flake lock --update-input "${1:"nixpkgs"}"
+}
+
+function nix-update() {
+  # Update Nix flakes and rebuild darwin
+  echo "🔄 Updating Nix flake inputs..."
+  echo ""
+
+  cd ~/Repos/dot-files
+
+  # Update all flake inputs
+  nix flake update
+
+  echo ""
+  echo "📊 What changed:"
+  git diff flake.lock | grep -A 3 "locked" || echo "No changes"
+
+  echo ""
+  read -k 1 -r "?🔨 Rebuild darwin now? (y/n) "
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "🏗️  Rebuilding darwin configuration..."
+    darwin-rebuild switch --flake ~/.nixpkgs
+    echo ""
+    echo "✅ System updated!"
+  else
+    echo "ℹ️  Skipped rebuild. Run when ready:"
+    echo "  darwin-rebuild switch --flake ~/.nixpkgs"
+  fi
+
+  echo ""
+  read -k 1 -r "?📌 Commit flake.lock changes? (y/n) "
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    git add flake.lock
+    git commit -m "chore: update flake inputs"
+    echo "✅ Changes committed!"
+  else
+    echo "ℹ️  Remember to commit: git add flake.lock && git commit"
+  fi
+}
+
+function mise-update() {
+  # Update all mise tool versions to latest available
+  echo "🔄 Upgrading mise tools to latest versions..."
+  echo ""
+
+  # Use mise's built-in upgrade with --bump to update config.toml
+  mise upgrade --bump
+
+  echo ""
+  echo "✅ Tools upgraded!"
+  echo ""
+
+  # Check if config changed
+  if ! git -C ~/Repos/dot-files diff --quiet conf.d/mise/config.toml; then
+    echo "📝 Changes to mise config:"
+    git -C ~/Repos/dot-files diff --stat conf.d/mise/config.toml
+    echo ""
+    read -k 1 -r "?📌 Commit changes to git? (y/n) "
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      cd ~/Repos/dot-files
+      git add conf.d/mise/config.toml
+      git commit -m "chore: update mise tool versions"
+      echo "✅ Changes committed!"
+    else
+      echo "ℹ️  Remember to commit: cd ~/Repos/dot-files && git add conf.d/mise/config.toml"
+    fi
+  else
+    echo "ℹ️  No version changes"
+  fi
 }
 
 function checkports_host {
@@ -183,22 +291,113 @@ function get_latest_release() {
     | jq -r '.tag_name'
 }
 
+###############
+# Git + Claude #
+###############
+
+# Claude-powered git search
+function gsearch() {
+  # Search git history with Claude's help
+  if [ -z "$1" ]; then
+    echo "Usage: gsearch 'what are you looking for?'"
+    echo "Example: gsearch 'when did we add authentication?'"
+    return 1
+  fi
+
+  echo "Searching git history with Claude..."
+  git log --all --oneline --decorate | claude "Search through this git history for: $1. Show relevant commits with explanations."
+}
+
+# Find when a function/feature was added
+function gwhen() {
+  if [ -z "$1" ]; then
+    echo "Usage: gwhen <function_name_or_code>"
+    echo "Example: gwhen 'processPayment'"
+    return 1
+  fi
+
+  echo "Finding when '$1' was introduced..."
+  git log -S "$1" --all --oneline --pretty=format:"%C(yellow)%h%Creset %Cgreen%ad%Creset %s" --date=short
+}
+
+# Who wrote this mess?
+function gblame-ai() {
+  if [ ! -f "$1" ]; then
+    echo "Usage: gblame-ai <file>"
+    return 1
+  fi
+
+  git blame "$1" | claude "Summarize who worked on this file and what sections they own. Group by author."
+}
+
+# Git stats with Claude insights
+function gstats() {
+  git log --all --pretty=format:"%an" | sort | uniq -c | sort -rn | claude "Analyze these git contributor stats and provide insights about team contributions."
+}
+
+# Show me what changed in the last N commits
+function grecent() {
+  local count=${1:-5}
+  git log -n "$count" --oneline --color=always | claude "Summarize these recent commits and highlight any important patterns or concerns."
+}
+
+# Quick reminder of available git+claude commands
+function ghelp() {
+  cat << 'EOF'
+Git + Claude Helper Commands
+=============================
+
+Commits & Branches:
+  gcai              Generate commit message and commit
+  gbai              Generate branch name and create branch
+  prdai [base]      Generate PR description
+
+History Search:
+  gsearch 'query'   Search git history with Claude
+  gwhen <code>      Find when code/function was added
+  grecent [N]       Summarize last N commits (default 5)
+  gblame-ai <file>  Summarize who owns what in a file
+  gstats            Team contribution insights
+
+Quick Claude:
+  c "prompt"        Claude on current directory
+  cg "prompt"       Claude with git diff context
+  cfix              Fix last failed command
+  cexp <file>       Explain file or concept
+
+Existing Tools:
+  glog_peco         Search commits interactively
+  gdiff_peco        Search commit diffs
+  glog_search       Search commits with query
+
+Daily:
+  ailog             Open today's AI workflow log
+
+Run 'ghelp' anytime to see this list!
+EOF
+}
+
 function gcai() {
-  # Check if there are staged changes (excluding lock files)
+  # Generate commit message with Claude
   if ! git diff --staged --quiet; then
-      # Generate commit message using OpenAI API via sc
-      COMMIT_MESSAGE=$(git diff --staged -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | sc --api openai "summarize changes as a commit message, make it short and descriptive, andproperly formatted")
-  
-      # Trim leading/trailing spaces
+      echo "Generating commit message with Claude..."
+      COMMIT_MESSAGE=$(git diff --staged -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | claude "Write a concise git commit message for these changes. Just the message, no explanations. Follow conventional commits format if appropriate.")
+
       COMMIT_MESSAGE=$(echo "$COMMIT_MESSAGE" | sed 's/^ *//;s/ *$//')
-  
-      # Ensure the commit message is not empty
+
       if [[ -n "$COMMIT_MESSAGE" ]]; then
-          git commit -m "$COMMIT_MESSAGE"
-          echo "Committed with message: $COMMIT_MESSAGE"
+          echo "Commit message: $COMMIT_MESSAGE"
+          read "?Commit with this message? (y/n) " -n 1 -r
+          echo
+          if [[ $REPLY =~ ^[Yy]$ ]]; then
+              git commit -m "$COMMIT_MESSAGE"
+              echo "✓ Committed"
+          else
+              echo "Cancelled"
+          fi
       else
           echo "Error: Generated commit message is empty."
-          exit 1
+          return 1
       fi
   else
       echo "No staged changes to commit (or only lock files were changed)."
@@ -206,21 +405,26 @@ function gcai() {
 }
 
 function gbai() {
-  # Check if there are staged changes
+  # Generate branch name with Claude
   if ! git diff --staged --quiet; then
-      # Generate branch name using OpenAI API via sc
-      BRANCH_NAME=$(git diff --staged | sc --api openai "summarize changes as a short and descriptive branch name, use-kebab-case")
-  
-      # Trim leading/trailing spaces and replace spaces with dashes
-      BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^ *//;s/ *$//' | tr ' ' '-')
-  
-      # Ensure the branch name is not empty
+      echo "Generating branch name with Claude..."
+      BRANCH_NAME=$(git diff --staged | claude "Generate a short, descriptive git branch name for these changes. Use kebab-case. Just the branch name, nothing else.")
+
+      BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^ *//;s/ *$//' | tr ' ' '-' | tr -cd '[:alnum:]-')
+
       if [[ -n "$BRANCH_NAME" ]]; then
-          git checkout -b "$BRANCH_NAME"
-          echo "Switched to new branch: $BRANCH_NAME"
+          echo "Branch name: $BRANCH_NAME"
+          read "?Create this branch? (y/n) " -n 1 -r
+          echo
+          if [[ $REPLY =~ ^[Yy]$ ]]; then
+              git checkout -b "$BRANCH_NAME"
+              echo "✓ Switched to new branch: $BRANCH_NAME"
+          else
+              echo "Cancelled"
+          fi
       else
           echo "Error: Generated branch name is empty."
-          exit 1
+          return 1
       fi
   else
       echo "No staged changes to create a branch."
@@ -228,39 +432,36 @@ function gbai() {
 }
 
 function prdai() {
-  # Define the base branch (default to 'main' or set it as an argument)
+  # Generate PR description with Claude
   BASE_BRANCH=${1:-main}
-  
-  # Get the current branch
   CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  
-  # Ensure we're not on the base branch
+
   if [ "$CURRENT_BRANCH" = "$BASE_BRANCH" ]; then
-      echo "You are on the $BASE_BRANCH branch. Switch to a feature branch before generating a PR description."
-      exit 1
+      echo "You are on the $BASE_BRANCH branch. Switch to a feature branch first."
+      return 1
   fi
-  
-  # Ensure the base branch exists locally; fetch if necessary
+
   if ! git show-ref --quiet "refs/heads/$BASE_BRANCH"; then
       echo "Base branch $BASE_BRANCH not found locally. Fetching..."
       git fetch origin "$BASE_BRANCH:$BASE_BRANCH"
   fi
-  
-  # Generate the PR description by comparing the current branch to the base branch
-  PR_DESCRIPTION=$(git diff "$BASE_BRANCH"..."$CURRENT_BRANCH" -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | sc --api openai "summarize changes in a detailed pull request description")
-  
-  # Trim leading/trailing spaces
+
+  echo "Generating PR description with Claude..."
+  PR_DESCRIPTION=$(git diff "$BASE_BRANCH"..."$CURRENT_BRANCH" -- . ":(exclude)mix.lock" ":(exclude)package-lock.json" ":(exclude)yarn.lock" ":(exclude)pnpm-lock.yaml" | claude "Write a detailed PR description for these changes. Include: ## Summary (what changed), ## Why (motivation), ## Changes (bullet points), ## Testing (how to verify). Use markdown format.")
+
   PR_DESCRIPTION=$(echo "$PR_DESCRIPTION" | sed 's/^ *//;s/ *$//')
-  
-  # Ensure the PR description is not empty
+
   if [[ -n "$PR_DESCRIPTION" ]]; then
+      echo ""
       echo "Generated PR Description:"
-      echo "--------------------------------------"
+      echo "======================================"
       echo "$PR_DESCRIPTION"
-      echo "--------------------------------------"
+      echo "======================================"
+      echo ""
+      echo "Copy this for your PR, or pipe to: gh pr create --body-file -"
   else
       echo "Error: Generated PR description is empty."
-      exit 1
+      return 1
   fi
 }
 
@@ -291,6 +492,251 @@ flakifiy() {
   fi
   "${EDITOR:-vim}" flake.nix
 }
+
+function oom_rate() {
+  if [[ -z "$1" || "$1" == "--help" ]]; then
+    echo "Usage: oom_rate <log-group-name> [days]"
+    echo
+    echo "Calculate the rate of OutOfMemoryError events in AWS CloudWatch logs"
+    echo
+    echo "Arguments:"
+    echo "  log-group-name    AWS CloudWatch log group name (required)"
+    echo "  days              Number of days to analyze (default: 7)"
+    echo
+    echo "Example:"
+    echo "  oom_rate /aws/chatbot/ecs-alerts-channel 14"
+    return 1
+  fi
+
+  local log_group="$1"
+  local days=${2:-7}
+  local seconds=$((days * 86400))
+
+  aws logs filter-log-events \
+    --log-group-name "$log_group" \
+    --start-time $(($(date +%s) - $seconds))000 \
+    --filter-pattern "OutOfMemoryError" \
+    --region ${AWS_REGION:-us-east-1} | \
+  jq '.events | length' | \
+  awk -v d=$days '{printf "Last %d days: %d OOMs (%.2f per day)\n", d, $1, $1/d}'
+}
+
+###############
+# Claude Code #
+###############
+
+# Quick Claude on current directory
+function c() {
+  claude "$@"
+}
+
+# Claude with context from git diff
+function cg() {
+  if git diff --quiet; then
+    echo "No git changes to provide as context"
+    return 1
+  fi
+  git diff | claude "$@"
+}
+
+# Claude fix - for when tests fail
+function cfix() {
+  local last_cmd="${history[$((HISTCMD-1))]}"
+  echo "Last command: $last_cmd"
+  claude "The command '$last_cmd' failed. Fix it: $@"
+}
+
+# Claude explain - quick explanation
+function cexp() {
+  if [ -f "$1" ]; then
+    claude "Explain this file briefly" < "$1"
+  else
+    claude "Explain: $@"
+  fi
+}
+
+# Daily AI workflow log
+function ailog() {
+  local log_dir="$HOME/Repos/dot-files/.claude/logs"
+  local today=$(date +%Y-%m-%d)
+  local log_file="$log_dir/$today.md"
+
+  # Create logs directory if it doesn't exist
+  mkdir -p "$log_dir"
+
+  # Create today's log from template if it doesn't exist
+  if [ ! -f "$log_file" ]; then
+    sed "s/\[DATE\]/$today/g" "$HOME/Repos/dot-files/.claude/ai-workflow-log-template.md" > "$log_file"
+    echo "Created today's AI workflow log"
+  fi
+
+  # Open in editor
+  ${EDITOR:-nvim} "$log_file"
+}
+
+#####################
+# AI Pair Workflow  #
+#####################
+
+# Quick AI session (save everything, run Claude, reopen)
+function ai() {
+  # Check if in git repo
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "⚠️  Not in a git repository - running without safety commits"
+    if [ -z "$1" ]; then
+      claude
+    else
+      claude "$@"
+    fi
+    return
+  fi
+
+  # Safety commit
+  echo "💾 Creating safety commit..."
+  git add -A
+  if git commit -m "WIP: before AI session [$(date +%H:%M)]" --no-verify 2>/dev/null; then
+    echo "✓ Safety commit created"
+  else
+    echo "ℹ️  No changes to commit"
+  fi
+
+  # Run Claude
+  echo "🤖 Starting Claude session..."
+  echo ""
+  if [ -z "$1" ]; then
+    claude
+  else
+    claude "$@"
+  fi
+
+  # Show what changed
+  echo ""
+  echo "=== Changes from AI session ==="
+  git diff HEAD~1 --stat 2>/dev/null || echo "No changes"
+  echo ""
+  echo "📋 Commands:"
+  echo "  git diff HEAD~1  - Review all changes"
+  echo "  ai-accept        - Accept with proper commit message"
+  echo "  ai-undo          - Undo all AI changes"
+}
+
+# AI session with specific files as context
+function aif() {
+  if [ -z "$1" ]; then
+    echo "Usage: aif <files...> -- <prompt>"
+    echo "Example: aif src/app.js src/utils.js -- 'refactor to use async/await'"
+    return 1
+  fi
+
+  # Parse files and prompt
+  local files=()
+  local prompt=""
+  local found_separator=false
+
+  for arg in "$@"; do
+    if [ "$arg" = "--" ]; then
+      found_separator=true
+    elif [ "$found_separator" = true ]; then
+      prompt="$prompt $arg"
+    else
+      files+=("$arg")
+    fi
+  done
+
+  if [ ${#files[@]} -eq 0 ]; then
+    echo "Error: No files specified"
+    return 1
+  fi
+
+  # Safety commit
+  git add -A
+  git commit -m "WIP: before AI session on ${files[*]}" --no-verify 2>/dev/null
+
+  # Run Claude with files
+  claude "$prompt" "${files[@]}"
+
+  # Show changes
+  git diff HEAD~1 --stat
+}
+
+# Undo last AI session
+function ai-undo() {
+  local last_commit=$(git log -1 --format=%s 2>/dev/null)
+  if [[ "$last_commit" =~ ^WIP:.*AI\ session ]]; then
+    echo "↩️  Undoing AI session: $last_commit"
+    git reset HEAD~1
+    echo "✓ AI session undone"
+  else
+    echo "⚠️  No AI session to undo (last commit wasn't a WIP AI session)"
+    echo "Last commit was: $last_commit"
+  fi
+}
+
+# Accept AI changes (cleanup commit message)
+function ai-accept() {
+  local last_commit=$(git log -1 --format=%s 2>/dev/null)
+  if [[ "$last_commit" =~ ^WIP:.*AI\ session ]]; then
+    echo "✍️  What did the AI do? (commit message):"
+    read -r message
+    if [ -n "$message" ]; then
+      git commit --amend -m "$message" --no-verify
+      echo "✓ AI changes accepted with message: $message"
+    else
+      echo "⚠️  Empty message, keeping WIP commit"
+    fi
+  else
+    echo "⚠️  No AI session to accept"
+  fi
+}
+
+# AI session status
+function ai-status() {
+  local last_commit=$(git log -1 --format=%s 2>/dev/null)
+
+  if [[ "$last_commit" =~ ^WIP:.*AI\ session ]]; then
+    echo "📌 Currently in AI session"
+    echo ""
+    echo "Last commit: $last_commit"
+    echo ""
+    echo "Changes:"
+    git diff HEAD~1 --stat
+    echo ""
+    echo "Commands:"
+    echo "  ai-accept  - Accept changes and write proper commit message"
+    echo "  ai-undo    - Undo AI changes completely"
+    echo "  git diff HEAD~1  - Review all changes"
+  else
+    echo "✓ Not in AI session"
+    echo "Last commit: $last_commit"
+  fi
+}
+
+# Show ghelp reminder occasionally (once per day)
+function _show_git_reminder() {
+  local reminder_file="$HOME/.cache/git-reminder-shown"
+  local today=$(date +%Y-%m-%d)
+
+  # Create cache dir if needed
+  mkdir -p "$HOME/.cache"
+
+  # Show reminder if not shown today
+  if [ ! -f "$reminder_file" ] || [ "$(cat $reminder_file 2>/dev/null)" != "$today" ]; then
+    echo "$today" > "$reminder_file"
+    echo ""
+    echo "💡 Tip: Type 'ghelp' to see all git+Claude helper commands"
+    echo ""
+  fi
+}
+
+# Show reminder when entering git repos
+function _git_dir_reminder() {
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    _show_git_reminder
+  fi
+}
+
+# Hook into directory changes (if using zoxide/jump)
+chpwd_functions+=(_git_dir_reminder)
 
 source <(kubectl completion zsh)
 alias k=kubectl

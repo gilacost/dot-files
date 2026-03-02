@@ -213,41 +213,63 @@
     stateVersion = 6;
     defaults = {
       NSGlobalDomain = {
+        # Mouse & Keyboard
         "com.apple.mouse.tapBehavior" = 1;
         AppleKeyboardUIMode = 3;
         ApplePressAndHoldEnabled = true;
         InitialKeyRepeat = 10;
         KeyRepeat = 1;
+
+        # Text editing
         NSAutomaticCapitalizationEnabled = false;
         NSAutomaticDashSubstitutionEnabled = false;
         NSAutomaticPeriodSubstitutionEnabled = false;
         NSAutomaticQuoteSubstitutionEnabled = false;
         NSAutomaticSpellingCorrectionEnabled = false;
+
+        # Save dialogs
         NSNavPanelExpandedStateForSaveMode = true;
         NSNavPanelExpandedStateForSaveMode2 = true;
+
+        # UI
         _HIHideMenuBar = true;
+        AppleShowAllExtensions = true;
       };
 
+      # Screenshots
       screencapture.location = "/tmp";
 
+      # Dock
       dock = {
         autohide = true;
         mru-spaces = false;
         orientation = "bottom";
         showhidden = true;
         static-only = true;
+        show-recents = false;
       };
 
+      # Finder
       finder = {
         AppleShowAllFiles = true;
         AppleShowAllExtensions = true;
         QuitMenuItem = true;
         FXEnableExtensionChangeWarning = false;
+        ShowPathbar = true;
+        ShowStatusBar = true;
+        _FXSortFoldersFirst = true;
       };
 
+      # Trackpad
       trackpad = {
         Clicking = true;
         TrackpadThreeFingerDrag = false;
+      };
+
+      # Login window
+      loginwindow = {
+        GuestEnabled = false;
+        DisableConsoleAccess = true;
       };
     };
 
@@ -308,16 +330,18 @@
 
     brews = [
       "amazon-ecs-cli"
-      "dive"
       "qemu"
       "mas"
       "asciinema"
       "fwup"
       "coreutils"
-      "ansible"
+      # Removed duplicates: dive, ansible (now in Nix tools module)
     ];
 
     casks = [
+      "crossover"
+      "insta360-studio"
+      "cyberduck"
       "claude"
       "deckset"
       "inkscape"
@@ -342,6 +366,7 @@
       "postman"
       "raycast"
       "remarkable"
+      "session-manager-plugin"
       "sketch"
       "skype"
       "slack"

@@ -1,61 +1,27 @@
 {
   pkgs,
   lib,
-  writeShellScriptBin,
-  nodejs,
   ...
 }:
-let
-  inherit (pkgs)
-    writeShellScriptBin
-    nodejs
-    ;
-  claudeCode = pkgs.writeShellScriptBin "claude" ''
-    # Set up npm global prefix to avoid permission issues  
-    export NPM_CONFIG_PREFIX="$HOME/.npm-global"
-    export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
-
-    # Create npm global directory if it doesn't exist
-    mkdir -p "$NPM_CONFIG_PREFIX"
-
-    # Check if claude is installed and working
-    if ! "$NPM_CONFIG_PREFIX/bin/claude" --version &> /dev/null; then
-      echo "Installing @anthropic-ai/claude-code..."
-      ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code
-      
-      # Verify installation
-      if ! "$NPM_CONFIG_PREFIX/bin/claude" --version &> /dev/null; then
-        echo "Installation failed or claude binary not found at expected location."
-        echo "Trying to find claude binary..."
-        
-        # Try to find where npm actually installed it
-        CLAUDE_PATH=$(find "$NPM_CONFIG_PREFIX" -name "claude" -type f -executable 2>/dev/null | head -1)
-        
-        if [ -n "$CLAUDE_PATH" ]; then
-          echo "Found claude at: $CLAUDE_PATH"
-          exec "$CLAUDE_PATH" "$@"
-        else
-          echo "Could not find claude binary. Trying npx as fallback..."
-          exec ${pkgs.nodejs}/bin/npx @anthropic-ai/claude-code "$@"
-        fi
-      fi
-    fi
-
-    # Run claude command
-    exec "$NPM_CONFIG_PREFIX/bin/claude" "$@"
-  '';
-in
 {
   home.packages = with pkgs; [
-    claudeCode
-    lazygit
-    zoxide
+    # PHASE 2: mise now manages ~70 tools (languages, CLI utils, infra tools)
+    # Keeping only tools that are complex to build, Nix-specific, or not in mise
+    mise
+
+    # Nix-specific tools
     nixos-generators
     cf-terraforming
     kas
-    ssm-session-manager-plugin
     neovim-remote
     tree-sitter
+    nerd-fonts.iosevka
+    nix-prefetch-git
+    nixd
+    nixfmt
+    cachix
+
+    # Media processing tools
     p7zip
     xorriso
     smartcat
@@ -64,95 +30,63 @@ in
     hping
     iperf
     potrace
-    zellij
     imagemagick
     pngquant
     jpegoptim
+    tesseract
+
+    # Terminal & system utilities
+    zellij
     zsh-syntax-highlighting
     cloc
-    nodePackages.node2nix
     postgresql
     htop
-    dasel
     silver-searcher
-    nerd-fonts.iosevka
     unixtools.watch
     fortune
-    hugo
     jump
-    fd
-    jq
-    yq
-    ripgrep
-    glow
     tig
     tree
     peco
     httpie
-    nix-prefetch-git
     wget
     nmap
     inetutils
+
+    # Security tools
     sops
     age
     git-crypt
+
+    # Complex formatters & LSP servers (hard to build via mise)
     hclfmt
-    erlang-ls
-    tailwindcss-language-server
-    nodePackages.dockerfile-language-server-nodejs
-    nodePackages.vim-language-server
-    nodePackages.bash-language-server
-    nodePackages.yaml-language-server
-    nodePackages_latest.typescript-language-server
-    nixd
+    erlang-language-platform
     rust-analyzer
     rustfmt
-    hadolint
-    nixfmt-rfc-style
-    tflint
-    nodePackages.prettier
     erlfmt
-    shellcheck
-    nodePackages.markdownlint-cli
-    nodePackages.cspell
-    vscode-langservers-extracted
-    lua-language-server
-    terragrunt
-    packer
-    skopeo
-    skaffold
-    nomad
+
+    # Cloud tools not in mise or with complex dependencies
     google-cloud-sdk
     linode-cli
     flyctl
-    vault
-    infracost
-    dive
-    kind
-    terraform
-    terragrunt
-    kubectl
-    kubernetes-helm
-    terraformer
-    terraform-docs
     azure-cli
     awscli2
-    argocd
+    infracost
+
+    # Container & infrastructure tools with complex builds
+    skopeo
+    dive
+    packer
+    nomad
+    vault
     ansible
-    kompose
-    cargo
-    cargo-edit
-    rustc
-    go
-    rebar3
-    elixir
-    erlang
-    gleam
-    cachix
-    nodejs
-    nodePackages.npm
-    yarn
-    tesseract
+
+    # Language-specific tools
+    python313Packages.diagrams
+    python313Packages.graphviz
+    (gleam.overrideAttrs (old: {
+      doCheck = false; # Skip tests on x86_64-darwin (CI)
+    }))
   ];
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;

@@ -4,25 +4,11 @@ inputs:
 let
   overlays = [
     (self: super: rec {
-      erlang = super.beam.interpreters.${inputs.erlangInterpreter}.override {
-        sha256 = inputs.erlangSha256;
-        version = inputs.erlangVersion;
-      };
+      # Use default erlang from nixpkgs instead of specific version
+      # to avoid apple_sdk_11_0 compatibility issues in CI
+      erlang = super.beam.interpreters.erlang;
 
-      elixir = (super.beam.packagesWith erlang).elixir.override (
-        {
-          sha256 = inputs.elixirSha256;
-          version = inputs.elixirVersion;
-        }
-        // (
-          if inputs ? elixirEscriptPath then
-            {
-              escriptPath = inputs.elixirEscriptPath;
-            }
-          else
-            { }
-        )
-      );
+      elixir = (super.beam.packagesWith erlang).elixir;
 
       lexical = super.stdenv.mkDerivation {
         pname = "lexical";
@@ -48,7 +34,15 @@ let
           fi
         '';
       };
-    })
+
+    } // (
+      if inputs ? expert then
+        {
+          expert = inputs.expert.packages.${system}.default;
+        }
+      else
+        { }
+    ))
   ];
   system = inputs.system;
   pkgs = import inputs.nixpkgs { inherit system overlays; };
@@ -61,14 +55,10 @@ pkgs.mkShell {
         inotify-tools
         libnotify
       ];
-      darwinPackages = lib.optionals (stdenv.isDarwin) (
-        with darwin.apple_sdk.frameworks;
-        [
-          terminal-notifier
-          CoreFoundation
-          CoreServices
-        ]
-      );
+      darwinPackages = lib.optionals (stdenv.isDarwin) [
+        terminal-notifier
+        # CoreFoundation and CoreServices are provided by stdenv on Darwin
+      ];
     in
     builtins.concatLists [
       [
@@ -76,6 +66,7 @@ pkgs.mkShell {
         elixir
         lexical
       ]
+      (lib.optionals (inputs ? expert) [ expert ])
       linuxPackages
       darwinPackages
     ];
@@ -96,21 +87,35 @@ pkgs.mkShell {
     in
     ''
       export LEXICAL_PATH="${pkgs.lexical}/bin/start_lexical.sh"
-
       export OTP_VERSION="$(erl -eval '${escript}' -noshell | tr -d '\n')"
       export ELIXIR_VERSION="$(${pkgs.elixir}/bin/elixir --version | grep 'Elixir' | awk '{print $2}')"
 
       echo "🍎 Erlang OTP-$OTP_VERSION"
       echo "💧 Elixir $ELIXIR_VERSION"
       echo "🧠 Lexical version: ${inputs.lexicalVersion}"
+      ${pkgs.lib.optionalString (inputs ? expert) ''
+        echo "🚀 Expert available at: ${pkgs.expert}/bin/expert"
+      ''}
+
+      # Create .elixir-lsp directory if it doesn't exist
+      mkdir -p "$HOME/.elixir-lsp"
 
       # Remove existing directory/symlink if it exists
       rm -rf "$HOME/.elixir-lsp/lexical"
+      ${pkgs.lib.optionalString (inputs ? expert) ''
+        rm -rf "$HOME/.elixir-lsp/expert"
+      ''}
 
-      # Link the correct lexical binary
-      ln -sf "${pkgs.lexical}/" "$HOME/.elixir-lsp/lexical"
+      # Link lexical (primary/stable LSP)
+      ln -sf "${pkgs.lexical}/lexical" "$HOME/.elixir-lsp/lexical"
       echo "🔗 Symlinked Lexical to: $HOME/.elixir-lsp/lexical"
-      echo "🧠 Lexical available at: ${pkgs.lexical}/bin/start_lexical.sh"
+      echo "🧠 Lexical available at: ${pkgs.lexical}/lexical/bin/start_lexical.sh"
+
+      ${pkgs.lib.optionalString (inputs ? expert) ''
+        # Link expert (experimental LSP)
+        ln -sf "${pkgs.expert}/bin/expert" "$HOME/.elixir-lsp/expert"
+        echo "🚀 Expert available at: $HOME/.elixir-lsp/expert"
+      ''}
       echo ""
     '';
 }

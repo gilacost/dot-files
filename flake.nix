@@ -13,9 +13,8 @@
     nur.url = "github:nix-community/NUR";
     devenv.url = "github:cachix/devenv/latest";
     devenv.inputs.nixpkgs.follows = "nixpkgs";
-    claude-code = {
-      url = "github:anthropics/claude-code";
-      flake = false;
+    expert = {
+      url = "github:elixir-lang/expert";
     };
   };
 
@@ -54,12 +53,10 @@
                 # nixpkgs.overlays = [ nur.overlay.default ];
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "backup";
                 home-manager.users.pepo = import ./home.nix;
                 home-manager.extraSpecialArgs = {
                   inherit devenv system inputs;
-                  mcphub-nvim = inputs.mcphub-nvim.packages.${system}.default;
-                  mcp-hub = inputs.mcp-hub.packages.${system}.default;
-                  claudeCodeSrc = inputs.claude-code;
                 };
               }
             ];

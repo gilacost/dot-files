@@ -22,7 +22,8 @@ let
     doCheck = false;
     
     nativeBuildInputs = with pkgs; [ pkg-config ];
-    buildInputs = with pkgs; [ openssl ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.Security ];
+    buildInputs = with pkgs; [ openssl ];
+    # Security framework is provided by stdenv on Darwin
   };
   
 in pkgs.mkShell {

@@ -67,7 +67,7 @@ in
     extensions = with pkgs; [
       gh-profile
       gh-markdown-preview
-      gh-copilot
+      github-copilot-cli
       gh-poi
       gh-clone-org
       gh-actions-cache
