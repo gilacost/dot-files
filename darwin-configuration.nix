@@ -339,6 +339,7 @@
     ];
 
     casks = [
+      "mullvad-vpn"
       "crossover"
       "insta360-studio"
       "cyberduck"
@@ -362,7 +363,6 @@
       "ledger-live"
       "loom"
       "now-tv-player"
-      "pop"
       "postman"
       "raycast"
       "remarkable"
@@ -372,8 +372,6 @@
       "slack"
       "spotify"
       "tailscale"
-      "transmission"
-      "vlc"
       "wd-security"
       "zoom"
       "imageoptim"
