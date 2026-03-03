@@ -19,7 +19,10 @@
       "Bash(gh pr:*)",
       "Bash(gh run:*)",
       "Bash(gh issue:*)",
-      "Bash(cachix:*)"
+      "Bash(cachix:*)",
+      "WebFetch(domain:releases.hashicorp.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
     "ask": []

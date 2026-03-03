@@ -64,6 +64,7 @@
     rust-analyzer
     rustfmt
     erlfmt
+    nodePackages.bash-language-server
 
     # Cloud tools not in mise or with complex dependencies
     google-cloud-sdk
