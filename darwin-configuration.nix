@@ -316,11 +316,11 @@
 
   homebrew = {
     enable = true;
-    #onActivation = {
-    #  upgrade = true;
-    #  autoUpdate = true;
-    #  cleanup = "zap";
-    #};
+    onActivation = {
+      upgrade = true;
+      autoUpdate = true;
+      #cleanup = "zap";
+    };
 
     #global = {
     #  autoUpdate = true;

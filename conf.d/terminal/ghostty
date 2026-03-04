@@ -1,3 +1,6 @@
+window-decoration = false
+maximize-on-start = true
+
 # Font
 font-family = Iosevka Nerd Font Mono
 font-size = 16
@@ -10,8 +13,6 @@ command = /bin/zsh -l -c "nvim"
 keybind = alt+equal=increase_font_size:2
 keybind = alt+minus=decrease_font_size:2
 keybind = alt+backspace=reset_font_size
-keybind = super+h=hide_macos_app
-keybind = super+q=quit
 
 # Tokyo Night Moon
 background = #222436
