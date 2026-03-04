@@ -45,4 +45,8 @@
     source = ./conf.d/terminal/kitty.conf;
   };
 
+  home.file.".config/ghostty/config" = {
+    source = ./conf.d/terminal/ghostty;
+  };
+
 }
