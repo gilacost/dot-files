@@ -317,7 +317,6 @@
   homebrew = {
     enable = true;
     onActivation = {
-      upgrade = true;
       autoUpdate = true;
       #cleanup = "zap";
     };
@@ -341,7 +340,6 @@
     casks = [
       "mullvad-vpn"
       "crossover"
-      "insta360-studio"
       "cyberduck"
       "claude"
       "deckset"
@@ -352,7 +350,7 @@
       "chatgpt"
       "cursor"
       "discord"
-      "docker"
+      "docker-desktop"
       "figma"
       "ghostty"
       "google-chrome"
@@ -360,7 +358,7 @@
       "insomnia"
       "jiggler"
       "kitty"
-      "ledger-live"
+      "ledger-wallet"
       "loom"
       "now-tv-player"
       "postman"
@@ -371,7 +369,7 @@
       "skype"
       "slack"
       "spotify"
-      "tailscale"
+      "tailscale-app"
       "wd-security"
       "zoom"
       "imageoptim"

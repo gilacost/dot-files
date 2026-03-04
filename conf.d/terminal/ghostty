@@ -1,5 +1,4 @@
 window-decoration = false
-maximize-on-start = true
 
 # Font
 font-family = Iosevka Nerd Font Mono
@@ -13,6 +12,10 @@ command = /bin/zsh -l -c "nvim"
 keybind = alt+equal=increase_font_size:2
 keybind = alt+minus=decrease_font_size:2
 keybind = alt+backspace=reset_font_size
+
+# Pass alt+arrows through to Neovim (tab switching)
+keybind = alt+left=unbind
+keybind = alt+right=unbind
 
 # Tokyo Night Moon
 background = #222436
