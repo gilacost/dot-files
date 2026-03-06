@@ -387,7 +387,7 @@ function gcai() {
 
       if [[ -n "$COMMIT_MESSAGE" ]]; then
           echo "Commit message: $COMMIT_MESSAGE"
-          read "?Commit with this message? (y/n) " -n 1 -r
+          read -k 1 "REPLY?Commit with this message? (y/n) "
           echo
           if [[ $REPLY =~ ^[Yy]$ ]]; then
               git commit -m "$COMMIT_MESSAGE"
@@ -414,7 +414,7 @@ function gbai() {
 
       if [[ -n "$BRANCH_NAME" ]]; then
           echo "Branch name: $BRANCH_NAME"
-          read "?Create this branch? (y/n) " -n 1 -r
+          read -k 1 "REPLY?Create this branch? (y/n) "
           echo
           if [[ $REPLY =~ ^[Yy]$ ]]; then
               git checkout -b "$BRANCH_NAME"
@@ -519,6 +519,30 @@ function oom_rate() {
     --region ${AWS_REGION:-us-east-1} | \
   jq '.events | length' | \
   awk -v d=$days '{printf "Last %d days: %d OOMs (%.2f per day)\n", d, $1, $1/d}'
+}
+
+###############
+# Worktrees   #
+###############
+
+# Jump to a git worktree interactively
+function wt() {
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "Not in a git repository"
+    return 1
+  fi
+
+  local selected
+  selected=$(git worktree list | peco --prompt "worktree> " | awk '{print $1}')
+
+  if [[ -n "$selected" ]]; then
+    cd "$selected"
+  fi
+}
+
+# List worktrees with status
+function wtls() {
+  git worktree list
 }
 
 ###############
