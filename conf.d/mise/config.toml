@@ -43,6 +43,7 @@ rust = "latest"  # Always use latest rust for newest tool versions
 "npm:node2nix" = "1.11.0"
 "npm:yarn" = "1.22.22"
 "npm:@tailwindcss/language-server" = "0.14.29"
+"npm:@getpaseo/cli" = "latest"
 
 # ============================================================================
 # Rust Development Tools (cargo)

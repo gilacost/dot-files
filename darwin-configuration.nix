@@ -338,6 +338,7 @@
     ];
 
     casks = [
+      "paseo"
       "mullvad-vpn"
       "crossover"
       "cyberduck"
