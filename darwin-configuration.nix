@@ -338,6 +338,7 @@
     ];
 
     casks = [
+      "amazon-chime"
       "paseo"
       "mullvad-vpn"
       "crossover"
