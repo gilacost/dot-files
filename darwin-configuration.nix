@@ -343,6 +343,7 @@
       "crossover"
       "cyberduck"
       "claude"
+      "claude-code"
       "deckset"
       "inkscape"
       "1password"
