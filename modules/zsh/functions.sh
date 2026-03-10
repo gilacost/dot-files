@@ -525,7 +525,7 @@ function oom_rate() {
 # Worktrees   #
 ###############
 
-# Jump to a git worktree interactively
+# Jump to a git worktree interactively (fzf with preview)
 function wt() {
   if ! git rev-parse --git-dir > /dev/null 2>&1; then
     echo "Not in a git repository"
@@ -533,7 +533,13 @@ function wt() {
   fi
 
   local selected
-  selected=$(git worktree list | peco --prompt "worktree> " | awk '{print $1}')
+  selected=$(git worktree list --porcelain \
+    | awk '/^worktree /{path=$2} /^branch /{branch=$2; print path "\t" branch} /^HEAD /{if(!branch) print path "\t(detached)"}' \
+    | column -t -s $'\t' \
+    | fzf --prompt "worktree> " \
+          --preview 'git -C {1} status --short 2>/dev/null | head -20 || echo "(empty)"' \
+          --preview-window=right:40% \
+    | awk '{print $1}')
 
   if [[ -n "$selected" ]]; then
     cd "$selected"
@@ -543,6 +549,93 @@ function wt() {
 # List worktrees with status
 function wtls() {
   git worktree list
+}
+
+# Remove a worktree interactively (fzf)
+function wtrm() {
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "Not in a git repository"
+    return 1
+  fi
+
+  local main_wt selected branch
+  main_wt=$(git worktree list --porcelain | awk 'NR==1 && /^worktree /{print $2}')
+
+  selected=$(git worktree list --porcelain \
+    | awk '/^worktree /{path=$2} /^branch /{branch=$2; if(path != ENVIRON["main_wt"]) print path "\t" branch}' \
+    | column -t -s $'\t' \
+    | fzf --prompt "remove worktree> " \
+          --preview 'git -C {1} status --short 2>/dev/null | head -20 || echo "(empty)"' \
+          --preview-window=right:40% \
+    | awk '{print $1}')
+
+  if [[ -z "$selected" ]]; then
+    return 0
+  fi
+
+  branch=$(git worktree list --porcelain | awk -v p="$selected" '/^worktree /{path=$2} /^branch /{if(path==p) print $2}' | sed 's|refs/heads/||')
+
+  echo "Removing worktree: $selected"
+  git worktree remove "$selected" || git worktree remove --force "$selected"
+
+  if [[ -n "$branch" ]]; then
+    echo -n "Also delete branch '$branch'? [y/N] "
+    read -r answer
+    if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+      git branch -d "$branch" || git branch -D "$branch"
+    fi
+  fi
+}
+
+# Add a worktree from an existing branch (fzf to pick branch)
+function wtadd() {
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "Not in a git repository"
+    return 1
+  fi
+
+  local branch path
+  branch=$(git branch | sed 's/^[* ]*//' \
+    | fzf --prompt "branch> ")
+
+  if [[ -z "$branch" ]]; then
+    return 0
+  fi
+
+  path="${1:-$(git rev-parse --show-toplevel)/../$(basename $(git rev-parse --show-toplevel))-${branch//\//-}}"
+  git worktree add "$path" "$branch" && cd "$path"
+}
+
+# Create a new worktree with a new branch
+# Usage: wtnew <branch-name> [path]
+function wtnew() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: wtnew <branch-name> [path]"
+    return 1
+  fi
+
+  local branch="$1"
+  local root=$(git rev-parse --show-toplevel)
+  local path="${2:-${root}/../$(basename $root)-${branch//\//-}}"
+
+  git worktree add -b "$branch" "$path" && cd "$path"
+}
+
+# Prune stale worktrees
+function wtprune() {
+  git worktree prune -v
+}
+
+# Show all worktree helper functions
+function wthelp() {
+  echo "Worktree helpers:"
+  echo "  wt      - Jump to a worktree interactively (fzf + preview)"
+  echo "  wtls    - List all worktrees with status"
+  echo "  wtadd   - Add a worktree from an existing branch (fzf)"
+  echo "  wtnew   - Create a new worktree with a new branch: wtnew <branch> [path]"
+  echo "  wtrm    - Remove a worktree interactively (fzf)"
+  echo "  wtprune - Prune stale worktree references"
+  echo "  wthelp  - Show this help"
 }
 
 ###############

@@ -7,11 +7,11 @@
 # Language Runtimes (mise core)
 # Pinned to specific versions for reproducibility
 # ============================================================================
-node = "25.6.0"
-erlang = "28.3.1"
+node = "25.8.0"
+erlang = "28.4"
 elixir = "1.19.5-otp-28"
 python = "3.14.3"
-go = "1.25.7"
+go = "1.26.1"
 rust = "latest"  # Always use latest rust for newest tool versions
 
 # ============================================================================
@@ -19,7 +19,7 @@ rust = "latest"  # Always use latest rust for newest tool versions
 # Updated to latest versions on 2026-02-05
 # ============================================================================
 "cargo:ripgrep" = "15.1.0"
-"cargo:fd-find" = "10.3.0"
+"cargo:fd-find" = "10.4.2"
 "cargo:bat" = "0.26.1"
 "cargo:zoxide" = "0.9.9"
 "cargo:sd" = "1.0.0"
@@ -30,15 +30,15 @@ rust = "latest"  # Always use latest rust for newest tool versions
 # ============================================================================
 # Node/NPM Tools
 # ============================================================================
-"npm:@anthropic-ai/claude-code" = "latest"
+# "npm:@anthropic-ai/claude-code" = "latest"  # managed via brew installer directly
 "npm:prettier" = "3.8.1"
 "npm:typescript-language-server" = "5.1.3"
 "npm:bash-language-server" = "5.6.0"
-"npm:yaml-language-server" = "1.19.2"
+"npm:yaml-language-server" = "1.21.0"
 "npm:dockerfile-language-server-nodejs" = "0.15.0"
 "npm:vim-language-server" = "2.3.1"
-"npm:markdownlint-cli" = "0.47.0"
-"npm:cspell" = "9.6.4"
+"npm:markdownlint-cli" = "0.48.0"
+"npm:cspell" = "9.7.0"
 "npm:vscode-langservers-extracted" = "4.10.0"
 "npm:node2nix" = "1.11.0"
 "npm:yarn" = "1.22.22"
@@ -60,9 +60,9 @@ rust = "latest"  # Always use latest rust for newest tool versions
 # ============================================================================
 # Infrastructure & Cloud (mise core + ubi)
 # ============================================================================
-terraform = "1.14.4"
-"ubi:gruntwork-io/terragrunt" = "0.99.1"
-kubectl = "1.35.0"
+terraform = "1.14.6"
+"ubi:gruntwork-io/terragrunt" = "0.99.4"
+kubectl = "1.35.2"
 # Note: Hashicorp tools and helm have asset matching issues via ubi
 # These are also available in Nix, disabling from mise
 # "ubi:helm/helm" = "4.1.0"  # Use Nix version instead
@@ -76,29 +76,29 @@ kubectl = "1.35.0"
 # ============================================================================
 # Kubernetes Ecosystem (ubi)
 # ============================================================================
-"ubi:argoproj/argo-cd" = "3.3.0"
+"ubi:argoproj/argo-cd" = "3.3.3"
 "ubi:kubernetes-sigs/kind" = "0.31.0"
-"ubi:GoogleContainerTools/skaffold" = "2.17.1"
+"ubi:GoogleContainerTools/skaffold" = "2.17.3"
 "ubi:kubernetes/kompose" = "1.38.0"
 
 # ============================================================================
 # CLI Utilities (ubi - GitHub releases)
 # ============================================================================
 jq = "1.8.1"
-"ubi:jesseduffield/lazygit" = "0.59.0"
+"ubi:jesseduffield/lazygit" = "0.60.0"
 "ubi:charmbracelet/glow" = "2.1.1"
 # "ubi:gohugoio/hugo" = "0.155.2"  # Asset matching issue - use Nix version
 shellcheck = "0.11.0"
 "ubi:hadolint/hadolint" = "2.14.0"
-"ubi:mikefarah/yq" = "4.52.2"
-"ubi:TomWright/dasel" = "3.2.1"
+"ubi:mikefarah/yq" = "4.52.4"
+"ubi:TomWright/dasel" = "3.3.1"
 
 # ============================================================================
 # Development Tools (ubi)
 # ============================================================================
 "ubi:LuaLS/lua-language-server" = "3.17.1"
 "ubi:terrastruct/d2" = "0.7.1"
-"ubi:getsentry/sentry-cli" = "3.1.0"
+"ubi:getsentry/sentry-cli" = "3.3.1"
 
 # ============================================================================
 # Settings
