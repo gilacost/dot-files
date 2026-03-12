@@ -373,6 +373,12 @@ Existing Tools:
 Daily:
   ailog             Open today's AI workflow log
 
+AI Tasks (multi-tab workflow):
+  aitask <name>     New task: worktree + tab title + claude
+  tswitch           Switch tasks interactively (fzf)
+  taskhelp          Full task workflow help
+  aiday             Daily workflow reminder + improvement tips
+
 Run 'ghelp' anytime to see this list!
 EOF
 }
@@ -636,6 +642,156 @@ function wthelp() {
   echo "  wtrm    - Remove a worktree interactively (fzf)"
   echo "  wtprune - Prune stale worktree references"
   echo "  wthelp  - Show this help"
+}
+
+###############
+# AI Tasks    #
+###############
+
+# Set terminal tab/window title (works in Ghostty, Kitty, etc.)
+function title() {
+  echo -ne "\033]0;${1}\007"
+}
+
+# Auto-set tab title based on git branch + repo
+function _auto_title() {
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    local repo=$(basename $(git rev-parse --show-toplevel 2>/dev/null))
+    title "${branch} · ${repo}"
+  else
+    title "$(basename $PWD)"
+  fi
+}
+chpwd_functions+=(_auto_title)
+
+# Create or enter an AI task (worktree + tab title + Claude)
+# Usage: aitask <name> [prompt]
+#        aitask list
+function aitask() {
+  if [[ "$1" == "list" || "$1" == "ls" ]]; then
+    git worktree list
+    return 0
+  fi
+
+  if [[ -z "$1" ]]; then
+    echo "Usage: aitask <task-name> [prompt]"
+    echo "       aitask list"
+    return 1
+  fi
+
+  local task="$1"
+  shift
+
+  local root=$(git rev-parse --show-toplevel 2>/dev/null)
+  if [[ -z "$root" ]]; then
+    echo "Not in a git repository"
+    return 1
+  fi
+
+  local path="${root}/../$(basename $root)-${task//\//-}"
+
+  if [[ ! -d "$path" ]]; then
+    echo "Creating task: $task"
+    git worktree add -b "$task" "$path" || { echo "Failed to create worktree"; return 1; }
+  else
+    echo "Entering task: $task"
+  fi
+
+  cd "$path"
+  title "AI: $task"
+
+  echo "Task: $task"
+  echo "Path: $path"
+  echo ""
+
+  if [[ -n "$1" ]]; then
+    claude "$@"
+  else
+    claude
+  fi
+}
+
+# Switch between tasks via fzf
+function tswitch() {
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "Not in a git repository"
+    return 1
+  fi
+
+  local selected
+  selected=$(git worktree list --porcelain \
+    | awk '/^worktree /{path=$2} /^branch /{branch=$2; print path "\t" branch} /^HEAD /{if(!branch) print path "\t(detached)"; branch=""}' \
+    | column -t -s $'\t' \
+    | fzf --prompt "task> " \
+          --preview 'git -C {1} log --oneline -5 2>/dev/null || echo "(empty)"' \
+          --preview-window=right:50% \
+    | awk '{print $1}')
+
+  if [[ -n "$selected" ]]; then
+    cd "$selected"
+    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    title "AI: ${branch}"
+    echo "Switched to: $branch"
+  fi
+}
+
+# Daily AI workflow reminder + tips
+function aiday() {
+  cat << 'EOF'
+Daily AI Workflow
+=================
+
+START A TASK
+  cmd+t                       New Ghostty tab (shell)
+  aitask <name>               Worktree + tab title + Claude
+  aitask <name> "do X"        Same with an initial prompt
+  aitask list                 List all active tasks
+
+INSIDE A TASK (Claude session)
+  ai-status                   Are you in a WIP AI session?
+  ai-undo                     Roll back everything Claude did
+  ai-accept                   Accept changes, write proper commit msg
+  gcai                        Generate commit msg with Claude
+
+SWITCH TASKS
+  tswitch                     fzf picker between all tasks
+  wtrm                        Remove a finished task/worktree
+
+QUICK CLAUDE (no worktree needed)
+  c "prompt"                  Claude on current dir
+  cg "prompt"                 Claude with git diff as context
+  cfix                        Fix last failed command
+
+IMPROVE THIS WORKFLOW
+  - Add tasks to aitask list that you use repeatedly
+  - After a good session: gcai to commit, ai-accept to clean up
+  - Name tasks clearly: aitask fix-auth, aitask perf-db-queries
+  - Review finished tasks with: git diff main...HEAD before wtrm
+  - Run 'taskhelp' for task/worktree cheatsheet
+  - Run 'ghelp' for git+Claude cheatsheet
+
+EOF
+}
+
+# Show task/tab workflow help
+function taskhelp() {
+  cat << 'EOF'
+AI Task Workflow (Ghostty tabs)
+================================
+aitask <name>          Create task: new worktree + tab title + claude
+aitask <name> "..."    Same but with an initial prompt
+aitask list            Show all tasks/worktrees
+tswitch                Switch between tasks (fzf)
+title <name>           Set tab title manually
+
+Ghostty tab navigation:
+  cmd+t              New tab
+  cmd+1..9           Jump to tab N
+  cmd+shift+[/]      Prev/next tab
+
+Worktree helpers: wt, wtls, wtnew, wtrm, wtprune, wthelp
+EOF
 }
 
 ###############
