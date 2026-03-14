@@ -539,13 +539,19 @@ function wt() {
   fi
 
   local selected
-  selected=$(git worktree list --porcelain \
-    | awk '/^worktree /{path=$2} /^branch /{branch=$2; print path "\t" branch} /^HEAD /{if(!branch) print path "\t(detached)"}' \
-    | column -t -s $'\t' \
+  selected=$(git worktree list \
+    | awk '{
+        path=$1
+        branch=$NF
+        gsub(/[\[\]]/, "", branch)
+        printf "%s\t%s\n", branch, path
+      }' \
     | fzf --prompt "worktree> " \
-          --preview 'git -C {1} status --short 2>/dev/null | head -20 || echo "(empty)"' \
+          --delimiter $'\t' \
+          --with-nth=1 \
+          --preview 'git -C {2} status --short 2>/dev/null | head -20 || echo "(empty)"' \
           --preview-window=right:40% \
-    | awk '{print $1}')
+    | cut -f2)
 
   if [[ -n "$selected" ]]; then
     cd "$selected"
@@ -1011,11 +1017,22 @@ function _git_dir_reminder() {
 # Hook into directory changes (if using zoxide/jump)
 chpwd_functions+=(_git_dir_reminder)
 
-source <(kubectl completion zsh)
-alias k=kubectl
-complete -F __start_kubectl k
+# kubectl completions — cached to avoid regenerating every shell startup
+if [ -x "$(command -v kubectl)" ]; then
+  _kubectl_completion_cache="${XDG_CACHE_HOME:-$HOME/.cache}/kubectl_completion.zsh"
+  if [[ ! -f "$_kubectl_completion_cache" || "$_kubectl_completion_cache" -ot "$(command -v kubectl)" ]]; then
+    kubectl completion zsh > "$_kubectl_completion_cache" 2>/dev/null
+  fi
+  source "$_kubectl_completion_cache"
+  alias k=kubectl
+  complete -F __start_kubectl k
+  unset _kubectl_completion_cache
+fi
 
-source <(gh copilot alias -- zsh)
+# gh copilot — only load if extension is installed
+if gh extension list 2>/dev/null | grep -q "copilot"; then
+  eval "$(gh copilot alias -- zsh)"
+fi
 
 export PATH=$PATH:$HOME/Repos/dot-files/modules/node_modules/@ansible/ansible-language-server/bin
 eval "$(jump shell)"
