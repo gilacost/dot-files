@@ -35,6 +35,33 @@
     ln -sf $HOME/Repos/dot-files/conf.d/mise/config.toml $HOME/.config/mise/config.toml
   '';
 
+  # Claude config: writable symlinks so Claude Code can update settings and memories
+  home.activation.linkClaudeConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    DOTFILES="$HOME/Repos/dot-files/conf.d/claude"
+    CLAUDE="$HOME/.claude"
+
+    mkdir -p "$CLAUDE"
+    rm -f "$CLAUDE/settings.json"
+    ln -sf "$DOTFILES/settings.json" "$CLAUDE/settings.json"
+
+    rm -f "$CLAUDE/CLAUDE.md"
+    ln -sf "$DOTFILES/CLAUDE.md" "$CLAUDE/CLAUDE.md"
+
+    link_memory() {
+      local project_dir="$1"
+      local memory_name="$2"
+      mkdir -p "$CLAUDE/projects/$project_dir"
+      rm -rf "$CLAUDE/projects/$project_dir/memory"
+      ln -sf "$DOTFILES/memories/$memory_name" "$CLAUDE/projects/$project_dir/memory"
+    }
+
+    link_memory "-Users-pepo-Repos-dot-files"                                            "dot-files"
+    link_memory "-Users-pepo-Repos-automations"                                          "automations"
+    link_memory "-Users-pepo-Repos-customers-digital-onboarding-bikeshed"                "bikeshed"
+    link_memory "-Users-pepo-Repos-customers-digital-onboarding-digital-onboarding"      "digital-onboarding"
+    link_memory "-Users-pepo-Repos-customers"                                            "customers"
+  '';
+
   home.file.".config/nvim.session" = {
     text = ''
       ${builtins.readFile ./conf.d/terminal/nvim.session}
