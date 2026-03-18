@@ -1,3 +1,6 @@
 # Encrypt goals and thoughts directories with git-crypt
 goals/** filter=git-crypt diff=git-crypt
 thoughts/** filter=git-crypt diff=git-crypt
+
+# Encrypt Claude memories and settings (contain project/business context)
+conf.d/claude/** filter=git-crypt diff=git-crypt
