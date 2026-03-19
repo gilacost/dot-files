@@ -85,6 +85,7 @@
         ${builtins.readFile ./nvim/which-key.lua}
         ${builtins.readFile ./nvim/flash.lua}
         ${builtins.readFile ./nvim/oil.lua}
+        ${builtins.readFile ./nvim/tabs.lua}
       EOF
     '';
     # ${builtins.readFile ./nvim/mcphub.lua}
