@@ -37,4 +37,15 @@ require("which-key").register({
     c = "Live grep (git root)",
     s = "Live grep (current dir)",
   },
+  t = {
+    name = "Tabs",
+    t = "New tab + terminal",
+    w = "New tab for worktree",
+    n = "Next tab",
+    p = "Prev tab",
+    x = "Close tab",
+    ["1"] = "Tab 1", ["2"] = "Tab 2", ["3"] = "Tab 3",
+    ["4"] = "Tab 4", ["5"] = "Tab 5", ["6"] = "Tab 6",
+    ["7"] = "Tab 7", ["8"] = "Tab 8", ["9"] = "Tab 9",
+  },
 }, { prefix = "<leader>" })
