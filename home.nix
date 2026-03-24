@@ -47,6 +47,9 @@
     rm -f "$CLAUDE/CLAUDE.md"
     ln -sf "$DOTFILES/CLAUDE.md" "$CLAUDE/CLAUDE.md"
 
+    rm -f "$CLAUDE/statusline-command.sh"
+    ln -sf "$DOTFILES/statusline-command.sh" "$CLAUDE/statusline-command.sh"
+
     link_memory() {
       local project_dir="$1"
       local memory_name="$2"
