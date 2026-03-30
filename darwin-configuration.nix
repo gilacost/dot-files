@@ -340,7 +340,7 @@
 
     casks = [
       "amazon-chime"
-      "paseo"
+      # "paseo" # commented out: checksum mismatch 2026-03-30
       "mullvad-vpn"
       "crossover"
       "cyberduck"
