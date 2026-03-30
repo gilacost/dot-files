@@ -574,12 +574,12 @@ function wtrm() {
   main_wt=$(git worktree list --porcelain | awk 'NR==1 && /^worktree /{print $2}')
 
   selected=$(git worktree list --porcelain \
-    | awk '/^worktree /{path=$2} /^branch /{branch=$2; if(path != ENVIRON["main_wt"]) print path "\t" branch}' \
+    | awk -v mw="$main_wt" '/^worktree /{path=$2} /^branch /{b=$2; sub(/refs\/heads\//, "", b); if(path != mw) print b "\t" path}' \
     | column -t -s $'\t' \
     | fzf --prompt "remove worktree> " \
-          --preview 'git -C {1} status --short 2>/dev/null | head -20 || echo "(empty)"' \
+          --preview 'git -C {2} status --short 2>/dev/null | head -20 || echo "(empty)"' \
           --preview-window=right:40% \
-    | awk '{print $1}')
+    | awk '{print $2}')
 
   if [[ -z "$selected" ]]; then
     return 0
