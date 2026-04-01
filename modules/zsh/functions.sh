@@ -134,6 +134,47 @@ function nix-update() {
   fi
 }
 
+function dotfiles-refresh() {
+  # One-stop: sync Claude memories, bump mise tools, rebuild nix-darwin
+  local dotdir="${DOTFILES_DIR:-$HOME/Repos/dot-files}"
+  local host="${1:-buque}"
+
+  cd "$dotdir"
+
+  echo "🧠 Syncing Claude memory symlinks..."
+  "$dotdir/conf.d/claude/memory_manager.sh" sync
+  echo ""
+
+  echo "🔧 Updating mise tools..."
+  mise upgrade --bump
+  echo ""
+
+  echo "❄️  Rebuilding nix-darwin ($host)..."
+  "$dotdir/utilities/rebuild_nix" "$host"
+  echo ""
+
+  # Show what changed
+  if ! git diff --quiet conf.d/mise/config.toml flake.lock 2>/dev/null; then
+    echo "📝 Changed files:"
+    git diff --stat conf.d/mise/config.toml flake.lock 2>/dev/null
+    echo ""
+    read -k 1 -r "?📌 Commit changes? (y/n) "
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      git add conf.d/mise/config.toml flake.lock
+      git commit -m "chore: update mise tools and flake inputs"
+      echo "✅ Committed!"
+    else
+      echo "ℹ️  Remember to commit when ready"
+    fi
+  else
+    echo "ℹ️  No file changes to commit"
+  fi
+
+  echo ""
+  echo "✅ All done!"
+}
+
 function mise-update() {
   # Update all mise tool versions to latest available
   echo "🔄 Upgrading mise tools to latest versions..."
