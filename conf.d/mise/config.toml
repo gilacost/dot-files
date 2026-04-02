@@ -7,7 +7,7 @@
 # Language Runtimes (mise core)
 # Pinned to specific versions for reproducibility
 # ============================================================================
-node = "25.8.0"
+node = "25.9.0"
 erlang = "28.4"
 elixir = "1.19.5-otp-28"
 python = "3.14.3"
@@ -23,7 +23,7 @@ rust = "latest"  # Always use latest rust for newest tool versions
 "cargo:bat" = "0.26.1"
 "cargo:zoxide" = "0.9.9"
 "cargo:sd" = "1.0.0"
-"cargo:git-delta" = "0.18.2"
+"cargo:git-delta" = "0.19.2"
 "cargo:tokei" = "14.0.0"
 "cargo:eza" = "0.23.4"
 
@@ -60,9 +60,9 @@ rust = "latest"  # Always use latest rust for newest tool versions
 # ============================================================================
 # Infrastructure & Cloud (mise core + ubi)
 # ============================================================================
-terraform = "1.14.6"
-"ubi:gruntwork-io/terragrunt" = "0.99.4"
-kubectl = "1.35.2"
+terraform = "1.14.8"
+"ubi:gruntwork-io/terragrunt" = "1.0.0"
+kubectl = "1.35.3"
 # Note: Hashicorp tools and helm have asset matching issues via ubi
 # These are also available in Nix, disabling from mise
 # "ubi:helm/helm" = "4.1.0"  # Use Nix version instead
@@ -76,9 +76,9 @@ kubectl = "1.35.2"
 # ============================================================================
 # Kubernetes Ecosystem (ubi)
 # ============================================================================
-"ubi:argoproj/argo-cd" = "3.3.3"
+"ubi:argoproj/argo-cd" = "3.3.6"
 "ubi:kubernetes-sigs/kind" = "0.31.0"
-"ubi:GoogleContainerTools/skaffold" = "2.17.3"
+"ubi:GoogleContainerTools/skaffold" = "2.18.2"
 "ubi:kubernetes/kompose" = "1.38.0"
 
 # ============================================================================
@@ -90,15 +90,15 @@ jq = "1.8.1"
 # "ubi:gohugoio/hugo" = "0.155.2"  # Asset matching issue - use Nix version
 shellcheck = "0.11.0"
 "ubi:hadolint/hadolint" = "2.14.0"
-"ubi:mikefarah/yq" = "4.52.4"
-"ubi:TomWright/dasel" = "3.3.1"
+"ubi:mikefarah/yq" = "4.52.5"
+"ubi:TomWright/dasel" = "3.4.1"
 
 # ============================================================================
 # Development Tools (ubi)
 # ============================================================================
 "ubi:LuaLS/lua-language-server" = "3.17.1"
 "ubi:terrastruct/d2" = "0.7.1"
-"ubi:getsentry/sentry-cli" = "3.3.1"
+"ubi:getsentry/sentry-cli" = "3.3.5"
 
 # ============================================================================
 # Settings
