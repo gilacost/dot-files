@@ -38,7 +38,7 @@ rust = "latest"  # Always use latest rust for newest tool versions
 "npm:dockerfile-language-server-nodejs" = "0.15.0"
 "npm:vim-language-server" = "2.3.1"
 "npm:markdownlint-cli" = "0.48.0"
-"npm:cspell" = "9.7.0"
+"npm:cspell" = "10.0.0"
 "npm:vscode-langservers-extracted" = "4.10.0"
 "npm:node2nix" = "1.11.0"
 "npm:yarn" = "1.22.22"
@@ -85,7 +85,7 @@ kubectl = "1.35.3"
 # CLI Utilities (ubi - GitHub releases)
 # ============================================================================
 jq = "1.8.1"
-"ubi:jesseduffield/lazygit" = "0.60.0"
+"ubi:jesseduffield/lazygit" = "0.61.0"
 "ubi:charmbracelet/glow" = "2.1.1"
 # "ubi:gohugoio/hugo" = "0.155.2"  # Asset matching issue - use Nix version
 shellcheck = "0.11.0"
@@ -96,7 +96,7 @@ shellcheck = "0.11.0"
 # ============================================================================
 # Development Tools (ubi)
 # ============================================================================
-"ubi:LuaLS/lua-language-server" = "3.17.1"
+"ubi:LuaLS/lua-language-server" = "3.18.0"
 "ubi:terrastruct/d2" = "0.7.1"
 "ubi:getsentry/sentry-cli" = "3.3.5"
 
