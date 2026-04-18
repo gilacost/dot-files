@@ -11,7 +11,7 @@ node = "25.9.0"
 erlang = "28.4"
 elixir = "1.19.5-otp-28"
 python = "3.14.3"
-go = "1.26.1"
+go = "1.26.2"
 rust = "latest"  # Always use latest rust for newest tool versions
 
 # ============================================================================
@@ -31,10 +31,10 @@ rust = "latest"  # Always use latest rust for newest tool versions
 # Node/NPM Tools
 # ============================================================================
 # "npm:@anthropic-ai/claude-code" = "latest"  # managed via brew installer directly
-"npm:prettier" = "3.8.1"
+"npm:prettier" = "3.8.3"
 "npm:typescript-language-server" = "5.1.3"
 "npm:bash-language-server" = "5.6.0"
-"npm:yaml-language-server" = "1.21.0"
+"npm:yaml-language-server" = "1.22.0"
 "npm:dockerfile-language-server-nodejs" = "0.15.0"
 "npm:vim-language-server" = "2.3.1"
 "npm:markdownlint-cli" = "0.48.0"
@@ -61,8 +61,8 @@ rust = "latest"  # Always use latest rust for newest tool versions
 # Infrastructure & Cloud (mise core + ubi)
 # ============================================================================
 terraform = "1.14.8"
-"ubi:gruntwork-io/terragrunt" = "1.0.0"
-kubectl = "1.35.3"
+"ubi:gruntwork-io/terragrunt" = "1.0.1"
+kubectl = "1.35.4"
 # Note: Hashicorp tools and helm have asset matching issues via ubi
 # These are also available in Nix, disabling from mise
 # "ubi:helm/helm" = "4.1.0"  # Use Nix version instead
@@ -70,33 +70,33 @@ kubectl = "1.35.3"
 # "ubi:hashicorp/packer" = "1.15.0"  # Use Nix version instead
 # "ubi:hashicorp/nomad" = "1.11.1"  # Use Nix version instead
 "ubi:terraform-linters/tflint" = "0.61.0"
-"ubi:terraform-docs/terraform-docs" = "0.21.0"
+"ubi:terraform-docs/terraform-docs" = "0.22.0"
 "ubi:GoogleCloudPlatform/terraformer" = "0.8.30"
 
 # ============================================================================
 # Kubernetes Ecosystem (ubi)
 # ============================================================================
-"ubi:argoproj/argo-cd" = "3.3.6"
+"ubi:argoproj/argo-cd" = "3.3.7"
 "ubi:kubernetes-sigs/kind" = "0.31.0"
-"ubi:GoogleContainerTools/skaffold" = "2.18.2"
+"ubi:GoogleContainerTools/skaffold" = "2.18.3"
 "ubi:kubernetes/kompose" = "1.38.0"
 
 # ============================================================================
 # CLI Utilities (ubi - GitHub releases)
 # ============================================================================
 jq = "1.8.1"
-"ubi:jesseduffield/lazygit" = "0.61.0"
-"ubi:charmbracelet/glow" = "2.1.1"
+"ubi:jesseduffield/lazygit" = "0.61.1"
+"ubi:charmbracelet/glow" = "2.1.2"
 # "ubi:gohugoio/hugo" = "0.155.2"  # Asset matching issue - use Nix version
 shellcheck = "0.11.0"
 "ubi:hadolint/hadolint" = "2.14.0"
-"ubi:mikefarah/yq" = "4.52.5"
+"ubi:mikefarah/yq" = "4.53.2"
 "ubi:TomWright/dasel" = "3.4.1"
 
 # ============================================================================
 # Development Tools (ubi)
 # ============================================================================
-"ubi:LuaLS/lua-language-server" = "3.18.0"
+"ubi:LuaLS/lua-language-server" = "3.18.2"
 "ubi:terrastruct/d2" = "0.7.1"
 "ubi:getsentry/sentry-cli" = "3.3.5"
 
