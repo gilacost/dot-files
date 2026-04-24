@@ -8,7 +8,7 @@
 # Pinned to specific versions for reproducibility
 # ============================================================================
 node = "25.9.0"
-erlang = "28.4"
+erlang = "28.5"
 elixir = "1.19.5-otp-28"
 python = "3.14.3"
 go = "1.26.2"
@@ -60,25 +60,25 @@ rust = "latest"  # Always use latest rust for newest tool versions
 # ============================================================================
 # Infrastructure & Cloud (mise core + ubi)
 # ============================================================================
-terraform = "1.14.8"
-"ubi:gruntwork-io/terragrunt" = "1.0.1"
-kubectl = "1.35.4"
+terraform = "1.14.9"
+"ubi:gruntwork-io/terragrunt" = "1.0.2"
+kubectl = "1.36.0"
 # Note: Hashicorp tools and helm have asset matching issues via ubi
 # These are also available in Nix, disabling from mise
 # "ubi:helm/helm" = "4.1.0"  # Use Nix version instead
 # "ubi:hashicorp/vault" = "1.21.2"  # Use Nix version instead
 # "ubi:hashicorp/packer" = "1.15.0"  # Use Nix version instead
 # "ubi:hashicorp/nomad" = "1.11.1"  # Use Nix version instead
-"ubi:terraform-linters/tflint" = "0.61.0"
+"ubi:terraform-linters/tflint" = "0.62.0"
 "ubi:terraform-docs/terraform-docs" = "0.22.0"
 "ubi:GoogleCloudPlatform/terraformer" = "0.8.30"
 
 # ============================================================================
 # Kubernetes Ecosystem (ubi)
 # ============================================================================
-"ubi:argoproj/argo-cd" = "3.3.7"
+"ubi:argoproj/argo-cd" = "3.3.8"
 "ubi:kubernetes-sigs/kind" = "0.31.0"
-"ubi:GoogleContainerTools/skaffold" = "2.18.3"
+"ubi:GoogleContainerTools/skaffold" = "2.19.0"
 "ubi:kubernetes/kompose" = "1.38.0"
 
 # ============================================================================
@@ -98,7 +98,7 @@ shellcheck = "0.11.0"
 # ============================================================================
 "ubi:LuaLS/lua-language-server" = "3.18.2"
 "ubi:terrastruct/d2" = "0.7.1"
-"ubi:getsentry/sentry-cli" = "3.3.5"
+"ubi:getsentry/sentry-cli" = "3.4.0"
 
 # ============================================================================
 # Settings
