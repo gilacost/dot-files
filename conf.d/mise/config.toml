@@ -91,7 +91,7 @@ jq = "1.8.1"
 shellcheck = "0.11.0"
 "ubi:hadolint/hadolint" = "2.14.0"
 "ubi:mikefarah/yq" = "4.53.2"
-"ubi:TomWright/dasel" = "3.4.1"
+"ubi:TomWright/dasel" = "3.8.0"
 
 # ============================================================================
 # Development Tools (ubi)
